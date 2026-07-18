@@ -11,5 +11,5 @@ src/main/resources/keystore.jks
 /target/
 creacion.sql
 2.xml
-build.xml
 setup.iss
+*.iml
