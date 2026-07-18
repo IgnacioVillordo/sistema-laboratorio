@@ -1,0 +1,96 @@
+JFDML JFormDesigner: "8.3" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {seq l {comp jPanel1::::984:x, space :p:0:p}}"
+			"$verticalGroup": "par l {comp jPanel1::t::533:x}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			"maximumSize": new java.awt.Dimension( 1153, 572 )
+			"minimumSize": new java.awt.Dimension( 1153, 572 )
+			"preferredSize": new java.awt.Dimension( 1153, 572 )
+			addEvent( new FormEvent( "java.awt.event.WindowFocusListener", "windowGainedFocus", "formWindowGainedFocus", true ) )
+			addEvent( new FormEvent( "java.awt.event.WindowFocusListener", "windowLostFocus", "formWindowLostFocus", true ) )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+				"$columnSpecs": "0, 0"
+				"$rowSpecs": "0, 0"
+			} ) {
+				name: "jPanel1"
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "jLabel1"
+					"font": new java.awt.Font( "Segoe UI", 1, 18 )
+					"text": "Entregas:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 10, 16, 0, 0 )
+				} )
+				add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+					name: "jScrollPane1"
+					add( new FormComponent( "javax.swing.JTable" ) {
+						name: "jTable1"
+						"model": new com.jformdesigner.model.SwingTableModel( new java.util.Vector, new java.util.Vector, new java.util.Vector, new java.util.Vector, new java.util.Vector )
+						auxiliary() {
+							"JavaCodeGenerator.customCreateCode": "new javax.swing.JTable(){\n    @Override\n    public boolean isCellEditable(int row, int column) {\n        return false;\n    }\n    private static final long serialVersionUID = 1;\n\n    public String getToolTipText(MouseEvent e) {\n        String tip = null;\n\n        java.awt.Point p = e.getPoint();\n        int rowIndex = rowAtPoint(p);\n        try {\n            tip = map.get(jTable1.getValueAt(rowIndex, 0));\n        } catch (RuntimeException e1) {\n            //catch null pointer exception if mouse is over an empty line\n        }\n        return tip;\n    }\n};"
+						}
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "jTable1MousePressed", true ) )
+					} )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 1
+					"gridwidth": 2
+					"weightx": 1.0
+					"weighty": 1.0
+					"insets": new java.awt.Insets( 20, 10, 10, 10 )
+					"ipadx": 400
+					"ipady": 200
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+					"$horizontalGroup": "par l {seq {space :p:23:p, comp jLabel2:::p::p, space u:::p, comp cajaBuscar:::p:120:p, space :::x, comp botonBuscar:::p::p, space :::p}}"
+					"$verticalGroup": "par l {seq l {space :::p, par l {comp botonBuscar:::p::p, par b {comp jLabel2::b:p::p, comp cajaBuscar::b:p::p}}, space :::p}}"
+				} ) {
+					name: "jPanel2"
+					add( new FormComponent( "javax.swing.JButton" ) {
+						name: "botonBuscar"
+						"icon": new com.jformdesigner.model.SwingIcon( 0, "/main/java/imagenes/lupa.png" )
+						"margin": new java.awt.Insets( 2, 2, 2, 2 )
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "botonBuscarActionPerformed", true ) )
+					} )
+					add( new FormComponent( "javax.swing.JLabel" ) {
+						name: "jLabel2"
+						"text": "Buscar:"
+					} )
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "cajaBuscar"
+					} )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"hAlign": 0
+					"vAlign": 0
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+		} )
+		add( new FormContainer( "javax.swing.JPopupMenu", new FormLayoutManager( class javax.swing.JPopupMenu ) ) {
+			name: "popUpTabla"
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "GenerarReporte"
+				"text": "jMenuItem1"
+				auxiliary() {
+					"JavaCodeGenerator.postInitCode": "GenerarReporte.setText(\"Ver Reporte\");"
+				}
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "GenerarReporteActionPerformed", true ) )
+			} )
+			add( new FormComponent( "javax.swing.JMenuItem" ) {
+				name: "CancelarEntrega"
+				"text": "Cancelar entrega"
+				addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "CancelarEntregaActionPerformed", true ) )
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 586 )
+		} )
+	}
+}

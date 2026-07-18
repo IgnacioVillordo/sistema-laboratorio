@@ -1,0 +1,112 @@
+JFDML JFormDesigner: "8.3" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {comp jPanel1:::p::p}"
+			"$verticalGroup": "par l {comp jPanel1::l:::p}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			"maximumSize": new java.awt.Dimension( 252, 320 )
+			"minimumSize": new java.awt.Dimension( 251, 262 )
+			"preferredSize": new java.awt.Dimension( 251, 262 )
+			"resizable": false
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+				"$columnSpecs": "0, 0"
+				"$rowSpecs": "0, 0, 0, 0, 0"
+			} ) {
+				name: "jPanel1"
+				"minimumSize": new java.awt.Dimension( 576, 32 )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaTitulo"
+					"font": new java.awt.Font( "Dialog", 1, 24 )
+					"text": "Agregar pH y cloro"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridwidth": 2
+					"hAlign": 0
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 10, 0, 10 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaTotal"
+					"text": "Cloro total:"
+					auxiliary() {
+						"JavaCodeGenerator.postInitCode": "etiquetaTotal.setVisible(false);"
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 3
+					"hAlign": 0
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 20, 20 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaPh"
+					"text": "pH:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 1
+					"hAlign": 0
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 20, 20 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaLibre"
+					"text": "Cloro libre:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 2
+					"hAlign": 0
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 20, 20 )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "cajaLibre"
+					"maximumSize": new java.awt.Dimension( 55, 24 )
+					"minimumSize": new java.awt.Dimension( 55, 24 )
+					"preferredSize": new java.awt.Dimension( 55, 24 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 2
+					"hAlign": 0
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 0, 20, 20 )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "cajaPh"
+					"maximumSize": new java.awt.Dimension( 55, 24 )
+					"minimumSize": new java.awt.Dimension( 55, 24 )
+					"preferredSize": new java.awt.Dimension( 55, 24 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 1
+					"hAlign": 0
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 0, 20, 20 )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "cajaTotal"
+					"maximumSize": new java.awt.Dimension( 55, 24 )
+					"minimumSize": new java.awt.Dimension( 55, 24 )
+					"preferredSize": new java.awt.Dimension( 55, 24 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 3
+					"hAlign": 0
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 0, 20, 20 )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "jButton1"
+					"text": "Guardar"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "jButton1ActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 4
+					"gridwidth": 2
+					"hAlign": 0
+					"vAlign": 0
+					"insets": new java.awt.Insets( 0, 0, 20, 0 )
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) )
+	}
+}

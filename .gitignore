@@ -1,0 +1,15 @@
+/src/nbproject/private/
+/dist/
+/build/
+.env
+src/main/resources/ip.txt
+src/main/resources/rutaDescarga.txt
+src/main/resources/rutaDocumentos.txt
+src/main/resources/rutaRespaldo.txt
+src/main/resources/keystore.jks
+/out/
+/target/
+creacion.sql
+2.xml
+build.xml
+setup.iss

@@ -1,0 +1,511 @@
+JFDML JFormDesigner: "8.3" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormWindow( "javax.swing.JDialog", new FormLayoutManager( class org.jdesktop.layout.GroupLayout ) {
+			"$horizontalGroup": "par l {comp jPanel1::l::1034:x}"
+			"$verticalGroup": "par l {comp jPanel1:::p:452:p}"
+		} ) {
+			name: "this"
+			"defaultCloseOperation": 2
+			"resizable": false
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+				"$columnSpecs": "0, 0, 0, 0"
+				"$rowSpecs": "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
+			} ) {
+				name: "jPanel1"
+				"preferredSize": new java.awt.Dimension( 571, 620 )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaAgregar"
+					"font": new java.awt.Font( "Segoe UI", 1, 18 )
+					"horizontalAlignment": 0
+					"text": "Agregar analisis"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridwidth": 4
+					"hAlign": 0
+					"vAlign": 0
+					"insets": new java.awt.Insets( 26, 85, 0, 0 )
+					"ipadx": 264
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaProcedencia"
+					"text": "Procedencia:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 1
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaSolicitante"
+					"text": "Solicitante:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 2
+					"gridy": 1
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaHabilitacion"
+					"horizontalAlignment": 4
+					"text": "<html>N° de habilitación:</html>"
+					"horizontalTextPosition": 4
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 2
+					"gridy": 2
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+					"ipadx": 36
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaMuestreo"
+					"text": "Fecha de muestreo:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 3
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaRealizado"
+					"text": "Realizado por:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 2
+					"gridy": 3
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JButton" ) {
+					name: "botonAgregar"
+					"text": "Agregar análisis"
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "botonAgregarActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 10
+					"gridwidth": 4
+					"hAlign": 0
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 0, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboRealizado"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "Cliente"
+						addElement( "Cliente" )
+						addElement( "Personal del laboratorio" )
+					}
+					auxiliary() {
+						"JavaCodeGenerator.typeParameters": "String"
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 3
+					"gridy": 3
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+					"ipadx": 118
+				} )
+				add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
+					name: "cajaMuestreo"
+					"dateFormatString": "dd/MM/yyyy"
+					"maximumSize": new java.awt.Dimension( 278, 20 )
+					"minimumSize": new java.awt.Dimension( 278, 20 )
+					"opaque": false
+					"preferredSize": new java.awt.Dimension( 278, 20 )
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 3
+					"hAlign": 2
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaElaboracion"
+					"text": "Fecha de elaboración:"
+					auxiliary() {
+						"JavaCodeGenerator.postInitCode": "etiquetaElaboracion.setVisible(false);"
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 2
+					"gridy": 6
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaPago"
+					"text": "¿Pagó?"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 4
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "checkPago"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 4
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 40, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboTipo"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "Microbiológico de agua código"
+						addElement( "Microbiológico de agua código" )
+						addElement( "Microbiológico de agua COFES" )
+						addElement( "Microbiológico de agua de recreación" )
+						addElement( "Microbiológico de agua balnearios" )
+						addElement( "Microbiológico de agua bidón" )
+						addElement( "Microbiológico de alimentos" )
+						addElement( "Manual" )
+						addElement( "Hisopados" )
+						addElement( "Hisopados con límites" )
+						addElement( "Base helada Del Turista" )
+						addElement( "Microbiológico de chocolates Del Turista" )
+						addElement( "Efluentes" )
+						addElement( "Efluentes cloaca" )
+						addElement( "Efluentes infiltración" )
+						addElement( "Físico químico de agua básico" )
+						addElement( "Físico químico de agua completo" )
+						addElement( "Físico químico de alimentos" )
+						addElement( "Físico químico genérico" )
+						addElement( "Tabla nutricional" )
+					}
+					auxiliary() {
+						"JavaCodeGenerator.preInitCode": "${field}.setSelectedItem(\"Seleccione el tipo de análisis\");"
+						"JavaCodeGenerator.postInitCode": "comboTipo.setEditable(false);"
+						"JavaCodeGenerator.typeParameters": "String"
+					}
+					addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "comboTipoItemStateChanged", true ) )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "comboTipoMouseClicked", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "comboTipoActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 2
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+					"ipadx": 40
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaTipo"
+					"text": "Tipo de análisis:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 2
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboProcedencia"
+					"model": new javax.swing.DefaultComboBoxModel
+					"maximumSize": new java.awt.Dimension( 255, 20 )
+					"minimumSize": new java.awt.Dimension( 255, 20 )
+					"preferredSize": new java.awt.Dimension( 255, 20 )
+					auxiliary() {
+						"JavaCodeGenerator.customCreateCode": "new AutoCompletionComboBox();"
+						"JavaCodeGenerator.preInitCode": "comboProcedencia.setEditable(true);\ncomboProcedencia.setSelectedItem(\"Seleccione la procedencia\");"
+						"JavaCodeGenerator.typeParameters": "String"
+					}
+					addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "comboProcedenciaItemStateChanged", true ) )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "comboProcedenciaMousePressed", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "comboProcedenciaActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 1
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaLote"
+					"text": "Lote:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 3
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "cajaLote"
+					"maximumSize": new java.awt.Dimension( 250, 20 )
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"preferredSize": new java.awt.Dimension( 250, 20 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 3
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "EtiquetaIdMuestra"
+					"text": "Identificación de la muestra:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 5
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "cajaIdMuestra"
+					"maximumSize": new java.awt.Dimension( 250, 20 )
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"preferredSize": new java.awt.Dimension( 250, 20 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cajaIdMuestraActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 5
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaFactura"
+					"text": "Factura:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 2
+					"gridy": 5
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JCheckBox" ) {
+					name: "checkFactura"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 3
+					"gridy": 5
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 40, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaVencimiento"
+					"text": "Fecha de vencimiento:"
+					auxiliary() {
+						"JavaCodeGenerator.postInitCode": "etiquetaVencimiento.setVisible(false);"
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 2
+					"gridy": 7
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
+					name: "cajaVencimiento"
+					"dateFormatString": "dd/MM/yyyy"
+					"maximumSize": new java.awt.Dimension( 278, 20 )
+					"minimumSize": new java.awt.Dimension( 278, 20 )
+					"preferredSize": new java.awt.Dimension( 278, 20 )
+					auxiliary() {
+						"JavaCodeGenerator.preInitCode": "cajaVencimiento.setVisible(false);"
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 3
+					"gridy": 7
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaLugar"
+					"text": "Lugar de muestreo:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 6
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "cajaLugar"
+					"maximumSize": new java.awt.Dimension( 250, 20 )
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"preferredSize": new java.awt.Dimension( 250, 20 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 6
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaCosto"
+					"text": "Costo Total:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 2
+					"gridy": 4
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "cajaCoste"
+					"maximumSize": new java.awt.Dimension( 250, 20 )
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"preferredSize": new java.awt.Dimension( 250, 20 )
+					addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "cajaCosteMousePressed", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "cajaCosteActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 3
+					"gridy": 4
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "com.toedter.calendar.JDateChooser" ) {
+					name: "cajaElaboracion"
+					"dateFormatString": "dd/MM/yyyy"
+					"maximumSize": new java.awt.Dimension( 278, 20 )
+					"minimumSize": new java.awt.Dimension( 278, 20 )
+					"preferredSize": new java.awt.Dimension( 278, 20 )
+					auxiliary() {
+						"JavaCodeGenerator.postInitCode": "cajaElaboracion.setVisible(false);"
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 3
+					"gridy": 6
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaTipoAgua"
+					"text": "Tipo de agua:"
+					auxiliary() {
+						"JavaCodeGenerator.postInitCode": "etiquetaTipoAgua.setVisible(false);"
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 3
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JComboBox" ) {
+					name: "comboTipoAgua"
+					"model": new javax.swing.DefaultComboBoxModel {
+						selectedItem: "Agua de red directa"
+						addElement( "Agua de red directa" )
+						addElement( "Agua de red a tanque" )
+						addElement( "" )
+					}
+					auxiliary() {
+						"JavaCodeGenerator.postInitCode": "comboTipoAgua.setVisible(false);"
+						"JavaCodeGenerator.preInitCode": "comboTipoAgua.setEditable(true);"
+						"JavaCodeGenerator.typeParameters": "String"
+					}
+					addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "comboTipoAguaItemStateChanged", true ) )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "comboTipoAguaActionPerformed", true ) )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 3
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+					"ipadx": 55
+				} )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "etiquetaMarca"
+					"text": "Marca:"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 7
+					"hAlign": 4
+					"vAlign": 0
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "cajaMarca"
+					"maximumSize": new java.awt.Dimension( 250, 20 )
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"preferredSize": new java.awt.Dimension( 250, 20 )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 1
+					"gridy": 7
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "cajaHabilitacion"
+					"maximumSize": new java.awt.Dimension( 250, 20 )
+					"minimumSize": new java.awt.Dimension( 250, 20 )
+					"preferredSize": new java.awt.Dimension( 250, 20 )
+					auxiliary() {
+						"JavaCodeGenerator.variableModifiers": 1
+					}
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 3
+					"gridy": 2
+					"hAlign": 2
+					"vAlign": 1
+					"insets": new java.awt.Insets( 20, 20, 0, 0 )
+				} )
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+					"$columnSpecs": "0, 0"
+					"$rowSpecs": "0"
+				} ) {
+					name: "jPanel2"
+					add( new FormComponent( "javax.swing.JTextField" ) {
+						name: "cajaSolicitante"
+						"maximumSize": new java.awt.Dimension( 250, 20 )
+						"minimumSize": new java.awt.Dimension( 250, 20 )
+						"preferredSize": new java.awt.Dimension( 250, 20 )
+						auxiliary() {
+							"JavaCodeGenerator.variableModifiers": 1
+						}
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"hAlign": 2
+						"vAlign": 1
+						"insets": new java.awt.Insets( 20, 20, 0, 0 )
+					} )
+					add( new FormComponent( "javax.swing.JCheckBox" ) {
+						name: "checkGuardar"
+						"text": "Guardar"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "checkGuardarActionPerformed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridx": 1
+						"hAlign": 2
+						"vAlign": 1
+						"insets": new java.awt.Insets( 20, 10, 0, 0 )
+					} )
+					add( new FormComponent( "javax.swing.JComboBox" ) {
+						name: "comboSolicitante"
+						"model": new javax.swing.DefaultComboBoxModel {
+							selectedItem: "Item 1"
+							addElement( "Item 1" )
+							addElement( "Item 2" )
+							addElement( "Item 3" )
+							addElement( "Item 4" )
+						}
+						"maximumSize": new java.awt.Dimension( 250, 20 )
+						"minimumSize": new java.awt.Dimension( 250, 20 )
+						"name": ""
+						"preferredSize": new java.awt.Dimension( 250, 20 )
+						auxiliary() {
+							"JavaCodeGenerator.typeParameters": "String"
+						}
+						addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "comboSolicitanteItemStateChanged", true ) )
+						addEvent( new FormEvent( "java.awt.event.MouseListener", "mousePressed", "comboSolicitanteMousePressed", true ) )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"hAlign": 2
+						"vAlign": 1
+						"insets": new java.awt.Insets( 20, 20, 0, 0 )
+					} )
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridx": 3
+					"gridy": 1
+					"hAlign": 0
+					"vAlign": 0
+				} )
+			} )
+		}, new FormLayoutConstraints( null ) )
+	}
+}
