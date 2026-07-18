@@ -1,7 +1,8 @@
 package org.ignaciorodriguez.vista;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Point;
 import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -11,6 +12,7 @@ import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.Map;
 import javax.swing.AbstractAction;
@@ -18,74 +20,84 @@ import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.KeyStroke;
+
 import javax.swing.JComponent;
 
 /**
  *
  * @author Nacho
  */
-public class tablaMBAguaBidon extends javax.swing.JDialog {
-    
+public class TablaMBAguaCOFES extends javax.swing.JDialog {
+
     int id;
     String procedencia, pdf, auxCaracteres;
     Consultas c = Consultas.getInstancia();
-    boolean editar, ingresoPh;
+    boolean editar, ingresoPh = false, activarGermenes = true, activarTotales = true,
+            activarFecales = true, activarEscherichia = true, activarPseudomona = true, activarShigella = true;
     double[] ph;
     private String aux;
-    private boolean activarShigella = true;
 
-    public tablaMBAguaBidon(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
+    public TablaMBAguaCOFES(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
         this.procedencia = procedencia;
         this.id = id;
         this.editar = editar;
         this.pdf = pdf.substring(1, pdf.length());
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Microbiológico agua de bidón");
-        ph = c.recuperarPhYCloro(id);
-        if (procedencia.contains("Municipio de Dina Huapi")) {
-            CheckDinaHuapi.setSelected(true);
-        }
+        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Microbiológico de agua COFES");
+        ph = c.recuperarPhYCloro(this.id);
         DecimalFormat df = new DecimalFormat("#.##");
+        if (procedencia.contains("Municipio de Dina Huapi")) {
+            checkDinaHuapi.setSelected(true);
+        }
         if (ph != null) {
             if (ph[2] != -1) {
                 cajaPh.setText(df.format(ph[2]).replaceAll(",", "."));
                 this.ingresoPh = true;
+                System.out.println("ingresoPh = " + ingresoPh);
             }
             if (ph[0] != -1) {
                 cajaCloro.setText(df.format(ph[0]).replaceAll(",", "."));
                 this.ingresoPh = true;
             }
         }
-        if (this.editar) {
-            Map<String, String> resultados = c.recuperarResultadosMBAgua(id);
+        if (this.editar == true) {
+            Map<String, String> resultados = c.recuperarResultadosMBAguaCOFES(this.id);
             if (resultados == null) {
                 if (!this.ingresoPh) {
                     this.editar = false;
                 }
             } else {
-                if (resultados.get("germenes") != null) {
+                etiquetaTitulo.setText("Editar resultados del análisis");
+                if (resultados.get("germenes").equals("-2")) {
+                    jLabel10MousePressed(click(jLabel10));
+                } else if (resultados.get("germenes").contains("-1")) {                    
+                } else {
                     aux = resultados.get("germenes").replaceAll("[^0-9?!\\.]", "");
                     campoGermenes.setText(aux.substring(0, aux.length() - 3));
                 }
 
-                if (resultados.get("coliformesTotales") != null) {
+                if (resultados.get("coliformesTotales").equals("-2")) {
+                    jLabel12MousePressed(click(jLabel12));
+                } else if (resultados.get("coliformesTotales").contains("-1")) {                    
+                } else {
                     if (resultados.get("coliformesTotales").toLowerCase().startsWith("menor a")) {
                         comboColiformesTotales.setSelectedIndex(0);
-                    } else if (resultados.get("coliformesTotales").contains("-1")) {
                     } else if (resultados.get("coliformesTotales").toLowerCase().startsWith("mayor a")) {
                         comboColiformesTotales.setSelectedIndex(1);
                     } else {
                         comboColiformesTotales.setSelectedIndex(2);
                     }
+                    campoColiformesTotales.setText(resultados.get("coliformesTotales").substring(0, resultados.get("coliformesTotales").length() - 9).replaceAll("[^0-9?!\\.]", ""));
                 }
 
-                if (resultados.get("coliformesFecales") != null) {
-                    campoColiformesTotales.setText(resultados.get("coliformesFecales").substring(0, resultados.get("coliformesFecales").length() - 9).replaceAll("[^0-9?!\\.]", ""));
+                if (resultados.get("coliformesFecales").equals("-2")) {
+                    jLabel5MousePressed(click(jLabel5));
+                } else if (resultados.get("coliformesFecales").contains("-1")) {                    
+                } else {
                     if (resultados.get("coliformesFecales").toLowerCase().startsWith("menor a")) {
                         comboColiformesFecales.setSelectedIndex(0);
-                    } else if (resultados.get("coliformesTotales").contains("-1")) {
-                    } else if (resultados.get("coliformesTotales").toLowerCase().startsWith("mayor a")) {
+                    } else if (resultados.get("coliformesFecales").toLowerCase().startsWith("mayor a")) {
                         comboColiformesFecales.setSelectedIndex(1);
                     } else {
                         comboColiformesFecales.setSelectedIndex(2);
@@ -94,24 +106,28 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
                     campoColiformesFecales.setText(aux.substring(0, aux.length() - 3));
                 }
 
-                if (resultados.get("escherichia") != null) {
+                if (resultados.get("escherichia").equals("-2")) {
+                    jLabel11MousePressed(click(jLabel11));
+                } else if (resultados.get("escherichia").contains("-1")) {                    
+                } else {
                     if (resultados.get("escherichia").toLowerCase().startsWith("ausencia")) {
                         comboEscherichia.setSelectedIndex(0);
-                    } else if (resultados.get("escherichia").contains("-1")) {
                     } else if (resultados.get("escherichia").toLowerCase().startsWith("presencia")) {
                         comboEscherichia.setSelectedIndex(1);
                     }
                 }
 
-                if (resultados.get("pseudomona") != null) {
+                if (resultados.get("pseudomona").equals("-2")) {
+                    jLabel9MousePressed(click(jLabel9));
+                } else if (resultados.get("pseudomona").contains("-1")) {                    
+                } else {
                     if (resultados.get("pseudomona").toLowerCase().startsWith("ausencia")) {
                         comboPseudomona.setSelectedIndex(0);
-                    } else if (resultados.get("pseudomona").contains("-1")) {
                     } else if (resultados.get("pseudomona").toLowerCase().startsWith("presencia")) {
                         comboPseudomona.setSelectedIndex(1);
                     }
                 }
-
+                
                 if (!resultados.get("shigella").contains("null")) {
                     if (resultados.get("shigella").contains("-2")) {
                         jLabel14MousePressed(click(jLabel9));
@@ -125,14 +141,12 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
                     }
                 }
 
-                if (resultados.get("caracteresOrganolepticos") != null) {
-                    if (resultados.get("caracteresOrganolepticos").startsWith("Normales")) {
-                        comboCaracteres.setSelectedItem(0);
-                    } else if (resultados.get("caracteresOrganolepticos").contains("-1")) {
-                    } else {
-                        comboCaracteres.setSelectedIndex(1);
-                        auxCaracteres = resultados.get("caracteresOrganolepticos");
-                    }
+                if (resultados.get("caracteresOrganolepticos").toLowerCase().startsWith("Normales")) {
+                    comboCaracteres.setSelectedItem(0);
+                } else if (resultados.get("caracteresOrganolepticos").contains("-1")) {                    
+                } else {
+                    comboCaracteres.setSelectedIndex(1);
+                    auxCaracteres = resultados.get("caracteresOrganolepticos");
                 }
                 java.sql.Date fecha = java.sql.Date.valueOf(resultados.get("fechaAnalisis"));
                 java.util.Date utilFecha = null;
@@ -149,6 +163,13 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }
 
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -156,7 +177,6 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
@@ -183,19 +203,6 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         area43 = new javax.swing.JTextArea();
         botonGenerar = new javax.swing.JButton();
         checkObtenido = new javax.swing.JCheckBox();
-        jPanel3 = new javax.swing.JPanel();
-        etiquetaGermenes = new javax.swing.JLabel();
-        campoGermenes = new javax.swing.JTextField();
-        jPanel4 = new javax.swing.JPanel();
-        comboColiformesFecales = new javax.swing.JComboBox<>();
-        etiquetaColiformesFecales = new javax.swing.JLabel();
-        campoColiformesFecales = new javax.swing.JTextField();
-        jPanel9 = new javax.swing.JPanel();
-        comboPseudomona = new javax.swing.JComboBox<>();
-        etiquetaPseudomona = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
-        comboEscherichia = new javax.swing.JComboBox<>();
-        etiquetaEscherichia = new javax.swing.JLabel();
         etiquetaTitulo = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -207,17 +214,31 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         jPanel5 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         comboCaracteres = new javax.swing.JComboBox<>();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
         jScrollPane13 = new javax.swing.JScrollPane();
         area24 = new javax.swing.JTextArea();
         jScrollPane14 = new javax.swing.JScrollPane();
         area25 = new javax.swing.JTextArea();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
         jPanel13 = new javax.swing.JPanel();
         comboColiformesTotales = new javax.swing.JComboBox<>();
         etiquetaColiformesTotales = new javax.swing.JLabel();
         campoColiformesTotales = new javax.swing.JTextField();
-        CheckDinaHuapi = new javax.swing.JCheckBox();
+        jPanel3 = new javax.swing.JPanel();
+        etiquetaGermenes = new javax.swing.JLabel();
+        campoGermenes = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
+        comboColiformesFecales = new javax.swing.JComboBox<>();
+        etiquetaColiformesFecales = new javax.swing.JLabel();
+        campoColiformesFecales = new javax.swing.JTextField();
+        jPanel10 = new javax.swing.JPanel();
+        comboEscherichia = new javax.swing.JComboBox<>();
+        etiquetaEscherichia = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        comboPseudomona = new javax.swing.JComboBox<>();
+        etiquetaPseudomona = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        checkDinaHuapi = new javax.swing.JCheckBox();
         jPanel17 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jPanel14 = new javax.swing.JPanel();
@@ -282,22 +303,6 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
         jPanel1.add(jLabel3, gridBagConstraints);
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("<html>RECUENTO OBTENIDO</html>");
-        jLabel4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
-        jLabel4.setFocusable(false);
-        jLabel4.setMinimumSize(new java.awt.Dimension(150, 30));
-        jLabel4.setOpaque(true);
-        jLabel4.setPreferredSize(new java.awt.Dimension(150, 10));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.ipadx = 29;
-        gridBagConstraints.ipady = 40;
-        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
-        jPanel1.add(jLabel4, gridBagConstraints);
-
         jPanel2.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(0, 0, 0)));
         jPanel2.setFocusable(false);
         jPanel2.setPreferredSize(new java.awt.Dimension(150, 10));
@@ -308,12 +313,17 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel5.setText("<html>COLIFORMES FECALES</html>");
         jLabel5.setToolTipText("");
-        jLabel5.setMinimumSize(new java.awt.Dimension(150, 30));
-        jLabel5.setPreferredSize(new java.awt.Dimension(150, 10));
+        jLabel5.setMaximumSize(new java.awt.Dimension(170, 60));
+        jLabel5.setMinimumSize(new java.awt.Dimension(170, 60));
+        jLabel5.setPreferredSize(new java.awt.Dimension(170, 60));
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel5MousePressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 20;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         jPanel2.add(jLabel5, gridBagConstraints);
 
@@ -336,12 +346,17 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         jLabel9.setText("<html>PSEUDOMONA AERUGINOSA</html>");
         jLabel9.setToolTipText("");
         jLabel9.setFocusable(false);
-        jLabel9.setMinimumSize(new java.awt.Dimension(150, 30));
-        jLabel9.setPreferredSize(new java.awt.Dimension(150, 10));
+        jLabel9.setMaximumSize(new java.awt.Dimension(170, 60));
+        jLabel9.setMinimumSize(new java.awt.Dimension(170, 60));
+        jLabel9.setPreferredSize(new java.awt.Dimension(170, 60));
+        jLabel9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel9MousePressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 20;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         jPanel6.add(jLabel9, gridBagConstraints);
 
@@ -363,12 +378,17 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("<html>       GERMENES AEROBIOS TOTALES</html>");
         jLabel10.setToolTipText("");
-        jLabel10.setMinimumSize(new java.awt.Dimension(150, 50));
-        jLabel10.setPreferredSize(new java.awt.Dimension(150, 10));
+        jLabel10.setMaximumSize(new java.awt.Dimension(170, 60));
+        jLabel10.setMinimumSize(new java.awt.Dimension(170, 60));
+        jLabel10.setPreferredSize(new java.awt.Dimension(170, 60));
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel10MousePressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 20;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         jPanel7.add(jLabel10, gridBagConstraints);
 
@@ -391,12 +411,17 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         jLabel11.setText("<html>ESCHERICHIA COLI</html>");
         jLabel11.setToolTipText("");
         jLabel11.setFocusable(false);
-        jLabel11.setMinimumSize(new java.awt.Dimension(150, 30));
-        jLabel11.setPreferredSize(new java.awt.Dimension(150, 10));
+        jLabel11.setMaximumSize(new java.awt.Dimension(170, 60));
+        jLabel11.setMinimumSize(new java.awt.Dimension(170, 60));
+        jLabel11.setPreferredSize(new java.awt.Dimension(170, 60));
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel11MousePressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 20;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         jPanel8.add(jLabel11, gridBagConstraints);
 
@@ -420,7 +445,7 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         area12.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         area12.setLineWrap(true);
         area12.setRows(5);
-        area12.setText("Menor de 500 UFC/100 ml");
+        area12.setText("Menor de 100 UFC/100 ml");
         area12.setToolTipText("");
         area12.setWrapStyleWord(true);
         area12.setAutoscrolls(false);
@@ -447,7 +472,7 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         area22.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         area22.setLineWrap(true);
         area22.setRows(5);
-        area22.setText("Menor o igual a 1.1 NMP/100 \nml");
+        area22.setText("Menor o igual a 2.2 NMP/100 ml");
         area22.setWrapStyleWord(true);
         area22.setBorder(null);
         area22.setFocusable(false);
@@ -651,225 +676,6 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         gridBagConstraints.gridy = 10;
         jPanel1.add(checkObtenido, gridBagConstraints);
 
-        jPanel3.setFocusable(false);
-        jPanel3.setLayout(new java.awt.GridBagLayout());
-
-        etiquetaGermenes.setBackground(new java.awt.Color(255, 255, 255));
-        etiquetaGermenes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaGermenes.setText("UFC/100 ml");
-        etiquetaGermenes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
-        etiquetaGermenes.setFocusable(false);
-        etiquetaGermenes.setMaximumSize(new java.awt.Dimension(44, 17));
-        etiquetaGermenes.setMinimumSize(new java.awt.Dimension(44, 17));
-        etiquetaGermenes.setOpaque(true);
-        etiquetaGermenes.setPreferredSize(new java.awt.Dimension(44, 17));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 43;
-        gridBagConstraints.ipady = 44;
-        jPanel3.add(etiquetaGermenes, gridBagConstraints);
-
-        campoGermenes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        campoGermenes.setText("500");
-        campoGermenes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        campoGermenes.setMaximumSize(new java.awt.Dimension(79, 15));
-        campoGermenes.setMinimumSize(new java.awt.Dimension(79, 15));
-        campoGermenes.setNextFocusableComponent(comboColiformesFecales);
-        campoGermenes.setPreferredSize(new java.awt.Dimension(79, 15));
-        campoGermenes.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                campoGermenesCaretUpdate(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 13;
-        gridBagConstraints.ipady = 45;
-        jPanel3.add(campoGermenes, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        jPanel1.add(jPanel3, gridBagConstraints);
-
-        jPanel4.setFocusable(false);
-        jPanel4.setLayout(new java.awt.GridBagLayout());
-
-        comboColiformesFecales.setBackground(new java.awt.Color(204, 204, 204));
-        comboColiformesFecales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Menor a", "Mayor a", " " }));
-        comboColiformesFecales.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        comboColiformesFecales.setNextFocusableComponent(campoColiformesFecales);
-        comboColiformesFecales.setPreferredSize(new java.awt.Dimension(50, 21));
-        comboColiformesFecales.setUI(new BasicComboBoxUI() {
-            protected JButton createArrowButton() {
-                return new JButton() {
-                    public int getWidth() {
-                        return 0;
-                    }
-                };
-            }
-        });
-        comboColiformesFecales.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboColiformesFecalesItemStateChanged(evt);
-            }
-        });
-        comboColiformesFecales.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboColiformesFecalesActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 10;
-        gridBagConstraints.ipady = 39;
-        jPanel4.add(comboColiformesFecales, gridBagConstraints);
-
-        etiquetaColiformesFecales.setBackground(new java.awt.Color(255, 255, 255));
-        etiquetaColiformesFecales.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaColiformesFecales.setText("NMP/100 ml");
-        etiquetaColiformesFecales.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
-        etiquetaColiformesFecales.setFocusable(false);
-        etiquetaColiformesFecales.setMaximumSize(new java.awt.Dimension(53, 17));
-        etiquetaColiformesFecales.setMinimumSize(new java.awt.Dimension(53, 17));
-        etiquetaColiformesFecales.setOpaque(true);
-        etiquetaColiformesFecales.setPreferredSize(new java.awt.Dimension(53, 17));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 29;
-        gridBagConstraints.ipady = 44;
-        jPanel4.add(etiquetaColiformesFecales, gridBagConstraints);
-
-        campoColiformesFecales.setText("3");
-        campoColiformesFecales.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        campoColiformesFecales.setMaximumSize(new java.awt.Dimension(37, 15));
-        campoColiformesFecales.setMinimumSize(new java.awt.Dimension(37, 15));
-        campoColiformesFecales.setNextFocusableComponent(comboPseudomona);
-        campoColiformesFecales.setPreferredSize(new java.awt.Dimension(37, 15));
-        campoColiformesFecales.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                campoColiformesFecalesCaretUpdate(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 45;
-        jPanel4.add(campoColiformesFecales, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 5;
-        jPanel1.add(jPanel4, gridBagConstraints);
-
-        jPanel9.setFocusable(false);
-        jPanel9.setMinimumSize(new java.awt.Dimension(188, 1));
-        jPanel9.setPreferredSize(new java.awt.Dimension(179, 61));
-        jPanel9.setLayout(new java.awt.GridBagLayout());
-
-        comboPseudomona.setBackground(new java.awt.Color(204, 204, 204));
-        comboPseudomona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ausencia", "Presencia" }));
-        comboPseudomona.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        comboPseudomona.setMinimumSize(new java.awt.Dimension(82, 21));
-        comboPseudomona.setNextFocusableComponent(comboPseudomona);
-        comboPseudomona.setPreferredSize(new java.awt.Dimension(70, 20));
-        comboPseudomona.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboPseudomonaItemStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 40;
-        gridBagConstraints.ipady = 40;
-        jPanel9.add(comboPseudomona, gridBagConstraints);
-        comboPseudomona.setUI(new BasicComboBoxUI() {
-            protected JButton createArrowButton() {
-                return new JButton() {
-                    public int getWidth() {
-                        return 0;
-                    }
-                };
-            }
-        });
-
-        etiquetaPseudomona.setBackground(new java.awt.Color(255, 255, 255));
-        etiquetaPseudomona.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaPseudomona.setText("en 100 ml");
-        etiquetaPseudomona.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
-        etiquetaPseudomona.setFocusable(false);
-        etiquetaPseudomona.setMaximumSize(new java.awt.Dimension(55, 17));
-        etiquetaPseudomona.setMinimumSize(new java.awt.Dimension(55, 17));
-        etiquetaPseudomona.setOpaque(true);
-        etiquetaPseudomona.setPreferredSize(new java.awt.Dimension(55, 17));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 14;
-        gridBagConstraints.ipady = 43;
-        jPanel9.add(etiquetaPseudomona, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 7;
-        jPanel1.add(jPanel9, gridBagConstraints);
-
-        jPanel10.setFocusable(false);
-        jPanel10.setMinimumSize(new java.awt.Dimension(188, 1));
-        jPanel10.setLayout(new java.awt.GridBagLayout());
-
-        comboEscherichia.setBackground(new java.awt.Color(204, 204, 204));
-        comboEscherichia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ausencia", "Presencia" }));
-        comboEscherichia.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        comboEscherichia.setNextFocusableComponent(comboPseudomona);
-        comboEscherichia.setPreferredSize(new java.awt.Dimension(70, 20));
-        comboEscherichia.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboEscherichiaItemStateChanged(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 40;
-        gridBagConstraints.ipady = 40;
-        jPanel10.add(comboEscherichia, gridBagConstraints);
-        comboEscherichia.setUI(new BasicComboBoxUI() {
-            protected JButton createArrowButton() {
-                return new JButton() {
-                    public int getWidth() {
-                        return 0;
-                    }
-                };
-            }
-        });
-
-        etiquetaEscherichia.setBackground(new java.awt.Color(255, 255, 255));
-        etiquetaEscherichia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        etiquetaEscherichia.setText("en 100 ml");
-        etiquetaEscherichia.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
-        etiquetaEscherichia.setFocusable(false);
-        etiquetaEscherichia.setMaximumSize(new java.awt.Dimension(55, 17));
-        etiquetaEscherichia.setMinimumSize(new java.awt.Dimension(55, 17));
-        etiquetaEscherichia.setOpaque(true);
-        etiquetaEscherichia.setPreferredSize(new java.awt.Dimension(55, 17));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipadx = 14;
-        gridBagConstraints.ipady = 44;
-        jPanel10.add(etiquetaEscherichia, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 6;
-        jPanel1.add(jPanel10, gridBagConstraints);
-
         etiquetaTitulo.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         etiquetaTitulo.setText("Agregar resultados de análisis");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -970,33 +776,6 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         jPanel1.add(jPanel11, gridBagConstraints);
 
-        jPanel12.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(0, 0, 0)));
-        jPanel12.setFocusable(false);
-        jPanel12.setPreferredSize(new java.awt.Dimension(150, 10));
-        jPanel12.setLayout(new java.awt.GridBagLayout());
-
-        jLabel12.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel12.setText("<html>COLIFORMES TOTALES</html>");
-        jLabel12.setToolTipText("");
-        jLabel12.setMinimumSize(new java.awt.Dimension(150, 30));
-        jLabel12.setPreferredSize(new java.awt.Dimension(150, 10));
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 20;
-        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
-        jPanel12.add(jLabel12, gridBagConstraints);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.ipadx = 20;
-        gridBagConstraints.ipady = 50;
-        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
-        jPanel1.add(jPanel12, gridBagConstraints);
-
         jScrollPane13.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         jScrollPane13.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane13.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -1035,7 +814,7 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         area25.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         area25.setLineWrap(true);
         area25.setRows(5);
-        area25.setText("Menor o igual a 3 NMP/100 \nml");
+        area25.setText("Menor o igual a 2.2 NMP/100 ml");
         area25.setWrapStyleWord(true);
         area25.setBorder(null);
         area25.setFocusable(false);
@@ -1048,13 +827,44 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         gridBagConstraints.ipadx = 20;
         jPanel1.add(jScrollPane14, gridBagConstraints);
 
+        jPanel12.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 0, 1, new java.awt.Color(0, 0, 0)));
+        jPanel12.setFocusable(false);
+        jPanel12.setPreferredSize(new java.awt.Dimension(150, 10));
+        jPanel12.setLayout(new java.awt.GridBagLayout());
+
+        jLabel12.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel12.setText("<html>COLIFORMES TOTALES</html>");
+        jLabel12.setToolTipText("");
+        jLabel12.setMaximumSize(new java.awt.Dimension(170, 60));
+        jLabel12.setMinimumSize(new java.awt.Dimension(170, 60));
+        jLabel12.setPreferredSize(new java.awt.Dimension(170, 60));
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel12MousePressed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
+        jPanel12.add(jLabel12, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.ipadx = 20;
+        gridBagConstraints.ipady = 50;
+        gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
+        jPanel1.add(jPanel12, gridBagConstraints);
+
         jPanel13.setFocusable(false);
         jPanel13.setLayout(new java.awt.GridBagLayout());
 
         comboColiformesTotales.setBackground(new java.awt.Color(204, 204, 204));
         comboColiformesTotales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Menor a", "Mayor a", " " }));
         comboColiformesTotales.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        comboColiformesTotales.setNextFocusableComponent(campoColiformesFecales);
         comboColiformesTotales.setPreferredSize(new java.awt.Dimension(50, 21));
         comboColiformesTotales.setUI(new BasicComboBoxUI() {
             protected JButton createArrowButton() {
@@ -1098,12 +908,12 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         gridBagConstraints.ipady = 44;
         jPanel13.add(etiquetaColiformesTotales, gridBagConstraints);
 
-        campoColiformesTotales.setText("3");
+        campoColiformesTotales.setText("2.2");
         campoColiformesTotales.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
-        campoColiformesTotales.setMaximumSize(new java.awt.Dimension(37, 15));
-        campoColiformesTotales.setMinimumSize(new java.awt.Dimension(37, 15));
-        campoColiformesTotales.setNextFocusableComponent(comboPseudomona);
-        campoColiformesTotales.setPreferredSize(new java.awt.Dimension(37, 15));
+        campoColiformesTotales.setMargin(new java.awt.Insets(20, 20, 20, 20));
+        campoColiformesTotales.setMaximumSize(new java.awt.Dimension(7, 15));
+        campoColiformesTotales.setMinimumSize(new java.awt.Dimension(7, 15));
+        campoColiformesTotales.setPreferredSize(new java.awt.Dimension(7, 15));
         campoColiformesTotales.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 campoColiformesTotalesCaretUpdate(evt);
@@ -1117,6 +927,7 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 30;
         gridBagConstraints.ipady = 45;
         jPanel13.add(campoColiformesTotales, gridBagConstraints);
 
@@ -1125,11 +936,243 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         gridBagConstraints.gridy = 4;
         jPanel1.add(jPanel13, gridBagConstraints);
 
-        CheckDinaHuapi.setText("Conclusión Dina Huapi");
+        jPanel3.setFocusable(false);
+        jPanel3.setLayout(new java.awt.GridBagLayout());
+
+        etiquetaGermenes.setBackground(new java.awt.Color(255, 255, 255));
+        etiquetaGermenes.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaGermenes.setText("UFC/100 ml");
+        etiquetaGermenes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        etiquetaGermenes.setFocusable(false);
+        etiquetaGermenes.setMaximumSize(new java.awt.Dimension(44, 17));
+        etiquetaGermenes.setMinimumSize(new java.awt.Dimension(44, 17));
+        etiquetaGermenes.setOpaque(true);
+        etiquetaGermenes.setPreferredSize(new java.awt.Dimension(44, 17));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 43;
+        gridBagConstraints.ipady = 44;
+        jPanel3.add(etiquetaGermenes, gridBagConstraints);
+
+        campoGermenes.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        campoGermenes.setText("100");
+        campoGermenes.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        campoGermenes.setMaximumSize(new java.awt.Dimension(79, 15));
+        campoGermenes.setMinimumSize(new java.awt.Dimension(79, 15));
+        campoGermenes.setPreferredSize(new java.awt.Dimension(79, 15));
+        campoGermenes.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                campoGermenesCaretUpdate(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 13;
+        gridBagConstraints.ipady = 45;
+        jPanel3.add(campoGermenes, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        jPanel1.add(jPanel3, gridBagConstraints);
+
+        jPanel4.setFocusable(false);
+        jPanel4.setLayout(new java.awt.GridBagLayout());
+
+        comboColiformesFecales.setBackground(new java.awt.Color(204, 204, 204));
+        comboColiformesFecales.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Menor a", "Mayor a", " " }));
+        comboColiformesFecales.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        comboColiformesFecales.setPreferredSize(new java.awt.Dimension(50, 21));
+        comboColiformesFecales.setUI(new BasicComboBoxUI() {
+            protected JButton createArrowButton() {
+                return new JButton() {
+                    public int getWidth() {
+                        return 0;
+                    }
+                };
+            }
+        });
+        comboColiformesFecales.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboColiformesFecalesItemStateChanged(evt);
+            }
+        });
+        comboColiformesFecales.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboColiformesFecalesActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 10;
+        gridBagConstraints.ipady = 39;
+        jPanel4.add(comboColiformesFecales, gridBagConstraints);
+
+        etiquetaColiformesFecales.setBackground(new java.awt.Color(255, 255, 255));
+        etiquetaColiformesFecales.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaColiformesFecales.setText("NMP/100 ml");
+        etiquetaColiformesFecales.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        etiquetaColiformesFecales.setFocusable(false);
+        etiquetaColiformesFecales.setMaximumSize(new java.awt.Dimension(53, 17));
+        etiquetaColiformesFecales.setMinimumSize(new java.awt.Dimension(53, 17));
+        etiquetaColiformesFecales.setOpaque(true);
+        etiquetaColiformesFecales.setPreferredSize(new java.awt.Dimension(53, 17));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 29;
+        gridBagConstraints.ipady = 44;
+        jPanel4.add(etiquetaColiformesFecales, gridBagConstraints);
+
+        campoColiformesFecales.setText("2.2");
+        campoColiformesFecales.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        campoColiformesFecales.setMargin(new java.awt.Insets(20, 20, 20, 20));
+        campoColiformesFecales.setMaximumSize(new java.awt.Dimension(7, 15));
+        campoColiformesFecales.setMinimumSize(new java.awt.Dimension(7, 15));
+        campoColiformesFecales.setPreferredSize(new java.awt.Dimension(7, 15));
+        campoColiformesFecales.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                campoColiformesFecalesCaretUpdate(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 30;
+        gridBagConstraints.ipady = 45;
+        jPanel4.add(campoColiformesFecales, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        jPanel1.add(jPanel4, gridBagConstraints);
+
+        jPanel10.setFocusable(false);
+        jPanel10.setMinimumSize(new java.awt.Dimension(188, 1));
+        jPanel10.setLayout(new java.awt.GridBagLayout());
+
+        comboEscherichia.setBackground(new java.awt.Color(204, 204, 204));
+        comboEscherichia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ausencia", "Presencia" }));
+        comboEscherichia.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        comboEscherichia.setPreferredSize(new java.awt.Dimension(70, 20));
+        comboEscherichia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboEscherichiaItemStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.ipady = 40;
+        jPanel10.add(comboEscherichia, gridBagConstraints);
+        comboEscherichia.setUI(new BasicComboBoxUI() {
+            protected JButton createArrowButton() {
+                return new JButton() {
+                    public int getWidth() {
+                        return 0;
+                    }
+                };
+            }
+        });
+
+        etiquetaEscherichia.setBackground(new java.awt.Color(255, 255, 255));
+        etiquetaEscherichia.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaEscherichia.setText("en 100 ml");
+        etiquetaEscherichia.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        etiquetaEscherichia.setFocusable(false);
+        etiquetaEscherichia.setMaximumSize(new java.awt.Dimension(55, 17));
+        etiquetaEscherichia.setMinimumSize(new java.awt.Dimension(55, 17));
+        etiquetaEscherichia.setOpaque(true);
+        etiquetaEscherichia.setPreferredSize(new java.awt.Dimension(55, 17));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 14;
+        gridBagConstraints.ipady = 44;
+        jPanel10.add(etiquetaEscherichia, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        jPanel1.add(jPanel10, gridBagConstraints);
+
+        jPanel9.setFocusable(false);
+        jPanel9.setMinimumSize(new java.awt.Dimension(188, 1));
+        jPanel9.setPreferredSize(new java.awt.Dimension(179, 61));
+        jPanel9.setLayout(new java.awt.GridBagLayout());
+
+        comboPseudomona.setBackground(new java.awt.Color(204, 204, 204));
+        comboPseudomona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ausencia", "Presencia" }));
+        comboPseudomona.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, new java.awt.Color(0, 0, 0)));
+        comboPseudomona.setMinimumSize(new java.awt.Dimension(82, 21));
+        comboPseudomona.setPreferredSize(new java.awt.Dimension(70, 20));
+        comboPseudomona.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboPseudomonaItemStateChanged(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 40;
+        gridBagConstraints.ipady = 40;
+        jPanel9.add(comboPseudomona, gridBagConstraints);
+        comboPseudomona.setUI(new BasicComboBoxUI() {
+            protected JButton createArrowButton() {
+                return new JButton() {
+                    public int getWidth() {
+                        return 0;
+                    }
+                };
+            }
+        });
+
+        etiquetaPseudomona.setBackground(new java.awt.Color(255, 255, 255));
+        etiquetaPseudomona.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        etiquetaPseudomona.setText("en 100 ml");
+        etiquetaPseudomona.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        etiquetaPseudomona.setFocusable(false);
+        etiquetaPseudomona.setMaximumSize(new java.awt.Dimension(55, 17));
+        etiquetaPseudomona.setMinimumSize(new java.awt.Dimension(55, 17));
+        etiquetaPseudomona.setOpaque(true);
+        etiquetaPseudomona.setPreferredSize(new java.awt.Dimension(55, 17));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.ipadx = 14;
+        gridBagConstraints.ipady = 43;
+        jPanel9.add(etiquetaPseudomona, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 7;
+        jPanel1.add(jPanel9, gridBagConstraints);
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("<html>RECUENTO OBTENIDO</html>");
+        jLabel4.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
+        jLabel4.setFocusable(false);
+        jLabel4.setMinimumSize(new java.awt.Dimension(150, 30));
+        jLabel4.setOpaque(true);
+        jLabel4.setPreferredSize(new java.awt.Dimension(150, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.ipadx = 29;
+        gridBagConstraints.ipady = 40;
+        gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
+        jPanel1.add(jLabel4, gridBagConstraints);
+
+        checkDinaHuapi.setText("Conclusión Dina Huapi");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 10;
-        jPanel1.add(CheckDinaHuapi, gridBagConstraints);
+        jPanel1.add(checkDinaHuapi, gridBagConstraints);
 
         jPanel17.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel17.setFocusable(false);
@@ -1142,10 +1185,9 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         jLabel14.setText("<html>SHIGELLA</html>");
         jLabel14.setToolTipText("");
         jLabel14.setFocusable(false);
-        jLabel14.setMaximumSize(new java.awt.Dimension(150, 30));
-        jLabel14.setMinimumSize(new java.awt.Dimension(150, 30));
-        jLabel14.setName(""); // NOI18N
-        jLabel14.setPreferredSize(new java.awt.Dimension(150, 30));
+        jLabel14.setMaximumSize(new java.awt.Dimension(170, 60));
+        jLabel14.setMinimumSize(new java.awt.Dimension(170, 60));
+        jLabel14.setPreferredSize(new java.awt.Dimension(170, 60));
         jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel14MousePressed(evt);
@@ -1154,13 +1196,12 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.ipady = 20;
         gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 5);
         jPanel17.add(jLabel14, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.ipady = 50;
         gridBagConstraints.insets = new java.awt.Insets(0, 20, 0, 0);
@@ -1213,7 +1254,7 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 8;
         jPanel1.add(jPanel14, gridBagConstraints);
 
         jScrollPane17.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 1, new java.awt.Color(0, 0, 0)));
@@ -1237,7 +1278,7 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.ipadx = 20;
         jPanel1.add(jScrollPane17, gridBagConstraints);
 
@@ -1262,7 +1303,7 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
-        gridBagConstraints.gridy = 9;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         jPanel1.add(jScrollPane18, gridBagConstraints);
@@ -1275,7 +1316,7 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 679, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false), "Cerrar");
@@ -1295,40 +1336,16 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
 
     private void checkObtenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkObtenidoActionPerformed
         if (checkObtenido.isSelected()) {
-            campoGermenes.setText("500");
+            campoGermenes.setText("100");
             comboColiformesFecales.setSelectedItem("Menor a");
-            campoColiformesFecales.setText("3");
+            campoColiformesFecales.setText("2.2");
             comboColiformesTotales.setSelectedItem("Menor a");
-            campoColiformesTotales.setText("3");
+            campoColiformesTotales.setText("2.2");
             comboPseudomona.setSelectedItem("Ausencia");
-            comboPseudomona.setSelectedItem("Ausencia");
+            comboEscherichia.setSelectedItem("Ausencia");
         } else {
         }
     }//GEN-LAST:event_checkObtenidoActionPerformed
-
-    private void campoGermenesCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_campoGermenesCaretUpdate
-        tildarCheck();
-    }//GEN-LAST:event_campoGermenesCaretUpdate
-
-    private void campoColiformesFecalesCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_campoColiformesFecalesCaretUpdate
-        tildarCheck();
-    }//GEN-LAST:event_campoColiformesFecalesCaretUpdate
-
-    private void comboColiformesFecalesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboColiformesFecalesItemStateChanged
-        tildarCheck();
-    }//GEN-LAST:event_comboColiformesFecalesItemStateChanged
-
-    private void comboEscherichiaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEscherichiaItemStateChanged
-        tildarCheck();
-    }//GEN-LAST:event_comboEscherichiaItemStateChanged
-
-    private void comboPseudomonaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboPseudomonaItemStateChanged
-        tildarCheck();
-    }//GEN-LAST:event_comboPseudomonaItemStateChanged
-
-    private void comboColiformesFecalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColiformesFecalesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboColiformesFecalesActionPerformed
 
     private void comboCaracteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCaracteresActionPerformed
         // TODO add your handling code here:
@@ -1353,6 +1370,97 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
     private void campoColiformesTotalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoColiformesTotalesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_campoColiformesTotalesActionPerformed
+
+    private void campoGermenesCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_campoGermenesCaretUpdate
+        tildarCheck();
+    }//GEN-LAST:event_campoGermenesCaretUpdate
+
+    private void comboColiformesFecalesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboColiformesFecalesItemStateChanged
+        tildarCheck();
+    }//GEN-LAST:event_comboColiformesFecalesItemStateChanged
+
+    private void comboColiformesFecalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColiformesFecalesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboColiformesFecalesActionPerformed
+
+    private void campoColiformesFecalesCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_campoColiformesFecalesCaretUpdate
+        tildarCheck();
+    }//GEN-LAST:event_campoColiformesFecalesCaretUpdate
+
+    private void comboEscherichiaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEscherichiaItemStateChanged
+        tildarCheck();
+    }//GEN-LAST:event_comboEscherichiaItemStateChanged
+
+    private void comboPseudomonaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboPseudomonaItemStateChanged
+        tildarCheck();
+    }//GEN-LAST:event_comboPseudomonaItemStateChanged
+
+    private void jLabel10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MousePressed
+        activarGermenes = !activarGermenes;
+        campoGermenes.setEnabled(activarGermenes);
+        area12.setEnabled(activarGermenes);
+        area13.setEnabled(activarGermenes);
+        etiquetaGermenes.setEnabled(activarGermenes);
+        if (activarGermenes) {
+            jPanel7.setBackground(new Color(240, 240, 240));
+        } else {
+            jPanel7.setBackground(new Color(240, 100, 100));
+        }
+    }//GEN-LAST:event_jLabel10MousePressed
+
+    private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
+        activarTotales = !activarTotales;
+        campoColiformesTotales.setEnabled(activarTotales);
+        area24.setEnabled(activarTotales);
+        area25.setEnabled(activarTotales);
+        etiquetaColiformesTotales.setEnabled(activarTotales);
+        comboColiformesTotales.setEnabled(activarTotales);
+        if (activarTotales) {
+            jPanel12.setBackground(new Color(240, 240, 240));
+        } else {
+            jPanel12.setBackground(new Color(240, 100, 100));
+        }
+    }//GEN-LAST:event_jLabel12MousePressed
+
+    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
+        activarFecales = !activarFecales;
+        campoColiformesFecales.setEnabled(activarFecales);
+        area22.setEnabled(activarFecales);
+        area23.setEnabled(activarFecales);
+        etiquetaColiformesFecales.setEnabled(activarFecales);
+        comboColiformesFecales.setEnabled(activarFecales);
+        if (activarFecales) {
+            jPanel2.setBackground(new Color(240, 240, 240));
+        } else {
+            jPanel2.setBackground(new Color(240, 100, 100));
+        }
+    }//GEN-LAST:event_jLabel5MousePressed
+
+    private void jLabel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MousePressed
+        activarEscherichia = !activarEscherichia;
+        area32.setEnabled(activarEscherichia);
+        area33.setEnabled(activarEscherichia);
+        etiquetaEscherichia.setEnabled(activarEscherichia);
+        comboEscherichia.setEnabled(activarEscherichia);
+        if (activarEscherichia) {
+            jPanel8.setBackground(new Color(240, 240, 240));
+        } else {
+            jPanel8.setBackground(new Color(240, 100, 100));
+        }
+    }//GEN-LAST:event_jLabel11MousePressed
+
+    private void jLabel9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MousePressed
+        activarPseudomona = !activarPseudomona;
+        area42.setEnabled(activarPseudomona);
+        area43.setEnabled(activarPseudomona);
+        etiquetaPseudomona.setEnabled(activarPseudomona);
+        comboPseudomona.setEnabled(activarPseudomona);
+        if (activarPseudomona) {
+            jPanel6.setBackground(new Color(240, 240, 240));
+        } else {
+            jPanel6.setBackground(new Color(240, 100, 100));
+        }
+    }//GEN-LAST:event_jLabel9MousePressed
 
     private void jLabel14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MousePressed
         activarShigella = !activarShigella;
@@ -1388,13 +1496,13 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAguaBidon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAguaCOFES.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAguaBidon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAguaCOFES.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAguaBidon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAguaCOFES.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAguaBidon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAguaCOFES.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1402,7 +1510,7 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                tablaMBAguaBidon dialog = new tablaMBAguaBidon(new javax.swing.JFrame(), true, -1, null, false, null);
+                TablaMBAguaCOFES dialog = new TablaMBAguaCOFES(new javax.swing.JFrame(), true, -1, null, false, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -1415,7 +1523,6 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox CheckDinaHuapi;
     private javax.swing.JTextArea area12;
     private javax.swing.JTextArea area13;
     private javax.swing.JTextArea area22;
@@ -1435,6 +1542,7 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
     private javax.swing.JTextField campoColiformesFecales;
     private javax.swing.JTextField campoColiformesTotales;
     private javax.swing.JTextField campoGermenes;
+    private javax.swing.JCheckBox checkDinaHuapi;
     private javax.swing.JCheckBox checkObtenido;
     private javax.swing.JComboBox<String> comboCaracteres;
     private javax.swing.JComboBox<String> comboColiformesFecales;
@@ -1502,26 +1610,26 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
             checkObtenido.setSelected(false);
         }
     }
-    
+
     public void completarReporte() {
         Resultados r = new Resultados();
         String germenes = "-2";
         if (campoGermenes.isEnabled()) {
             germenes = campoGermenes.getText().toUpperCase() + " " + etiquetaGermenes.getText();
         }
-        
+
         String coliformesTotales = "-2";
         if (campoColiformesTotales.isEnabled()) {
             coliformesTotales = comboColiformesTotales.getSelectedItem().toString().toUpperCase()
                     + " " + campoColiformesTotales.getText().toUpperCase() + " " + etiquetaColiformesTotales.getText();
         }
-        
+
         String coliformesFecales = "-2";
         if (campoColiformesFecales.isEnabled()) {
             coliformesFecales = comboColiformesFecales.getSelectedItem().toString().toUpperCase()
                     + " " + campoColiformesFecales.getText().toUpperCase() + " " + etiquetaColiformesFecales.getText();
         }
-        
+
         String escherichia = "-2";
         if (comboEscherichia.isEnabled()) {
             escherichia = String.valueOf(comboEscherichia.getSelectedItem()).toUpperCase() + " " + etiquetaEscherichia.getText();
@@ -1530,112 +1638,142 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
         if (comboPseudomona.isEnabled()) {
             pseudomona = String.valueOf(comboPseudomona.getSelectedItem()).toUpperCase() + " " + etiquetaPseudomona.getText();
         }
-        
         String shigella = "-2";
-        if (comboShigella.isEnabled()) {
-            shigella = String.valueOf(comboShigella.getSelectedItem()).toUpperCase() + " " + etiquetaShigella.getText();
+        if(comboShigella.isEnabled()){
+            shigella = comboShigella.getSelectedItem().toString().toUpperCase() + " " + etiquetaShigella.getText();
         }
-        
         String ph = String.valueOf(cajaPh.getText());
         String cloro = String.valueOf(cajaCloro.getText());
         String caracteres = "";
         String idmuestra = String.valueOf(id);
         String[] valores = {idmuestra, germenes, coliformesTotales, coliformesFecales, escherichia, pseudomona, "", ph, cloro, caracteres, "", shigella};
-        if (editar) {
-            if (CheckDinaHuapi.isSelected()) {
-                if (c.recuperarObservaciones(id) != null && c.recuperarObservaciones(id).length() > 5) {
-                    valores[6] = JOptionPane.showInputDialog("Digite la observacion:", "Se reciben: frasco estéril x 500 ml con tiolsulfato"
-                            + "de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. " + c.recuperarObservaciones(id).substring(160));
-                } else {
-                    valores[6] = JOptionPane.showInputDialog("Digite la observacion:", "Se reciben: frasco estéril x 500 ml con tiolsulfato"
-                            + "de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. ");
-                }
-            } else {
-                valores[6] = JOptionPane.showInputDialog("Digite la observacion:", c.recuperarObservaciones(id));
-            }
-        } else {
-            if (CheckDinaHuapi.isSelected()) {
-                valores[6] = JOptionPane.showInputDialog("Digite la observacion:", "Se reciben: frasco estéril x 500 ml con tiolsulfato"
-                        + "de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. ");
-            } else {
-                valores[6] = JOptionPane.showInputDialog("Digite la observacion:");
-            }
-        }
-        valores[6] = valores[6].isBlank() ? "" : valores[6].trim().endsWith(".") ? valores[6] : valores[6] + ".";
         r.setTipo("Microbiológico de agua COFES");
-        java.util.Date fm = cajaFechaAnalisis.getDate(); //obtener fecha
-        Long dm = fm.getTime(); //sacar timepo
-        java.sql.Date fechaAnalisis = new java.sql.Date(dm); //cast de fecha
-        r.setFechaAnalisis(fechaAnalisis);
-        if (comboCaracteres.getSelectedItem().equals("Normales")) {
-            caracteres = "Normales";
-        } else {
+        try {
+            java.util.Date fm = cajaFechaAnalisis.getDate(); //obtener fecha
+            Long dm = fm.getTime(); //sacar timepo
+            java.sql.Date fechaAnalisis = new java.sql.Date(dm); //cast de fecha
+            r.setFechaAnalisis(fechaAnalisis);
             if (editar) {
-                caracteres = JOptionPane.showInputDialog("Digite los caracteres organolepticos: ", auxCaracteres);
+                if (checkDinaHuapi.isSelected()) {
+                    if (c.recuperarObservaciones(id) != null && c.recuperarObservaciones(id).length() > 5) {
+                        valores[6] = JOptionPane.showInputDialog("Digite la observacion:", "Se reciben: frasco estéril x 500 ml con tiosulfato "
+                                + "de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. " + c.recuperarObservaciones(id).substring(160));
+                    } else {
+                        valores[6] = JOptionPane.showInputDialog("Digite la observacion:", "Se reciben: frasco estéril x 500 ml con tiosulfato"
+                                + " de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. ");
+                    }
+                } else {
+                    valores[6] = JOptionPane.showInputDialog("Digite la observacion:", c.recuperarObservaciones(id));
+                }
             } else {
-                caracteres = JOptionPane.showInputDialog("Digite los caracteres organolepticos: ");
-            }
-        }
-        
-        valores[9] = caracteres;
-        String conclusion = crearConclusion();
-        c.guardarConclusion(conclusion, id);
-        r.setResultadoMB(valores);
-        if (editar) {
-            File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
-            File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
-            rv.renameTo(rn);
-            if (c.editarMBAgua(r)) {
-                c.guardarFechaAnalisisMBAGUA(r, id);
-                c.guardarFechaAnalisis(r, id);
-                if (c.checkearVencimiento(r)) {
-                    c.actualizarVencimiento(r);
+                if (checkDinaHuapi.isSelected()) {
+                    valores[6] = JOptionPane.showInputDialog("Digite la observacion:", "Se reciben: frasco estéril x 500 ml con tiosulfato"
+                            + " de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. ");
                 } else {
-                    c.agregarVencimiento(r);
+                    valores[6] = JOptionPane.showInputDialog("Digite la observacion:");
                 }
-                c.guardarObservaciones(valores[6], id);
-                System.out.println(campoColiformesFecales.getWidth());
-                this.dispose();
-                c.generarReporteMBAguaBidon(id, procedencia);
             }
-            
-        } else {
-            if (c.guardarResultadoMBAgua(r)) {
-                c.guardarFechaAnalisisMBAGUA(r, id);
-                c.guardarFechaAnalisis(r, id);
-                if (c.checkearVencimiento(r)) {
-                    c.actualizarVencimiento(r);
+            valores[6] = valores[6].isBlank() ? "" : valores[6].trim().endsWith(".") ? valores[6] : valores[6] + ".";
+
+            if (comboCaracteres.getSelectedItem().equals("Normales")) {
+                caracteres = "Normales";
+            } else {
+                if (editar) {
+                    caracteres = JOptionPane.showInputDialog("Digite los caracteres organolepticos: ", auxCaracteres);
                 } else {
-                    c.agregarVencimiento(r);
+                    caracteres = JOptionPane.showInputDialog("Digite los caracteres organolepticos: ");
                 }
-                c.guardarObservaciones(valores[6], id);
-                this.dispose();
-                c.generarReporteMBAguaBidon(id, procedencia);
             }
+            valores[9] = caracteres;
+            String conclusion = crearConclusion();
+            c.guardarConclusion(conclusion, id);
+            r.setResultadoMB(valores);
+            if (editar) {
+                File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
+                File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+                rv.renameTo(rn);
+                if (c.editarMBAgua(r)) {
+                    if (c.checkearVencimiento(r)) {
+                        c.actualizarVencimiento(r);
+                    } else {
+                        c.agregarVencimiento(r);
+                    }
+                    c.guardarObservaciones(valores[6], id);
+                    c.guardarFechaAnalisis(r, id);
+                    c.guardarFechaAnalisisMBAGUA(r, id);
+                    this.dispose();
+                    c.generarReporteMBAguaCOFES(id, procedencia);
+                }
+
+            } else {
+                if (c.guardarResultadoMBAgua(r)) {
+                    if (c.checkearVencimiento(r)) {
+                        c.actualizarVencimiento(r);
+                    } else {
+                        c.agregarVencimiento(r);
+                    }
+                    c.guardarFechaAnalisis(r, id);
+                    c.guardarFechaAnalisisMBAGUA(r, id);
+                    c.guardarObservaciones(valores[6], id);
+                    this.dispose();
+                    c.generarReporteMBAguaCOFES(id, procedencia);
+                }
+
+            }
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Ingrese la fecha de análisis.");
         }
+
     }
-    
+
     public String crearConclusion() {
-        boolean germenes = !(Integer.parseInt(campoGermenes.getText()) > 499);
-        boolean coliformesTotales = !(Double.parseDouble(campoColiformesTotales.getText()) > 1.1);
-        boolean coliformesFecales = !(Double.parseDouble(campoColiformesFecales.getText()) > 1.1);
+        boolean germenes = true;
+        if (campoGermenes.isEnabled()) {
+            germenes = !(Integer.parseInt(campoGermenes.getText()) > 99);
+        }
+
+        boolean coliformesTotales = true;
+        if (campoColiformesTotales.isEnabled()) {
+            coliformesTotales = !(Double.parseDouble(campoColiformesTotales.getText()) > 2.2);
+            if (Double.parseDouble(campoColiformesTotales.getText()) == 2.2 && comboColiformesTotales.getSelectedItem().equals("Menor a")) {
+                coliformesTotales = true;
+            } else if (Double.parseDouble(campoColiformesTotales.getText()) == 2.2 && comboColiformesTotales.getSelectedItem().equals("Mayor a")) {
+                coliformesTotales = true;
+            }
+        }
+        boolean coliformesFecales = true;
+        if (campoColiformesFecales.isEnabled()) {
+            coliformesFecales = !(Double.parseDouble(campoColiformesFecales.getText()) > 2.2);
+            if (Double.parseDouble(campoColiformesFecales.getText()) == 2.2 && comboColiformesFecales.getSelectedItem().equals("Menor a")) {
+                coliformesFecales = true;
+            } else if (Double.parseDouble(campoColiformesFecales.getText()) == 2.2 && comboColiformesFecales.getSelectedItem().equals("Mayor a")) {
+                coliformesFecales = true;
+            }
+        }
+
+        boolean escherichia = true;
+        if (comboEscherichia.isEnabled()) {
+            escherichia = !(comboEscherichia.getSelectedItem().toString().equals("Presencia"));
+        }
+
+        boolean pseudomona = true;
+        if (comboPseudomona.isEnabled()) {
+            pseudomona = !(comboPseudomona.getSelectedItem().toString().equals("Presencia"));
+        }
         
-        if (Double.parseDouble(campoColiformesTotales.getText()) == 1.1 && comboColiformesTotales.getSelectedItem().equals("Menor a")) {
-            coliformesTotales = true;
+        boolean shigella = true;
+        if (comboShigella.isEnabled()) {
+            shigella = !(comboShigella.getSelectedItem().toString().equals("Presencia"));
         }
-        if (Double.parseDouble(campoColiformesFecales.getText()) == 1.1 && comboColiformesFecales.getSelectedItem().equals("Menor a")) {
-            coliformesFecales = true;
-        }
-        boolean escherichia = !(comboEscherichia.getSelectedItem().toString().equals("Presencia"));
-        boolean pseudomona = !(comboPseudomona.getSelectedItem().toString().equals("Presencia"));
-        boolean shigella = !(comboShigella.getSelectedItem().toString().equals("Presencia"));
+        
         String conclusion = "";
         boolean aux = germenes && coliformesTotales && coliformesFecales && escherichia && pseudomona && shigella;
         if (aux) {
-            conclusion = "En los parámetros analizados, la muestra cumple con las especificaciones microbiológicas "
-                    + "estipuladas por el art. 983 del Código Alimentario Argentino (Ley 18284).";
+            conclusion = "En las determinaciones realizadas, la muestra analizada "
+                    + "cumple con las especificaciones microbiológicas "
+                    + "estipuladas por la norma COFES (1996).";
         } else {
-            conclusion = "Dado el recuento de";
+            conclusion = "Dado el recuento de ";
             if (!germenes) {
                 conclusion += " Germenes aerobios totales,";
             }
@@ -1652,7 +1790,7 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
                 conclusion += " Pseudomona aeruginosa,";
             }
             if (!shigella) {
-                conclusion += " Shigella,";
+                conclusion += " Shigella ,";
             }
             conclusion = conclusion.substring(0, conclusion.length() - 1);
             String recomendacion = "";
@@ -1666,19 +1804,18 @@ public class tablaMBAguaBidon extends javax.swing.JDialog {
             }
             c.guardarRecomendacion(recomendacion, id);
             if (recomendacion.length() < 1) {
-                conclusion += " la muestra no cumple con las especificaciones microbiológicas "
-                        + "estipuladas por el art. 982 del Código Alimentario Argentino (Ley 18284).";
+                conclusion += " la muestra analizada no cumple con las especificaciones microbiológicas "
+                        + "estipuladas por la norma COFES (1996).";
             } else {
-                conclusion += " la muestra no cumple con las especificaciones microbiológicas "
-                        + "estipuladas por el art. 982 del Código Alimentario Argentino"
-                        + " (Ley 18284). Se recomienda " + recomendacion.toLowerCase() + ".";
+                conclusion += " la muestra analizada no cumple con las especificaciones microbiológicas "
+                        + "estipuladas por la norma COFES (1996). Se recomienda " + recomendacion.toLowerCase();
             }
-            
+
         }
-        conclusion.replace("poes", "POES").replace("bpm", "BPM");
-        conclusion = conclusion.isBlank() ? "" : conclusion.trim().endsWith(".") ? conclusion : conclusion + ".";
+        conclusion = conclusion.replace("poes", "POES").replace("bpm", "BPM");
+        conclusion = conclusion.isBlank() ? "" : conclusion.equals("-") ? "" : conclusion.trim().endsWith(".") ? conclusion : conclusion + ".";
         return conclusion;
-        
+
     }
 
     private MouseEvent click(Component componente) {

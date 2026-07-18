@@ -22,7 +22,7 @@ import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 import javax.swing.JComponent;
 
-public class tablaFQAgua extends javax.swing.JDialog {
+public class TablaFQAgua extends javax.swing.JDialog {
 
     int id;
     Consultas c = Consultas.getInstancia();
@@ -32,7 +32,7 @@ public class tablaFQAgua extends javax.swing.JDialog {
             activarHierro = true, activarNitratos = true, activarNitritos = true, activarSulfatos = true;
     String procedencia, pdf, auxObservaciones, auxOlor;
 
-    public tablaFQAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
+    public TablaFQAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
         this.id = id;
         this.procedencia = procedencia;
@@ -2167,7 +2167,7 @@ public class tablaFQAgua extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tablaFQAgua.class
+            java.util.logging.Logger.getLogger(TablaFQAgua.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         }
@@ -2182,7 +2182,7 @@ public class tablaFQAgua extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                tablaFQAgua dialog = new tablaFQAgua(new javax.swing.JFrame(), true, -1, null, true, null);
+                TablaFQAgua dialog = new TablaFQAgua(new javax.swing.JFrame(), true, -1, null, true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

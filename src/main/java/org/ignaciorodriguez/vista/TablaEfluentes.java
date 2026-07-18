@@ -23,7 +23,7 @@ import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 import javax.swing.JComponent;
 
-public class tablaEfluentes extends javax.swing.JDialog {
+public class TablaEfluentes extends javax.swing.JDialog {
 
     int id;
     String procedencia, pdf, lugarMuestreo, auxObservaciones, auxConclusion;
@@ -31,8 +31,8 @@ public class tablaEfluentes extends javax.swing.JDialog {
     boolean editar, activarPh = true, activarDQO = true, activarDBO = true,
             activarSolidos10 = true, activarSolidos120 = true, activarHidrocarburos = true;
 
-    public tablaEfluentes(java.awt.Frame parent, boolean modal, int id, String procedencia,
-            boolean editar, String pdf, String lugarMuestreo) {
+    public TablaEfluentes(java.awt.Frame parent, boolean modal, int id, String procedencia,
+                          boolean editar, String pdf, String lugarMuestreo) {
         super(parent, modal);
         this.procedencia = procedencia;
         this.id = id;
@@ -1472,13 +1472,13 @@ public class tablaEfluentes extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tablaEfluentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaEfluentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tablaEfluentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaEfluentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tablaEfluentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaEfluentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tablaEfluentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaEfluentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1486,7 +1486,7 @@ public class tablaEfluentes extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                tablaEfluentes dialog = new tablaEfluentes(new javax.swing.JFrame(), true, -1, null, false, null, null);
+                TablaEfluentes dialog = new TablaEfluentes(new javax.swing.JFrame(), true, -1, null, false, null, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

@@ -1237,27 +1237,27 @@ public class Principal extends JFrame {
             pdf += ".pdf";
             switch (tipo) {
                 case "Microbiológico de agua código":
-                    tablaMBAgua mb = new tablaMBAgua(this, true, id, procedencia, true, pdf);
+                    TablaMBAgua mb = new TablaMBAgua(this, true, id, procedencia, true, pdf);
                     mb.setVisible(true);
                     break;
                 case "Microbiológico de agua bidón":
-                    tablaMBAguaBidon mbbidon = new tablaMBAguaBidon(this, true, id, procedencia, true, pdf);
+                    TablaMBAguaBidon mbbidon = new TablaMBAguaBidon(this, true, id, procedencia, true, pdf);
                     mbbidon.setVisible(true);
                     break;
                 case "Microbiológico de agua balnearios":
-                    tablaMBAguaBalnearios mbb = new tablaMBAguaBalnearios(this, true, id, procedencia, true, pdf);
+                    TablaMBAguaBalnearios mbb = new TablaMBAguaBalnearios(this, true, id, procedencia, true, pdf);
                     mbb.setVisible(true);
                     break;
                 case "Microbiológico de agua COFES":
-                    tablaMBAguaCOFES mbc = new tablaMBAguaCOFES(this, true, id, procedencia, true, pdf);
+                    TablaMBAguaCOFES mbc = new TablaMBAguaCOFES(this, true, id, procedencia, true, pdf);
                     mbc.setVisible(true);
                     break;
                 case "Microbiológico de agua de recreación":
-                    tablaMBAguaRecreacion mbr = new tablaMBAguaRecreacion(this, true, id, procedencia, true, pdf);
+                    TablaMBAguaRecreacion mbr = new TablaMBAguaRecreacion(this, true, id, procedencia, true, pdf);
                     mbr.setVisible(true);
                     break;
                 case "Físico químico de agua básico":
-                    tablaFQAgua fq = new tablaFQAgua(this, true, id, procedencia, true, pdf);
+                    TablaFQAgua fq = new TablaFQAgua(this, true, id, procedencia, true, pdf);
                     System.out.println(pdf + " " + id);
                     fq.setVisible(true);
                     break;
@@ -1278,43 +1278,43 @@ public class Principal extends JFrame {
                     tn.setVisible(true);
                     break;
                 case "Efluentes":
-                    tablaEfluentes efluentes = new tablaEfluentes(this, true, id, consultas.obtenerProcedenciayNombre(id), true, pdf, consultas.obtenerLugarMuestreo(id));
+                    TablaEfluentes efluentes = new TablaEfluentes(this, true, id, consultas.obtenerProcedenciayNombre(id), true, pdf, consultas.obtenerLugarMuestreo(id));
                     efluentes.setVisible(true);
                     break;
                 case "Microbiológico de chocolates Del Turista":
-                    tablaMBChocolates mbChocolates = new tablaMBChocolates(this, true, id, procedencia, true, pdf);
+                    TablaMBChocolates mbChocolates = new TablaMBChocolates(this, true, id, procedencia, true, pdf);
                     mbChocolates.setVisible(true);
                     break;
                 case "Microbiológico de alimentos":
-                    tablaMBAlimentos mbAlimentos = new tablaMBAlimentos(this, true, id, procedencia, true, pdf);
+                    TablaMBAlimentos mbAlimentos = new TablaMBAlimentos(this, true, id, procedencia, true, pdf);
                     mbAlimentos.setVisible(true);
                     break;
                 case "Hisopados":
-                    tablaHisopados hisopados = new tablaHisopados(this, true, id, procedencia, true, pdf);
+                    TablaHisopados hisopados = new TablaHisopados(this, true, id, procedencia, true, pdf);
                     hisopados.setVisible(true);
                     break;
                 case "Hisopados Alliance":
-                    tablaHisopadosAlliance hisopadosAlliance = new tablaHisopadosAlliance(this, true, id, procedencia, true, pdf);
+                    TablaHisopadosAlliance hisopadosAlliance = new TablaHisopadosAlliance(this, true, id, procedencia, true, pdf);
                     hisopadosAlliance.setVisible(true);
                     break;
                 case "Hisopados con límites":
-                    tablaHisopadosAlliance hisopadosConLimites = new tablaHisopadosAlliance(this, true, id, procedencia, true, pdf);
+                    TablaHisopadosAlliance hisopadosConLimites = new TablaHisopadosAlliance(this, true, id, procedencia, true, pdf);
                     hisopadosConLimites.setVisible(true);
                     break;
                 case "Efluentes cloaca":
-                    tablaEfluentesCloaca tc = new tablaEfluentesCloaca(this, true, id, procedencia, true, pdf, tipo);
+                    TablaEfluentesCloaca tc = new TablaEfluentesCloaca(this, true, id, procedencia, true, pdf, tipo);
                     tc.setVisible(true);
                     break;
                 case "Base helada Del Turista":
-                    tablaBaseHelada tbh = new tablaBaseHelada(this, true, id, procedencia, true, pdf);
+                    TablaBaseHelada tbh = new TablaBaseHelada(this, true, id, procedencia, true, pdf);
                     tbh.setVisible(true);
                     break;
                 case "Efluentes infiltración":
-                    tablaEfluentesInfiltracion ti = new tablaEfluentesInfiltracion(this, true, id, procedencia, true, pdf, tipo);
+                    TablaEfluentesInfiltracion ti = new TablaEfluentesInfiltracion(this, true, id, procedencia, true, pdf, tipo);
                     ti.setVisible(true);
                     break;
                 case "Manual":
-                    tablaManual tm = new tablaManual(this, true, true, id, procedencia, pdf);
+                    TablaManual tm = new TablaManual(this, true, true, id, procedencia, pdf);
                     tm.setVisible(true);
                     break;
             }
@@ -1532,52 +1532,52 @@ public class Principal extends JFrame {
                 switch (tipo) {
                     case "Microbiológico de agua código":
                         if (consultas.checkearResultadoMBAgua(id)) {
-                            WeakReference<tablaMBAgua> mb = new WeakReference<>(new tablaMBAgua(this, true, id, procedencia, true, pdf));
+                            WeakReference<TablaMBAgua> mb = new WeakReference<>(new TablaMBAgua(this, true, id, procedencia, true, pdf));
                             mb.get().setVisible(true);
                         } else {
-                            WeakReference<tablaMBAgua> mb = new WeakReference<>(new tablaMBAgua(this, true, id, procedencia, false, pdf));
+                            WeakReference<TablaMBAgua> mb = new WeakReference<>(new TablaMBAgua(this, true, id, procedencia, false, pdf));
                             mb.get().setVisible(true);
                         }
                         break;
                     case "Microbiológico de agua bidón":
                         if (consultas.checkearResultadoMBAgua(id)) {
-                            tablaMBAguaBidon mbbidon = new tablaMBAguaBidon(this, true, id, procedencia, true, pdf);
+                            TablaMBAguaBidon mbbidon = new TablaMBAguaBidon(this, true, id, procedencia, true, pdf);
                             mbbidon.setVisible(true);
                         } else {
-                            tablaMBAguaBidon mbbidon = new tablaMBAguaBidon(this, true, id, procedencia, false, pdf);
+                            TablaMBAguaBidon mbbidon = new TablaMBAguaBidon(this, true, id, procedencia, false, pdf);
                             mbbidon.setVisible(true);
                         }
                         break;
                     case "Microbiológico de agua balnearios":
                         if (consultas.checkearResultadoMBAgua(id)) {
-                            tablaMBAguaBalnearios mbb = new tablaMBAguaBalnearios(this, true, id, procedencia, true, pdf);
+                            TablaMBAguaBalnearios mbb = new TablaMBAguaBalnearios(this, true, id, procedencia, true, pdf);
                             mbb.setVisible(true);
                         } else {
-                            tablaMBAguaBalnearios mbb = new tablaMBAguaBalnearios(this, true, id, procedencia, false, pdf);
+                            TablaMBAguaBalnearios mbb = new TablaMBAguaBalnearios(this, true, id, procedencia, false, pdf);
                             mbb.setVisible(true);
                         }
                         break;
 
                     case "Microbiológico de agua COFES":
                         if (consultas.checkearResultadoMBAgua(id)) {
-                            tablaMBAguaCOFES mbc = new tablaMBAguaCOFES(this, true, id, procedencia, true, pdf);
+                            TablaMBAguaCOFES mbc = new TablaMBAguaCOFES(this, true, id, procedencia, true, pdf);
                             mbc.setVisible(true);
                         } else {
-                            tablaMBAguaCOFES mbc = new tablaMBAguaCOFES(this, true, id, procedencia, false, pdf);
+                            TablaMBAguaCOFES mbc = new TablaMBAguaCOFES(this, true, id, procedencia, false, pdf);
                             mbc.setVisible(true);
                         }
                         break;
                     case "Microbiológico de agua de recreación":
                         if (consultas.checkearResultadoMBAgua(id)) {
-                            tablaMBAguaRecreacion mbr = new tablaMBAguaRecreacion(this, true, id, procedencia, true, pdf);
+                            TablaMBAguaRecreacion mbr = new TablaMBAguaRecreacion(this, true, id, procedencia, true, pdf);
                             mbr.setVisible(true);
                         } else {
-                            tablaMBAguaRecreacion mbr = new tablaMBAguaRecreacion(this, true, id, procedencia, false, pdf);
+                            TablaMBAguaRecreacion mbr = new TablaMBAguaRecreacion(this, true, id, procedencia, false, pdf);
                             mbr.setVisible(true);
                         }
                         break;
                     case "Físico químico de agua básico":
-                        tablaFQAgua fq = new tablaFQAgua(this, true, id, procedencia, false, pdf);
+                        TablaFQAgua fq = new TablaFQAgua(this, true, id, procedencia, false, pdf);
                         fq.setVisible(true);
                         break;
                     case "Físico químico de agua completo":
@@ -1604,44 +1604,44 @@ public class Principal extends JFrame {
                             break;
                         }
                     case "Efluentes":
-                        tablaEfluentes e = new tablaEfluentes(this, true, id, procedencia,
+                        TablaEfluentes e = new TablaEfluentes(this, true, id, procedencia,
                                 false, pdf, consultas.obtenerLugarMuestreo(id));
                         e.setVisible(true);
                         break;
                     case "Microbiológico de chocolates Del Turista":
-                        tablaMBChocolates mbchocolates = new tablaMBChocolates(this, true, id, procedencia, false, pdf);
+                        TablaMBChocolates mbchocolates = new TablaMBChocolates(this, true, id, procedencia, false, pdf);
                         mbchocolates.setVisible(true);
                         break;
                     case "Microbiológico de alimentos":
-                        tablaMBAlimentos mbAlimentos = new tablaMBAlimentos(this, true, id, procedencia, false, pdf);
+                        TablaMBAlimentos mbAlimentos = new TablaMBAlimentos(this, true, id, procedencia, false, pdf);
                         mbAlimentos.setVisible(true);
                         break;
                     case "Hisopados":
-                        tablaHisopados hisopados = new tablaHisopados(this, true, id, procedencia, false, pdf);
+                        TablaHisopados hisopados = new TablaHisopados(this, true, id, procedencia, false, pdf);
                         hisopados.setVisible(true);
                         break;
                     case "Hisopados Alliance":
-                        tablaHisopadosAlliance hisopadosAlliance = new tablaHisopadosAlliance(this, true, id, procedencia, false, pdf);
+                        TablaHisopadosAlliance hisopadosAlliance = new TablaHisopadosAlliance(this, true, id, procedencia, false, pdf);
                         hisopadosAlliance.setVisible(true);
                         break;
                     case "Hisopados con límites":
-                        tablaHisopadosAlliance hisopadosConLimites = new tablaHisopadosAlliance(this, true, id, procedencia, false, pdf);
+                        TablaHisopadosAlliance hisopadosConLimites = new TablaHisopadosAlliance(this, true, id, procedencia, false, pdf);
                         hisopadosConLimites.setVisible(true);
                         break;
                     case "Efluentes cloaca":
-                        tablaEfluentesCloaca ec = new tablaEfluentesCloaca(this, true, id, procedencia, false, pdf, tipo);
+                        TablaEfluentesCloaca ec = new TablaEfluentesCloaca(this, true, id, procedencia, false, pdf, tipo);
                         ec.setVisible(true);
                         break;
                     case "Efluentes infiltración":
-                        tablaEfluentesInfiltracion ei = new tablaEfluentesInfiltracion(this, true, id, procedencia, false, pdf, tipo);
+                        TablaEfluentesInfiltracion ei = new TablaEfluentesInfiltracion(this, true, id, procedencia, false, pdf, tipo);
                         ei.setVisible(true);
                         break;
                     case "Base helada Del Turista":
-                        tablaBaseHelada tbh = new tablaBaseHelada(this, true, id, procedencia, false, pdf);
+                        TablaBaseHelada tbh = new TablaBaseHelada(this, true, id, procedencia, false, pdf);
                         tbh.setVisible(true);
                         break;
                     case "Manual":
-                        tablaManual tm = new tablaManual(this, true, false, id, procedencia, pdf);
+                        TablaManual tm = new TablaManual(this, true, false, id, procedencia, pdf);
                         tm.setVisible(true);
                         break;
                 }
@@ -1661,7 +1661,7 @@ public class Principal extends JFrame {
 
     private void itemNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNotasActionPerformed
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0));
-        ventanaNotas v = new ventanaNotas(this, true, id);
+        VentanaNotas v = new VentanaNotas(this, true, id);
         v.setVisible(true);
     }//GEN-LAST:event_itemNotasActionPerformed
 
@@ -1715,7 +1715,7 @@ public class Principal extends JFrame {
         if (actualizacion == 1) {
             JOptionPane.showMessageDialog(null, "Para enviar un error, primero se debe probar la nueva versión del programa");
         } else {
-            ventanaEmailError v = new ventanaEmailError(this, true);
+            VentanaEmailError v = new VentanaEmailError(this, true);
             v.setVisible(true);
         }
     }//GEN-LAST:event_jMenuItem3ActionPerformed

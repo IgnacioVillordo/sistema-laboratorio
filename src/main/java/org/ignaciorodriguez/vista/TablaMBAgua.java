@@ -22,7 +22,7 @@ import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 import javax.swing.JComponent;
 
-public class tablaMBAgua extends javax.swing.JDialog {
+public class TablaMBAgua extends javax.swing.JDialog {
 
     int id;
     String procedencia, pdf, auxCaracteres;
@@ -33,7 +33,7 @@ public class tablaMBAgua extends javax.swing.JDialog {
     private String aux;
     org.slf4j.Logger log;
 
-    public tablaMBAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
+    public TablaMBAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
         this.procedencia = procedencia;
         this.id = id;
@@ -1755,20 +1755,20 @@ public class tablaMBAgua extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAgua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAgua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAgua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAgua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAgua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAgua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAgua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAgua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                tablaMBAgua dialog = new tablaMBAgua(new javax.swing.JFrame(), true, -1, null, false, null);
+                TablaMBAgua dialog = new TablaMBAgua(new javax.swing.JFrame(), true, -1, null, false, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

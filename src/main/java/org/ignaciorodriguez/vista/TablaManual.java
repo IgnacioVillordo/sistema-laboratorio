@@ -19,7 +19,7 @@ import javax.swing.SwingUtilities;
 
 import org.ignaciorodriguez.modelo.Consultas;
 
-public class tablaManual extends javax.swing.JDialog {
+public class TablaManual extends javax.swing.JDialog {
 
     boolean editar, auxEditar;
     int id;
@@ -27,7 +27,7 @@ public class tablaManual extends javax.swing.JDialog {
     String auxTitulo, auxConclusion, procedencia, pdf, auxObservacion;
     Point mousePoint;
 
-    public tablaManual(java.awt.Frame parent, boolean modal, boolean editar, int id, String procedencia, String pdf) {
+    public TablaManual(java.awt.Frame parent, boolean modal, boolean editar, int id, String procedencia, String pdf) {
         super(parent, modal);
         this.id = id;
         initComponents();
@@ -3414,9 +3414,9 @@ public class tablaManual extends javax.swing.JDialog {
             try {
                 jta.setText(transferable.getTransferData(DataFlavor.stringFlavor).toString());
             } catch (UnsupportedFlavorException ex) {
-                System.getLogger(tablaManual.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                System.getLogger(TablaManual.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             } catch (IOException ex) {
-                System.getLogger(tablaManual.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                System.getLogger(TablaManual.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
         }
     }//GEN-LAST:event_itemPegarActionPerformed
@@ -3430,19 +3430,19 @@ public class tablaManual extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tablaManual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaManual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tablaManual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaManual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tablaManual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaManual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tablaManual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaManual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                tablaManual dialog = new tablaManual(new javax.swing.JFrame(), true, false, -1, "", "");
+                TablaManual dialog = new TablaManual(new javax.swing.JFrame(), true, false, -1, "", "");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

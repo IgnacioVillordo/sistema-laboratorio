@@ -44,7 +44,7 @@ import org.ignaciorodriguez.modelo.Usuario;
  *
  * @author Nacho
  */
-public class ventanaEmail extends javax.swing.JDialog {
+public class VentanaEmail extends javax.swing.JDialog {
 
     Consultas c = Consultas.getInstancia();
     String email;
@@ -53,7 +53,7 @@ public class ventanaEmail extends javax.swing.JDialog {
     boolean editar = false;
     Frame parent;
     private static final Dotenv dotenv = Dotenv.load();
-    public ventanaEmail(java.awt.Frame parent, boolean modal, int id, String pdf) {
+    public VentanaEmail(java.awt.Frame parent, boolean modal, int id, String pdf) {
         super(parent, modal);
         this.parent = parent;
         this.id = id;
@@ -72,7 +72,7 @@ public class ventanaEmail extends javax.swing.JDialog {
         System.setProperty("javax.net.ssl.trustStorePassword", "laboratorioav");
     }
 
-    public ventanaEmail(java.awt.Frame parent, boolean modal, String pdf, String destinatario, String remitente, String cuerpo) {
+    public VentanaEmail(java.awt.Frame parent, boolean modal, String pdf, String destinatario, String remitente, String cuerpo) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -339,7 +339,7 @@ public class ventanaEmail extends javax.swing.JDialog {
         try {
             Desktop.getDesktop().open(archivo);
         } catch (IOException ex) {
-            Logger.getLogger(ventanaEmail.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentanaEmail.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -353,7 +353,7 @@ public class ventanaEmail extends javax.swing.JDialog {
         }
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ventanaEmail dialog = new ventanaEmail(new javax.swing.JFrame(), true, -1, "");
+                VentanaEmail dialog = new VentanaEmail(new javax.swing.JFrame(), true, -1, "");
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

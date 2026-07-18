@@ -38,13 +38,13 @@ import org.ignaciorodriguez.modelo.Consultas;
  *
  * @author Nacho
  */
-public class ventanaEmailError extends javax.swing.JDialog {
+public class VentanaEmailError extends javax.swing.JDialog {
 
     Consultas c = Consultas.getInstancia();
     String ruta = c.recuperarRutas("Respaldo");
     File copia = new File(c.devolverCopiaSeguridad(ruta));
 
-    public ventanaEmailError(java.awt.Frame parent, boolean modal) {
+    public VentanaEmailError(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         Thread t = new Thread(){
             public void run(){
@@ -53,7 +53,7 @@ public class ventanaEmailError extends javax.swing.JDialog {
         };
         t.start();
         initComponents();
-        TextPrompt text = new TextPrompt("Describa el problema e ingrese los ID y tipos de análisis de ser necesario.", cajaCuerpo);
+        TextPlaceholder text = new TextPlaceholder("Describa el problema e ingrese los ID y tipos de análisis de ser necesario.", cajaCuerpo);
         setLocationRelativeTo(null);
         cajaPara.setText("ignaciorodriguezv28@gmail.com");
         etiquetaAdjunto.setText("<html>Archivo adjunto: " + copia.getName());
@@ -221,7 +221,7 @@ public class ventanaEmailError extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ventanaEmailError dialog = new ventanaEmailError(new javax.swing.JFrame(), true);
+                VentanaEmailError dialog = new VentanaEmailError(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

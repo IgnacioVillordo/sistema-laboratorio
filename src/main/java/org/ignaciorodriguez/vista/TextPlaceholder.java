@@ -16,7 +16,7 @@ import javax.swing.text.*;
  *  of the parent text component. You are free to change the properties after
  *  class construction.
  */
-public class TextPrompt extends JLabel
+public class TextPlaceholder extends JLabel
 	implements FocusListener, DocumentListener
 {
 	public enum Show
@@ -33,12 +33,12 @@ public class TextPrompt extends JLabel
 	private boolean showPromptOnce;
 	private int focusLost;
 
-	public TextPrompt(String text, JTextComponent component)
+	public TextPlaceholder(String text, JTextComponent component)
 	{
 		this(text, component, Show.ALWAYS);
 	}
 
-	public TextPrompt(String text, JTextComponent component, Show show)
+	public TextPlaceholder(String text, JTextComponent component, Show show)
 	{
 		this.component = component;
 		setShow( show );

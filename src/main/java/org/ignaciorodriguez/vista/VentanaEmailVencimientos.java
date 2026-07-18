@@ -34,14 +34,14 @@ import org.ignaciorodriguez.modelo.Consultas;
  *
  * @author Nacho
  */
-public class ventanaEmailVencimientos extends javax.swing.JDialog {
+public class VentanaEmailVencimientos extends javax.swing.JDialog {
 
     Consultas c = Consultas.getInstancia();
     String email, vencimiento, tipo;
     int id;
     boolean editar = false;
 
-    public ventanaEmailVencimientos(java.awt.Frame parent, boolean modal, int id) {
+    public VentanaEmailVencimientos(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
         this.id = id;
         Date hora = Date.from(Instant.now());
@@ -59,7 +59,7 @@ public class ventanaEmailVencimientos extends javax.swing.JDialog {
         try {
             vencimiento = df2.format(df1.parse(aux[1]));
         } catch (ParseException ex) {
-            Logger.getLogger(ventanaEmailVencimientos.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(VentanaEmailVencimientos.class.getName()).log(Level.SEVERE, null, ex);
         }
         email = aux[0];
         cajaPara.setText(email);
@@ -298,7 +298,7 @@ public class ventanaEmailVencimientos extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ventanaEmailVencimientos dialog = new ventanaEmailVencimientos(new javax.swing.JFrame(), true, -1);
+                VentanaEmailVencimientos dialog = new VentanaEmailVencimientos(new javax.swing.JFrame(), true, -1);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

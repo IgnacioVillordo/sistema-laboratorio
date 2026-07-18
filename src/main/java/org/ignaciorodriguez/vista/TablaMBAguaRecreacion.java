@@ -28,7 +28,7 @@ import javax.swing.JTextField;
  *
  * @author Nacho
  */
-public class tablaMBAguaRecreacion extends javax.swing.JDialog {
+public class TablaMBAguaRecreacion extends javax.swing.JDialog {
 
     int id;
     String procedencia, pdf, auxCaracteres;
@@ -38,7 +38,7 @@ public class tablaMBAguaRecreacion extends javax.swing.JDialog {
             activarFecales = true, activarEscherichia = true, activarPseudomona = true,
             activarStaphilococos = true, activarStreptococos = true, activarShigella = true;
 
-    public tablaMBAguaRecreacion(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
+    public TablaMBAguaRecreacion(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
         this.procedencia = procedencia;
         this.id = id;
@@ -1953,13 +1953,13 @@ public class tablaMBAguaRecreacion extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAguaRecreacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAguaRecreacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAguaRecreacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAguaRecreacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAguaRecreacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAguaRecreacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAguaRecreacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAguaRecreacion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1967,7 +1967,7 @@ public class tablaMBAguaRecreacion extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                tablaMBAguaRecreacion dialog = new tablaMBAguaRecreacion(new javax.swing.JFrame(), true, -1, null, false, null);
+                TablaMBAguaRecreacion dialog = new TablaMBAguaRecreacion(new javax.swing.JFrame(), true, -1, null, false, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

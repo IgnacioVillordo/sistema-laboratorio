@@ -4,7 +4,7 @@ import com.mysql.cj.util.StringUtils;
 import org.apache.poi.xddf.usermodel.chart.*;
 import org.ignaciorodriguez.vista.Inicial;
 import org.ignaciorodriguez.vista.Principal;
-import org.ignaciorodriguez.vista.ventanaEmail;
+import org.ignaciorodriguez.vista.VentanaEmail;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -282,7 +282,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -356,7 +356,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -434,7 +434,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -508,7 +508,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -582,7 +582,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -2874,7 +2874,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -3207,7 +3207,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -3303,7 +3303,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -3376,7 +3376,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -3449,7 +3449,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -4862,7 +4862,7 @@ public class Consultas extends Conexion {
                         pdf += ".pdf";
 
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -4935,7 +4935,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -5561,7 +5561,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -5635,7 +5635,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -5918,7 +5918,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -5991,7 +5991,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -6551,7 +6551,7 @@ public class Consultas extends Conexion {
                     int email = JOptionPane.showConfirmDialog(null, "¿Enviar email?", "Email", JOptionPane.YES_NO_OPTION);
                     ;
                     if (JOptionPane.YES_OPTION == email) {
-                        ventanaEmail vEmail = new ventanaEmail(p, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }
@@ -6965,7 +6965,7 @@ public class Consultas extends Conexion {
                         String pdf = aux3.replaceAll("\"", "");
                         pdf += ".pdf";
                         String pdfEmail = rutaGuardado + pdf;
-                        ventanaEmail vEmail = new ventanaEmail(pr, true, id, pdfEmail);
+                        VentanaEmail vEmail = new VentanaEmail(pr, true, id, pdfEmail);
                         vEmail.setVisible(true);
                     }
                 }

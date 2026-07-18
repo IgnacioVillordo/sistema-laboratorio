@@ -259,7 +259,7 @@ public class Vencimiento extends javax.swing.JDialog {
 
     private void botonEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEmailActionPerformed
         int id = Integer.parseInt(tablaVencimientos.getValueAt(row, 0).toString());
-        ventanaEmailVencimientos v = new ventanaEmailVencimientos(p, true, id);
+        VentanaEmailVencimientos v = new VentanaEmailVencimientos(p, true, id);
         v.setVisible(true);
     }//GEN-LAST:event_botonEmailActionPerformed
 

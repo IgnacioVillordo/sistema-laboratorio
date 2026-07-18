@@ -24,14 +24,14 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
  *
  * @author Nacho
  */
-public class tablaMBAguaBalnearios extends javax.swing.JDialog {
+public class TablaMBAguaBalnearios extends javax.swing.JDialog {
 
     int id;
     String procedencia, pdf, auxCaracteres;
     Consultas c = Consultas.getInstancia();
     boolean editar, activarColiformes = true, activarEscherichia = true, activarShigella = true;
 
-    public tablaMBAguaBalnearios(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
+    public TablaMBAguaBalnearios(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
         this.procedencia = procedencia;
         this.id = id;
@@ -697,13 +697,13 @@ public class tablaMBAguaBalnearios extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAguaBalnearios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAguaBalnearios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAguaBalnearios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAguaBalnearios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAguaBalnearios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAguaBalnearios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tablaMBAguaBalnearios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBAguaBalnearios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -711,7 +711,7 @@ public class tablaMBAguaBalnearios extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                tablaMBAguaBalnearios dialog = new tablaMBAguaBalnearios(new javax.swing.JFrame(), true, -1, null, false, null);
+                TablaMBAguaBalnearios dialog = new TablaMBAguaBalnearios(new javax.swing.JFrame(), true, -1, null, false, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

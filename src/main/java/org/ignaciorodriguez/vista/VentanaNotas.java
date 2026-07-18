@@ -10,11 +10,11 @@ import javax.swing.KeyStroke;
 import org.ignaciorodriguez.modelo.Consultas;
 
 
-public class ventanaNotas extends javax.swing.JDialog {
+public class VentanaNotas extends javax.swing.JDialog {
 
     int id;
     Consultas c = Consultas.getInstancia();
-    public ventanaNotas(java.awt.Frame parent, boolean modal, int id) {
+    public VentanaNotas(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
         this.id = id;
         initComponents();
@@ -142,20 +142,20 @@ public class ventanaNotas extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ventanaNotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaNotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ventanaNotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaNotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ventanaNotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaNotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ventanaNotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VentanaNotas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                ventanaNotas dialog = new ventanaNotas(new javax.swing.JFrame(), true, -1);
+                VentanaNotas dialog = new VentanaNotas(new javax.swing.JFrame(), true, -1);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

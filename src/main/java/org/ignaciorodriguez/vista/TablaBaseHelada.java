@@ -23,7 +23,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 
-public class tablaBaseHelada extends javax.swing.JDialog {
+public class TablaBaseHelada extends javax.swing.JDialog {
 
     int id;
     String procedencia, pdf, auxObservaciones;
@@ -33,8 +33,8 @@ public class tablaBaseHelada extends javax.swing.JDialog {
     boolean[] auxBool = new boolean[6];
     Frame parent;
 
-    public tablaBaseHelada(java.awt.Frame parent, boolean modal, int id, String procedencia,
-            boolean editar, String pdf) {
+    public TablaBaseHelada(java.awt.Frame parent, boolean modal, int id, String procedencia,
+                           boolean editar, String pdf) {
         super(parent, modal);
         this.parent = parent;
         this.procedencia = procedencia;
@@ -1531,13 +1531,13 @@ public class tablaBaseHelada extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tablaBaseHelada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaBaseHelada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tablaBaseHelada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaBaseHelada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tablaBaseHelada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaBaseHelada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tablaBaseHelada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaBaseHelada.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1559,7 +1559,7 @@ public class tablaBaseHelada extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                tablaBaseHelada dialog = new tablaBaseHelada(new javax.swing.JFrame(), true, -1, null, false, null);
+                TablaBaseHelada dialog = new TablaBaseHelada(new javax.swing.JFrame(), true, -1, null, false, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

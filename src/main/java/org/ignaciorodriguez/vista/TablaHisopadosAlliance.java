@@ -23,7 +23,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 
-public class tablaHisopadosAlliance extends javax.swing.JDialog {
+public class TablaHisopadosAlliance extends javax.swing.JDialog {
 
     int id;
     String procedencia, pdf, auxObservaciones;
@@ -32,8 +32,8 @@ public class tablaHisopadosAlliance extends javax.swing.JDialog {
             activarEscherichia = true, activarEnterobacterias = true, activarStaphilococos = true;
     Frame parent;
 
-    public tablaHisopadosAlliance(java.awt.Frame parent, boolean modal, int id, String procedencia,
-            boolean editar, String pdf) {
+    public TablaHisopadosAlliance(java.awt.Frame parent, boolean modal, int id, String procedencia,
+                                  boolean editar, String pdf) {
         super(parent, modal);
         this.parent = parent;
         this.procedencia = procedencia;
@@ -1362,20 +1362,20 @@ public class tablaHisopadosAlliance extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tablaHisopadosAlliance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaHisopadosAlliance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tablaHisopadosAlliance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaHisopadosAlliance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tablaHisopadosAlliance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaHisopadosAlliance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tablaHisopadosAlliance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaHisopadosAlliance.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                tablaHisopadosAlliance dialog = new tablaHisopadosAlliance(new javax.swing.JFrame(), true, -1, null, false, null);
+                TablaHisopadosAlliance dialog = new TablaHisopadosAlliance(new javax.swing.JFrame(), true, -1, null, false, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

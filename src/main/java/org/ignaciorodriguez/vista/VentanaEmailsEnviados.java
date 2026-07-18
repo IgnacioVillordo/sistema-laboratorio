@@ -103,7 +103,7 @@ public class VentanaEmailsEnviados extends javax.swing.JDialog {
                         System.out.println("Archivo: " + archivo);
                         System.out.println("Destinatario: " + destinatario);
                         System.out.println("Remitente: " + remitente);
-                        ventanaEmail vme = new ventanaEmail(parent, true, archivo, destinatario, remitente, cuerpo);
+                        VentanaEmail vme = new VentanaEmail(parent, true, archivo, destinatario, remitente, cuerpo);
                         vme.setVisible(true);
                     }
                 }

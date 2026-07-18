@@ -23,7 +23,7 @@ import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 import javax.swing.JComponent;
 
-public class tablaMBChocolates extends javax.swing.JDialog {
+public class TablaMBChocolates extends javax.swing.JDialog {
 
     int id;
     String procedencia, pdf, auxObservaciones;
@@ -31,8 +31,8 @@ public class tablaMBChocolates extends javax.swing.JDialog {
     boolean editar, activarGermenes = true, activarTotales = true, activarFecales = true,
             activarMohos = true, activarEscherichia = true, activarSalmonella = true;
 
-    public tablaMBChocolates(java.awt.Frame parent, boolean modal, int id, String procedencia,
-            boolean editar, String pdf) {
+    public TablaMBChocolates(java.awt.Frame parent, boolean modal, int id, String procedencia,
+                             boolean editar, String pdf) {
         super(parent, modal);
         this.procedencia = procedencia;
         this.id = id;
@@ -1266,13 +1266,13 @@ public class tablaMBChocolates extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(tablaMBChocolates.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBChocolates.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(tablaMBChocolates.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBChocolates.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(tablaMBChocolates.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBChocolates.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tablaMBChocolates.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TablaMBChocolates.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -1286,7 +1286,7 @@ public class tablaMBChocolates extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                tablaMBChocolates dialog = new tablaMBChocolates(new javax.swing.JFrame(), true, -1, null, false, null);
+                TablaMBChocolates dialog = new TablaMBChocolates(new javax.swing.JFrame(), true, -1, null, false, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

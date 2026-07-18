@@ -2,6 +2,7 @@ package org.ignaciorodriguez.vista;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Point;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -21,7 +22,7 @@ import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 import javax.swing.JComponent;
 
-public class tablaEfluentesCloaca extends javax.swing.JDialog {
+public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
 
     int id;
     Consultas c = Consultas.getInstancia();
@@ -30,9 +31,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
             activarGrasas = true, activarFosforo = true, activarNitrogeno = true, activarSustancias = true,
             activarColiformes = true, activarHidrocarburos = true, activarNitratos = true, activarCloro = true,
             activarEscherichia = true, activarColiformesTotales = true, activarSulfuros = true;
-    String procedencia, pdf, auxObservaciones, auxConclusion, auxOlor, tipo;
+    String procedencia, pdf, auxObservaciones, auxOlor, tipo, auxConclusion;
 
-    public tablaEfluentesCloaca(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf, String tipo) {
+    public TablaEfluentesInfiltracion(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf, String tipo) {
         super(parent, modal);
         this.id = id;
         this.editar = editar;
@@ -40,7 +41,12 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         this.tipo = tipo;
         this.procedencia = procedencia;
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Efluentes cloaca");
+        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Efluentes inflitración");
+        if (tipo.equals("Efluentes infiltración")) {
+            etiquetaColiformesFecales.setText("COLIFORMES FECALES");
+            area72.setText("1 mg/l");
+            area102.setText("30 mg/l");
+        }
         this.setLocationRelativeTo(null);
         if (editar == true) {
             Map<String, String> resultados = c.recuperarResultadosEfluentesTipo(id);
@@ -60,6 +66,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                 } else if (resultados.get("ph").contains("-1")) {
                 } else {
                     aux = resultados.get("ph").toString().replaceAll("[^0-9?!\\.]", "");
+                    if (aux.length() < 1) {
+                        etiquetaPhMousePressed(click(etiquetaPh));
+                    }
                     cajapH.setText(String.valueOf(new DecimalFormat("#.##").format(Double.parseDouble(aux)).replaceAll(",", ".")));
                 }
 
@@ -75,6 +84,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboConductividad.setSelectedIndex(2);
                     }
                     aux = resultados.get("conductividad").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaConductividadMousePressed(click(etiquetaConductividad));
+                    }
                     cajaConductividad.setText(aux.replaceAll(",", "."));
                 }
                 if (resultados.get("dqo").contains("-2")) {
@@ -89,6 +101,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboDQO.setSelectedIndex(2);
                     }
                     aux = resultados.get("dqo").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaDQOMousePressed(click(etiquetaDQO));
+                    }
                     cajaDQO.setText(aux.replaceAll(",", "."));
                 }
 
@@ -104,6 +119,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboDBO.setSelectedIndex(2);
                     }
                     aux = resultados.get("dbo").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaDBOMousePressed(click(etiquetaDBO));
+                    }
                     cajaDBO.setText(aux.replaceAll(",", "."));
                 }
 
@@ -119,6 +137,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboSolidos10.setSelectedIndex(2);
                     }
                     aux = resultados.get("solidos10").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaSolidos10MousePressed(click(etiquetaSolidos10));
+                    }
                     cajaSolidos10.setText(aux.replaceAll(",", "."));
                 }
 
@@ -134,6 +155,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboSolidos120.setSelectedIndex(2);
                     }
                     aux = resultados.get("solidos120").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaDetergentesMousePressed(click(etiquetaDetergentes));
+                    }
                     cajaSolidos120.setText(aux.replaceAll(",", "."));
                 }
 
@@ -149,6 +173,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboDetergentes.setSelectedIndex(2);
                     }
                     aux = resultados.get("detergentes").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaDetergentesMousePressed(click(etiquetaDetergentes));
+                    }
                     cajaDetergentes.setText(aux.replaceAll(",", "."));
                 }
 
@@ -164,6 +191,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboGrasas.setSelectedIndex(2);
                     }
                     aux = resultados.get("grasasAceite").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaGrasasMousePressed(click(etiquetaGrasas));
+                    }
                     cajaGrasas.setText(aux.replaceAll(",", "."));
                 }
 
@@ -179,6 +209,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboFosforo.setSelectedIndex(2);
                     }
                     aux = resultados.get("fosforoTotal").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaNitrogenoMousePressed(click(etiquetaNitrogeno));
+                    }
                     cajaFosforo.setText(aux.replaceAll(",", "."));
                 }
                 if (resultados.get("nitrogenoTotal").contains("-2")) {
@@ -193,6 +226,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboNitrogeno.setSelectedIndex(2);
                     }
                     aux = resultados.get("nitrogenoTotal").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaNitrogenoMousePressed(click(etiquetaNitrogeno));
+                    }
                     cajaNitrogeno.setText(aux.replaceAll(",", "."));
                 }
 
@@ -208,6 +244,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboSustancias.setSelectedIndex(2);
                     }
                     aux = resultados.get("sustancias").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaSustanciasMousePressed(click(etiquetaSustancias));
+                    }
                     cajaSustancias.setText(aux.replaceAll(",", "."));
                 }
 
@@ -223,6 +262,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboColiformesFecales.setSelectedIndex(2);
                     }
                     aux = resultados.get("coliformesFecales").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaColiformesFecalesMousePressed(click(etiquetaColiformesFecales));
+                    }
                     cajaColiformesFecales.setText(aux.replaceAll(",", "."));
                 }
                 if (resultados.get("hidrocarburos").contains("-2")) {
@@ -237,6 +279,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboHidrocarburos.setSelectedIndex(2);
                     }
                     aux = resultados.get("hidrocarburos").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaHidrocarburosMousePressed(click(etiquetaHidrocarburos));
+                    }
                     cajaHidrocarburos.setText(aux.replaceAll(",", "."));
                 }
 
@@ -252,6 +297,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboNitratos.setSelectedIndex(2);
                     }
                     aux = resultados.get("nitratos").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaNitratosMousePressed(click(etiquetaNitratos));
+                    }
                     cajaNitratos.setText(aux.replaceAll(",", "."));
                 }
 
@@ -267,6 +315,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboCloro.setSelectedIndex(2);
                     }
                     aux = resultados.get("cloro").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                    if (aux.length() < 1) {
+                        etiquetaCloroMousePressed(click(etiquetaCloro));
+                    }
                     cajaCloro.setText(aux.replaceAll(",", "."));
                 }
 
@@ -281,10 +332,16 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                     } else {
                         comboColiformesTotales.setSelectedIndex(2);
                     }
-                    aux = resultados.get("coliformesTotales").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
-                    cajaColiformesTotales.setText(aux.replaceAll(",", "."));
+                    if (resultados.get("coliformesTotales").length() < 1) {
+                        etiquetaColiformesTotalesMousePressed(click(etiquetaColiformesTotales));
+                    } else {
+                        aux = resultados.get("coliformesTotales").toString().replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                        if (aux.length() < 1) {
+                            etiquetaColiformesTotalesMousePressed(click(etiquetaColiformesTotales));
+                        }
+                        cajaColiformesTotales.setText(aux.replaceAll(",", "."));
+                    }
                 }
-
                 if (resultados.get("escherichia").contains("-2")) {
                     etiquetaEscherichiaMousePressed(click(etiquetaEscherichia));
                 } else if (resultados.get("escherichia").contains("-1")) {
@@ -293,11 +350,23 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         comboEscherichia.setSelectedIndex(0);
                     } else if (resultados.get("escherichia").startsWith("Mayor")) {
                         comboEscherichia.setSelectedIndex(1);
-                    } else {
+                    } else if (resultados.get("escherichia").toLowerCase().startsWith("ausencia")) {
                         comboEscherichia.setSelectedIndex(2);
+                    } else {
+                        comboEscherichia.setSelectedIndex(3);
+
                     }
-                    aux = resultados.get("escherichia").toString().substring(0, resultados.get("escherichia").indexOf("100 ml")).replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
-                    cajaEscherichia.setText(aux.replaceAll(",", "."));
+                    if (resultados.get("escherichia").length() < 1) {
+                        etiquetaColiformesTotalesMousePressed(click(etiquetaColiformesTotales));
+                    } else {
+                        if (!resultados.get("escherichia").toLowerCase().contains("ausencia")) {
+                            aux = resultados.get("escherichia").toString().substring(0, resultados.get("escherichia").indexOf("100 ml")).replaceAll("[^0-9?!\\.]", "").replaceAll(",", ".");
+                            if (aux.length() < 1) {
+                                etiquetaEscherichiaMousePressed(click(etiquetaEscherichia));
+                            }
+                            cajaEscherichia.setText(aux.replaceAll(",", "."));
+                        }
+                    }
                 }
 
                 if (!resultados.get("sulfuros").equals("")) {
@@ -320,7 +389,7 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                 }
             }
         }
-        ImageIcon icon = new ImageIcon("src\\vista\\icono.png");
+        ImageIcon icon = new ImageIcon("src\\vista\\icono.png");;
         this.setIconImage(icon.getImage());
     }
 
@@ -694,7 +763,7 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         etiquetaFosforo.setBackground(new java.awt.Color(0, 0, 0));
         etiquetaFosforo.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         etiquetaFosforo.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        etiquetaFosforo.setText("FÓSFORO TOTAL");
+        etiquetaFosforo.setText("FÒSFORO TOTAL");
         etiquetaFosforo.setToolTipText("");
         etiquetaFosforo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         etiquetaFosforo.setMinimumSize(new java.awt.Dimension(150, 30));
@@ -1308,7 +1377,7 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         area102.setEditable(false);
         area102.setBackground(new java.awt.Color(255, 255, 255));
         area102.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        area102.setText("100 mg/l");
+        area102.setText("30 mg/l");
         area102.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area102.setPreferredSize(new java.awt.Dimension(1, 15));
         area102.addActionListener(new java.awt.event.ActionListener() {
@@ -1469,7 +1538,7 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         area42.setEditable(false);
         area42.setBackground(new java.awt.Color(255, 255, 255));
         area42.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        area42.setText("200 mg/l");
+        area42.setText("100 mg/l");
         area42.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area42.setPreferredSize(new java.awt.Dimension(1, 15));
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -2507,7 +2576,10 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 2, 0, 2);
         jPanel45.add(etiquetaEscherichiaIn, gridBagConstraints);
 
-        comboEscherichia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Menor de", "Mayor de", "" }));
+        comboEscherichia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Menor de", "Mayor de", "Ausencia en 100 ml", "" }));
+        comboEscherichia.setMaximumSize(new java.awt.Dimension(65, 18));
+        comboEscherichia.setMinimumSize(new java.awt.Dimension(65, 18));
+        comboEscherichia.setPreferredSize(new java.awt.Dimension(65, 18));
         comboEscherichia.setUI(new BasicComboBoxUI() {
             protected JButton createArrowButton() {
                 return new JButton() {
@@ -2515,6 +2587,11 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                         return 0;
                     }
                 };
+            }
+        });
+        comboEscherichia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboEscherichiaItemStateChanged(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -2608,7 +2685,7 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         area138.setEditable(false);
         area138.setBackground(new java.awt.Color(255, 255, 255));
         area138.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        area138.setText("1 mg/l");
+        area138.setText("5 mg/l");
         area138.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 1, new java.awt.Color(0, 0, 0)));
         area138.setPreferredSize(new java.awt.Dimension(1, 15));
         area138.addActionListener(new java.awt.event.ActionListener() {
@@ -2690,13 +2767,15 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 847, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 602, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false), "Cerrar");
@@ -2709,6 +2788,22 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void area22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area22ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_area22ActionPerformed
+
+    private void area23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area23ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_area23ActionPerformed
+
+    private void area92ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area92ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_area92ActionPerformed
+
+    private void area102ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area102ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_area102ActionPerformed
 
     private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarActionPerformed
         double ph = -2;
@@ -2781,8 +2876,12 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                     + cajaColiformesTotales.getText() + " " + etiquetaColiformesTotalesIn.getText();
         }
         if (cajaEscherichia.isEnabled()) {
-            escherichia = comboEscherichia.getSelectedItem().toString() + " "
-                    + cajaEscherichia.getText() + " " + etiquetaEscherichiaIn.getText();
+            if (comboEscherichia.getSelectedItem().toString().toLowerCase().contains("ausencia")) {
+                escherichia = comboEscherichia.getSelectedItem().toString();
+            } else {
+                escherichia = comboEscherichia.getSelectedItem().toString() + " "
+                        + cajaEscherichia.getText() + " " + etiquetaEscherichiaIn.getText();
+            }
         }
         if (cajaHidrocarburos.isEnabled()) {
             hidrocarburos = comboHidrocarburos.getSelectedItem().toString() + " " + cajaHidrocarburos.getText() + " " + etiquetaHidrocarburosIn.getText();
@@ -2817,6 +2916,10 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         m.put("sulfuros", sulfuros);
         String conclusion;
         String observaciones;
+        java.util.Date fm = cajaFechaAnalisis.getDate(); //obtener fecha
+        Long dm = fm.getTime(); //sacar timepo
+        java.sql.Date fechaAnalisis = new java.sql.Date(dm); //cast de fecha
+        m.put("fechaAnalisis", fechaAnalisis);
         if (editar) {
             File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
             File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
@@ -2832,7 +2935,7 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                 observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
                 c.guardarObservaciones(observaciones, id);
                 this.dispose();
-                c.generarReporteEfluentesCloaca(id, procedencia);;
+                c.generarReporteEfluentesInfiltracion(id, procedencia);;
             }
         } else {
             if (c.guardarResultadosEfluentesTipo(m)) {
@@ -2845,10 +2948,23 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                 observaciones = JOptionPane.showInputDialog("Ingrese las observaciones:");
                 c.guardarObservaciones(observaciones, id);
                 this.dispose();
-                c.generarReporteEfluentesCloaca(id, procedencia);
+                c.generarReporteEfluentesInfiltracion(id, procedencia);
             }
         }
+        c.guardarFechaAnalisis(m);
     }//GEN-LAST:event_botonGenerarActionPerformed
+
+    private void area33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area33ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_area33ActionPerformed
+
+    private void area012ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area012ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_area012ActionPerformed
+
+    private void area52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area52ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_area52ActionPerformed
 
     private void etiquetaPhMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaPhMousePressed
         activarPh = !activarPh;
@@ -2927,10 +3043,6 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
             jPanel38.setBackground(new Color(240, 240, 240));
         }
     }//GEN-LAST:event_etiquetaFosforoMousePressed
-
-    private void etiquetaConductividadAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_etiquetaConductividadAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_etiquetaConductividadAncestorAdded
 
     private void etiquetaConductividadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaConductividadMousePressed
         activarConductividad = !activarConductividad;
@@ -3060,6 +3172,18 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_etiquetaHidrocarburosMousePressed
 
+    private void area132ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area132ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_area132ActionPerformed
+
+    private void cajapHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajapHActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cajapHActionPerformed
+
+    private void etiquetaConductividadAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_etiquetaConductividadAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_etiquetaConductividadAncestorAdded
+
     private void etiquetaNitratosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaNitratosMousePressed
         activarNitratos = !activarNitratos;
         cajaNitratos.setEnabled(activarNitratos);
@@ -3091,6 +3215,18 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
             jPanel43.setBackground(new Color(240, 240, 240));
         }
     }//GEN-LAST:event_etiquetaCloroMousePressed
+
+    private void area134ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area134ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_area134ActionPerformed
+
+    private void area135ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area135ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_area135ActionPerformed
+
+    private void area136ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area136ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_area136ActionPerformed
 
     private void etiquetaColiformesTotalesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaColiformesTotalesMousePressed
         activarColiformesTotales = !activarColiformesTotales;
@@ -3124,53 +3260,31 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_etiquetaEscherichiaMousePressed
 
-    private void area012ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area012ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area012ActionPerformed
+    private void comboEscherichiaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEscherichiaItemStateChanged
+        if (evt.getItem() == "Ausencia en 100 ml") {
+            cajaEscherichia.setVisible(false);
+            etiquetaEscherichiaIn.setVisible(false);
+            comboEscherichia.setSize(116, 18);
+            comboEscherichia.setPreferredSize(new Dimension(116, 18));
+            comboEscherichia.setMinimumSize(new Dimension(116, 18));
+            comboEscherichia.setMaximumSize(new Dimension(116, 18));
+        } else {
+            cajaEscherichia.setVisible(true);
+            etiquetaEscherichiaIn.setVisible(true);
+            comboEscherichia.setSize(65, 18);
+            comboEscherichia.setPreferredSize(new Dimension(65, 18));
+            comboEscherichia.setMinimumSize(new Dimension(65, 18));
+            comboEscherichia.setMaximumSize(new Dimension(65, 18));
+        }
+    }//GEN-LAST:event_comboEscherichiaItemStateChanged
 
-    private void area52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area52ActionPerformed
+    private void area138ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area138ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_area52ActionPerformed
+    }//GEN-LAST:event_area138ActionPerformed
 
-    private void area102ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area102ActionPerformed
+    private void area139ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area139ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_area102ActionPerformed
-
-    private void area33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area33ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area33ActionPerformed
-
-    private void area92ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area92ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area92ActionPerformed
-
-    private void area23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area23ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area23ActionPerformed
-
-    private void area22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area22ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area22ActionPerformed
-
-    private void area132ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area132ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area132ActionPerformed
-
-    private void cajapHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajapHActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajapHActionPerformed
-
-    private void area134ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area134ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area134ActionPerformed
-
-    private void area135ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area135ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area135ActionPerformed
-
-    private void area136ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area136ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area136ActionPerformed
+    }//GEN-LAST:event_area139ActionPerformed
 
     private void etiquetaSulfurosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaSulfurosMousePressed
         activarSulfuros = !activarSulfuros;
@@ -3188,14 +3302,6 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_etiquetaSulfurosMousePressed
 
-    private void area138ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area138ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area138ActionPerformed
-
-    private void area139ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area139ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area139ActionPerformed
-
     public static void main(String args[]) {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -3206,10 +3312,14 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(tablaEfluentesCloaca.class
+            java.util.logging.Logger.getLogger(TablaEfluentesInfiltracion.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -3221,7 +3331,7 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                tablaEfluentesCloaca dialog = new tablaEfluentesCloaca(new javax.swing.JFrame(), true, -1, null, true, null, null);
+                TablaEfluentesInfiltracion dialog = new TablaEfluentesInfiltracion(new javax.swing.JFrame(), true, -1, null, true, null, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -3400,9 +3510,9 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         }
         boolean dqo;
         if (cajaDQO.isEnabled()) {
-            if (comboDQO.getSelectedItem().toString().equals("Mayor de") && Double.parseDouble(cajaDQO.getText()) >= 500) {
+            if (comboDQO.getSelectedItem().toString().equals("Mayor de") && Double.parseDouble(cajaDBO.getText()) >= 500) {
                 dqo = false;
-            } else if (comboDQO.getSelectedItem().toString().equals("Menor de") && Double.parseDouble(cajaDQO.getText()) <= 500) {
+            } else if (comboDQO.getSelectedItem().toString().equals("Menor de") && Double.parseDouble(cajaDBO.getText()) <= 500) {
                 dqo = true;
             } else {
                 dqo = Double.parseDouble(cajaDQO.getText()) < 500;
@@ -3412,12 +3522,12 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         }
         boolean dbo;
         if (cajaDBO.isEnabled()) {
-            if (comboDBO.getSelectedItem().toString().equals("Mayor de") && Double.parseDouble(cajaDBO.getText()) >= 200) {
+            if (comboDBO.getSelectedItem().toString().equals("Mayor de") && Double.parseDouble(cajaDBO.getText()) >= 100) {
                 dbo = false;
-            } else if (comboDBO.getSelectedItem().toString().equals("Menor de") && Double.parseDouble(cajaDBO.getText()) <= 200) {
+            } else if (comboDBO.getSelectedItem().toString().equals("Menor de") && Double.parseDouble(cajaDBO.getText()) <= 100) {
                 dbo = true;
             } else {
-                dbo = Double.parseDouble(cajaDBO.getText()) < 200;
+                dbo = Double.parseDouble(cajaDBO.getText()) < 100;
             }
         } else {
             dbo = true;
@@ -3449,12 +3559,12 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         }
         boolean detergentes;
         if (cajaDetergentes.isEnabled()) {
-            if (comboDetergentes.getSelectedItem().toString().equals("Mayor de") && Double.parseDouble(cajaDetergentes.getText()) >= 5) {
+            if (comboDetergentes.getSelectedItem().toString().equals("Mayor de") && Double.parseDouble(cajaDetergentes.getText()) >= 1) {
                 detergentes = false;
-            } else if (comboDetergentes.getSelectedItem().toString().equals("Menor de") && Double.parseDouble(cajaDetergentes.getText()) <= 5) {
+            } else if (comboDetergentes.getSelectedItem().toString().equals("Menor de") && Double.parseDouble(cajaDetergentes.getText()) <= 1) {
                 detergentes = true;
             } else {
-                detergentes = Double.parseDouble(cajaDetergentes.getText()) < 4;
+                detergentes = Double.parseDouble(cajaDetergentes.getText()) < 1;
             }
         } else {
             detergentes = true;
@@ -3485,12 +3595,12 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         }
         boolean nitrogeno;
         if (cajaNitrogeno.isEnabled()) {
-            if (comboNitrogeno.getSelectedItem().toString().equals("Mayor de") && Double.parseDouble(cajaNitrogeno.getText()) >= 100) {
+            if (comboNitrogeno.getSelectedItem().toString().equals("Mayor de") && Double.parseDouble(cajaNitrogeno.getText()) >= 30) {
                 nitrogeno = false;
-            } else if (comboNitrogeno.getSelectedItem().toString().equals("Menor de") && Double.parseDouble(cajaNitrogeno.getText()) <= 100) {
+            } else if (comboNitrogeno.getSelectedItem().toString().equals("Menor de") && Double.parseDouble(cajaNitrogeno.getText()) <= 30) {
                 nitrogeno = true;
             } else {
-                nitrogeno = Double.parseDouble(cajaNitrogeno.getText()) < 100;
+                nitrogeno = Double.parseDouble(cajaNitrogeno.getText()) < 30;
             }
         } else {
             nitrogeno = true;
@@ -3521,11 +3631,37 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
             hidrocarburos = true;
         }
 
+        boolean nitratos;
+        if (cajaNitratos.isEnabled()) {
+            if (comboNitratos.getSelectedItem().toString().equals("Mayor de") && Double.parseDouble(cajaNitratos.getText()) >= 20) {
+                nitratos = false;
+            } else if (comboNitratos.getSelectedItem().toString().equals("Menor de") && Double.parseDouble(cajaNitratos.getText()) <= 20) {
+                nitratos = true;
+            } else {
+                nitratos = Double.parseDouble(cajaNitratos.getText()) < 20;
+            }
+        } else {
+            nitratos = true;
+        }
+
+        boolean cloro;
+        if (cajaCloro.isEnabled()) {
+            if (comboCloro.getSelectedItem().toString().equals("Mayor de") && Double.parseDouble(cajaCloro.getText()) >= 1) {
+                cloro = false;
+            } else if (comboCloro.getSelectedItem().toString().equals("Menor de") && Double.parseDouble(cajaCloro.getText()) <= 1) {
+                cloro = true;
+            } else {
+                cloro = Double.parseDouble(cajaCloro.getText()) < 1;
+            }
+        } else {
+            cloro = true;
+        }
+
         boolean sulfuros;
         if (cajaSulfuros.isEnabled()) {
-            if (comboSulfuros.getSelectedItem().toString().equals("Mayor de") && Double.parseDouble(cajaSulfuros.getText()) >= 1) {
+            if (comboSulfuros.getSelectedItem().toString().equals("Mayor de") && Double.parseDouble(cajaSulfuros.getText()) >= 5) {
                 sulfuros = false;
-            } else if (comboSulfuros.getSelectedItem().toString().equals("Menor de") && Double.parseDouble(cajaSulfuros.getText()) <= 1) {
+            } else if (comboSulfuros.getSelectedItem().toString().equals("Menor de") && Double.parseDouble(cajaSulfuros.getText()) <= 5) {
                 sulfuros = true;
             } else {
                 sulfuros = Double.parseDouble(cajaSulfuros.getText()) < 1;
@@ -3536,7 +3672,7 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
         String conclusion = "";
         String recomendacion = "";
         if (ph && dqo && dbo && solidos10 && solidos120 && detergentes && grasas
-                && fosforo && nitrogeno && coliformes && hidrocarburos) {
+                && fosforo && nitrogeno && coliformes && hidrocarburos && nitratos && cloro) {
             conclusion = "La muestra analizada cumple con la resolución 886 IP "
                     + "ANEXOS-LTercero Decreto 1093-2015";
         } else {
@@ -3584,7 +3720,15 @@ public class tablaEfluentesCloaca extends javax.swing.JDialog {
             }
 
             if (!coliformes) {
-                conclusion += " Coliformes totales,";
+                conclusion += " coliformes totales,";
+            }
+
+            if (!nitratos) {
+                conclusion += " nitratos,";
+            }
+
+            if (!cloro) {
+                conclusion += " cloro,";
             }
             if (!sulfuros) {
                 conclusion += " sulfuros,";
