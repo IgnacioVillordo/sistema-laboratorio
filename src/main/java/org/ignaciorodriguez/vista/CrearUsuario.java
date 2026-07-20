@@ -3,9 +3,11 @@ package org.ignaciorodriguez.vista;
 import java.awt.Dimension;
 import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
-import org.ignaciorodriguez.modelo.Consultas;
+
 import org.ignaciorodriguez.modelo.Usuario;
-import org.ignaciorodriguez.modelo.VerContraseña;
+import org.ignaciorodriguez.modelo.VerContrasena;
+import org.ignaciorodriguez.repository.UsuarioRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -19,7 +21,7 @@ public class CrearUsuario extends javax.swing.JDialog {
 
     boolean verContraseña = false;
     boolean verConfirmar = false;
-    VerContraseña v = new VerContraseña();
+    VerContrasena v = new VerContrasena();
     public CrearUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -27,8 +29,6 @@ public class CrearUsuario extends javax.swing.JDialog {
         ImageIcon icon = new ImageIcon("src\\vista\\icono.png");
         this.setIconImage(icon.getImage());
     }
-
-    @SuppressWarnings("unchecked")
 
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -136,19 +136,6 @@ public class CrearUsuario extends javax.swing.JDialog {
         botonContraseña.setMargin(new java.awt.Insets(0, 0, 0, 0));
         botonContraseña.setMaximumSize(new java.awt.Dimension(20, 20));
         botonContraseña.setPreferredSize(new java.awt.Dimension(30, 30));
-        botonContraseña.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                botonContraseñaMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                botonContraseñaMouseReleased(evt);
-            }
-        });
-        botonContraseña.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonContraseñaActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -219,11 +206,7 @@ public class CrearUsuario extends javax.swing.JDialog {
                 botonConfirmar.setContentAreaFilled(false);
                 botonConfirmar.setMargin(new java.awt.Insets(0, 0, 0, 0));
                 botonConfirmar.setPreferredSize(new java.awt.Dimension(30, 30));
-                botonConfirmar.addActionListener(new java.awt.event.ActionListener() {
-                    public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        botonConfirmarActionPerformed(evt);
-                    }
-                });
+
                 gridBagConstraints = new java.awt.GridBagConstraints();
                 gridBagConstraints.gridx = 1;
                 gridBagConstraints.gridy = 0;
@@ -305,15 +288,15 @@ public class CrearUsuario extends javax.swing.JDialog {
 
     private void botonCrearActionPerformed(java.awt.event.ActionEvent evt) {
         Usuario usuario = new Usuario();
-        Consultas consultas = Consultas.getInstancia();
+        UsuarioRepository usuarioRepository = new UsuarioRepository();
         if (cajaUsuario.getText().equals("") || cajaConfirmar.getText().equals("") || cajaContraseña.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Rellene todos los campos");
         } else {
             if (cajaContraseña.getText().equals(cajaConfirmar.getText())) {
                 usuario.setUsuario(cajaUsuario.getText());
-                usuario.setContraseña(cajaContraseña.getText());
+                usuario.setContrasena(cajaContraseña.getText());
 
-                if (consultas.insertarUsuario(usuario)) {
+                if (usuarioRepository.insertarUsuario(usuario)) {
                     JOptionPane.showMessageDialog(null, "El usuario se registro correctamente.");
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al registrar usuario.");
@@ -323,59 +306,6 @@ public class CrearUsuario extends javax.swing.JDialog {
             }
         }
         this.dispose();
-    }
-
-    private void botonContraseñaMousePressed(java.awt.event.MouseEvent evt) {
-
-    }
-
-    private void botonContraseñaMouseReleased(java.awt.event.MouseEvent evt) {
-
-    }
-
-    private void botonContraseñaActionPerformed(java.awt.event.ActionEvent evt) {
-        verContraseña = v.ocultarContraseña(cajaContraseña, verContraseña);
-    }
-
-    private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {
-        verConfirmar = v.ocultarContraseña(cajaConfirmar, verConfirmar);
-    }
-
-    public static void main(String args[]) {
-        
-
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CrearUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CrearUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CrearUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CrearUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                CrearUsuario dialog = new CrearUsuario(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
 

@@ -1,5 +1,6 @@
 package org.ignaciorodriguez.vista;
 
+import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
@@ -25,8 +26,6 @@ public class Ganancias extends javax.swing.JDialog {
         tablaGanancias.updateUI();
         setLocationRelativeTo(null);
     }
-
-    @SuppressWarnings("unchecked")
 
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -127,7 +126,7 @@ public class Ganancias extends javax.swing.JDialog {
         gridBagConstraints.weightx = 1.0;
         jPanel1.add(jPanel3, gridBagConstraints);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", Font.BOLD, 24));
         jLabel1.setText("Ganancias");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -172,44 +171,6 @@ public class Ganancias extends javax.swing.JDialog {
         modelo = c.obtenerGanancias(desde, hasta);
         tablaGanancias.updateUI();
     }
-
-    public static void main(String args[]) {
-        
-
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ganancias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ganancias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ganancias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ganancias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Ganancias dialog = new Ganancias(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
 
     private com.toedter.calendar.JDateChooser cajaDesde;
     private com.toedter.calendar.JDateChooser cajaHasta;

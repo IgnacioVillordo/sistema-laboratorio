@@ -103,8 +103,6 @@ public class Determinaciones extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }
 
-    @SuppressWarnings("unchecked")
-
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -125,11 +123,6 @@ public class Determinaciones extends javax.swing.JDialog {
         jScrollPane1.getVerticalScrollBar().setUnitIncrement(16);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jPanel1MousePressed(evt);
-            }
-        });
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jPanel67.setPreferredSize(new java.awt.Dimension(500, 100));
@@ -182,33 +175,18 @@ public class Determinaciones extends javax.swing.JDialog {
         jPanel84.setLayout(new java.awt.GridBagLayout());
 
         checkConclusionPersonalizada.setText("Agregar conclusión (Manual)");
-        checkConclusionPersonalizada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkConclusionPersonalizadaActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         jPanel84.add(checkConclusionPersonalizada, gridBagConstraints);
 
         checkConclusion.setText("Agregar conclusión (Artículo)");
-        checkConclusion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkConclusionActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         jPanel84.add(checkConclusion, gridBagConstraints);
 
         checkSinConclusion.setText("Sin conclusion");
-        checkSinConclusion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkSinConclusionActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -251,22 +229,6 @@ public class Determinaciones extends javax.swing.JDialog {
         );
 
         pack();
-    }
-
-    private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {
-
-    }
-
-    private void checkSinConclusionActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void checkConclusionActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void checkConclusionPersonalizadaActionPerformed(java.awt.event.ActionEvent evt) {
-
     }
 
     private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,45 +324,6 @@ public class Determinaciones extends javax.swing.JDialog {
         this.dispose();
     }
 
-    public static void main(String args[]) {
-        
-
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Determinaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Determinaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Determinaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Determinaciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Determinaciones dialog = new Determinaciones(new javax.swing.JFrame(), true, null, -1, false, null, -1);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
-
-
     private javax.swing.JButton botonContinuar;
     private com.toedter.calendar.JDateChooser cajaFechaAnalisis;
     private javax.swing.JCheckBox checkConclusion;
@@ -429,19 +352,6 @@ public class Determinaciones extends javax.swing.JDialog {
         r.setFechaAnalisis(fechaAnalisis);
         consultas.recuperarDatosDeterminacionesGenerar(determinaciones, id);
         consultas.recuperarMetodosDeterminaciones(determinaciones, id);
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         if (alimentos == Determinaciones.ALIMENTO) {
             consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);

@@ -59,9 +59,6 @@ public class PatogenosHisopado extends javax.swing.JDialog {
         });
     }
 
-    
-    @SuppressWarnings("unchecked")
-
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -81,8 +78,7 @@ public class PatogenosHisopado extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setAlignmentY(JComponent.
-            LEFT_ALIGNMENT);
+        jPanel1.setAlignmentY(JComponent.LEFT_ALIGNMENT);
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setText("Patógenos:");
@@ -96,11 +92,6 @@ public class PatogenosHisopado extends javax.swing.JDialog {
         checkGermenes.setText("GERMENES AEROBIOS TOTALES");
         checkGermenes.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         checkGermenes.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        checkGermenes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkGermenesActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -141,11 +132,6 @@ public class PatogenosHisopado extends javax.swing.JDialog {
         checkStaphilococos.setText("STAPHILOCOCOS AUREUS COAGULOSA (+)");
         checkStaphilococos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         checkStaphilococos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        checkStaphilococos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkStaphilococosActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 6;
@@ -154,11 +140,6 @@ public class PatogenosHisopado extends javax.swing.JDialog {
         jPanel1.add(checkStaphilococos, gridBagConstraints);
 
         botonContinuar.setText("Continuar");
-        botonContinuar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonContinuarActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 11;
@@ -169,11 +150,6 @@ public class PatogenosHisopado extends javax.swing.JDialog {
         checkEnterobacterias.setText("ENTEROBACTERIAS");
         checkEnterobacterias.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         checkEnterobacterias.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        checkEnterobacterias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkEnterobacteriasActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -184,11 +160,6 @@ public class PatogenosHisopado extends javax.swing.JDialog {
         checkSalmonella.setText("SALMONELLA sp");
         checkSalmonella.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         checkSalmonella.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        checkSalmonella.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkSalmonellaActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
@@ -199,11 +170,6 @@ public class PatogenosHisopado extends javax.swing.JDialog {
         checkListeria.setText("LISTERIA MONOCYTOGENES");
         checkListeria.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         checkListeria.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        checkListeria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkListeriaActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 8;
@@ -214,11 +180,6 @@ public class PatogenosHisopado extends javax.swing.JDialog {
         checkMohos.setText("MOHOS Y LEVADURAS");
         checkMohos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         checkMohos.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        checkMohos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkMohosActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 10;
@@ -229,11 +190,6 @@ public class PatogenosHisopado extends javax.swing.JDialog {
         checkVibrio.setText("VIBRIO CHOLERAE");
         checkVibrio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         checkVibrio.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
-        checkVibrio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkVibrioActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 9;
@@ -254,77 +210,6 @@ public class PatogenosHisopado extends javax.swing.JDialog {
 
         pack();
     }
-
-    private void checkGermenesActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void botonContinuarActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void checkEnterobacteriasActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void checkStaphilococosActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void checkSalmonellaActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void checkListeriaActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void checkMohosActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    private void checkVibrioActionPerformed(java.awt.event.ActionEvent evt) {
-
-    }
-
-    
-    public static void main(String args[]) {
-        
-
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PatogenosHisopado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PatogenosHisopado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PatogenosHisopado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PatogenosHisopado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                PatogenosHisopado dialog = new PatogenosHisopado(new javax.swing.JFrame(), true, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
 
     private javax.swing.JButton botonContinuar;
     private javax.swing.JCheckBox checkColiformesFecales;

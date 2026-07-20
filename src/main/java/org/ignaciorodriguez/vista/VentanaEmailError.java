@@ -32,12 +32,9 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.ignaciorodriguez.Main;
 import org.ignaciorodriguez.modelo.Consultas;
 
-/**
- *
- * @author Nacho
- */
 public class VentanaEmailError extends javax.swing.JDialog {
 
     Consultas c = Consultas.getInstancia();
@@ -62,8 +59,6 @@ public class VentanaEmailError extends javax.swing.JDialog {
 
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -159,11 +154,6 @@ public class VentanaEmailError extends javax.swing.JDialog {
         etiquetaAdjunto.setMaximumSize(new java.awt.Dimension(500, 40));
         etiquetaAdjunto.setMinimumSize(new java.awt.Dimension(500, 40));
         etiquetaAdjunto.setPreferredSize(new java.awt.Dimension(500, 40));
-        etiquetaAdjunto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                etiquetaAdjuntoMousePressed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -197,43 +187,15 @@ public class VentanaEmailError extends javax.swing.JDialog {
         });
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         Cursor cursor = new Cursor(Cursor.WAIT_CURSOR);
         this.setCursor(cursor);
         this.dispose();
         new MyThread().start();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void etiquetaAdjuntoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaAdjuntoMousePressed
-
-    }//GEN-LAST:event_etiquetaAdjuntoMousePressed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e) {
-        }
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                VentanaEmailError dialog = new VentanaEmailError(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cajaAsunto;
     private javax.swing.JTextArea cajaCuerpo;
     private javax.swing.JTextField cajaPara;
@@ -243,7 +205,6 @@ public class VentanaEmailError extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    // End of variables declaration//GEN-END:variables
 
     public class MyThread extends Thread {
 
@@ -291,7 +252,7 @@ public class VentanaEmailError extends javax.swing.JDialog {
                         message.setSubject(cajaAsunto.getText());
 
                         MimeBodyPart textBodyPart = new MimeBodyPart();
-                        textBodyPart.setText(cajaCuerpo.getText() + "\n" + Inicial.VERSION);
+                        textBodyPart.setText(cajaCuerpo.getText() + "\n" + Main.VERSION);
                         Multipart multipart = new MimeMultipart();
                         BodyPart messageBodyPart = new MimeBodyPart();
                         DataSource source = new FileDataSource(copia);

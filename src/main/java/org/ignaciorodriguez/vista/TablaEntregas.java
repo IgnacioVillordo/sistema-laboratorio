@@ -1,6 +1,5 @@
 package org.ignaciorodriguez.vista;
 
-import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -12,9 +11,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -69,50 +65,7 @@ public class TablaEntregas extends javax.swing.JDialog {
         jTable1.setAutoCreateRowSorter(true);
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TablaEntregas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TablaEntregas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TablaEntregas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TablaEntregas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TablaEntregas dialog = new TablaEntregas(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         jPanel1 = new JPanel();
         jLabel1 = new JLabel();
@@ -252,19 +205,15 @@ public class TablaEntregas extends javax.swing.JDialog {
 
         //======== popUpTabla ========
         {
-
-            //---- GenerarReporte ----
             GenerarReporte.setText("jMenuItem1");
             GenerarReporte.addActionListener(e -> GenerarReporteActionPerformed(e));
             GenerarReporte.setText("Ver Reporte");
             popUpTabla.add(GenerarReporte);
-
-            //---- CancelarEntrega ----
             CancelarEntrega.setText("Cancelar entrega");
             CancelarEntrega.addActionListener(e -> CancelarEntregaActionPerformed(e));
             popUpTabla.add(CancelarEntrega);
         }
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     private void GenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarReporteActionPerformed
         int id = Integer.parseInt(String.valueOf(jTable1.getValueAt(fila, 0)));
@@ -527,8 +476,6 @@ public class TablaEntregas extends javax.swing.JDialog {
         }
     }
 
-    private void cajaBuscarKeyPressed(java.awt.event.KeyEvent evt) {
-    }
 
     private void formWindowLostFocus(java.awt.event.WindowEvent evt) {
     }

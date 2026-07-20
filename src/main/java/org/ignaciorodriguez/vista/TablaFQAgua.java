@@ -192,8 +192,6 @@ public class TablaFQAgua extends javax.swing.JDialog {
         this.setIconImage(icon.getImage());
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -876,11 +874,6 @@ public class TablaFQAgua extends javax.swing.JDialog {
         area62.setText("-");
         area62.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area62.setPreferredSize(new java.awt.Dimension(1, 15));
-        area62.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area62ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 6;
@@ -993,11 +986,6 @@ public class TablaFQAgua extends javax.swing.JDialog {
         area102.setText("Máx 0,30 mg/l");
         area102.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area102.setPreferredSize(new java.awt.Dimension(1, 15));
-        area102.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area102ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 10;
@@ -1054,11 +1042,6 @@ public class TablaFQAgua extends javax.swing.JDialog {
         area33.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area33.setMinimumSize(new java.awt.Dimension(64, 16));
         area33.setPreferredSize(new java.awt.Dimension(131, 16));
-        area33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area33ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
@@ -1101,11 +1084,6 @@ public class TablaFQAgua extends javax.swing.JDialog {
         area92.setText("Máx. 1500 mg/l");
         area92.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area92.setPreferredSize(new java.awt.Dimension(1, 15));
-        area92.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area92ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 9;
@@ -1134,11 +1112,6 @@ public class TablaFQAgua extends javax.swing.JDialog {
         area23.setText("FOTOMETRICO");
         area23.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area23.setPreferredSize(new java.awt.Dimension(1, 15));
-        area23.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area23ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -1181,11 +1154,6 @@ public class TablaFQAgua extends javax.swing.JDialog {
         area22.setText("-");
         area22.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area22.setPreferredSize(new java.awt.Dimension(1, 15));
-        area22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area22ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -1251,11 +1219,6 @@ public class TablaFQAgua extends javax.swing.JDialog {
         cajapH.setMinimumSize(new java.awt.Dimension(173, 23));
         cajapH.setName(""); // NOI18N
         cajapH.setPreferredSize(new java.awt.Dimension(170, 23));
-        cajapH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajapHActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1788,23 +1751,7 @@ public class TablaFQAgua extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void area22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area22ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area22ActionPerformed
-
-    private void area23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area23ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area23ActionPerformed
-
-    private void area92ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area92ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area92ActionPerformed
-
-    private void area102ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area102ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area102ActionPerformed
-
-    private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarActionPerformed
+    private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {
         String ph, cloro, olor, color, turbidez, alcalinidad, durezaTotal, conductividad,
                 solidos, hierro, nitratos, nitritos, sulfatos;
         if (cajapH.isEnabled()) {
@@ -1944,17 +1891,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
                 c.generarReporteFQAgua(id, procedencia);
             }
         }
-    }//GEN-LAST:event_botonGenerarActionPerformed
+    }
 
-    private void cajapHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajapHActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajapHActionPerformed
-
-    private void area33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area33ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area33ActionPerformed
-
-    private void etiquetaPhMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaPhMousePressed
+    private void etiquetaPhMousePressed(java.awt.event.MouseEvent evt) {
         activarPh = !activarPh;
         cajapH.setEnabled(activarPh);
         area012.setEnabled(activarPh);
@@ -1966,9 +1905,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             jPanel7.setBackground(new Color(240, 100, 100));
             jPanel15.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaPhMousePressed
+    }
 
-    private void etiquetaCloroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaCloroMousePressed
+    private void etiquetaCloroMousePressed(java.awt.event.MouseEvent evt) {
         activarCloro = !activarCloro;
         cajaCloro.setEnabled(activarCloro);
         etiquetaCloroIn.setEnabled(activarCloro);
@@ -1981,9 +1920,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             jPanel2.setBackground(new Color(240, 100, 100));
             jPanel18.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaCloroMousePressed
+    }
 
-    private void etiquetaOlorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaOlorMousePressed
+    private void etiquetaOlorMousePressed(java.awt.event.MouseEvent evt) {
         activarOlor = !activarOlor;
         comboOlor.setEnabled(activarOlor);
         area32.setEnabled(activarOlor);
@@ -1995,9 +1934,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             jPanel8.setBackground(new Color(240, 100, 100));
             jPanel20.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaOlorMousePressed
+    }
 
-    private void etiquetaColorMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaColorMousePressed
+    private void etiquetaColorMousePressed(java.awt.event.MouseEvent evt) {
         activarColor = !activarColor;
         comboColor.setEnabled(activarColor);
         cajaColor.setEnabled(activarColor);
@@ -2011,9 +1950,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             jPanel3.setBackground(new Color(240, 100, 100));
             jPanel33.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaColorMousePressed
+    }
 
-    private void etiquetaTurbidezMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaTurbidezMousePressed
+    private void etiquetaTurbidezMousePressed(java.awt.event.MouseEvent evt) {
         activarTurbidez = !activarTurbidez;
         comboTurbidez.setEnabled(activarTurbidez);
         cajaTurbidez.setEnabled(activarTurbidez);
@@ -2027,9 +1966,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             jPanel5.setBackground(new Color(240, 100, 100));
             jPanel34.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaTurbidezMousePressed
+    }
 
-    private void etiquetaAlcalinidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaAlcalinidadMousePressed
+    private void etiquetaAlcalinidadMousePressed(java.awt.event.MouseEvent evt) {
         activarAlcalinidad = !activarAlcalinidad;
         cajaAlcalinidad.setEnabled(activarAlcalinidad);
         etiquetaAlcalinidadIn.setEnabled(activarAlcalinidad);
@@ -2042,9 +1981,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             jPanel9.setBackground(new Color(240, 100, 100));
             jPanel23.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaAlcalinidadMousePressed
+    }
 
-    private void etiquetaDurezaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaDurezaMousePressed
+    private void etiquetaDurezaMousePressed(java.awt.event.MouseEvent evt) {
         activarDureza = !activarDureza;
         cajaDurezatotal.setEnabled(activarDureza);
         etiquetaDurezaIn.setEnabled(activarDureza);
@@ -2057,9 +1996,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             jPanel10.setBackground(new Color(240, 100, 100));
             jPanel24.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaDurezaMousePressed
+    }
 
-    private void etiquetaConductividadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaConductividadMousePressed
+    private void etiquetaConductividadMousePressed(java.awt.event.MouseEvent evt) {
         activarConductividad = !activarConductividad;
         cajaConductividad.setEnabled(activarConductividad);
         etiquetaConductividadIn.setEnabled(activarConductividad);
@@ -2072,9 +2011,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             jPanel11.setBackground(new Color(240, 100, 100));
             jPanel25.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaConductividadMousePressed
+    }
 
-    private void etiquetaSolidosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaSolidosMousePressed
+    private void etiquetaSolidosMousePressed(java.awt.event.MouseEvent evt) {
         activarSolidos = !activarSolidos;
         cajaSolidos.setEnabled(activarSolidos);
         etiquetaSolidosIn.setEnabled(activarSolidos);
@@ -2087,9 +2026,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             jPanel12.setBackground(new Color(240, 100, 100));
             jPanel26.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaSolidosMousePressed
+    }
 
-    private void etiquetaHierroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaHierroMousePressed
+    private void etiquetaHierroMousePressed(java.awt.event.MouseEvent evt) {
         activarHierro = !activarHierro;
         comboHierro.setEnabled(activarHierro);
         cajaHierro.setEnabled(activarHierro);
@@ -2103,9 +2042,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             jPanel4.setBackground(new Color(240, 100, 100));
             jPanel35.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaHierroMousePressed
+    }
 
-    private void etiquetaNitratosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaNitratosMousePressed
+    private void etiquetaNitratosMousePressed(java.awt.event.MouseEvent evt) {
         activarNitratos = !activarNitratos;
         comboNitratos.setEnabled(activarNitratos);
         cajaNitratos.setEnabled(activarNitratos);
@@ -2121,7 +2060,7 @@ public class TablaFQAgua extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_etiquetaNitratosMousePressed
 
-    private void etiquetaNitritosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaNitritosMousePressed
+    private void etiquetaNitritosMousePressed(java.awt.event.MouseEvent evt) {
         activarNitritos = !activarNitritos;
         comboNitritos.setEnabled(activarNitritos);
         cajaNitritos.setEnabled(activarNitritos);
@@ -2135,9 +2074,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             jPanel14.setBackground(new Color(240, 100, 100));
             jPanel31.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaNitritosMousePressed
+    }
 
-    private void etiquetaSulfatosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaSulfatosMousePressed
+    private void etiquetaSulfatosMousePressed(java.awt.event.MouseEvent evt) {
         activarSulfatos = !activarSulfatos;
         comboSulfatos.setEnabled(activarSulfatos);
         cajaSulfatos.setEnabled(activarSulfatos);
@@ -2151,50 +2090,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             jPanel6.setBackground(new Color(240, 100, 100));
             jPanel32.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaSulfatosMousePressed
-
-    private void area62ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area62ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area62ActionPerformed
-
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TablaFQAgua.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TablaFQAgua dialog = new TablaFQAgua(new javax.swing.JFrame(), true, -1, null, true, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+
     private javax.swing.JTextField area012;
     private javax.swing.JTextField area013;
     private javax.swing.JTextField area102;
@@ -2305,7 +2203,7 @@ public class TablaFQAgua extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    // End of variables declaration//GEN-END:variables
+
 
     private String crearConclusion() {
         String conclusion;

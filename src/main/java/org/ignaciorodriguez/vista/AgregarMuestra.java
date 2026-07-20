@@ -136,26 +136,6 @@ public class AgregarMuestra extends javax.swing.JDialog {
         llenarComboBox();
     }
 
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-        }
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AgregarMuestra dialog = new AgregarMuestra(new javax.swing.JFrame(), true, false, -1);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
     private void initComponents() {
         jPanel1 = new JPanel();
         etiquetaAgregar = new JLabel();

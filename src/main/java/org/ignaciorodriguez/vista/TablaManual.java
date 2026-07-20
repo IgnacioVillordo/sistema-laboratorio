@@ -498,8 +498,6 @@ public class TablaManual extends javax.swing.JDialog {
 
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -2168,11 +2166,6 @@ public class TablaManual extends javax.swing.JDialog {
         botonMostrar.setActionCommand("true");
         buttonGroup2.add(botonMostrar);
         botonMostrar.setText("Mostrar fecha de elaboración y lote");
-        botonMostrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonMostrarActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 37;
@@ -2182,11 +2175,6 @@ public class TablaManual extends javax.swing.JDialog {
         botonNoMostrar.setActionCommand("false");
         buttonGroup2.add(botonNoMostrar);
         botonNoMostrar.setText("NO nostrar fecha de elaboración y lote");
-        botonNoMostrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonNoMostrarActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 37;
@@ -3201,7 +3189,7 @@ public class TablaManual extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         Map m = new HashMap();
         // DETERMINACIONES (1-34)
         m.put("determinacion1", determinacion1.getText());
@@ -3386,25 +3374,16 @@ public class TablaManual extends javax.swing.JDialog {
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Ingrese la fecha de análisis.");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void botonMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrarActionPerformed
-
-    }//GEN-LAST:event_botonMostrarActionPerformed
-
-    private void botonNoMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNoMostrarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonNoMostrarActionPerformed
-
-    private void itemCopiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCopiarActionPerformed
+    }
+    private void itemCopiarActionPerformed(java.awt.event.ActionEvent evt) {
         SwingUtilities.convertPointFromScreen(mousePoint, this);
         JTextArea jta = (JTextArea) SwingUtilities.getDeepestComponentAt(this, mousePoint.x, mousePoint.y);
         Clipboard cp = Toolkit.getDefaultToolkit().getSystemClipboard();
         StringSelection data = new StringSelection(jta.getText());
         cp.setContents(data, null);
-    }//GEN-LAST:event_itemCopiarActionPerformed
+    }
 
-    private void itemPegarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPegarActionPerformed
+    private void itemPegarActionPerformed(java.awt.event.ActionEvent evt) {
         Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
         Transferable transferable = cb.getContents(null);
         SwingUtilities.convertPointFromScreen(mousePoint, this);
@@ -3419,42 +3398,8 @@ public class TablaManual extends javax.swing.JDialog {
                 System.getLogger(TablaManual.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             }
         }
-    }//GEN-LAST:event_itemPegarActionPerformed
-
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TablaManual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TablaManual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TablaManual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TablaManual.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TablaManual dialog = new TablaManual(new javax.swing.JFrame(), true, false, -1, "", "");
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JRadioButton botonMostrar;
     private javax.swing.JRadioButton botonNoMostrar;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -3746,7 +3691,6 @@ public class TablaManual extends javax.swing.JDialog {
     private javax.swing.JTextArea recuentoObtenido7;
     private javax.swing.JTextArea recuentoObtenido8;
     private javax.swing.JTextArea recuentoObtenido9;
-    // End of variables declaration//GEN-END:variables
 
     private String crearConclusion() {
         String conclusion = "";

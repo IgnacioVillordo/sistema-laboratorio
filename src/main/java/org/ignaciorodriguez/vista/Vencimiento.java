@@ -223,7 +223,7 @@ public class Vencimiento extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {
         int id, aviso;
         for (int i = 0; i < tablaVencimientos.getRowCount(); i++) {
             if (tablaVencimientos.getValueAt(i, 4).equals(false)) {
@@ -234,9 +234,9 @@ public class Vencimiento extends javax.swing.JDialog {
             id = (int) tablaVencimientos.getValueAt(i, 0);
             consultas.actualizarAvisados(id, aviso);
         }
-    }//GEN-LAST:event_formWindowClosed
+    }
 
-    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         desde = cajaDesde.getDate();
         hasta = cajaHasta.getDate();
         modeloTabla.setRowCount(0);
@@ -251,70 +251,27 @@ public class Vencimiento extends javax.swing.JDialog {
         for (int ancho = 0; ancho < 4; ancho++) {
             tablaVencimientos.getColumnModel().getColumn(ancho).setPreferredWidth(anchos[ancho]);
         }
-    }//GEN-LAST:event_botonBuscarActionPerformed
+    }
 
-    private void tablaVencimientosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaVencimientosMouseClicked
+    private void tablaVencimientosMouseClicked(java.awt.event.MouseEvent evt) {
         row = tablaVencimientos.rowAtPoint(evt.getPoint());
-    }//GEN-LAST:event_tablaVencimientosMouseClicked
+    }
 
-    private void botonEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEmailActionPerformed
+    private void botonEmailActionPerformed(java.awt.event.ActionEvent evt) {
         int id = Integer.parseInt(tablaVencimientos.getValueAt(row, 0).toString());
         VentanaEmailVencimientos v = new VentanaEmailVencimientos(p, true, id);
         v.setVisible(true);
-    }//GEN-LAST:event_botonEmailActionPerformed
+    }
 
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {
         modeloTabla = consultas.obtenerVencimientos(desde, hasta, false);
         tablaVencimientos.setModel(modeloTabla);
         int anchos[] = {38, 379, 170, 201, 107};
         for (int ancho = 0; ancho < anchos.length; ancho++) {
             tablaVencimientos.getColumnModel().getColumn(ancho).setPreferredWidth(anchos[ancho]);
         }
-    }//GEN-LAST:event_formWindowGainedFocus
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Vencimiento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Vencimiento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Vencimiento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Vencimiento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Vencimiento dialog = new Vencimiento(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonBuscar;
     private javax.swing.JMenuItem botonEmail;
     private com.toedter.calendar.JDateChooser cajaDesde;
@@ -326,5 +283,4 @@ public class Vencimiento extends javax.swing.JDialog {
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tablaVencimientos;
-    // End of variables declaration//GEN-END:variables
 }

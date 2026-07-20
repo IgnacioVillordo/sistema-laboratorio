@@ -30,10 +30,6 @@ import javax.swing.UIManager;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.ignaciorodriguez.modelo.Consultas;
 
-/**
- *
- * @author Nacho
- */
 public class VentanaEmailVencimientos extends javax.swing.JDialog {
 
     Consultas c = Consultas.getInstancia();
@@ -80,8 +76,6 @@ public class VentanaEmailVencimientos extends javax.swing.JDialog {
         System.setProperty("javax.net.ssl.trustStorePassword", "laboratorioav");
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -104,11 +98,6 @@ public class VentanaEmailVencimientos extends javax.swing.JDialog {
         comboEmail.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboEmailItemStateChanged(evt);
-            }
-        });
-        comboEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboEmailActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -227,13 +216,9 @@ public class VentanaEmailVencimientos extends javax.swing.JDialog {
         });
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void comboEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboEmailActionPerformed
-
-    private void comboEmailItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEmailItemStateChanged
+    private void comboEmailItemStateChanged(java.awt.event.ItemEvent evt) {
 
         String aux = evt.getItem().toString();
         switch (aux) {
@@ -268,16 +253,16 @@ public class VentanaEmailVencimientos extends javax.swing.JDialog {
                         + "info@laboratorioav.com.ar</b></html>");
                 break;
         }
-    }//GEN-LAST:event_comboEmailItemStateChanged
+    }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         Cursor cursor = new Cursor(Cursor.WAIT_CURSOR);
         this.setCursor(cursor);
         enviarEmail();
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
-    private void etiquetaFirmaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaFirmaMousePressed
+    private void etiquetaFirmaMousePressed(java.awt.event.MouseEvent evt) {
         if (!editar) {
             String auxFirma = etiquetaFirma.getText();
             int idbr = auxFirma.indexOf("<br>");
@@ -285,32 +270,8 @@ public class VentanaEmailVencimientos extends javax.swing.JDialog {
             etiquetaFirma.setText("<html><b>" + usuario + auxFirma.substring(idbr));
         }
 
-    }//GEN-LAST:event_etiquetaFirmaMousePressed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e) {
-        }
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                VentanaEmailVencimientos dialog = new VentanaEmailVencimientos(new javax.swing.JFrame(), true, -1);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cajaAsunto;
     private javax.swing.JTextArea cajaCuerpo;
     private javax.swing.JTextField cajaPara;
@@ -321,7 +282,6 @@ public class VentanaEmailVencimientos extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    // End of variables declaration//GEN-END:variables
 
     private void enviarEmail() {
         // Destinatario

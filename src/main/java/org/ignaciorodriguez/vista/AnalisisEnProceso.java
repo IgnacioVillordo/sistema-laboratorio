@@ -56,8 +56,6 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -136,67 +134,23 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
+    private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {
         this.dispose();
         auxiliar = areaInforme.getText().replace("\n", "<br>");
         auxiliar = "<html>" + auxiliar + "</html>";
         c.generarReporteEnProceso(id, auxiliar);
-    }//GEN-LAST:event_botonGuardarActionPerformed
-
-    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_botonCancelarActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AnalisisEnProceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AnalisisEnProceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AnalisisEnProceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AnalisisEnProceso.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                AnalisisEnProceso dialog = new AnalisisEnProceso(new javax.swing.JFrame(), true, -1);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {
+        this.dispose();
+    }
+
     private javax.swing.JScrollPane ScrollareaInforme;
     private javax.swing.JTextArea areaInforme;
     private javax.swing.JButton botonCancelar;
     private javax.swing.JButton botonGuardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
-    // End of variables declaration//GEN-END:variables
 }

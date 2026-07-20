@@ -2,9 +2,11 @@ package org.ignaciorodriguez.vista;
 
 import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
-import org.ignaciorodriguez.modelo.Consultas;
+
 import org.ignaciorodriguez.modelo.Usuario;
-import org.ignaciorodriguez.modelo.VerContraseña;
+import org.ignaciorodriguez.modelo.VerContrasena;
+import org.ignaciorodriguez.repository.UsuarioRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -16,10 +18,10 @@ import javax.swing.JComponent;
 
 public class ModificarUsuario extends javax.swing.JDialog {
 
-    Consultas consultas = Consultas.getInstancia();
+    UsuarioRepository usuarioRepository = new UsuarioRepository();
     boolean verContraseña = false;
     boolean verConfirmar = false;
-    VerContraseña v = new VerContraseña();
+    VerContrasena v = new VerContrasena();
 
     public ModificarUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -39,9 +41,6 @@ public class ModificarUsuario extends javax.swing.JDialog {
         comboUsuario.setEnabled(false);
     }
 
-    
-    @SuppressWarnings("unchecked")
-
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -49,11 +48,11 @@ public class ModificarUsuario extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         comboUsuario = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        cajaContraseña = new javax.swing.JPasswordField();
+        cajaContrasena = new javax.swing.JPasswordField();
         cajaConfirmar = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         botonModificar = new javax.swing.JButton();
-        botonContraseña = new javax.swing.JButton();
+        botonContrasena = new javax.swing.JButton();
         botonConfirmar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -69,7 +68,7 @@ public class ModificarUsuario extends javax.swing.JDialog {
         jPanel1.add(jLabel1, gridBagConstraints);
 
         comboUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboUsuario.setModel(consultas.recuperarUsuarios());
+        comboUsuario.setModel(usuarioRepository.recuperarUsuarios());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -86,7 +85,7 @@ public class ModificarUsuario extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 10);
         jPanel1.add(jLabel2, gridBagConstraints);
 
-        cajaContraseña.setPreferredSize(new java.awt.Dimension(111, 30));
+        cajaContrasena.setPreferredSize(new java.awt.Dimension(111, 30));
         KeyListener eventoTeclado = new KeyListener() {
             @Override
             public void keyTyped(KeyEvent ke) {
@@ -102,14 +101,14 @@ public class ModificarUsuario extends javax.swing.JDialog {
                     botonModificar.doClick();
                 }}
             };
-            cajaContraseña.addKeyListener(eventoTeclado);
+            cajaContrasena.addKeyListener(eventoTeclado);
             gridBagConstraints = new java.awt.GridBagConstraints();
             gridBagConstraints.gridx = 1;
             gridBagConstraints.gridy = 1;
             gridBagConstraints.ipadx = 24;
             gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
             gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 0);
-            jPanel1.add(cajaContraseña, gridBagConstraints);
+            jPanel1.add(cajaContrasena, gridBagConstraints);
 
             cajaConfirmar.setPreferredSize(new java.awt.Dimension(111, 30));
             KeyListener eventoTeclado1 = new KeyListener() {
@@ -167,11 +166,11 @@ public class ModificarUsuario extends javax.swing.JDialog {
                     }
                 });
 
-                botonContraseña.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ver.png")));
-                botonContraseña.setMargin(new java.awt.Insets(2, 2, 2, 2));
-                botonContraseña.setMaximumSize(new java.awt.Dimension(20, 20));
-                botonContraseña.setPreferredSize(new java.awt.Dimension(30, 30));
-                botonContraseña.addActionListener(new java.awt.event.ActionListener() {
+                botonContrasena.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ver.png")));
+                botonContrasena.setMargin(new java.awt.Insets(2, 2, 2, 2));
+                botonContrasena.setMaximumSize(new java.awt.Dimension(20, 20));
+                botonContrasena.setPreferredSize(new java.awt.Dimension(30, 30));
+                botonContrasena.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
                         botonContraseñaActionPerformed(evt);
                     }
@@ -181,7 +180,7 @@ public class ModificarUsuario extends javax.swing.JDialog {
                 gridBagConstraints.gridy = 1;
                 gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
                 gridBagConstraints.insets = new java.awt.Insets(20, 0, 20, 20);
-                jPanel1.add(botonContraseña, gridBagConstraints);
+                jPanel1.add(botonContrasena, gridBagConstraints);
 
                 botonConfirmar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ver.png")));
                 botonConfirmar.setMargin(new java.awt.Insets(2, 2, 2, 2));
@@ -221,18 +220,18 @@ public class ModificarUsuario extends javax.swing.JDialog {
             }
 
     private void botonModificarActionPerformed(java.awt.event.ActionEvent evt) {
-        if (cajaContraseña.getText().equals(cajaConfirmar.getText())) {
+        if (cajaContrasena.getText().equals(cajaConfirmar.getText())) {
             Usuario usuario = new Usuario();
             usuario.setUsuario(String.valueOf(comboUsuario.getSelectedItem()));
-            usuario.setContraseña(String.valueOf(cajaContraseña.getText()));
-            if(consultas.modificarUsuario(usuario)){
+            usuario.setContrasena(String.valueOf(cajaContrasena.getText()));
+            if(usuarioRepository.modificarUsuario(usuario)){
                 JOptionPane.showMessageDialog(null, "La contraseña se ha cambiado con éxito.");
                 dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Error al cambiar la contraseña.");
             }
         }else{
-            if(cajaConfirmar.getText().equals("") || cajaContraseña.getText().equals("")){
+            if(cajaConfirmar.getText().equals("") || cajaContrasena.getText().equals("")){
                 JOptionPane.showMessageDialog(null, "Rellene todos los campos.");
             }else{
                 JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden.");
@@ -241,57 +240,19 @@ public class ModificarUsuario extends javax.swing.JDialog {
     }
 
     private void botonContraseñaActionPerformed(java.awt.event.ActionEvent evt) {
-        verContraseña = v.ocultarContraseña(cajaContraseña, verContraseña);
+        verContraseña = v.ocultarContrasena(cajaContrasena, verContraseña);
     }
 
     private void botonConfirmarActionPerformed(java.awt.event.ActionEvent evt) {
-        verConfirmar = v.ocultarContraseña(cajaConfirmar, verConfirmar);
-    }
-
-    
-    public static void main(String args[]) {
-        
-
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ModificarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ModificarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ModificarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ModificarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ModificarUsuario dialog = new ModificarUsuario(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
+        verConfirmar = v.ocultarContrasena(cajaConfirmar, verConfirmar);
     }
 
 
     private javax.swing.JButton botonConfirmar;
-    private javax.swing.JButton botonContraseña;
+    private javax.swing.JButton botonContrasena;
     private javax.swing.JButton botonModificar;
     private javax.swing.JPasswordField cajaConfirmar;
-    private javax.swing.JPasswordField cajaContraseña;
+    private javax.swing.JPasswordField cajaContrasena;
     private javax.swing.JComboBox<String> comboUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

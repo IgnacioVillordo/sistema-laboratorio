@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
@@ -35,6 +36,7 @@ public class InformesVencimientos extends javax.swing.JDialog {
             }
         }
     };
+    private static final Logger logger = Logger.getLogger(InformesVencimientos.class.getName());
 
     public InformesVencimientos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -61,8 +63,6 @@ public class InformesVencimientos extends javax.swing.JDialog {
         tablaDatos.getColumnModel().getColumn(4).setPreferredWidth(71);
         
     }
-
-    @SuppressWarnings("unchecked")
 
     private void initComponents() {
 
@@ -204,6 +204,7 @@ public class InformesVencimientos extends javax.swing.JDialog {
                     consultas.seleccionarVencimiento(Integer.parseInt(tablaDatos.getValueAt(i, 0).toString()), 1);
                 }
             } catch (Exception e) {
+                logger.severe("Error, " + e);
             }
         }
         this.dispose();
@@ -222,46 +223,6 @@ public class InformesVencimientos extends javax.swing.JDialog {
     private void tablaDatosMousePressed(java.awt.event.MouseEvent evt) {
         row = tablaDatos.rowAtPoint(evt.getPoint());
     }
-
-    
-    public static void main(String args[]) {
-        
-
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InformesVencimientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InformesVencimientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InformesVencimientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InformesVencimientos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-
-
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                InformesVencimientos dialog = new InformesVencimientos(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
 
     private javax.swing.JButton botonGenerar;
     private javax.swing.JCheckBox jCheckBox1;

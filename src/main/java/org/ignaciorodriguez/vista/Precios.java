@@ -22,7 +22,7 @@ public class Precios extends javax.swing.JDialog {
 
     Consultas consultas = Consultas.getInstancia();
     double total = 0;
-    Map<Integer, DTOPrecio> map = new HashMap();
+    Map<Integer, DTOPrecio> map = new HashMap<>();
     JPanel panelKm;
     JLabel etiquetaKm;
     JTextField campoKm;
@@ -121,11 +121,9 @@ public class Precios extends javax.swing.JDialog {
         gbc.insets = new Insets(20, 5, 10, 5);
         gbc.gridy = fila[0];
         jPanel1.add(boton, gbc);
-        this.setSize(new Dimension(700, (((fila[0] + 1) * 30) + 150) < 600 ? (((fila[0] + 1) * 30) + 150) : 600));
+        this.setSize(new Dimension(700, Math.min((((fila[0] + 1) * 30) + 150), 600)));
         setLocationRelativeTo(null);
     }
-
-    @SuppressWarnings("unchecked")
 
     private void initComponents() {
 
@@ -133,11 +131,6 @@ public class Precios extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
-        });
 
         jScrollPane1.setMaximumSize(new java.awt.Dimension(1000, 1000));
 
@@ -158,47 +151,6 @@ public class Precios extends javax.swing.JDialog {
 
         pack();
     }
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {
-
-    }
-
-    public static void main(String args[]) {
-
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Precios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Precios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Precios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Precios.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Precios dialog = new Precios(new javax.swing.JFrame(), true, "", false);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
 
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

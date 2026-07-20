@@ -4,6 +4,8 @@ import java.awt.event.KeyListener;
 import org.ignaciorodriguez.modelo.Consultas;
 import javax.swing.JOptionPane;
 import org.ignaciorodriguez.modelo.Usuario;
+import org.ignaciorodriguez.repository.UsuarioRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -15,7 +17,7 @@ import javax.swing.JComponent;
 
 public class EliminarUsuario extends javax.swing.JDialog {
 
-    Consultas consultas = Consultas.getInstancia();
+    UsuarioRepository usuarioRepository = new UsuarioRepository();
     Principal p = new Principal();
     boolean nombre = false;
 
@@ -36,9 +38,6 @@ public class EliminarUsuario extends javax.swing.JDialog {
         ImageIcon icon = new ImageIcon("src\\vista\\icono.png");
         this.setIconImage(icon.getImage());
     }
-
-    
-    @SuppressWarnings("unchecked")
 
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -63,7 +62,7 @@ public class EliminarUsuario extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(10, 0, 0, 0);
         jPanel1.add(jLabel1, gridBagConstraints);
 
-        comboUsuarios.setModel(consultas.recuperarUsuarios());
+        comboUsuarios.setModel(usuarioRepository.recuperarUsuarios());
         KeyListener eventoTeclado = new KeyListener() {
             @Override
             public void keyTyped(KeyEvent ke) {
@@ -139,58 +138,18 @@ public class EliminarUsuario extends javax.swing.JDialog {
         Usuarios u = new Usuarios(p, true);
         u.setVisible(true);
         if (u.tipoUsuario() == 1) {
-            if (consultas.eliminarUsuario(usuario)) {
+            if (usuarioRepository.eliminarUsuario(usuario)) {
                 JOptionPane.showMessageDialog(null, "El usuario se ha eliminado con éxito.");
                 if(nombre){
                     this.dispose();
                 } else {
-                    comboUsuarios.setModel(consultas.recuperarUsuarios());
+                    comboUsuarios.setModel(usuarioRepository.recuperarUsuarios());
                 }
             }
         } else if (u.tipoUsuario() == 2) {
             JOptionPane.showMessageDialog(null, "No posee los permisos necesarios.");
         }
     }
-
-    
-    public static void main(String args[]) {
-        
-
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(EliminarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(EliminarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(EliminarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(EliminarUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                EliminarUsuario dialog = new EliminarUsuario(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
-
     private javax.swing.JButton botonEliminar;
     private javax.swing.JComboBox<String> comboUsuarios;
     private javax.swing.JLabel jLabel1;

@@ -16,6 +16,7 @@ import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
@@ -36,10 +37,12 @@ import javax.swing.table.DefaultTableCellRenderer;
 import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
+import org.ignaciorodriguez.repository.UsuarioRepository;
 
 public class Principal extends JFrame {
 
     Consultas consultas = Consultas.getInstancia();
+    UsuarioRepository usuarioRepository = new UsuarioRepository();
     public DefaultTableModel modeloTabla = consultas.llenarTabla();
     int fila2;
     public static int id;
@@ -50,10 +53,10 @@ public class Principal extends JFrame {
     Map<String, String> map = consultas.recuperarIdentificaciones();
     DialogoBuscar n;
     int actualizacion = -1;
+    private static final Logger logger = Logger.getLogger(Principal.class.getName());
 
     public Principal() {
         initComponents();
-//        menuExcel.setVisible(false);
         actualizacion = consultas.consultarActualizacion();
         tablaDatos.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent mouseEvent) {
@@ -110,7 +113,7 @@ public class Principal extends JFrame {
         buttonGroup1.add(radioID);
         buttonGroup1.add(radioProcedencia);
         buttonGroup1.add(radioSolicitante);
-        class SayHello extends TimerTask {
+        class actualizacion extends TimerTask {
 
             public void run() {
 
@@ -126,14 +129,10 @@ public class Principal extends JFrame {
                 }
             }
         }
-
-        // And From your main() method or any other method
         Timer timer = new Timer();
-        timer.schedule(new SayHello(), 0, 60000);
+        timer.schedule(new actualizacion(), 0, 60000);
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -181,7 +180,7 @@ public class Principal extends JFrame {
                 try {
                     tip = map.get(tablaDatos.getValueAt(rowIndex, 0));
                 } catch (RuntimeException e1) {
-                    //catch null pointer exception if mouse is over an empty line
+                    logger.severe("Error, " + e1);
                 }
                 return tip;
             }
@@ -356,11 +355,6 @@ public class Principal extends JFrame {
         jPanel3.setLayout(new java.awt.GridBagLayout());
 
         boton.setText("Buscar");
-        boton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -463,11 +457,6 @@ public class Principal extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                formMouseWheelMoved(evt);
-            }
-        });
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -476,25 +465,12 @@ public class Principal extends JFrame {
             }
         });
         addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosed(java.awt.event.WindowEvent evt) {
-                formWindowClosed(evt);
-            }
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-        });
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jPanel1KeyPressed(evt);
-            }
-        });
         jPanel1.setLayout(new java.awt.GridBagLayout());
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -505,9 +481,6 @@ public class Principal extends JFrame {
         tablaDatos.setSelectionBackground(new java.awt.Color(212, 236, 108));
         tablaDatos.getTableHeader().setReorderingAllowed(false);
         tablaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                tablaDatosMouseEntered(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 tablaDatosMousePressed(evt);
             }
@@ -677,11 +650,6 @@ public class Principal extends JFrame {
         botonAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAgregarActionPerformed(evt);
-            }
-        });
-        botonAgregar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                botonAgregarKeyPressed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -913,41 +881,41 @@ public class Principal extends JFrame {
         setJMenuBar(jMenuBar1);
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
+    private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {
         Procedencia p = new Procedencia(this, true);
         p.setVisible(true);
-    }//GEN-LAST:event_botonAgregarActionPerformed
+    }
 
-    private void itemVencimientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVencimientosActionPerformed
+    private void itemVencimientosActionPerformed(java.awt.event.ActionEvent evt) {
         Vencimiento vencimiento = new Vencimiento(this, true);
         vencimiento.setVisible(true);
-    }//GEN-LAST:event_itemVencimientosActionPerformed
+    }
 
-    private void itemAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAgregarActionPerformed
+    private void itemAgregarActionPerformed(java.awt.event.ActionEvent evt) {
         CrearUsuario crear = new CrearUsuario(this, true);
         crear.setVisible(true);
-    }//GEN-LAST:event_itemAgregarActionPerformed
+    }
 
-    private void etiquetaInicialMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaInicialMouseEntered
+    private void etiquetaInicialMouseEntered(java.awt.event.MouseEvent evt) {
         Cursor cursor = new Cursor(Cursor.HAND_CURSOR);
         etiquetaInicial.setCursor(cursor);
         etiquetaInicial.setComponentPopupMenu(menuPop);
 
-    }//GEN-LAST:event_etiquetaInicialMouseEntered
+    }
 
-    private void itemEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEliminarActionPerformed
+    private void itemEliminarActionPerformed(java.awt.event.ActionEvent evt) {
         EliminarUsuario eliminar = new EliminarUsuario(this, true);
         eliminar.setVisible(true);
-    }//GEN-LAST:event_itemEliminarActionPerformed
+    }
 
-    private void itemModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemModificarActionPerformed
+    private void itemModificarActionPerformed(java.awt.event.ActionEvent evt) {
         ModificarUsuario modificar = new ModificarUsuario(this, true);
         modificar.setVisible(true);
-    }//GEN-LAST:event_itemModificarActionPerformed
+    }
 
-    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscarActionPerformed
+    private void botonBuscarActionPerformed(java.awt.event.ActionEvent evt) {
         defaultRender = (DefaultTableCellRenderer) tablaDatos.getDefaultRenderer(Object.class);
         actualizar = false;
         
@@ -973,31 +941,31 @@ public class Principal extends JFrame {
                         return c;
                     }
                 });
-                int anchos[] = {24, 288, 208, 97, 63, 63, 75, 69, 60, 52, 219};
+                int[] anchos = {24, 288, 208, 97, 63, 63, 75, 69, 60, 52, 219};
                 for (int i = 0; i < 11; i++) {
                     tablaDatos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
                 }
             }
         }
-    }//GEN-LAST:event_botonBuscarActionPerformed
+    }
 
-    private void itemVerClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVerClientesActionPerformed
+    private void itemVerClientesActionPerformed(java.awt.event.ActionEvent evt) {
         VerClientes vc = new VerClientes(this, true, false);
         vc.setVisible(true);
-    }//GEN-LAST:event_itemVerClientesActionPerformed
+    }
 
-    private void itemNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNuevoClienteActionPerformed
+    private void itemNuevoClienteActionPerformed(java.awt.event.ActionEvent evt) {
         AgregarProcedencia ap = new AgregarProcedencia(this, true, false, -1, false);
         ap.setVisible(true);
-    }//GEN-LAST:event_itemNuevoClienteActionPerformed
+    }
 
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {
         if (actualizar) {
             if (!consultas.verificarVacioMuestras()) {
                 modeloTabla();
             }
         } else {
-            if (n.parametro != "-1" && n.valor != "-1") {
+            if (!Objects.equals(n.parametro, "-1") && !Objects.equals(n.valor, "-1")) {
                 modeloTabla = consultas.buscarTabla(n.parametro, n.valor);
                 if (modeloTabla.getRowCount() != 0) {
                     panelColores.setVisible(true);
@@ -1006,35 +974,31 @@ public class Principal extends JFrame {
                         @Override
                         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                             final Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                            if (isSelected) {
-                                c.setBackground(table.getModel().getValueAt(row, tabla).toString().contains("en tabla".toUpperCase()) ? new Color(135, 252, 126) : table.getModel().getValueAt(row, tabla).toString().contains("entregado".toUpperCase()) ? new Color(128, 126, 252) : new Color(252, 126, 126));
-                            } else {
-                                c.setBackground(table.getModel().getValueAt(row, tabla).toString().contains("en tabla".toUpperCase()) ? new Color(135, 252, 126) : table.getModel().getValueAt(row, tabla).toString().contains("entregado".toUpperCase()) ? new Color(128, 126, 252) : new Color(252, 126, 126));
-                            }
+                            c.setBackground(table.getModel().getValueAt(row, tabla).toString().contains("en tabla".toUpperCase()) ? new Color(135, 252, 126) : table.getModel().getValueAt(row, tabla).toString().contains("entregado".toUpperCase()) ? new Color(128, 126, 252) : new Color(252, 126, 126));
                             return c;
                         }
                     });
                     tablaDatos.getColumnModel().removeColumn(tablaDatos.getColumnModel().getColumn(tablaDatos.getColumnCount() - 1));
                     tablaDatos.getColumnModel().removeColumn(tablaDatos.getColumnModel().getColumn(tablaDatos.getColumnCount() - 1));
-                    int anchos[] = {24, 288, 208, 97, 63, 63, 75, 69, 60, 52, 219};
+                    int[] anchos = {24, 288, 208, 97, 63, 63, 75, 69, 60, 52, 219};
                     for (int i = 0; i < 11; i++) {
                         tablaDatos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
                     }
                 }
             }
         }
-    }//GEN-LAST:event_formWindowGainedFocus
+    }
 
-    private void itemInformeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemInformeActionPerformed
+    private void itemInformeActionPerformed(java.awt.event.ActionEvent evt) {
         mostrarInformes();
-    }//GEN-LAST:event_itemInformeActionPerformed
+    }
 
-    private void itemVerEntregasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVerEntregasActionPerformed
+    private void itemVerEntregasActionPerformed(java.awt.event.ActionEvent evt) {
         TablaEntregas te = new TablaEntregas(this, true);
         te.setVisible(true);
-    }//GEN-LAST:event_itemVerEntregasActionPerformed
+    }
 
-    private void tablaDatosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDatosMousePressed
+    private void tablaDatosMousePressed(java.awt.event.MouseEvent evt) {
         ph = false;
         itemAgregarPh.setVisible(ph);
         anulado = false;
@@ -1063,33 +1027,13 @@ public class Principal extends JFrame {
         anulado = false;
         borrar = true;
         ph = false;
-    }//GEN-LAST:event_tablaDatosMousePressed
+    }
 
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-
-    }//GEN-LAST:event_formKeyPressed
-
-    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
-
-    }//GEN-LAST:event_jPanel1KeyPressed
-
-    private void botonAgregarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_botonAgregarKeyPressed
-
-    }//GEN-LAST:event_botonAgregarKeyPressed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {
         botonAgregar.doClick();
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }
 
-    private void formMouseWheelMoved(java.awt.event.MouseWheelEvent evt) {//GEN-FIRST:event_formMouseWheelMoved
-
-    }//GEN-LAST:event_formMouseWheelMoved
-
-    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-
-    }//GEN-LAST:event_formWindowClosed
-
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {
         if (!ip) {
             int guardar = JOptionPane.showOptionDialog(this, "¿Desea hacer una copia de seguridad?", "Copia de seguridad", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, null);
             if (guardar == JOptionPane.YES_OPTION) {
@@ -1102,7 +1046,7 @@ public class Principal extends JFrame {
                 setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
             }
         }
-    }//GEN-LAST:event_formWindowClosing
+    }
 
     private void itemReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemReporteActionPerformed
         JFileChooser elegir = new JFileChooser(consultas.recuperarRutas("Reportes"));
@@ -1118,9 +1062,9 @@ public class Principal extends JFrame {
 
             }
         }
-    }//GEN-LAST:event_itemReporteActionPerformed
+    }
 
-    private void itemRespaldoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRespaldoActionPerformed
+    private void itemRespaldoActionPerformed(java.awt.event.ActionEvent evt) {
         JFileChooser elegir = new JFileChooser(consultas.recuperarRutas("Respaldo"));
         elegir.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         elegir.setDialogTitle("Elegir ruta para guardar respaldo");
@@ -1134,30 +1078,30 @@ public class Principal extends JFrame {
 
             }
         }
-    }//GEN-LAST:event_itemRespaldoActionPerformed
+    }
 
-    private void menuitemCopiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemCopiaActionPerformed
+    private void menuitemCopiaActionPerformed(java.awt.event.ActionEvent evt) {
         File file = new File(rutaRespaldo);
         if (crearBackup(rutaRespaldo)) {
             JOptionPane.showMessageDialog(null, "Respaldo guardado con éxito.");
         } else {
             JOptionPane.showMessageDialog(null, "Error al guardar el respaldo");
         }
-    }//GEN-LAST:event_menuitemCopiaActionPerformed
+    }
 
-    private void itemVerEntregas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVerEntregas1ActionPerformed
+    private void itemVerEntregas1ActionPerformed(java.awt.event.ActionEvent evt) {
         TablaBorrados tb = new TablaBorrados(this, true);
         tb.setVisible(true);
-    }//GEN-LAST:event_itemVerEntregas1ActionPerformed
+    }
 
-    private void itemAgregarPhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemAgregarPhActionPerformed
+    private void itemAgregarPhActionPerformed(java.awt.event.ActionEvent evt) {
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0));
         String tipo = (String) tablaDatos.getValueAt(fila2, 10);
         AgregarPh aph = new AgregarPh(this, true, id, tipo);
         aph.setVisible(true);
-    }//GEN-LAST:event_itemAgregarPhActionPerformed
+    }
 
-    private void itemEditarResultadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEditarResultadosActionPerformed
+    private void itemEditarResultadosActionPerformed(java.awt.event.ActionEvent evt) {
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0));
         String tipo = String.valueOf(tablaDatos.getValueAt(fila2, 10));
         String tipo2 = "";
@@ -1319,9 +1263,9 @@ public class Principal extends JFrame {
                     break;
             }
         }
-    }//GEN-LAST:event_itemEditarResultadosActionPerformed
+    }
 
-    private void itemEntregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEntregarActionPerformed
+    private void itemEntregarActionPerformed(java.awt.event.ActionEvent evt) {
         Usuarios usuarios = new Usuarios(this, true);
         usuarios.setVisible(true); //ventana para elegir usuario visible
         String nombre = "error"; //inicio de variable nombre con el nombre del usuario
@@ -1329,7 +1273,7 @@ public class Principal extends JFrame {
         Usuario usuario = new Usuario();
         usuario.setUsuario(nombre);
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0)); // se obtiene id de la muestra desde la tabla
-        usuario.setId(consultas.obtenerIdUsuario(nombre));
+        usuario.setId(usuarioRepository.obtenerIdUsuario(nombre));
         if (nombre.equals("error")) {
         } else {
             if (consultas.entregarMuestra(usuario, id)) {
@@ -1339,16 +1283,16 @@ public class Principal extends JFrame {
                 JOptionPane.showMessageDialog(null, "Error al guardar la entrega.");
             }
         }
-    }//GEN-LAST:event_itemEntregarActionPerformed
+    }
 
-    private void itemEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEditarActionPerformed
+    private void itemEditarActionPerformed(java.awt.event.ActionEvent evt) {
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0));
         System.out.println("id = " + id);
         AgregarMuestra am = new AgregarMuestra(this, true, true, id);
         am.setVisible(true);
-    }//GEN-LAST:event_itemEditarActionPerformed
+    }
 
-    private void itemBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBorrarActionPerformed
+    private void itemBorrarActionPerformed(java.awt.event.ActionEvent evt) {
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0));
         System.out.println(consultas.borrarAnalisis(id, 1));
         if (consultas.borrarAnalisis(id, 1)) {
@@ -1357,9 +1301,9 @@ public class Principal extends JFrame {
             JOptionPane.showMessageDialog(null, "Error al borrar análisis.");
         }
         modeloTabla();
-    }//GEN-LAST:event_itemBorrarActionPerformed
+    }
 
-    private void GenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GenerarReporteActionPerformed
+    private void GenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0));
         String tipo = String.valueOf(tablaDatos.getValueAt(fila2, 10));
         String tipo2 = "";
@@ -1647,9 +1591,9 @@ public class Principal extends JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_GenerarReporteActionPerformed
+    }
 
-    private void itemRecuperarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRecuperarActionPerformed
+    private void itemRecuperarActionPerformed(java.awt.event.ActionEvent evt) {
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0));
         if (consultas.borrarAnalisis(id, 0)) {
             JOptionPane.showMessageDialog(null, "Se recupero la muestra.");
@@ -1657,84 +1601,76 @@ public class Principal extends JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Error al recuperar la muestra.");
         }
-    }//GEN-LAST:event_itemRecuperarActionPerformed
+    }
 
-    private void itemNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemNotasActionPerformed
+    private void itemNotasActionPerformed(java.awt.event.ActionEvent evt) {
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0));
         VentanaNotas v = new VentanaNotas(this, true, id);
         v.setVisible(true);
-    }//GEN-LAST:event_itemNotasActionPerformed
+    }
 
-    private void tablaDatosMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDatosMouseEntered
-//        int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0));
-    }//GEN-LAST:event_tablaDatosMouseEntered
-
-    private void itemEnProcesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemEnProcesoActionPerformed
+    private void itemEnProcesoActionPerformed(java.awt.event.ActionEvent evt) {
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0));
         AnalisisEnProceso ap = new AnalisisEnProceso(this, true, id);
         ap.setVisible(true);
-    }//GEN-LAST:event_itemEnProcesoActionPerformed
+    }
 
-    private void itemVerUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVerUsuariosActionPerformed
+    private void itemVerUsuariosActionPerformed(java.awt.event.ActionEvent evt) {
         VerUsuarios vu = new VerUsuarios(this, true);
         vu.setVisible(true);
-    }//GEN-LAST:event_itemVerUsuariosActionPerformed
+    }
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {
         VerClientes vc = new VerClientes(this, true, true);
         vc.setVisible(true);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    }
 
-    private void botonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonActionPerformed
-
-    }//GEN-LAST:event_botonActionPerformed
-
-    private void radioSolicitanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioSolicitanteActionPerformed
+    private void radioSolicitanteActionPerformed(java.awt.event.ActionEvent evt) {
         labelBuscar.setText("Solicitante:");
-    }//GEN-LAST:event_radioSolicitanteActionPerformed
+    }
 
-    private void radioFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioFechaActionPerformed
+    private void radioFechaActionPerformed(java.awt.event.ActionEvent evt) {
         labelBuscar.setText("Fechas:");
-    }//GEN-LAST:event_radioFechaActionPerformed
+    }
 
-    private void radioProcedenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioProcedenciaActionPerformed
+    private void radioProcedenciaActionPerformed(java.awt.event.ActionEvent evt) {
         labelBuscar.setText("Procedencia:");
-    }//GEN-LAST:event_radioProcedenciaActionPerformed
+    }
 
-    private void radioIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioIDActionPerformed
+    private void radioIDActionPerformed(java.awt.event.ActionEvent evt) {
         labelBuscar.setText("ID:");
-    }//GEN-LAST:event_radioIDActionPerformed
+    }
 
-    private void botonBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBuscar1ActionPerformed
+    private void botonBuscar1ActionPerformed(java.awt.event.ActionEvent evt) {
         modeloTabla();
         actualizar = true;
         panelColores.setVisible(false);
-    }//GEN-LAST:event_botonBuscar1ActionPerformed
+    }
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {
         if (actualizacion == 1) {
             JOptionPane.showMessageDialog(null, "Para enviar un error, primero se debe probar la nueva versión del programa");
         } else {
             VentanaEmailError v = new VentanaEmailError(this, true);
             v.setVisible(true);
         }
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {
         if (consultas.consultarActualizacion() == 1) {
             Descargando d = new Descargando(this, true);
             d.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "No hay actualizaciones disponibles.");
         }
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {
         InformesVencimientos iv = new InformesVencimientos(this, true);
         iv.setVisible(true);
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }
 
-    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {
         Usuarios u = new Usuarios(this, true);
         u.setVisible(true);
         if (u.tipoUsuario() == 1) {
@@ -1743,9 +1679,9 @@ public class Principal extends JFrame {
         } else if (u.tipoUsuario() == 2) {
             JOptionPane.showMessageDialog(null, "No posee los permisos necesarios.");
         }
-    }//GEN-LAST:event_jMenuItem6ActionPerformed
+    }
 
-    private void itemPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemPruebaActionPerformed
+    private void itemPruebaActionPerformed(java.awt.event.ActionEvent evt) {
         String procedencia = tablaDatos.getValueAt(fila2, 1).toString();
         String rutaGuardado = consultas.recuperarRutas("Reportes");
         String tipo2 = " FQ agua ";
@@ -1756,42 +1692,19 @@ public class Principal extends JFrame {
         pdf += ".pdf";
         FQAlimentos fqa = new FQAlimentos(this, true, 1, false, pdf, Determinaciones.AGUA);
         fqa.setVisible(true);
-    }//GEN-LAST:event_itemPruebaActionPerformed
+    }
 
-    private void itemBorrarPruebaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemBorrarPruebaActionPerformed
+    private void itemBorrarPruebaActionPerformed(java.awt.event.ActionEvent evt) {
         if (consultas.borrarDeterminaciones(1)) {
             JOptionPane.showMessageDialog(null, "Prueba reseteada.");
         }
-    }//GEN-LAST:event_itemBorrarPruebaActionPerformed
-
-    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-//        Calendar inicio = new GregorianCalendar(2018, Calendar.JANUARY, 1);
-//        Date fechaInicio = inicio.getTime();
-//
-//// 01-01-2026
-//        Calendar fin = new GregorianCalendar(2026, Calendar.JANUARY, 1);
-//        Date fechaFin = fin.getTime();
-//        consultas.exportarExcelTradicional(fechaInicio, fechaFin, 56, "Microbiológico de agua código", Tipo.MBAGUACODIGO);
-//        consultas.exportarExcelTradicional(fechaInicio, fechaFin, 149, "Efluentes infiltración", Tipo.EFLUENTES);
-//        consultas.exportarExcelTradicional(fechaInicio, fechaFin, 141, "Microbiológico de alimentos", Tipo.MBALIMENTOS);
-    VentanaExcel ve = new VentanaExcel(this, true);
-    ve.setVisible(true);
-    }//GEN-LAST:event_jMenuItem7ActionPerformed
-
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e) {
-        }
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {
+    VentanaExcel ve = new VentanaExcel(this, true);
+    ve.setVisible(true);
+    }
+
     private javax.swing.JMenuItem GenerarReporte;
     private javax.swing.JButton boton;
     public javax.swing.JButton botonAgregar;
@@ -1868,7 +1781,6 @@ public class Principal extends JFrame {
     private javax.swing.JRadioButton radioProcedencia;
     private javax.swing.JRadioButton radioSolicitante;
     public javax.swing.JTable tablaDatos;
-    // End of variables declaration//GEN-END:variables
 
     public void modeloTabla() {
         modeloTabla = consultas.llenarTabla();

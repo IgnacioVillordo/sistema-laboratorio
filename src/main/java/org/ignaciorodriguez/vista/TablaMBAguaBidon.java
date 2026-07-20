@@ -20,10 +20,6 @@ import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 import javax.swing.JComponent;
 
-/**
- *
- * @author Nacho
- */
 public class TablaMBAguaBidon extends javax.swing.JDialog {
     
     int id;
@@ -716,11 +712,6 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
                 comboColiformesFecalesItemStateChanged(evt);
             }
         });
-        comboColiformesFecales.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboColiformesFecalesActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -924,11 +915,6 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(20, 0, 0, 0);
         jPanel11.add(cajaFechaAnalisis, gridBagConstraints);
 
-        cajaPh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaPhActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -947,11 +933,6 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
         jPanel5.add(jLabel6, gridBagConstraints);
 
         comboCaracteres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Normales", "Otro" }));
-        comboCaracteres.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCaracteresActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -1065,16 +1046,6 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
                 };
             }
         });
-        comboColiformesTotales.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboColiformesTotalesItemStateChanged(evt);
-            }
-        });
-        comboColiformesTotales.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboColiformesTotalesActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1104,16 +1075,6 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
         campoColiformesTotales.setMinimumSize(new java.awt.Dimension(37, 15));
         campoColiformesTotales.setNextFocusableComponent(comboPseudomona);
         campoColiformesTotales.setPreferredSize(new java.awt.Dimension(37, 15));
-        campoColiformesTotales.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                campoColiformesTotalesCaretUpdate(evt);
-            }
-        });
-        campoColiformesTotales.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                campoColiformesTotalesActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -1190,11 +1151,6 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
         comboShigella.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ausencia", "Presencia" }));
         comboShigella.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 0, new java.awt.Color(0, 0, 0)));
         comboShigella.setPreferredSize(new java.awt.Dimension(70, 20));
-        comboShigella.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboShigellaItemStateChanged(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1287,13 +1243,13 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
         });
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarActionPerformed
+    private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {
         completarReporte();
-    }//GEN-LAST:event_botonGenerarActionPerformed
+    }
 
-    private void checkObtenidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkObtenidoActionPerformed
+    private void checkObtenidoActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkObtenido.isSelected()) {
             campoGermenes.setText("500");
             comboColiformesFecales.setSelectedItem("Menor a");
@@ -1304,57 +1260,28 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
             comboPseudomona.setSelectedItem("Ausencia");
         } else {
         }
-    }//GEN-LAST:event_checkObtenidoActionPerformed
+    }
 
-    private void campoGermenesCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_campoGermenesCaretUpdate
+    private void campoGermenesCaretUpdate(javax.swing.event.CaretEvent evt) {
         tildarCheck();
-    }//GEN-LAST:event_campoGermenesCaretUpdate
+    }
 
-    private void campoColiformesFecalesCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_campoColiformesFecalesCaretUpdate
+    private void campoColiformesFecalesCaretUpdate(javax.swing.event.CaretEvent evt) {
         tildarCheck();
-    }//GEN-LAST:event_campoColiformesFecalesCaretUpdate
+    }
 
-    private void comboColiformesFecalesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboColiformesFecalesItemStateChanged
+    private void comboColiformesFecalesItemStateChanged(java.awt.event.ItemEvent evt) {
         tildarCheck();
-    }//GEN-LAST:event_comboColiformesFecalesItemStateChanged
+    }
 
-    private void comboEscherichiaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEscherichiaItemStateChanged
+    private void comboEscherichiaItemStateChanged(java.awt.event.ItemEvent evt) {
         tildarCheck();
-    }//GEN-LAST:event_comboEscherichiaItemStateChanged
+    }
 
-    private void comboPseudomonaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboPseudomonaItemStateChanged
+    private void comboPseudomonaItemStateChanged(java.awt.event.ItemEvent evt) {
         tildarCheck();
-    }//GEN-LAST:event_comboPseudomonaItemStateChanged
-
-    private void comboColiformesFecalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColiformesFecalesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboColiformesFecalesActionPerformed
-
-    private void comboCaracteresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCaracteresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboCaracteresActionPerformed
-
-    private void cajaPhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaPhActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaPhActionPerformed
-
-    private void comboColiformesTotalesItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboColiformesTotalesItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboColiformesTotalesItemStateChanged
-
-    private void comboColiformesTotalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColiformesTotalesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboColiformesTotalesActionPerformed
-
-    private void campoColiformesTotalesCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_campoColiformesTotalesCaretUpdate
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoColiformesTotalesCaretUpdate
-
-    private void campoColiformesTotalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoColiformesTotalesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_campoColiformesTotalesActionPerformed
-
-    private void jLabel14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MousePressed
+    }
+    private void jLabel14MousePressed(java.awt.event.MouseEvent evt) {
         activarShigella = !activarShigella;
         area36.setEnabled(activarShigella);
         area37.setEnabled(activarShigella);
@@ -1365,56 +1292,8 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
         } else {
             jPanel17.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_jLabel14MousePressed
-
-    private void comboShigellaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboShigellaItemStateChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboShigellaItemStateChanged
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TablaMBAguaBidon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TablaMBAguaBidon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TablaMBAguaBidon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TablaMBAguaBidon.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TablaMBAguaBidon dialog = new TablaMBAguaBidon(new javax.swing.JFrame(), true, -1, null, false, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox CheckDinaHuapi;
     private javax.swing.JTextArea area12;
     private javax.swing.JTextArea area13;

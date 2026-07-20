@@ -9,6 +9,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import io.github.cdimascio.dotenv.Dotenv;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.apache.commons.io.FileUtils;
 
@@ -34,7 +36,7 @@ public class Descargando extends javax.swing.JDialog {
         
         try {
             
-            URL url = new URL("http://138.36.236.245/Instalador.exe");
+            URL url = new URL(Dotenv.load().get("URL_DOWNLOAD"));
             URLConnection urlconn = url.openConnection();
             File archivo = new File(ruta + "\\instalador.exe");
             if(archivo.exists()){
@@ -66,9 +68,6 @@ public class Descargando extends javax.swing.JDialog {
             System.err.println("error " + ex);
         }
     }
-
-    @SuppressWarnings("unchecked")
-
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -130,38 +129,6 @@ public class Descargando extends javax.swing.JDialog {
         } catch (IOException ex) {
             Logger.getLogger(Descargando.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Descargando.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Descargando.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Descargando.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Descargando.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Descargando dialog = new Descargando(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
     private javax.swing.JProgressBar barra;

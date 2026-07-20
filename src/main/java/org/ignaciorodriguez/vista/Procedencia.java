@@ -20,9 +20,6 @@ public class Procedencia extends javax.swing.JDialog {
         this.setIconImage(icon.getImage());
     }
 
-
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -108,58 +105,22 @@ public class Procedencia extends javax.swing.JDialog {
         });
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
-    private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
+    private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {
         dispose();
         AgregarProcedencia ap = new AgregarProcedencia(p,true, false, -1, true);
         ap.setVisible(true);
-    }//GEN-LAST:event_botonNuevoActionPerformed
+    }
 
-    private void botonExistenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonExistenteActionPerformed
+    private void botonExistenteActionPerformed(java.awt.event.ActionEvent evt) {
         dispose();
         AgregarMuestra am = new AgregarMuestra(p,true);
         am.setVisible(true);
-    }//GEN-LAST:event_botonExistenteActionPerformed
-
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Procedencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Procedencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Procedencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Procedencia.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                Procedencia dialog = new Procedencia(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonExistente;
     private javax.swing.JButton botonNuevo;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
-    // End of variables declaration//GEN-END:variables
+    private javax.swing.JPanel jPanel1;// End of variables declaration//GEN-END:variables
 }

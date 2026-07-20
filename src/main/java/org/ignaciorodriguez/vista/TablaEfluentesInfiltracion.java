@@ -393,8 +393,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         this.setIconImage(icon.getImage());
     }
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
@@ -800,15 +798,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         etiquetaConductividad.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         etiquetaConductividad.setMinimumSize(new java.awt.Dimension(150, 30));
         etiquetaConductividad.setPreferredSize(new java.awt.Dimension(175, 10));
-        etiquetaConductividad.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                etiquetaConductividadAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
         etiquetaConductividad.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 etiquetaConductividadMousePressed(evt);
@@ -1230,11 +1219,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area012.setText("6 - 9");
         area012.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area012.setPreferredSize(new java.awt.Dimension(1, 15));
-        area012.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area012ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -1249,11 +1233,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area52.setText("0.5 mg/l");
         area52.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area52.setPreferredSize(new java.awt.Dimension(1, 15));
-        area52.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area52ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 5;
@@ -1380,11 +1359,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area102.setText("30 mg/l");
         area102.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area102.setPreferredSize(new java.awt.Dimension(1, 15));
-        area102.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area102ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 10;
@@ -1428,11 +1402,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area33.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area33.setMinimumSize(new java.awt.Dimension(64, 16));
         area33.setPreferredSize(new java.awt.Dimension(131, 16));
-        area33.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area33ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
@@ -1475,11 +1444,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area92.setText("5 mg/l");
         area92.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area92.setPreferredSize(new java.awt.Dimension(1, 15));
-        area92.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area92ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 9;
@@ -1508,11 +1472,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area23.setText("POTENCIOMÉTRICO");
         area23.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area23.setPreferredSize(new java.awt.Dimension(1, 15));
-        area23.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area23ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -1555,11 +1514,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area22.setText("-");
         area22.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area22.setPreferredSize(new java.awt.Dimension(1, 15));
-        area22.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area22ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -1619,11 +1573,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area132.setText("2 mg/l");
         area132.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area132.setPreferredSize(new java.awt.Dimension(1, 15));
-        area132.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area132ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 15;
@@ -1689,11 +1638,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         cajapH.setMinimumSize(new java.awt.Dimension(173, 23));
         cajapH.setName(""); // NOI18N
         cajapH.setPreferredSize(new java.awt.Dimension(170, 23));
-        cajapH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajapHActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2403,11 +2347,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area134.setText("20 mg/l");
         area134.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area134.setPreferredSize(new java.awt.Dimension(1, 15));
-        area134.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area134ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 16;
@@ -2422,11 +2361,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area135.setText("1 mg/l");
         area135.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area135.setPreferredSize(new java.awt.Dimension(1, 15));
-        area135.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area135ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 17;
@@ -2441,11 +2375,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area136.setText("ISO 7890_3:1988");
         area136.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 1, new java.awt.Color(0, 0, 0)));
         area136.setPreferredSize(new java.awt.Dimension(1, 15));
-        area136.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area136ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 16;
@@ -2688,11 +2617,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area138.setText("5 mg/l");
         area138.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 1, new java.awt.Color(0, 0, 0)));
         area138.setPreferredSize(new java.awt.Dimension(1, 15));
-        area138.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area138ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 18;
@@ -2707,11 +2631,6 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         area139.setText("ESPECTROFOTOMETRICO");
         area139.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 1, 1, new java.awt.Color(0, 0, 0)));
         area139.setPreferredSize(new java.awt.Dimension(1, 15));
-        area139.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                area139ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 18;
@@ -2789,23 +2708,7 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void area22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area22ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area22ActionPerformed
-
-    private void area23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area23ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area23ActionPerformed
-
-    private void area92ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area92ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area92ActionPerformed
-
-    private void area102ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area102ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area102ActionPerformed
-
-    private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarActionPerformed
+    private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {
         double ph = -2;
         String conductividad = "-2";
         String dqo = "-2";
@@ -2952,21 +2855,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             }
         }
         c.guardarFechaAnalisis(m);
-    }//GEN-LAST:event_botonGenerarActionPerformed
+    }
 
-    private void area33ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area33ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area33ActionPerformed
-
-    private void area012ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area012ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area012ActionPerformed
-
-    private void area52ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area52ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area52ActionPerformed
-
-    private void etiquetaPhMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaPhMousePressed
+    private void etiquetaPhMousePressed(java.awt.event.MouseEvent evt) {
         activarPh = !activarPh;
         cajapH.setEnabled(activarPh);
         area012.setEnabled(activarPh);
@@ -2978,9 +2869,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel7.setBackground(new Color(240, 100, 100));
             jPanel15.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaPhMousePressed
+    }
 
-    private void etiquetaNitrogenoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaNitrogenoMousePressed
+    private void etiquetaNitrogenoMousePressed(java.awt.event.MouseEvent evt) {
         activarNitrogeno = !activarNitrogeno;
         cajaNitrogeno.setEnabled(activarNitrogeno);
         area102.setEnabled(activarNitrogeno);
@@ -2994,9 +2885,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel4.setBackground(new Color(240, 100, 100));
             jPanel35.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaNitrogenoMousePressed
+    }
 
-    private void etiquetaDQOMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaDQOMousePressed
+    private void etiquetaDQOMousePressed(java.awt.event.MouseEvent evt) {
         activarDQO = !activarDQO;
         cajaDQO.setEnabled(activarDQO);
         comboDQO.setEnabled(activarDQO);
@@ -3010,9 +2901,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel8.setBackground(new Color(240, 100, 100));
             jPanel41.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaDQOMousePressed
+    }
 
-    private void etiquetaColiformesFecalesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaColiformesFecalesMousePressed
+    private void etiquetaColiformesFecalesMousePressed(java.awt.event.MouseEvent evt) {
         activarColiformes = !activarColiformes;
         cajaColiformesFecales.setEnabled(activarColiformes);
         area122.setEnabled(activarColiformes);
@@ -3026,9 +2917,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel14.setBackground(new Color(240, 100, 100));
             jPanel31.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaColiformesFecalesMousePressed
+    }
 
-    private void etiquetaFosforoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaFosforoMousePressed
+    private void etiquetaFosforoMousePressed(java.awt.event.MouseEvent evt) {
         activarFosforo = !activarFosforo;
         cajaFosforo.setEnabled(activarFosforo);
         area92.setEnabled(activarFosforo);
@@ -3042,9 +2933,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel12.setBackground(new Color(240, 100, 100));
             jPanel38.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaFosforoMousePressed
+    }
 
-    private void etiquetaConductividadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaConductividadMousePressed
+    private void etiquetaConductividadMousePressed(java.awt.event.MouseEvent evt) {
         activarConductividad = !activarConductividad;
         cajaConductividad.setEnabled(activarConductividad);
         comboConductividad.setEnabled(activarConductividad);
@@ -3058,9 +2949,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel2.setBackground(new Color(240, 100, 100));
             jPanel42.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaConductividadMousePressed
+    }
 
-    private void etiquetaSustanciasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaSustanciasMousePressed
+    private void etiquetaSustanciasMousePressed(java.awt.event.MouseEvent evt) {
         activarSustancias = !activarSustancias;
         cajaSustancias.setEnabled(activarSustancias);
         area112.setEnabled(activarSustancias);
@@ -3074,9 +2965,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel13.setBackground(new Color(240, 100, 100));
             jPanel27.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaSustanciasMousePressed
+    }
 
-    private void etiquetaGrasasMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaGrasasMousePressed
+    private void etiquetaGrasasMousePressed(java.awt.event.MouseEvent evt) {
         activarGrasas = !activarGrasas;
         cajaGrasas.setEnabled(activarGrasas);
         area82.setEnabled(activarGrasas);
@@ -3090,9 +2981,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel11.setBackground(new Color(240, 100, 100));
             jPanel37.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaGrasasMousePressed
+    }
 
-    private void etiquetaSolidos120MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaSolidos120MousePressed
+    private void etiquetaSolidos120MousePressed(java.awt.event.MouseEvent evt) {
         activarSolidos120 = !activarSolidos120;
         cajaSolidos120.setEnabled(activarSolidos120);
         area62.setEnabled(activarSolidos120);
@@ -3106,9 +2997,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel9.setBackground(new Color(240, 100, 100));
             jPanel34.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaSolidos120MousePressed
+    }
 
-    private void etiquetaSolidos10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaSolidos10MousePressed
+    private void etiquetaSolidos10MousePressed(java.awt.event.MouseEvent evt) {
         activarSolidos10 = !activarSolidos10;
         cajaSolidos10.setEnabled(activarSolidos10);
         area52.setEnabled(activarSolidos10);
@@ -3122,9 +3013,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel5.setBackground(new Color(240, 100, 100));
             jPanel39.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaSolidos10MousePressed
+    }
 
-    private void etiquetaDetergentesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaDetergentesMousePressed
+    private void etiquetaDetergentesMousePressed(java.awt.event.MouseEvent evt) {
         activarDetergentes = !activarDetergentes;
         cajaDetergentes.setEnabled(activarDetergentes);
         area72.setEnabled(activarDetergentes);
@@ -3138,9 +3029,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel10.setBackground(new Color(240, 100, 100));
             jPanel36.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaDetergentesMousePressed
+    }
 
-    private void etiquetaDBOMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaDBOMousePressed
+    private void etiquetaDBOMousePressed(java.awt.event.MouseEvent evt) {
         activarDBO = !activarDBO;
         cajaDBO.setEnabled(activarDBO);
         comboDBO.setEnabled(activarDBO);
@@ -3154,9 +3045,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel3.setBackground(new Color(240, 100, 100));
             jPanel40.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaDBOMousePressed
+    }
 
-    private void etiquetaHidrocarburosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaHidrocarburosMousePressed
+    private void etiquetaHidrocarburosMousePressed(java.awt.event.MouseEvent evt) {
         activarHidrocarburos = !activarHidrocarburos;
         cajaHidrocarburos.setEnabled(activarHidrocarburos);
         comboHidrocarburos.setEnabled(activarHidrocarburos);
@@ -3170,21 +3061,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel23.setBackground(new Color(240, 100, 100));
             jPanel32.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaHidrocarburosMousePressed
+    }
 
-    private void area132ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area132ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area132ActionPerformed
-
-    private void cajapHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajapHActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajapHActionPerformed
-
-    private void etiquetaConductividadAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_etiquetaConductividadAncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_etiquetaConductividadAncestorAdded
-
-    private void etiquetaNitratosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaNitratosMousePressed
+    private void etiquetaNitratosMousePressed(java.awt.event.MouseEvent evt) {
         activarNitratos = !activarNitratos;
         cajaNitratos.setEnabled(activarNitratos);
         comboNitratos.setEnabled(activarNitratos);
@@ -3198,9 +3077,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel24.setBackground(new Color(240, 100, 100));
             jPanel33.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaNitratosMousePressed
+    }
 
-    private void etiquetaCloroMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaCloroMousePressed
+    private void etiquetaCloroMousePressed(java.awt.event.MouseEvent evt) {
         activarCloro = !activarCloro;
         cajaCloro.setEnabled(activarCloro);
         comboCloro.setEnabled(activarCloro);
@@ -3214,21 +3093,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel25.setBackground(new Color(240, 100, 100));
             jPanel43.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaCloroMousePressed
+    }
 
-    private void area134ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area134ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area134ActionPerformed
-
-    private void area135ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area135ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area135ActionPerformed
-
-    private void area136ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area136ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area136ActionPerformed
-
-    private void etiquetaColiformesTotalesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaColiformesTotalesMousePressed
+    private void etiquetaColiformesTotalesMousePressed(java.awt.event.MouseEvent evt) {
         activarColiformesTotales = !activarColiformesTotales;
         cajaColiformesTotales.setEnabled(activarColiformesTotales);
         comboColiformesTotales.setEnabled(activarColiformesTotales);
@@ -3242,9 +3109,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel18.setBackground(new Color(240, 100, 100));
             jPanel44.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaColiformesTotalesMousePressed
+    }
 
-    private void etiquetaEscherichiaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaEscherichiaMousePressed
+    private void etiquetaEscherichiaMousePressed(java.awt.event.MouseEvent evt) {
         activarEscherichia = !activarEscherichia;
         cajaEscherichia.setEnabled(activarEscherichia);
         comboEscherichia.setEnabled(activarEscherichia);
@@ -3258,9 +3125,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel20.setBackground(new Color(240, 100, 100));
             jPanel45.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaEscherichiaMousePressed
+    }
 
-    private void comboEscherichiaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboEscherichiaItemStateChanged
+    private void comboEscherichiaItemStateChanged(java.awt.event.ItemEvent evt) {
         if (evt.getItem() == "Ausencia en 100 ml") {
             cajaEscherichia.setVisible(false);
             etiquetaEscherichiaIn.setVisible(false);
@@ -3276,17 +3143,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             comboEscherichia.setMinimumSize(new Dimension(65, 18));
             comboEscherichia.setMaximumSize(new Dimension(65, 18));
         }
-    }//GEN-LAST:event_comboEscherichiaItemStateChanged
+    }
 
-    private void area138ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area138ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area138ActionPerformed
-
-    private void area139ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_area139ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_area139ActionPerformed
-
-    private void etiquetaSulfurosMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaSulfurosMousePressed
+    private void etiquetaSulfurosMousePressed(java.awt.event.MouseEvent evt) {
         activarSulfuros = !activarSulfuros;
         cajaSulfuros.setEnabled(activarSulfuros);
         comboSulfuros.setEnabled(activarSulfuros);
@@ -3300,50 +3159,8 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             jPanel26.setBackground(new Color(240, 100, 100));
             jPanel46.setBackground(new Color(240, 240, 240));
         }
-    }//GEN-LAST:event_etiquetaSulfurosMousePressed
-
-    public static void main(String args[]) {
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TablaEfluentesInfiltracion.class
-                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
-
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TablaEfluentesInfiltracion dialog = new TablaEfluentesInfiltracion(new javax.swing.JFrame(), true, -1, null, true, null, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField area012;
     private javax.swing.JTextField area013;
     private javax.swing.JTextField area102;
@@ -3501,7 +3318,7 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    // End of variables declaration//GEN-END:variables
+
 
     public String crearConclusion() {
         boolean ph = true;

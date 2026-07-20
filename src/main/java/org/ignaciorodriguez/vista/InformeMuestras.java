@@ -17,7 +17,7 @@ import javax.swing.JComponent;
 public class InformeMuestras extends javax.swing.JDialog {
 
     Consultas consultas = Consultas.getInstancia();
-    private DefaultTableModel modeloTabla;
+    private final DefaultTableModel modeloTabla;
 
     public InformeMuestras(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -29,8 +29,6 @@ public class InformeMuestras extends javax.swing.JDialog {
         this.setIconImage(icon.getImage());
     }
 
-    @SuppressWarnings("unchecked")
-
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -41,13 +39,6 @@ public class InformeMuestras extends javax.swing.JDialog {
         botonGenerar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-                formWindowGainedFocus(evt);
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-            }
-        });
 
         tablaDatos.setModel(modeloTabla);
         tablaDatos.getTableHeader().setReorderingAllowed(false);
@@ -164,54 +155,10 @@ public class InformeMuestras extends javax.swing.JDialog {
         
         this.dispose();
         consultas.generarReporteMuestras(List.copyOf(ids));
-        for (int i = 0; i < ids.size(); i++) {
-            consultas.analizado(ids.get(i));
+        for (Integer id : ids) {
+            consultas.analizado(id);
         }
     }
-
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {
-        
-    }
-
-    
-    public static void main(String args[]) {
-        
-
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InformeMuestras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InformeMuestras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InformeMuestras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InformeMuestras.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-
-
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                InformeMuestras dialog = new InformeMuestras(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
 
     private javax.swing.JButton botonGenerar;
     private javax.swing.JCheckBox jCheckBox1;

@@ -2,7 +2,7 @@ package org.ignaciorodriguez.modelo;
 
 import com.mysql.cj.util.StringUtils;
 import org.apache.poi.xddf.usermodel.chart.*;
-import org.ignaciorodriguez.vista.Inicial;
+import org.ignaciorodriguez.Main;
 import org.ignaciorodriguez.vista.Principal;
 import org.ignaciorodriguez.vista.VentanaEmail;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -112,95 +112,6 @@ public class Consultas extends Conexion {
             instancia = new Consultas();
         }
         return instancia;
-    }
-
-    public boolean insertarUsuario(Usuario usuario) { //método para insertar usuario en la base de datos, se insertan con un rol de empleado
-        Connection conexion = con.getConnection();
-
-        try {
-            ps = conexion.prepareStatement("insert into usuarios (nombre,contrasena,tipoUsuario) values (?,?,2)");
-            ps.setString(1, usuario.getUsuario());
-            ps.setString(2, usuario.getContraseña());
-
-            int resultado = ps.executeUpdate();
-
-            if (resultado > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al insertar usuario, " + ex);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al insertar usuario, " + e);
-            }
-        }
-    }
-
-    public DefaultComboBoxModel recuperarUsuarios() { //se traen los usuarios de la base de datos
-        Connection conexion = con.getConnection();
-        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-        modelo.removeAllElements();
-        try {
-            ps = conexion.prepareStatement("select nombre from usuarios");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                modelo.addElement(rs.getString("nombre"));
-            }
-            return modelo;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al insertar usuario, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al recuperar usuarios, " + e);
-            }
-        }
-    }
-
-    public boolean eliminarUsuario(Usuario usuario) { //se elimina el usuario seleccionado de la base de datos
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("DELETE FROM `laboratorio`.`usuarios` WHERE nombre = ?");
-            ps.setString(1, usuario.getUsuario());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al insertar usuario, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al eliminar usuario, " + e);
-            }
-        }
-    }
-
-    public boolean modificarUsuario(Usuario usuario) {//se modifica la contraseña del usuario seleccionado
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("UPDATE `laboratorio`.`usuarios` SET `contrasena` = ? WHERE nombre = ?");
-            ps.setString(1, usuario.getContraseña());
-            ps.setString(2, usuario.getUsuario());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar usuario, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al modificar usuario, " + e);
-            }
-        }
     }
 
     public int obtenerIdMuestra() { //se trae el ultimo main.resources.reporte de la base de datos
@@ -1740,112 +1651,6 @@ public class Consultas extends Conexion {
             }
         }
         return numero;
-    }
-
-    public String consultaUsuarioNombre(String s) { // se obtiene el
-        Connection conexion = con.getConnection();
-        String nombre = "";
-        try {
-            ps = conexion.prepareStatement("select nombre from usuarios where contrasena = ?");
-            ps.setString(1, s);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                nombre = String.valueOf(rs.getObject("nombre"));
-                return nombre;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener nombre de usuario, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public boolean consultaExisteUsuario(String s) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select nombre, tipousuario from usuarios where contrasena = ?");
-            ps.setString(1, s);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return true;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar usuario, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return false;
-    }
-
-    public int consultaUsuarioTipo(String s) {
-        Connection conexion = con.getConnection();
-        int tipo = -1;
-        try {
-            ps = conexion.prepareStatement("select tipousuario from usuarios where contrasena = ?");
-            ps.setString(1, s);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                tipo = rs.getInt("tipousuario");
-                return tipo;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar tipo de usuario, " + e);
-            return tipo;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return tipo;
-    }
-
-    public Usuario consultaUsuario(String nombre) {
-        Connection conexion = con.getConnection();
-        Usuario u = new Usuario();
-        try {
-            ps = conexion.prepareStatement("select idusuarios, nombre, contrasena from usuarios where nombre = ?");
-            ps.setString(1, nombre);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                for (int i = 0; i < 3; i++) {
-                    switch (i) {
-                        case 1: {
-                            u.setId(rs.getInt("idusuarios"));
-                        }
-                        case 2: {
-                            u.setUsuario(rs.getString("nombre"));
-                        }
-                        case 3: {
-                            u.setContraseña(rs.getString("contrasena"));
-                        }
-                    }
-                }
-            }
-            return u;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar usuario, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
     }
 
     public void generarReporteMuestras(List id) { //generar main.resources.reporte de salida del análisis
@@ -5276,30 +5081,6 @@ public class Consultas extends Conexion {
         }
         return null;
     }
-
-    public int obtenerIdUsuario(String nombre) {
-        Connection conexion = con.getConnection();
-        int aux = -1;
-        try {
-            ps = conexion.prepareStatement("select idusuarios from usuarios where nombre = ?");
-            ps.setString(1, nombre);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                aux = rs.getInt(1);
-            }
-            return aux;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener usuario. " + e);
-            return aux;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
     public int recuperarIdCliente(String procedencia) {
         Connection conexion = con.getConnection();
         int aux = -1;
@@ -5342,7 +5123,7 @@ public class Consultas extends Conexion {
         }
     }
 
-    public String[] recuperarDatosUsuario(int id) {
+    public String[] recuperarDatosCliente(int id) {
         Connection conexion = con.getConnection();
         String[] aux = new String[8];
         try {
@@ -6569,32 +6350,7 @@ public class Consultas extends Conexion {
         }
     }
 
-    public DefaultTableModel recuperarUsuariosTabla() {
-        Connection conexion = con.getConnection();
-        DefaultTableModel modeloTabla = new DefaultTableModel();
-        String[] aux = new String[2];
-        modeloTabla.addColumn("Nombre de usuario");
-        modeloTabla.addColumn("Tipo de usuario");
-        try {
-            ps = conexion.prepareStatement("select nombre, tipoUsuario from usuarios");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                aux[0] = rs.getString("nombre");
-                aux[1] = rs.getInt("tipoUsuario") == 1 ? "Administrador" : "Normal";
-                modeloTabla.addRow(aux);
-            }
-            return modeloTabla;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar usuarios, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al recuperar usuarios, " + e);
-            }
-        }
-    }
+
 
     public boolean cancelarEntrega(int id) {
         Connection conexion = con.getConnection();
@@ -7124,7 +6880,7 @@ public class Consultas extends Conexion {
             BufferedReader in = new BufferedReader(new InputStreamReader(conexion.getInputStream()));
             aux = in.readLine();
             in.close();
-            return aux.equals(Inicial.VERSION) ? NO_ACTUALIZAR : ACTUALIZAR;
+            return aux.equals(Main.VERSION) ? NO_ACTUALIZAR : ACTUALIZAR;
         } catch (MalformedURLException ex) {
             Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

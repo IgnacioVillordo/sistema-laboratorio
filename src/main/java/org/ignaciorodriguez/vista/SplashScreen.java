@@ -3,18 +3,15 @@ package org.ignaciorodriguez.vista;
 import javax.swing.UIManager;
 
 
-public class NewJFrame extends javax.swing.JFrame {
+public class SplashScreen extends javax.swing.JFrame {
 
     
-    public NewJFrame() {
+    public SplashScreen() {
         this.setUndecorated(true);
         initComponents();
         jProgressBar1.setIndeterminate(true);
         setLocationRelativeTo(null);
     }
-
-    
-    @SuppressWarnings("unchecked")
 
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -62,22 +59,6 @@ public class NewJFrame extends javax.swing.JFrame {
 
         pack();
     }
-
-    
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-        } catch (Exception e) {
-        }
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NewJFrame().setVisible(true);
-            }
-        });
-    }
-
-
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

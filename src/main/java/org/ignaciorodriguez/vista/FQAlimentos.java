@@ -2,12 +2,15 @@ package org.ignaciorodriguez.vista;
 
 import java.awt.event.ItemEvent;
 import javax.swing.DefaultListModel;
+
+import lombok.extern.slf4j.Slf4j;
 import org.ignaciorodriguez.modelo.Consultas;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.DefaultComboBoxModel;
@@ -18,12 +21,13 @@ import javax.swing.JComponent;
 import org.ignaciorodriguez.modelo.CustomListModel;
 import org.ignaciorodriguez.modelo.Determinacion;
 import org.ignaciorodriguez.modelo.DeterminacionHumedad;
+import org.ignaciorodriguez.repository.UsuarioRepository;
 import org.ignaciorodriguez.utils.ListUtils;
 
 public class FQAlimentos extends javax.swing.JDialog {
 
-    DefaultListModel modelo = new DefaultListModel();
-    DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel<>();
+    DefaultListModel<String> modelo = new DefaultListModel<>();
+    DefaultComboBoxModel<String> modeloCombo = new DefaultComboBoxModel<>();
     Principal p = new Principal();
     int id;
     boolean editar = false, auxiliar;
@@ -31,6 +35,7 @@ public class FQAlimentos extends javax.swing.JDialog {
     String pdf;
     int alimentos;
     List<Determinacion> determinaciones = new LinkedList<>();
+    private static final Logger logger = Logger.getLogger(FQAlimentos.class.getName());
 
     public FQAlimentos(java.awt.Frame parent, boolean modal, int id, boolean editar, String pdf, int alimentos) {
         super(parent, modal);
@@ -213,6 +218,7 @@ public class FQAlimentos extends javax.swing.JDialog {
                     listaDeterminaciones.updateUI();
                 }
             } catch (ArrayIndexOutOfBoundsException e) {
+                logger.severe("Error, " + e);
             }
         }
     }
@@ -223,59 +229,11 @@ public class FQAlimentos extends javax.swing.JDialog {
 
     private void comboDeterminacionesItemStateChanged(java.awt.event.ItemEvent evt) {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-
-
-
-            modelo.addElement(determinaciones.get(comboDeterminaciones.getSelectedIndex()));
+            modelo.addElement(determinaciones.get(comboDeterminaciones.getSelectedIndex()).getNombre());
             listaDeterminaciones.updateUI();
             determinaciones.get(comboDeterminaciones.getSelectedIndex()).setActivado(true);
         }
     }
-
-    public static void main(String args[]) {
-        
-
-        
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FQAlimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FQAlimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FQAlimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FQAlimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-
-
-
-
-
-
-
-
-
-        
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                FQAlimentos dialog = new FQAlimentos(new javax.swing.JFrame(), true, -1, false, "", -1);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
-
 
     private javax.swing.JButton botonDeterminaciones;
     private javax.swing.JComboBox<String> comboDeterminaciones;
@@ -287,8 +245,8 @@ public class FQAlimentos extends javax.swing.JDialog {
 
     public void apretarBoton() {
         List<Determinacion> aux = new ArrayList<>();
-        for (int i = 0; i < determinaciones.size(); i++) {
-            ListUtils.addIfcondition(determinaciones.get(i), aux, determinaciones.get(i).isActivado());
+        for (Determinacion determinacione : determinaciones) {
+            ListUtils.addIfcondition(determinacione, aux, determinacione.isActivado());
         }
         Determinaciones d = new Determinaciones(p, true, aux, id, editar, pdf, alimentos);
         d.apretarBoton();

@@ -1185,11 +1185,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboColiformesFecales.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboColiformesFecalesActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1202,11 +1197,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaColiformesFecales.setName(""); // NOI18N
         cajaColiformesFecales.setNextFocusableComponent(comboEscherichia);
         cajaColiformesFecales.setPreferredSize(new java.awt.Dimension(37, 45));
-        cajaColiformesFecales.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaColiformesFecalesKeyReleased(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -1271,11 +1261,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaEnterobacterias.setName(""); // NOI18N
         cajaEnterobacterias.setNextFocusableComponent(comboEscherichia157);
         cajaEnterobacterias.setPreferredSize(new java.awt.Dimension(37, 45));
-        cajaEnterobacterias.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaEnterobacteriasKeyReleased(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -1379,11 +1364,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboColiformesTotales.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboColiformesTotalesActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1396,11 +1376,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaColiformesTotales.setName(""); // NOI18N
         cajaColiformesTotales.setNextFocusableComponent(comboEscherichia);
         cajaColiformesTotales.setPreferredSize(new java.awt.Dimension(37, 45));
-        cajaColiformesTotales.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaColiformesTotalesKeyReleased(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -1453,11 +1428,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboGermenes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboGermenesActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1470,22 +1440,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaGermenes.setName(""); // NOI18N
         cajaGermenes.setNextFocusableComponent(comboEscherichia);
         cajaGermenes.setPreferredSize(new java.awt.Dimension(37, 45));
-        cajaGermenes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaGermenesActionPerformed(evt);
-            }
-        });
-        cajaGermenes.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaGermenesKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaGermenesKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaGermenesKeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -1548,11 +1502,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         comboEscherichiaIn.setMaximumSize(new java.awt.Dimension(65, 45));
         comboEscherichiaIn.setMinimumSize(new java.awt.Dimension(65, 45));
         comboEscherichiaIn.setPreferredSize(new java.awt.Dimension(65, 45));
-        comboEscherichiaIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboEscherichiaInActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -1594,11 +1543,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboBacillus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBacillusActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1611,22 +1555,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaBacillus.setName(""); // NOI18N
         cajaBacillus.setNextFocusableComponent(comboEscherichia);
         cajaBacillus.setPreferredSize(new java.awt.Dimension(37, 45));
-        cajaBacillus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaBacillusActionPerformed(evt);
-            }
-        });
-        cajaBacillus.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaBacillusKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaBacillusKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaBacillusKeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -1679,11 +1607,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboPerfringens.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboPerfringensActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1696,22 +1619,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaPerfringens.setName(""); // NOI18N
         cajaPerfringens.setNextFocusableComponent(comboEscherichia);
         cajaPerfringens.setPreferredSize(new java.awt.Dimension(37, 45));
-        cajaPerfringens.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaPerfringensActionPerformed(evt);
-            }
-        });
-        cajaPerfringens.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaPerfringensKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaPerfringensKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaPerfringensKeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -1764,11 +1671,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboSulfito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboSulfitoActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1781,22 +1683,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaSulfito.setName(""); // NOI18N
         cajaSulfito.setNextFocusableComponent(comboEscherichia);
         cajaSulfito.setPreferredSize(new java.awt.Dimension(37, 45));
-        cajaSulfito.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaSulfitoActionPerformed(evt);
-            }
-        });
-        cajaSulfito.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaSulfitoKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaSulfitoKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaSulfitoKeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -1849,11 +1735,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboCampilobacter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCampilobacterActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -1866,22 +1747,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaCampilobacter.setName(""); // NOI18N
         cajaCampilobacter.setNextFocusableComponent(comboEscherichia);
         cajaCampilobacter.setPreferredSize(new java.awt.Dimension(37, 30));
-        cajaCampilobacter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaCampilobacterActionPerformed(evt);
-            }
-        });
-        cajaCampilobacter.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaCampilobacterKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaCampilobacterKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaCampilobacterKeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -1944,11 +1809,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         comboEscherichiaH7In.setMaximumSize(new java.awt.Dimension(65, 45));
         comboEscherichiaH7In.setMinimumSize(new java.awt.Dimension(65, 45));
         comboEscherichiaH7In.setPreferredSize(new java.awt.Dimension(65, 45));
-        comboEscherichiaH7In.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboEscherichiaH7InActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -1978,11 +1838,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         comboSalmonella.setMaximumSize(new java.awt.Dimension(105, 30));
         comboSalmonella.setMinimumSize(new java.awt.Dimension(105, 30));
         comboSalmonella.setPreferredSize(new java.awt.Dimension(105, 30));
-        comboSalmonella.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboSalmonellaItemStateChanged(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2056,11 +1911,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaStaphilococos.setName(""); // NOI18N
         cajaStaphilococos.setNextFocusableComponent(comboEscherichia157);
         cajaStaphilococos.setPreferredSize(new java.awt.Dimension(37, 45));
-        cajaStaphilococos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaStaphilococosKeyReleased(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -2113,11 +1963,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboColiformesTotalesA30.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboColiformesTotalesA30ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2130,22 +1975,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaColiformesTotalesA30.setName(""); // NOI18N
         cajaColiformesTotalesA30.setNextFocusableComponent(comboEscherichia);
         cajaColiformesTotalesA30.setPreferredSize(new java.awt.Dimension(37, 30));
-        cajaColiformesTotalesA30.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaColiformesTotalesA30ActionPerformed(evt);
-            }
-        });
-        cajaColiformesTotalesA30.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaColiformesTotalesA30KeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaColiformesTotalesA30KeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaColiformesTotalesA30KeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -2196,11 +2025,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboColiformesTotalesProbables.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboColiformesTotalesProbablesActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2213,22 +2037,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaColiformesTotalesProbables.setName(""); // NOI18N
         cajaColiformesTotalesProbables.setNextFocusableComponent(comboEscherichia);
         cajaColiformesTotalesProbables.setPreferredSize(new java.awt.Dimension(37, 30));
-        cajaColiformesTotalesProbables.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaColiformesTotalesProbablesActionPerformed(evt);
-            }
-        });
-        cajaColiformesTotalesProbables.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaColiformesTotalesProbablesKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaColiformesTotalesProbablesKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaColiformesTotalesProbablesKeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -2270,22 +2078,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaCaracteristicas.setName(""); // NOI18N
         cajaCaracteristicas.setNextFocusableComponent(comboEscherichia);
         cajaCaracteristicas.setPreferredSize(new java.awt.Dimension(170, 30));
-        cajaCaracteristicas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaCaracteristicasActionPerformed(evt);
-            }
-        });
-        cajaCaracteristicas.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaCaracteristicasKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaCaracteristicasKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaCaracteristicasKeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -2318,11 +2110,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboLactobacillus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboLactobacillusActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2335,22 +2122,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaLactobacillus.setName(""); // NOI18N
         cajaLactobacillus.setNextFocusableComponent(comboEscherichia);
         cajaLactobacillus.setPreferredSize(new java.awt.Dimension(37, 30));
-        cajaLactobacillus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaLactobacillusActionPerformed(evt);
-            }
-        });
-        cajaLactobacillus.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaLactobacillusKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaLactobacillusKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaLactobacillusKeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -2362,11 +2133,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         comboLactobacillusIn.setMaximumSize(new java.awt.Dimension(75, 30));
         comboLactobacillusIn.setMinimumSize(new java.awt.Dimension(75, 30));
         comboLactobacillusIn.setPreferredSize(new java.awt.Dimension(75, 30));
-        comboLactobacillusIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboLactobacillusInActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -2406,11 +2172,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboBacteriasLacticas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboBacteriasLacticasActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2423,22 +2184,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaBacteriasLacticas.setName(""); // NOI18N
         cajaBacteriasLacticas.setNextFocusableComponent(comboEscherichia);
         cajaBacteriasLacticas.setPreferredSize(new java.awt.Dimension(37, 30));
-        cajaBacteriasLacticas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaBacteriasLacticasActionPerformed(evt);
-            }
-        });
-        cajaBacteriasLacticas.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaBacteriasLacticasKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaBacteriasLacticasKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaBacteriasLacticasKeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -2489,11 +2234,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboColiformesTotales45.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboColiformesTotales45ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2506,22 +2246,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaColiformesTotales45.setName(""); // NOI18N
         cajaColiformesTotales45.setNextFocusableComponent(comboEscherichia);
         cajaColiformesTotales45.setPreferredSize(new java.awt.Dimension(37, 30));
-        cajaColiformesTotales45.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaColiformesTotales45ActionPerformed(evt);
-            }
-        });
-        cajaColiformesTotales45.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaColiformesTotales45KeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaColiformesTotales45KeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaColiformesTotales45KeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -2533,11 +2257,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         comboColiformesTotales45In.setMaximumSize(new java.awt.Dimension(75, 30));
         comboColiformesTotales45In.setMinimumSize(new java.awt.Dimension(75, 30));
         comboColiformesTotales45In.setPreferredSize(new java.awt.Dimension(75, 30));
-        comboColiformesTotales45In.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboColiformesTotales45InActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -2591,11 +2310,7 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaMohos.setName(""); // NOI18N
         cajaMohos.setNextFocusableComponent(comboEscherichia157);
         cajaMohos.setPreferredSize(new java.awt.Dimension(37, 45));
-        cajaMohos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaMohosKeyReleased(evt);
-            }
-        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -2646,11 +2361,7 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboVibrio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboVibrioActionPerformed(evt);
-            }
-        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2663,22 +2374,7 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaVibrio.setName(""); // NOI18N
         cajaVibrio.setNextFocusableComponent(comboEscherichia);
         cajaVibrio.setPreferredSize(new java.awt.Dimension(37, 30));
-        cajaVibrio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaVibrioActionPerformed(evt);
-            }
-        });
-        cajaVibrio.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaVibrioKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaVibrioKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaVibrioKeyTyped(evt);
-            }
-        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -2690,11 +2386,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         comboVibrioIn.setMaximumSize(new java.awt.Dimension(75, 30));
         comboVibrioIn.setMinimumSize(new java.awt.Dimension(75, 30));
         comboVibrioIn.setPreferredSize(new java.awt.Dimension(75, 30));
-        comboVibrioIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboVibrioInActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -2767,11 +2458,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         jPanel31.setMaximumSize(new java.awt.Dimension(170, 30));
         jPanel31.setMinimumSize(new java.awt.Dimension(170, 30));
         jPanel31.setPreferredSize(new java.awt.Dimension(170, 30));
-        jPanel31.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel31MouseClicked(evt);
-            }
-        });
         jPanel31.setLayout(new java.awt.GridBagLayout());
 
         comboListeria.setBackground(new java.awt.Color(204, 204, 204));
@@ -2795,11 +2481,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 comboListeriaItemStateChanged(evt);
             }
         });
-        comboListeria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboListeriaActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2815,22 +2496,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaListeria.setName(""); // NOI18N
         cajaListeria.setNextFocusableComponent(comboEscherichia);
         cajaListeria.setPreferredSize(new java.awt.Dimension(37, 45));
-        cajaListeria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaListeriaActionPerformed(evt);
-            }
-        });
-        cajaListeria.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaListeriaKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaListeriaKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaListeriaKeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -2885,11 +2550,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 };
             }
         });
-        comboVibrioCholerae.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboVibrioCholeraeActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -2902,22 +2562,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         cajaVibrioCholerae.setName(""); // NOI18N
         cajaVibrioCholerae.setNextFocusableComponent(comboEscherichia);
         cajaVibrioCholerae.setPreferredSize(new java.awt.Dimension(37, 30));
-        cajaVibrioCholerae.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cajaVibrioCholeraeActionPerformed(evt);
-            }
-        });
-        cajaVibrioCholerae.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                cajaVibrioCholeraeKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                cajaVibrioCholeraeKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                cajaVibrioCholeraeKeyTyped(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -2929,11 +2573,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         comboVibrioCholeraeIn.setMaximumSize(new java.awt.Dimension(75, 30));
         comboVibrioCholeraeIn.setMinimumSize(new java.awt.Dimension(75, 30));
         comboVibrioCholeraeIn.setPreferredSize(new java.awt.Dimension(75, 30));
-        comboVibrioCholeraeIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboVibrioCholeraeInActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
@@ -3082,11 +2721,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         panelEscherichia157.setMaximumSize(new java.awt.Dimension(200, 30));
         panelEscherichia157.setMinimumSize(new java.awt.Dimension(200, 30));
         panelEscherichia157.setPreferredSize(new java.awt.Dimension(200, 30));
-        panelEscherichia157.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelEscherichia157MouseClicked(evt);
-            }
-        });
         panelEscherichia157.setLayout(new java.awt.GridBagLayout());
 
         etiquetaEscherichia157.setBackground(new java.awt.Color(0, 0, 0));
@@ -3120,11 +2754,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         panelEnterobacterias.setMaximumSize(new java.awt.Dimension(200, 30));
         panelEnterobacterias.setMinimumSize(new java.awt.Dimension(200, 30));
         panelEnterobacterias.setPreferredSize(new java.awt.Dimension(200, 30));
-        panelEnterobacterias.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelEnterobacteriasMouseClicked(evt);
-            }
-        });
         panelEnterobacterias.setLayout(new java.awt.GridBagLayout());
 
         etiquetaEnterobacterias.setBackground(new java.awt.Color(0, 0, 0));
@@ -3158,11 +2787,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         panelListeria.setMaximumSize(new java.awt.Dimension(200, 30));
         panelListeria.setMinimumSize(new java.awt.Dimension(200, 30));
         panelListeria.setPreferredSize(new java.awt.Dimension(200, 30));
-        panelListeria.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelListeriaMouseClicked(evt);
-            }
-        });
         panelListeria.setLayout(new java.awt.GridBagLayout());
 
         etiquetaListeria.setBackground(new java.awt.Color(0, 0, 0));
@@ -3196,11 +2820,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         panelBacillus.setMaximumSize(new java.awt.Dimension(200, 30));
         panelBacillus.setMinimumSize(new java.awt.Dimension(200, 30));
         panelBacillus.setPreferredSize(new java.awt.Dimension(200, 30));
-        panelBacillus.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelBacillusMouseClicked(evt);
-            }
-        });
         panelBacillus.setLayout(new java.awt.GridBagLayout());
 
         etiquetaBacillus.setBackground(new java.awt.Color(0, 0, 0));
@@ -3234,11 +2853,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         panelPerfringens.setMaximumSize(new java.awt.Dimension(200, 30));
         panelPerfringens.setMinimumSize(new java.awt.Dimension(200, 30));
         panelPerfringens.setPreferredSize(new java.awt.Dimension(200, 30));
-        panelPerfringens.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelPerfringensMouseClicked(evt);
-            }
-        });
         panelPerfringens.setLayout(new java.awt.GridBagLayout());
 
         etiquetaPerfringens.setBackground(new java.awt.Color(0, 0, 0));
@@ -3272,11 +2886,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         panelSulfito.setMaximumSize(new java.awt.Dimension(200, 30));
         panelSulfito.setMinimumSize(new java.awt.Dimension(200, 30));
         panelSulfito.setPreferredSize(new java.awt.Dimension(200, 30));
-        panelSulfito.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelSulfitoMouseClicked(evt);
-            }
-        });
         panelSulfito.setLayout(new java.awt.GridBagLayout());
 
         etiquetaSulfito.setBackground(new java.awt.Color(0, 0, 0));
@@ -3310,11 +2919,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         panelCampilobacter.setMaximumSize(new java.awt.Dimension(200, 30));
         panelCampilobacter.setMinimumSize(new java.awt.Dimension(200, 30));
         panelCampilobacter.setPreferredSize(new java.awt.Dimension(200, 30));
-        panelCampilobacter.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelCampilobacterMouseClicked(evt);
-            }
-        });
         panelCampilobacter.setLayout(new java.awt.GridBagLayout());
 
         etiquetaCampilobacter.setBackground(new java.awt.Color(0, 0, 0));
@@ -3348,11 +2952,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         panelEscherichia.setMaximumSize(new java.awt.Dimension(200, 30));
         panelEscherichia.setMinimumSize(new java.awt.Dimension(200, 30));
         panelEscherichia.setPreferredSize(new java.awt.Dimension(200, 30));
-        panelEscherichia.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelEscherichiaMouseClicked(evt);
-            }
-        });
         panelEscherichia.setLayout(new java.awt.GridBagLayout());
 
         etiquetaEscherichia.setBackground(new java.awt.Color(0, 0, 0));
@@ -3649,11 +3248,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         panelCaracteristicas.setMaximumSize(new java.awt.Dimension(200, 30));
         panelCaracteristicas.setMinimumSize(new java.awt.Dimension(200, 30));
         panelCaracteristicas.setPreferredSize(new java.awt.Dimension(200, 30));
-        panelCaracteristicas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                panelCaracteristicasMouseClicked(evt);
-            }
-        });
         panelCaracteristicas.setLayout(new java.awt.GridBagLayout());
 
         etiquetaCaracteristicas.setBackground(new java.awt.Color(0, 0, 0));
@@ -3850,11 +3444,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         metodoBacteriasLacticas.setMaximumSize(new java.awt.Dimension(200, 30));
         metodoBacteriasLacticas.setMinimumSize(new java.awt.Dimension(200, 30));
         metodoBacteriasLacticas.setPreferredSize(new java.awt.Dimension(200, 30));
-        metodoBacteriasLacticas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                metodoBacteriasLacticasActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 22;
@@ -3943,11 +3532,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         metodoColiformesTotales45.setMaximumSize(new java.awt.Dimension(200, 30));
         metodoColiformesTotales45.setMinimumSize(new java.awt.Dimension(200, 30));
         metodoColiformesTotales45.setPreferredSize(new java.awt.Dimension(200, 30));
-        metodoColiformesTotales45.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                metodoColiformesTotales45ActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 23;
@@ -4058,11 +3642,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         metodoVibrio.setMaximumSize(new java.awt.Dimension(200, 30));
         metodoVibrio.setMinimumSize(new java.awt.Dimension(200, 30));
         metodoVibrio.setPreferredSize(new java.awt.Dimension(200, 30));
-        metodoVibrio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                metodoVibrioActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 24;
@@ -4125,11 +3704,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         metodoShigella.setMaximumSize(new java.awt.Dimension(200, 30));
         metodoShigella.setMinimumSize(new java.awt.Dimension(200, 30));
         metodoShigella.setPreferredSize(new java.awt.Dimension(200, 30));
-        metodoShigella.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                metodoShigellaActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 26;
@@ -4192,11 +3766,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         metodoVibrioCholerae.setMaximumSize(new java.awt.Dimension(200, 30));
         metodoVibrioCholerae.setMinimumSize(new java.awt.Dimension(200, 30));
         metodoVibrioCholerae.setPreferredSize(new java.awt.Dimension(200, 30));
-        metodoVibrioCholerae.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                metodoVibrioCholeraeActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 25;
@@ -4252,7 +3821,7 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         return auxiliar;
     }
 
-    private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGenerarActionPerformed
+    private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {
         Map m = new HashMap();
         String germenes = comboGermenes.getSelectedItem().toString().toUpperCase() + " "
                 + cajaGermenes.getText().toUpperCase() + " " + comboGermenesIn.getSelectedItem().toString();
@@ -4513,9 +4082,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } catch (NullPointerException e) {
             JOptionPane.showMessageDialog(null, "Ingrese la fecha de análisis.");
         }
-    }//GEN-LAST:event_botonGenerarActionPerformed
+    }
 
-    private void checkEnterobacteriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkEnterobacteriasActionPerformed
+    private void checkEnterobacteriasActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkEnterobacterias.isSelected()) {
             auxEnterobacteriasCombo = comboEnterobacterias.getSelectedIndex();
             auxEnterobacterias = cajaEnterobacterias.getText();
@@ -4525,9 +4094,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboEnterobacterias.setSelectedIndex(auxEnterobacteriasCombo);
             cajaEnterobacterias.setText(auxEnterobacterias);
         }
-    }//GEN-LAST:event_checkEnterobacteriasActionPerformed
+    }
 
-    private void checkColiformesFecalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkColiformesFecalesActionPerformed
+    private void checkColiformesFecalesActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkColiformesFecales.isSelected()) {
             auxFecalesCombo = comboColiformesFecales.getSelectedIndex();
             auxFecales = cajaColiformesFecales.getText();
@@ -4537,9 +4106,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboColiformesFecales.setSelectedIndex(auxFecalesCombo);
             cajaColiformesFecales.setText(auxFecales);
         }
-    }//GEN-LAST:event_checkColiformesFecalesActionPerformed
+    }
 
-    private void checkColiformesTotalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkColiformesTotalesActionPerformed
+    private void checkColiformesTotalesActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkColiformesTotales.isSelected()) {
             auxTotalesCombo = comboColiformesTotales.getSelectedIndex();
             auxTotales = cajaColiformesTotales.getText();
@@ -4549,9 +4118,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboColiformesTotales.setSelectedIndex(auxTotalesCombo);
             cajaColiformesTotales.setText(auxTotales);
         }
-    }//GEN-LAST:event_checkColiformesTotalesActionPerformed
+    }
 
-    private void checkGermenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkGermenesActionPerformed
+    private void checkGermenesActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkGermenes.isSelected()) {
             auxGermenesCombo = comboGermenes.getSelectedIndex();
             auxGermenes = cajaGermenes.getText();
@@ -4561,9 +4130,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboGermenes.setSelectedIndex(auxGermenesCombo);
             cajaGermenes.setText(auxGermenes);
         }
-    }//GEN-LAST:event_checkGermenesActionPerformed
+    }
 
-    private void panelGermenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelGermenesMouseClicked
+    private void panelGermenesMouseClicked(java.awt.event.MouseEvent evt) {
         activarGermenes = !activarGermenes;
         cajaGermenes.setEnabled(activarGermenes);
         comboGermenes.setEnabled(activarGermenes);
@@ -4574,7 +4143,7 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelGermenes.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelGermenesMouseClicked
+    }
 
     private void etiquetaGermenesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaGermenesMouseClicked
         activarGermenes = !activarGermenes;
@@ -4587,9 +4156,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelGermenes.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaGermenesMouseClicked
+    }
 
-    private void panelTotalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelTotalesMouseClicked
+    private void panelTotalesMouseClicked(java.awt.event.MouseEvent evt) {
         activarTotales = !activarTotales;
         cajaColiformesTotales.setEnabled(activarTotales);
         comboColiformesTotales.setEnabled(activarTotales);
@@ -4600,7 +4169,7 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelTotales.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelTotalesMouseClicked
+    }
 
     private void etiquetaTotalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaTotalesMouseClicked
         activarTotales = !activarTotales;
@@ -4613,9 +4182,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelTotales.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaTotalesMouseClicked
+    }
 
-    private void panelFecalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelFecalesMouseClicked
+    private void panelFecalesMouseClicked(java.awt.event.MouseEvent evt) {
         activarFecales = !activarFecales;
         cajaColiformesFecales.setEnabled(activarFecales);
         comboColiformesFecales.setEnabled(activarFecales);
@@ -4625,9 +4194,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelFecales.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelFecalesMouseClicked
+    }
 
-    private void etiquetaFecalesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaFecalesMouseClicked
+    private void etiquetaFecalesMouseClicked(java.awt.event.MouseEvent evt) {
         activarFecales = !activarFecales;
         cajaColiformesFecales.setEnabled(activarFecales);
         comboColiformesFecales.setEnabled(activarFecales);
@@ -4638,13 +4207,13 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelFecales.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaFecalesMouseClicked
+    }
 
     private void panelEscherichiaH7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelEscherichiaH7MouseClicked
 
     }//GEN-LAST:event_panelEscherichiaH7MouseClicked
 
-    private void etiquetaEscherichiaH7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaEscherichiaH7MouseClicked
+    private void etiquetaEscherichiaH7MouseClicked(java.awt.event.MouseEvent evt) {
         activarEscherichiaH7 = !activarEscherichiaH7;
         comboEscherichiaH7.setEnabled(activarEscherichiaH7);
         comboEscherichiaH7In.setEnabled(activarEscherichiaH7);
@@ -4654,9 +4223,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelEscherichiaH7.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaEscherichiaH7MouseClicked
+    }
 
-    private void panelStaphilococosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelStaphilococosMouseClicked
+    private void panelStaphilococosMouseClicked(java.awt.event.MouseEvent evt) {
         activarStaphilococos = !activarStaphilococos;
         cajaEnterobacterias.setEnabled(activarStaphilococos);
         comboEnterobacterias.setEnabled(activarStaphilococos);
@@ -4667,9 +4236,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelStaphilococos.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelStaphilococosMouseClicked
+    }
 
-    private void etiquetaStaphilococosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaStaphilococosMouseClicked
+    private void etiquetaStaphilococosMouseClicked(java.awt.event.MouseEvent evt) {
         activarStaphilococos = !activarStaphilococos;
         cajaStaphilococos.setEnabled(activarStaphilococos);
         comboStaphilococos.setEnabled(activarStaphilococos);
@@ -4680,9 +4249,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelStaphilococos.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaStaphilococosMouseClicked
+    }
 
-    private void panelSalmonellaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSalmonellaMouseClicked
+    private void panelSalmonellaMouseClicked(java.awt.event.MouseEvent evt) {
         activarSalmonella = !activarSalmonella;
         comboSalmonella.setEnabled(activarSalmonella);
         comboSalmonellaIn.setEnabled(activarSalmonella);
@@ -4692,9 +4261,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelSalmonella.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelSalmonellaMouseClicked
+    }
 
-    private void etiquetaSalmonellaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaSalmonellaMouseClicked
+    private void etiquetaSalmonellaMouseClicked(java.awt.event.MouseEvent evt) {
         activarSalmonella = !activarSalmonella;
         comboSalmonella.setEnabled(activarSalmonella);
         comboSalmonellaIn.setEnabled(activarSalmonella);
@@ -4704,9 +4273,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelSalmonella.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaSalmonellaMouseClicked
+    }
 
-    private void panelMohosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelMohosMouseClicked
+    private void panelMohosMouseClicked(java.awt.event.MouseEvent evt) {
         activarMohos = !activarMohos;
         cajaMohos.setEnabled(activarMohos);
         comboMohos.setEnabled(activarMohos);
@@ -4717,9 +4286,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelMohos.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelMohosMouseClicked
+    }
 
-    private void etiquetaMohosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaMohosMouseClicked
+    private void etiquetaMohosMouseClicked(java.awt.event.MouseEvent evt) {
         activarMohos = !activarMohos;
         cajaMohos.setEnabled(activarMohos);
         comboMohos.setEnabled(activarMohos);
@@ -4730,9 +4299,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelMohos.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaMohosMouseClicked
+    }
 
-    private void etiquetaEscherichia157MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaEscherichia157MouseClicked
+    private void etiquetaEscherichia157MouseClicked(java.awt.event.MouseEvent evt) {
         activarEscherichia157 = !activarEscherichia157;
         comboEscherichia157.setEnabled(activarEscherichia157);
         comboEscherichia157In.setEnabled(activarEscherichia157);
@@ -4742,13 +4311,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelEscherichia157.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaEscherichia157MouseClicked
+    }
 
-    private void panelEscherichia157MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelEscherichia157MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelEscherichia157MouseClicked
-
-    private void etiquetaEnterobacteriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaEnterobacteriasMouseClicked
+    private void etiquetaEnterobacteriasMouseClicked(java.awt.event.MouseEvent evt) {
         activarEnterobacterias = !activarEnterobacterias;
         cajaEnterobacterias.setEnabled(activarEnterobacterias);
         comboEnterobacterias.setEnabled(activarEnterobacterias);
@@ -4759,13 +4324,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelEnterobacterias.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaEnterobacteriasMouseClicked
+    }
 
-    private void panelEnterobacteriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelEnterobacteriasMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelEnterobacteriasMouseClicked
-
-    private void etiquetaListeriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaListeriaMouseClicked
+    private void etiquetaListeriaMouseClicked(java.awt.event.MouseEvent evt) {
         activarListeria = !activarListeria;
         comboListeria.setEnabled(activarListeria);
         comboListeriaIn.setEnabled(activarListeria);
@@ -4775,13 +4336,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelListeria.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaListeriaMouseClicked
+    }
 
-    private void panelListeriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelListeriaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelListeriaMouseClicked
-
-    private void etiquetaBacillusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaBacillusMouseClicked
+    private void etiquetaBacillusMouseClicked(java.awt.event.MouseEvent evt) {
         activarBacillus = !activarBacillus;
         cajaBacillus.setEnabled(activarBacillus);
         comboBacillus.setEnabled(activarBacillus);
@@ -4792,13 +4349,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelBacillus.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaBacillusMouseClicked
+    }
 
-    private void panelBacillusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBacillusMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelBacillusMouseClicked
-
-    private void etiquetaPerfringensMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaPerfringensMouseClicked
+    private void etiquetaPerfringensMouseClicked(java.awt.event.MouseEvent evt) {
         activarPerfringens = !activarPerfringens;
         cajaPerfringens.setEnabled(activarPerfringens);
         comboPerfringensIn.setEnabled(activarPerfringens);
@@ -4809,13 +4362,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelPerfringens.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaPerfringensMouseClicked
+    }
 
-    private void panelPerfringensMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelPerfringensMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelPerfringensMouseClicked
-
-    private void etiquetaSulfitoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaSulfitoMouseClicked
+    private void etiquetaSulfitoMouseClicked(java.awt.event.MouseEvent evt) {
         activarSulfito = !activarSulfito;
         cajaSulfito.setEnabled(activarSulfito);
         comboSulfito.setEnabled(activarSulfito);
@@ -4826,13 +4375,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelSulfito.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaSulfitoMouseClicked
+    }
 
-    private void panelSulfitoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelSulfitoMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelSulfitoMouseClicked
-
-    private void etiquetaCampilobacterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaCampilobacterMouseClicked
+    private void etiquetaCampilobacterMouseClicked(java.awt.event.MouseEvent evt) {
         activarCampilobacter = !activarCampilobacter;
         cajaCampilobacter.setEnabled(activarCampilobacter);
         comboCampilobacter.setEnabled(activarCampilobacter);
@@ -4843,137 +4388,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelCampilobacter.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaCampilobacterMouseClicked
+    }
 
-    private void panelCampilobacterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCampilobacterMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelCampilobacterMouseClicked
-
-    private void cajaCampilobacterKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCampilobacterKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaCampilobacterKeyTyped
-
-    private void cajaCampilobacterKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCampilobacterKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaCampilobacterKeyReleased
-
-    private void cajaCampilobacterKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCampilobacterKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaCampilobacterKeyPressed
-
-    private void cajaCampilobacterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaCampilobacterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaCampilobacterActionPerformed
-
-    private void comboCampilobacterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCampilobacterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboCampilobacterActionPerformed
-
-    private void cajaSulfitoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSulfitoKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaSulfitoKeyTyped
-
-    private void cajaSulfitoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSulfitoKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaSulfitoKeyReleased
-
-    private void cajaSulfitoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaSulfitoKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaSulfitoKeyPressed
-
-    private void cajaSulfitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaSulfitoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaSulfitoActionPerformed
-
-    private void comboSulfitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSulfitoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboSulfitoActionPerformed
-
-    private void cajaPerfringensKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaPerfringensKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaPerfringensKeyTyped
-
-    private void cajaPerfringensKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaPerfringensKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaPerfringensKeyReleased
-
-    private void cajaPerfringensKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaPerfringensKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaPerfringensKeyPressed
-
-    private void cajaPerfringensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaPerfringensActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaPerfringensActionPerformed
-
-    private void comboPerfringensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPerfringensActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboPerfringensActionPerformed
-
-    private void cajaBacillusKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaBacillusKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaBacillusKeyTyped
-
-    private void cajaBacillusKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaBacillusKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaBacillusKeyReleased
-
-    private void cajaBacillusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaBacillusKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaBacillusKeyPressed
-
-    private void cajaBacillusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaBacillusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaBacillusActionPerformed
-
-    private void comboBacillusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBacillusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBacillusActionPerformed
-
-    private void cajaGermenesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaGermenesKeyTyped
-
-    }//GEN-LAST:event_cajaGermenesKeyTyped
-
-    private void cajaGermenesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaGermenesKeyReleased
-
-    }//GEN-LAST:event_cajaGermenesKeyReleased
-
-    private void cajaGermenesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaGermenesKeyPressed
-
-    }//GEN-LAST:event_cajaGermenesKeyPressed
-
-    private void cajaGermenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaGermenesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaGermenesActionPerformed
-
-    private void comboGermenesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGermenesActionPerformed
-
-    }//GEN-LAST:event_comboGermenesActionPerformed
-
-    private void cajaColiformesTotalesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColiformesTotalesKeyReleased
-
-    }//GEN-LAST:event_cajaColiformesTotalesKeyReleased
-
-    private void comboColiformesTotalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColiformesTotalesActionPerformed
-
-    }//GEN-LAST:event_comboColiformesTotalesActionPerformed
-
-    private void cajaEnterobacteriasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaEnterobacteriasKeyReleased
-
-    }//GEN-LAST:event_cajaEnterobacteriasKeyReleased
-
-    private void cajaColiformesFecalesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColiformesFecalesKeyReleased
-
-    }//GEN-LAST:event_cajaColiformesFecalesKeyReleased
-
-    private void comboColiformesFecalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColiformesFecalesActionPerformed
-
-    }//GEN-LAST:event_comboColiformesFecalesActionPerformed
-
-    private void comboEscherichiaInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEscherichiaInActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboEscherichiaInActionPerformed
-
-    private void etiquetaEscherichiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaEscherichiaMouseClicked
+    private void etiquetaEscherichiaMouseClicked(java.awt.event.MouseEvent evt) {
         activarEscherichia = !activarEscherichia;
         comboEscherichia.setEnabled(activarEscherichia);
         comboEscherichiaIn.setEnabled(activarEscherichia);
@@ -4983,21 +4400,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelEscherichia.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaEscherichiaMouseClicked
+    }
 
-    private void panelEscherichiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelEscherichiaMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelEscherichiaMouseClicked
-
-    private void comboEscherichiaH7InActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboEscherichiaH7InActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboEscherichiaH7InActionPerformed
-
-    private void cajaStaphilococosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaStaphilococosKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaStaphilococosKeyReleased
-
-    private void checkStaphilococosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkStaphilococosActionPerformed
+    private void checkStaphilococosActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkStaphilococos.isSelected()) {
             auxStaphilococosCombo = comboStaphilococos.getSelectedIndex();
             auxStaphilococos = cajaStaphilococos.getText();
@@ -5007,9 +4412,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboStaphilococos.setSelectedIndex(auxStaphilococosCombo);
             cajaStaphilococos.setText(auxStaphilococos);
         }
-    }//GEN-LAST:event_checkStaphilococosActionPerformed
+    }
 
-    private void checkMohosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkMohosActionPerformed
+    private void checkMohosActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkMohos.isSelected()) {
             comboMohos.setSelectedItem("Menor a");
             cajaMohos.setText("10");
@@ -5017,9 +4422,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboMohos.setSelectedItem("Menor a");
             cajaMohos.setText("10");
         }
-    }//GEN-LAST:event_checkMohosActionPerformed
+    }
 
-    private void checkBacillusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBacillusActionPerformed
+    private void checkBacillusActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkBacillus.isSelected()) {
             auxBacillusCombo = comboBacillus.getSelectedIndex();
             auxBacillus = cajaBacillus.getText();
@@ -5029,9 +4434,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboBacillus.setSelectedIndex(auxBacillusCombo);
             cajaBacillus.setText(auxBacillus);
         }
-    }//GEN-LAST:event_checkBacillusActionPerformed
+    }
 
-    private void checkPerfringensActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkPerfringensActionPerformed
+    private void checkPerfringensActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkPerfringens.isSelected()) {
             auxPerfringensCombo = comboPerfringens.getSelectedIndex();
             auxPerfringens = cajaPerfringens.getText();
@@ -5041,9 +4446,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboPerfringens.setSelectedIndex(auxPerfringensCombo);
             cajaPerfringens.setText(auxPerfringens);
         }
-    }//GEN-LAST:event_checkPerfringensActionPerformed
+    }
 
-    private void checkSulfitoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkSulfitoActionPerformed
+    private void checkSulfitoActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkSulfito.isSelected()) {
             auxSulfitoCombo = comboSulfito.getSelectedIndex();
             auxSulfito = cajaSulfito.getText();
@@ -5053,9 +4458,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboSulfito.setSelectedIndex(auxSulfitoCombo);
             cajaSulfito.setText(auxSulfito);
         }
-    }//GEN-LAST:event_checkSulfitoActionPerformed
+    }
 
-    private void checkCampilobacterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkCampilobacterActionPerformed
+    private void checkCampilobacterActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkCampilobacter.isSelected()) {
             auxCampilobacterCombo = comboCampilobacter.getSelectedIndex();
             auxCampilobacter = cajaCampilobacter.getText();
@@ -5065,9 +4470,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboCampilobacter.setSelectedIndex(auxCampilobacterCombo);
             cajaCampilobacter.setText(auxCampilobacter);
         }
-    }//GEN-LAST:event_checkCampilobacterActionPerformed
+    }
 
-    private void etiquetaCaracteristicasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaCaracteristicasMouseClicked
+    private void etiquetaCaracteristicasMouseClicked(java.awt.event.MouseEvent evt) {
         activarCaracteristicas = !activarCaracteristicas;
         cajaCaracteristicas.setEnabled(activarCaracteristicas);
         metodoCaracteristicas.setEnabled(activarCaracteristicas);
@@ -5076,13 +4481,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelCaracteristicas.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaCaracteristicasMouseClicked
+    }
 
-    private void panelCaracteristicasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelCaracteristicasMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_panelCaracteristicasMouseClicked
-
-    private void etiquetaColiformesTotalesA30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaColiformesTotalesA30MouseClicked
+    private void etiquetaColiformesTotalesA30MouseClicked(java.awt.event.MouseEvent evt) {
         activarColiformesTotalesA30 = !activarColiformesTotalesA30;
         cajaColiformesTotalesA30.setEnabled(activarColiformesTotalesA30);
         metodoColiformesTotalesA30.setEnabled(activarColiformesTotalesA30);
@@ -5093,9 +4494,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelColiformesTotalesA30.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaColiformesTotalesA30MouseClicked
+    }
 
-    private void panelColiformesTotalesA30MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelColiformesTotalesA30MouseClicked
+    private void panelColiformesTotalesA30MouseClicked(java.awt.event.MouseEvent evt) {
         activarColiformesTotalesA30 = !activarColiformesTotalesA30;
         cajaColiformesTotalesA30.setEnabled(activarColiformesTotalesA30);
         metodoColiformesTotalesA30.setEnabled(activarColiformesTotalesA30);
@@ -5106,9 +4507,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelColiformesTotalesA30.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelColiformesTotalesA30MouseClicked
+    }
 
-    private void etiquetaColiformesTotalesProbableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaColiformesTotalesProbableMouseClicked
+    private void etiquetaColiformesTotalesProbableMouseClicked(java.awt.event.MouseEvent evt) {
         activarColiformesTotalesProbables = !activarColiformesTotalesProbables;
         cajaColiformesTotalesProbables.setEnabled(activarColiformesTotalesProbables);
         metodoColiformesTotalesProbables.setEnabled(activarColiformesTotalesProbables);
@@ -5119,9 +4520,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelColiformesTotalesProbables.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaColiformesTotalesProbableMouseClicked
+    }
 
-    private void panelColiformesTotalesProbablesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelColiformesTotalesProbablesMouseClicked
+    private void panelColiformesTotalesProbablesMouseClicked(java.awt.event.MouseEvent evt) {
         activarColiformesTotalesProbables = !activarColiformesTotalesProbables;
         cajaColiformesTotalesProbables.setEnabled(activarColiformesTotalesProbables);
         metodoColiformesTotalesProbables.setEnabled(activarColiformesTotalesProbables);
@@ -5132,25 +4533,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelColiformesTotalesProbables.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelColiformesTotalesProbablesMouseClicked
+    }
 
-    private void cajaCaracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaCaracteristicasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaCaracteristicasActionPerformed
-
-    private void cajaCaracteristicasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCaracteristicasKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaCaracteristicasKeyPressed
-
-    private void cajaCaracteristicasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCaracteristicasKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaCaracteristicasKeyReleased
-
-    private void cajaCaracteristicasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaCaracteristicasKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaCaracteristicasKeyTyped
-
-    private void etiquetaLactobacillusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaLactobacillusMouseClicked
+    private void etiquetaLactobacillusMouseClicked(java.awt.event.MouseEvent evt) {
         activarLactobacillus = !activarLactobacillus;
         cajaLactobacillus.setEnabled(activarLactobacillus);
         comboLactobacillus.setEnabled(activarLactobacillus);
@@ -5161,9 +4546,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelLactobacillus.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaLactobacillusMouseClicked
+    }
 
-    private void panelLactobacillusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelLactobacillusMouseClicked
+    private void panelLactobacillusMouseClicked(java.awt.event.MouseEvent evt) {
         activarLactobacillus = !activarLactobacillus;
         cajaLactobacillus.setEnabled(activarLactobacillus);
         comboLactobacillus.setEnabled(activarLactobacillus);
@@ -5174,29 +4559,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelLactobacillus.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelLactobacillusMouseClicked
+    }
 
-    private void comboLactobacillusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLactobacillusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboLactobacillusActionPerformed
-
-    private void cajaLactobacillusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaLactobacillusActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaLactobacillusActionPerformed
-
-    private void cajaLactobacillusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaLactobacillusKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaLactobacillusKeyPressed
-
-    private void cajaLactobacillusKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaLactobacillusKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaLactobacillusKeyReleased
-
-    private void cajaLactobacillusKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaLactobacillusKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaLactobacillusKeyTyped
-
-    private void etiquetaBacteriasLacticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaBacteriasLacticasMouseClicked
+    private void etiquetaBacteriasLacticasMouseClicked(java.awt.event.MouseEvent evt) {
         activarBacteriasLacticas = !activarBacteriasLacticas;
         cajaBacteriasLacticas.setEnabled(activarBacteriasLacticas);
         comboBacteriasLacticas.setEnabled(activarBacteriasLacticas);
@@ -5207,9 +4572,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelBacteriasLacticas.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaBacteriasLacticasMouseClicked
+    }
 
-    private void panelBacteriasLacticasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelBacteriasLacticasMouseClicked
+    private void panelBacteriasLacticasMouseClicked(java.awt.event.MouseEvent evt) {
         activarBacteriasLacticas = !activarBacteriasLacticas;
         cajaBacteriasLacticas.setEnabled(activarBacteriasLacticas);
         comboBacteriasLacticas.setEnabled(activarBacteriasLacticas);
@@ -5220,33 +4585,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelBacteriasLacticas.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelBacteriasLacticasMouseClicked
+    }
 
-    private void comboBacteriasLacticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBacteriasLacticasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboBacteriasLacticasActionPerformed
-
-    private void cajaBacteriasLacticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaBacteriasLacticasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaBacteriasLacticasActionPerformed
-
-    private void cajaBacteriasLacticasKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaBacteriasLacticasKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaBacteriasLacticasKeyPressed
-
-    private void cajaBacteriasLacticasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaBacteriasLacticasKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaBacteriasLacticasKeyReleased
-
-    private void cajaBacteriasLacticasKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaBacteriasLacticasKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaBacteriasLacticasKeyTyped
-
-    private void metodoBacteriasLacticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoBacteriasLacticasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_metodoBacteriasLacticasActionPerformed
-
-    private void etiquetaColiformesTotales45MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaColiformesTotales45MouseClicked
+    private void etiquetaColiformesTotales45MouseClicked(java.awt.event.MouseEvent evt) {
         activarColiformesTotales45 = !activarColiformesTotales45;
         cajaColiformesTotales45.setEnabled(activarColiformesTotales45);
         metodoColiformesTotales45.setEnabled(activarColiformesTotales45);
@@ -5257,9 +4598,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelColiformesTotales45.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaColiformesTotales45MouseClicked
+    }
 
-    private void panelColiformesTotales45MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelColiformesTotales45MouseClicked
+    private void panelColiformesTotales45MouseClicked(java.awt.event.MouseEvent evt) {
         activarColiformesTotales45 = !activarColiformesTotales45;
         cajaColiformesTotales45.setEnabled(activarColiformesTotales45);
         metodoColiformesTotales45.setEnabled(activarColiformesTotales45);
@@ -5270,81 +4611,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelColiformesTotales45.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelColiformesTotales45MouseClicked
+    }
 
-    private void metodoColiformesTotales45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoColiformesTotales45ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_metodoColiformesTotales45ActionPerformed
-
-    private void cajaMohosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaMohosKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaMohosKeyReleased
-
-    private void comboLactobacillusInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboLactobacillusInActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboLactobacillusInActionPerformed
-
-    private void comboColiformesTotales45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColiformesTotales45ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboColiformesTotales45ActionPerformed
-
-    private void cajaColiformesTotales45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaColiformesTotales45ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaColiformesTotales45ActionPerformed
-
-    private void cajaColiformesTotales45KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColiformesTotales45KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaColiformesTotales45KeyPressed
-
-    private void cajaColiformesTotales45KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColiformesTotales45KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaColiformesTotales45KeyReleased
-
-    private void cajaColiformesTotales45KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColiformesTotales45KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaColiformesTotales45KeyTyped
-
-    private void comboColiformesTotalesA30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColiformesTotalesA30ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboColiformesTotalesA30ActionPerformed
-
-    private void cajaColiformesTotalesA30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaColiformesTotalesA30ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaColiformesTotalesA30ActionPerformed
-
-    private void cajaColiformesTotalesA30KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColiformesTotalesA30KeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaColiformesTotalesA30KeyPressed
-
-    private void cajaColiformesTotalesA30KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColiformesTotalesA30KeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaColiformesTotalesA30KeyReleased
-
-    private void cajaColiformesTotalesA30KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColiformesTotalesA30KeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaColiformesTotalesA30KeyTyped
-
-    private void comboColiformesTotalesProbablesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColiformesTotalesProbablesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboColiformesTotalesProbablesActionPerformed
-
-    private void cajaColiformesTotalesProbablesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaColiformesTotalesProbablesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaColiformesTotalesProbablesActionPerformed
-
-    private void cajaColiformesTotalesProbablesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColiformesTotalesProbablesKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaColiformesTotalesProbablesKeyPressed
-
-    private void cajaColiformesTotalesProbablesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColiformesTotalesProbablesKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaColiformesTotalesProbablesKeyReleased
-
-    private void cajaColiformesTotalesProbablesKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaColiformesTotalesProbablesKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaColiformesTotalesProbablesKeyTyped
-
-    private void checkColiformesTotalesA30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkColiformesTotalesA30ActionPerformed
+    private void checkColiformesTotalesA30ActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkColiformesTotalesA30.isSelected()) {
             auxColiformesTotalesA30Combo = comboColiformesTotalesA30.getSelectedIndex();
             auxColiformesTotalesA30 = cajaColiformesTotalesA30.getText();
@@ -5354,9 +4623,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboColiformesTotalesA30.setSelectedIndex(auxColiformesTotalesA30Combo);
             cajaColiformesTotalesA30.setText(auxColiformesTotalesA30);
         }
-    }//GEN-LAST:event_checkColiformesTotalesA30ActionPerformed
+    }
 
-    private void checkColiformesTotalesProbablesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkColiformesTotalesProbablesActionPerformed
+    private void checkColiformesTotalesProbablesActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkColiformesTotalesProbables.isSelected()) {
             auxColiformesTotalesProbablesCombo = comboColiformesTotalesProbables.getSelectedIndex();
             auxColiformesTotalesProbables = cajaColiformesTotalesProbables.getText();
@@ -5366,9 +4635,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboColiformesTotalesProbables.setSelectedIndex(auxColiformesTotalesProbablesCombo);
             cajaColiformesTotalesProbables.setText(auxColiformesTotalesProbables);
         }
-    }//GEN-LAST:event_checkColiformesTotalesProbablesActionPerformed
+    }
 
-    private void checkLactobacillusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLactobacillusActionPerformed
+    private void checkLactobacillusActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkLactobacillus.isSelected()) {
             auxLactobacillusCombo = comboLactobacillus.getSelectedIndex();
             auxLactobacillus = cajaLactobacillus.getText();
@@ -5378,9 +4647,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboLactobacillus.setSelectedIndex(auxLactobacillusCombo);
             cajaLactobacillus.setText(auxLactobacillus);
         }
-    }//GEN-LAST:event_checkLactobacillusActionPerformed
+    }
 
-    private void checkBacteriasLacticasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBacteriasLacticasActionPerformed
+    private void checkBacteriasLacticasActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkBacteriasLacticas.isSelected()) {
             auxBacteriasLacticasCombo = comboBacteriasLacticas.getSelectedIndex();
             auxBacteriasLacticas = cajaBacteriasLacticas.getText();
@@ -5390,9 +4659,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboBacteriasLacticas.setSelectedIndex(auxBacteriasLacticasCombo);
             cajaBacteriasLacticas.setText(auxBacteriasLacticas);
         }
-    }//GEN-LAST:event_checkBacteriasLacticasActionPerformed
+    }
 
-    private void checkColiformesTotales45ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkColiformesTotales45ActionPerformed
+    private void checkColiformesTotales45ActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkColiformesTotales45.isSelected()) {
             auxColiformesTotales45Combo = comboColiformesTotales45.getSelectedIndex();
             auxColiformesTotales45 = cajaColiformesTotales45.getText();
@@ -5402,37 +4671,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboColiformesTotales45.setSelectedIndex(auxColiformesTotales45Combo);
             cajaColiformesTotales45.setText(auxColiformesTotales45);
         }
-    }//GEN-LAST:event_checkColiformesTotales45ActionPerformed
+    }
 
-    private void comboColiformesTotales45InActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboColiformesTotales45InActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboColiformesTotales45InActionPerformed
-
-    private void comboVibrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboVibrioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboVibrioActionPerformed
-
-    private void cajaVibrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaVibrioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaVibrioActionPerformed
-
-    private void cajaVibrioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaVibrioKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaVibrioKeyPressed
-
-    private void cajaVibrioKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaVibrioKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaVibrioKeyReleased
-
-    private void cajaVibrioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaVibrioKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaVibrioKeyTyped
-
-    private void comboVibrioInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboVibrioInActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboVibrioInActionPerformed
-
-    private void etiquetaVibrioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaVibrioMouseClicked
+    private void etiquetaVibrioMouseClicked(java.awt.event.MouseEvent evt) {
         activarVibrio = !activarVibrio;
         cajaVibrio.setEnabled(activarVibrio);
         metodoVibrio.setEnabled(activarVibrio);
@@ -5443,9 +4684,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelVibrio.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaVibrioMouseClicked
+    }
 
-    private void panelVibrioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelVibrioMouseClicked
+    private void panelVibrioMouseClicked(java.awt.event.MouseEvent evt) {
         activarVibrio = !activarVibrio;
         cajaVibrio.setEnabled(activarVibrio);
         metodoVibrio.setEnabled(activarVibrio);
@@ -5456,13 +4697,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelVibrio.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelVibrioMouseClicked
+    }
 
-    private void metodoVibrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoVibrioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_metodoVibrioActionPerformed
-
-    private void checkVibrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkVibrioActionPerformed
+    private void checkVibrioActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkVibrio.isSelected()) {
             auxVibrioCombo = comboVibrio.getSelectedIndex();
             auxVibrio = cajaVibrio.getText();
@@ -5472,9 +4709,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboVibrio.setSelectedIndex(auxVibrioCombo);
             cajaVibrio.setText(auxVibrio);
         }
-    }//GEN-LAST:event_checkVibrioActionPerformed
+    }
 
-    private void etiquetaShigellaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaShigellaMouseClicked
+    private void etiquetaShigellaMouseClicked(java.awt.event.MouseEvent evt) {
         activarShigella = !activarShigella;
         comboShigella.setEnabled(activarShigella);
         comboShigellaIn.setEnabled(activarShigella);
@@ -5484,9 +4721,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelShigella.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaShigellaMouseClicked
+    }
 
-    private void panelShigellaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelShigellaMouseClicked
+    private void panelShigellaMouseClicked(java.awt.event.MouseEvent evt) {
         activarShigella = !activarShigella;
         comboShigella.setEnabled(activarShigella);
         comboShigellaIn.setEnabled(activarShigella);
@@ -5496,17 +4733,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelShigella.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_panelShigellaMouseClicked
+    }
 
-    private void metodoShigellaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoShigellaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_metodoShigellaActionPerformed
-
-    private void comboListeriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboListeriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboListeriaActionPerformed
-
-    private void checkListeriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkListeriaActionPerformed
+    private void checkListeriaActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkListeria.isSelected()) {
             auxListeriaCombo = comboListeria.getSelectedIndex();
             auxListeria = cajaListeria.getText();
@@ -5516,13 +4745,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboListeria.setSelectedIndex(auxListeriaCombo);
             cajaListeria.setText(auxListeria);
         }
-    }//GEN-LAST:event_checkListeriaActionPerformed
+    }
 
-    private void comboSalmonellaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboSalmonellaItemStateChanged
-
-    }//GEN-LAST:event_comboSalmonellaItemStateChanged
-
-    private void comboListeriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboListeriaItemStateChanged
+    private void comboListeriaItemStateChanged(java.awt.event.ItemEvent evt) {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             if (evt.getItem().toString().toLowerCase().contains("presencia") || evt.getItem().toString().toLowerCase().contains("ausencia")) {
                 comboListeria.setSize(105, 30);
@@ -5549,29 +4774,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             }
         }
         jPanel31.updateUI();
-    }//GEN-LAST:event_comboListeriaItemStateChanged
+    }
 
-    private void cajaListeriaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaListeriaKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaListeriaKeyTyped
-
-    private void cajaListeriaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaListeriaKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaListeriaKeyReleased
-
-    private void cajaListeriaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaListeriaKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaListeriaKeyPressed
-
-    private void cajaListeriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaListeriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaListeriaActionPerformed
-
-    private void jPanel31MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel31MouseClicked
-        System.out.println("aprete");
-    }//GEN-LAST:event_jPanel31MouseClicked
-
-    private void etiquetaVibrioCholeraeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_etiquetaVibrioCholeraeMouseClicked
+    private void etiquetaVibrioCholeraeMouseClicked(java.awt.event.MouseEvent evt) {
         activarVibrioCholerae = !activarVibrioCholerae;
         cajaVibrioCholerae.setEnabled(activarVibrioCholerae);
         metodoVibrioCholerae.setEnabled(activarVibrioCholerae);
@@ -5582,9 +4787,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         } else {
             panelVibrioCholerae.setBackground(new Color(240, 100, 100));
         }
-    }//GEN-LAST:event_etiquetaVibrioCholeraeMouseClicked
+    }
 
-    private void panelVibrioCholeraeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelVibrioCholeraeMouseClicked
+    private void panelVibrioCholeraeMouseClicked(java.awt.event.MouseEvent evt) {
         activarVibrioCholerae = !activarVibrioCholerae;
         cajaVibrioCholerae.setEnabled(activarVibrioCholerae);
         metodoVibrioCholerae.setEnabled(activarVibrioCholerae);
@@ -5594,37 +4799,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             panelVibrioCholerae.setBackground(new Color(240, 240, 240));
         } else {
             panelVibrioCholerae.setBackground(new Color(240, 100, 100));
-        }    }//GEN-LAST:event_panelVibrioCholeraeMouseClicked
+        }    }
 
-    private void comboVibrioCholeraeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboVibrioCholeraeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboVibrioCholeraeActionPerformed
-
-    private void cajaVibrioCholeraeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaVibrioCholeraeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaVibrioCholeraeActionPerformed
-
-    private void cajaVibrioCholeraeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaVibrioCholeraeKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaVibrioCholeraeKeyPressed
-
-    private void cajaVibrioCholeraeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaVibrioCholeraeKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaVibrioCholeraeKeyReleased
-
-    private void cajaVibrioCholeraeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cajaVibrioCholeraeKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cajaVibrioCholeraeKeyTyped
-
-    private void comboVibrioCholeraeInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboVibrioCholeraeInActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboVibrioCholeraeInActionPerformed
-
-    private void metodoVibrioCholeraeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_metodoVibrioCholeraeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_metodoVibrioCholeraeActionPerformed
-
-    private void checkVibrioCholeraeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkVibrioCholeraeActionPerformed
+    private void checkVibrioCholeraeActionPerformed(java.awt.event.ActionEvent evt) {
         if (checkVibrioCholerae.isSelected()) {
             auxVibrioCholeraeCombo = comboVibrioCholerae.getSelectedIndex();
             auxVibrioCholerae = cajaVibrioCholerae.getText();
@@ -5634,54 +4811,8 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             comboVibrioCholerae.setSelectedIndex(auxVibrioCholeraeCombo);
             cajaVibrioCholerae.setText(auxVibrioCholerae);
         }
-    }//GEN-LAST:event_checkVibrioCholeraeActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(TablaMBAlimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(TablaMBAlimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(TablaMBAlimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(TablaMBAlimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                TablaMBAlimentos dialog = new TablaMBAlimentos(new javax.swing.JFrame(), true, -1, null, false, null);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonGenerar;
     private javax.swing.JTextField cajaBacillus;
     private javax.swing.JTextField cajaBacteriasLacticas;
@@ -5872,10 +5003,10 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
     private javax.swing.JPanel panelTotales;
     private javax.swing.JPanel panelVibrio;
     private javax.swing.JPanel panelVibrioCholerae;
-    // End of variables declaration//GEN-END:variables
+
 
     public void click(Component target, int x, int y) {
-        MouseEvent press, release, click;
+        MouseEvent click;
         Point point;
         long time;
 
