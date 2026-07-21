@@ -7,8 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+
 import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.ClienteRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -21,12 +24,24 @@ import javax.swing.JOptionPane;
 
 public class VerClientes extends javax.swing.JDialog {
 
+    public javax.swing.JPasswordField cajaBuscar;
     Consultas consultas = Consultas.getInstancia();
     DefaultTableModel modeloTabla;
     int fila;
-    private boolean borrados;
     Frame parent;
-
+    ClienteRepository clienteRepository = new ClienteRepository();
+    private boolean borrados;
+    private javax.swing.JButton botonBorrar;
+    private javax.swing.JButton botonBuscar;
+    private javax.swing.JMenuItem itemBorrarCliente;
+    private javax.swing.JMenuItem itemEditarCliente;
+    private javax.swing.JMenuItem itemRecuperarCliente;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu popupOpciones;
+    private javax.swing.JTable tablaDatos;
     public VerClientes(java.awt.Frame parent, boolean modal, boolean borrados) {
         super(parent, modal);
         this.parent = parent;
@@ -35,7 +50,7 @@ public class VerClientes extends javax.swing.JDialog {
         itemBorrarCliente.setVisible(!borrados);
         itemEditarCliente.setVisible(!borrados);
         itemRecuperarCliente.setVisible(borrados);
-        modeloTabla = !borrados ? consultas.tablaProcedencia() : consultas.tablaProcedenciaBorrados();
+        modeloTabla = !borrados ? clienteRepository.tablaProcedencia() : clienteRepository.tablaProcedenciaBorrados();
         tablaDatos.setModel(modeloTabla);
         ImageIcon icon = new ImageIcon("src\\vista\\icono.png");
         setLocationRelativeTo(null);
@@ -56,7 +71,7 @@ public class VerClientes extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         botonBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaDatos = new javax.swing.JTable(){
+        tablaDatos = new javax.swing.JTable() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
@@ -128,109 +143,102 @@ public class VerClientes extends javax.swing.JDialog {
 
             @Override
             public void keyReleased(KeyEvent ke) {
-                if(ke.getKeyChar() == '\n'){
+                if (ke.getKeyChar() == '\n') {
                     botonBuscar.doClick();
-                }}
-            };
-            cajaBuscar.addKeyListener(eventoTeclado);
-            cajaBuscar.setBorder(null);
-            cajaBuscar.setEchoChar('\u0000');
-            cajaBuscar.setMargin(new java.awt.Insets(0, 0, 0, 0));
-            cajaBuscar.setPreferredSize(new java.awt.Dimension(120, 10));
-            gridBagConstraints = new java.awt.GridBagConstraints();
-            gridBagConstraints.gridx = 0;
-            gridBagConstraints.gridy = 0;
-            gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-            gridBagConstraints.ipadx = 120;
-            jPanel3.add(cajaBuscar, gridBagConstraints);
-
-            jLabel2.setText("Buscar:");
-
-            botonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N
-            botonBuscar.setMargin(new java.awt.Insets(2, 2, 2, 2));
-            botonBuscar.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    botonBuscarActionPerformed(evt);
                 }
-            });
+            }
+        };
+        cajaBuscar.addKeyListener(eventoTeclado);
+        cajaBuscar.setBorder(null);
+        cajaBuscar.setEchoChar('\u0000');
+        cajaBuscar.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        cajaBuscar.setPreferredSize(new java.awt.Dimension(120, 10));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 120;
+        jPanel3.add(cajaBuscar, gridBagConstraints);
 
-            tablaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mousePressed(java.awt.event.MouseEvent evt) {
-                    tablaDatosMousePressed(evt);
-                }
-            });
-            jScrollPane1.setViewportView(tablaDatos);
-            tablaDatos.setComponentPopupMenu(popupOpciones);
+        jLabel2.setText("Buscar:");
 
-            javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-            jPanel1.setLayout(jPanel1Layout);
-            jPanel1Layout.setHorizontalGroup(
+        botonBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lupa.png"))); // NOI18N
+        botonBuscar.setMargin(new java.awt.Insets(2, 2, 2, 2));
+        botonBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonBuscarActionPerformed(evt);
+            }
+        });
+
+        tablaDatos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tablaDatosMousePressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaDatos);
+        tablaDatos.setComponentPopupMenu(popupOpciones);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(botonBuscar))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE))
-                    .addContainerGap())
-            );
-            jPanel1Layout.setVerticalGroup(
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(jLabel2)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(botonBuscar))
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 577, Short.MAX_VALUE))
+                                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
                 jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(botonBuscar)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap())
-            );
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(botonBuscar)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel2)
+                                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap())
+        );
 
-            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-            getContentPane().setLayout(layout);
-            layout.setHorizontalGroup(
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE))
-            );
-            layout.setVerticalGroup(
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            );
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
-            InputMap im = jPanel1.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-            im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false), "Cerrar");
+        InputMap im = jPanel1.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0, false), "Cerrar");
 
-            ActionMap ap = jPanel1.getActionMap();
-            ap.put("Cerrar", new AbstractAction() {
-                @Override
-                public void actionPerformed(ActionEvent e){
-                    dispose();
-                }
-            });
+        ActionMap ap = jPanel1.getActionMap();
+        ap.put("Cerrar", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
 
-            pack();
-        }
+        pack();
+    }
 
     private void botonBorrarActionPerformed(java.awt.event.ActionEvent evt) {
-        if (cajaBuscar.getText().equals("")) {
-
-        } else {
-            cajaBuscar.setText("");
-            if(borrados){
-                
-                consultas.tablaProcedenciaBorradosDespues();
-            } else {
-                consultas.tablaProcedenciaDespues();
-            }
+        if (!cajaBuscar.getText().equals("")) {
+            clienteRepository.tablaProcedenciaBorrados();
         }
     }
 
@@ -264,7 +272,7 @@ public class VerClientes extends javax.swing.JDialog {
     }
 
     private void itemEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {
-        int procedencia = consultas.recuperarIdCliente(String.valueOf(modeloTabla.getValueAt(fila, 0)));
+        int procedencia = clienteRepository.recuperarIdCliente(String.valueOf(modeloTabla.getValueAt(fila, 0)));
         AgregarProcedencia ap = new AgregarProcedencia(parent, true, true, procedencia, false);
         this.dispose();
         ap.setVisible(true);
@@ -275,40 +283,26 @@ public class VerClientes extends javax.swing.JDialog {
     }
 
     private void itemBorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {
-        int id = consultas.recuperarIdCliente(String.valueOf(modeloTabla.getValueAt(fila, 0)));
-        if (consultas.borrarCliente(id)) {
+        int id = clienteRepository.recuperarIdCliente(String.valueOf(modeloTabla.getValueAt(fila, 0)));
+        if (clienteRepository.borrarCliente(id)) {
             JOptionPane.showMessageDialog(null, "Cliente borrado.");
             modeloTabla.setRowCount(0);
             modeloTabla.setColumnCount(0);
-            modeloTabla = consultas.tablaProcedencia();
+            modeloTabla = clienteRepository.tablaProcedencia();
         } else {
             System.out.println("no");
         }
     }
 
     private void itemRecuperarClienteActionPerformed(java.awt.event.ActionEvent evt) {
-        int id = consultas.recuperarIdCliente(String.valueOf(modeloTabla.getValueAt(fila, 0)));
-        if(consultas.recuperarClienteBorrado(id)){
+        int id = clienteRepository.recuperarIdCliente(String.valueOf(modeloTabla.getValueAt(fila, 0)));
+        if (clienteRepository.recuperarClienteBorrado(id)) {
             JOptionPane.showMessageDialog(null, "Cliente recuperado.");
             modeloTabla.setRowCount(0);
             modeloTabla.setColumnCount(0);
-            modeloTabla = consultas.tablaProcedenciaBorrados();
+            modeloTabla = clienteRepository.tablaProcedenciaBorrados();
         }
     }
-
-
-    private javax.swing.JButton botonBorrar;
-    private javax.swing.JButton botonBuscar;
-    public javax.swing.JPasswordField cajaBuscar;
-    private javax.swing.JMenuItem itemBorrarCliente;
-    private javax.swing.JMenuItem itemEditarCliente;
-    private javax.swing.JMenuItem itemRecuperarCliente;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JPopupMenu popupOpciones;
-    private javax.swing.JTable tablaDatos;
 
 //    public void autocompletar() {
 //        TextAutoCompleter completar;

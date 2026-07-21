@@ -11,12 +11,14 @@ import javax.swing.JOptionPane;
 import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Tipo;
+import org.ignaciorodriguez.repository.ClienteRepository;
 
 public class VentanaExcel extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaExcel.class.getName());
 
     Consultas c = Consultas.getInstancia();
+    ClienteRepository clienteRepository = new ClienteRepository();
 
     public VentanaExcel(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -151,7 +153,7 @@ public class VentanaExcel extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         Date fechaInicio = cajaDesde.getDate();
         Date fechaFin = cajaHasta.getDate();
-        c.exportarExcelTradicional(fechaInicio, fechaFin, c.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()), comboTipo.getSelectedItem().toString(), getTipoEnum());
+        c.exportarExcelTradicional(fechaInicio, fechaFin, clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()), comboTipo.getSelectedItem().toString(), getTipoEnum());
         this.dispose();
     }
 

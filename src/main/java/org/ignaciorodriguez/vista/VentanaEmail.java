@@ -39,6 +39,7 @@ import javax.swing.UIManager;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
+import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.UsuarioRepository;
 
@@ -52,6 +53,7 @@ public class VentanaEmail extends javax.swing.JDialog {
     Frame parent;
     private static final Dotenv dotenv = Dotenv.load();
     MuestraRepository muestraRepository = new MuestraRepository();
+    ClienteRepository clienteRepository = new ClienteRepository();
 
     public VentanaEmail(java.awt.Frame parent, boolean modal, int id, String pdf) {
         super(parent, modal);
@@ -422,7 +424,7 @@ public class VentanaEmail extends javax.swing.JDialog {
                 guardar = JOptionPane.showConfirmDialog(null, "Email enviado, ¿desea guardar el email " + cajaPara.getText().replaceAll(" ", "") + " para el cliente " + muestraRepository.obtenerProcedencia(id));
             }
             if (guardar == JOptionPane.YES_OPTION) {
-                c.guardarEmail(cajaPara.getText(), c.obtenerIdCliente(muestraRepository.obtenerProcedencia(id)));
+                clienteRepository.guardarEmail(cajaPara.getText(), clienteRepository.obtenerIdCliente(muestraRepository.obtenerProcedencia(id)));
             }
         } else {
             JOptionPane.showMessageDialog(null, "Email enviado.");

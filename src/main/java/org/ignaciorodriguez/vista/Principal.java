@@ -37,6 +37,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
+import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.UsuarioRepository;
 
@@ -55,6 +56,7 @@ public class Principal extends JFrame {
     Map<String, String> map = consultas.recuperarIdentificaciones();
     DialogoBuscar n;
     int actualizacion = -1;
+    ClienteRepository clienteRepository = new ClienteRepository();
     private static final Logger logger = Logger.getLogger(Principal.class.getName());
 
     public Principal() {
@@ -1176,7 +1178,7 @@ public class Principal extends JFrame {
         if (!tipo2.equals("no")) {
             String procedencia = tablaDatos.getValueAt(fila2, 1).toString();
             String rutaGuardado = consultas.recuperarRutas("Reportes");
-            String aux = "Informe " + id + tipo2 + consultas.obtenerProcedenciayNombre(consultas.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
+            String aux = "Informe " + id + tipo2 + clienteRepository.obtenerProcedenciayNombre(clienteRepository.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
             String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
             String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
             String pdf = aux3.replaceAll("\"", "");
@@ -1224,7 +1226,7 @@ public class Principal extends JFrame {
                     tn.setVisible(true);
                     break;
                 case "Efluentes":
-                    TablaEfluentes efluentes = new TablaEfluentes(this, true, id, consultas.obtenerProcedenciayNombre(id), true, pdf, consultas.obtenerLugarMuestreo(id));
+                    TablaEfluentes efluentes = new TablaEfluentes(this, true, id, clienteRepository.obtenerProcedenciayNombre(id), true, pdf, consultas.obtenerLugarMuestreo(id));
                     efluentes.setVisible(true);
                     break;
                 case "Microbiológico de chocolates Del Turista":
@@ -1399,7 +1401,7 @@ public class Principal extends JFrame {
         if (!tipo2.equals("no")) {
             String procedencia = tablaDatos.getValueAt(fila2, 1).toString();
             String rutaGuardado = consultas.recuperarRutas("Reportes");
-            String aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Informe " + id + tipo2 + consultas.obtenerProcedenciayNombre(consultas.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
+            String aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Informe " + id + tipo2 + clienteRepository.obtenerProcedenciayNombre(clienteRepository.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
             String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
             String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
             String pdf = aux3.replaceAll("\"", "");
@@ -1687,7 +1689,7 @@ public class Principal extends JFrame {
         String procedencia = tablaDatos.getValueAt(fila2, 1).toString();
         String rutaGuardado = consultas.recuperarRutas("Reportes");
         String tipo2 = " FQ agua ";
-        String aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Informe " + id + tipo2 + consultas.obtenerProcedenciayNombre(consultas.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
+        String aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Informe " + id + tipo2 + clienteRepository.obtenerProcedenciayNombre(clienteRepository.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
         String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
         String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
         String pdf = aux3.replaceAll("\"", "");

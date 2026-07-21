@@ -20,7 +20,6 @@ public class MuestraRepository {
 
     private static final Logger logger = Logger.getLogger(MuestraRepository.class.getName());
     Conexion con = new Conexion();
-    private DefaultTableModel modeloTabla = new DefaultTableModel();
 
     public boolean agregarMuestra(Muestra m) {
         Date fa = m.getFechaAnalisis();
@@ -214,20 +213,18 @@ public class MuestraRepository {
 
     public DefaultTableModel llenarTabla() { // se obtienen todos los datos para llenar la tabla de muestras
         String[] fila = new String[11];
-        modeloTabla.setColumnCount(0);
-        if (modeloTabla.getColumnCount() == 0) {
-            modeloTabla.addColumn("ID");
-            modeloTabla.addColumn("Procedencia");
-            modeloTabla.addColumn("Solicitante");
-            modeloTabla.addColumn("N° establecimiento");
-            modeloTabla.addColumn("Muestreo");
-            modeloTabla.addColumn("Análisis");
-            modeloTabla.addColumn("Realizado por");
-            modeloTabla.addColumn("Fecha entrada");
-            modeloTabla.addColumn("Pago");
-            modeloTabla.addColumn("Factura ");
-            modeloTabla.addColumn("Tipo de análisis");
-        }
+        DefaultTableModel modeloTabla = new DefaultTableModel();
+        modeloTabla.addColumn("ID");
+        modeloTabla.addColumn("Procedencia");
+        modeloTabla.addColumn("Solicitante");
+        modeloTabla.addColumn("N° establecimiento");
+        modeloTabla.addColumn("Muestreo");
+        modeloTabla.addColumn("Análisis");
+        modeloTabla.addColumn("Realizado por");
+        modeloTabla.addColumn("Fecha entrada");
+        modeloTabla.addColumn("Pago");
+        modeloTabla.addColumn("Factura ");
+        modeloTabla.addColumn("Tipo de análisis");
         try (Connection conexion = con.getConnection()) {
             modeloTabla.setRowCount(0);
             PreparedStatement ps = conexion.prepareStatement("select * from vistatabla");
@@ -294,9 +291,8 @@ public class MuestraRepository {
         if (parametro == "-1" || valor == "-1") {
             return llenarTabla();
         } else {
+            DefaultTableModel modeloTabla = new DefaultTableModel();
             String[] fila = new String[13];
-            modeloTabla.setColumnCount(0);
-            if (modeloTabla.getColumnCount() == 0) {
                 modeloTabla.addColumn("ID");
                 modeloTabla.addColumn("Procedencia");
                 modeloTabla.addColumn("Solicitante");
@@ -310,7 +306,6 @@ public class MuestraRepository {
                 modeloTabla.addColumn("Tipo de análisis");
                 modeloTabla.addColumn("Identificaciones");
                 modeloTabla.addColumn("Estado");
-            }
             try (Connection conexion = con.getConnection()) {
                 modeloTabla.setRowCount(0);
                 PreparedStatement ps;

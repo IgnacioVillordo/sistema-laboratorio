@@ -6,6 +6,7 @@ import com.toedter.calendar.JDateChooser;
 import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Muestra;
+import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -29,6 +30,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
     public JTextField cajaSolicitante;
     Consultas c = Consultas.getInstancia();
     MuestraRepository muestraRepository = new MuestraRepository();
+    ClienteRepository clienteRepository = new ClienteRepository();
     int id, pago = 0, factura = 0;
     boolean editar = true, primero = true, delturista = false;
     Muestra m = new Muestra();
@@ -121,11 +123,11 @@ public class AgregarMuestra extends javax.swing.JDialog {
         comboProcedencia.setSelectedItem(m.getProcedencia());
         auxId = m.getProcedencia();
 
-        if (c.consultarGuardar(m.getIdcliente())) {
+        if (clienteRepository.consultarGuardar(m.getIdcliente())) {
             comboSolicitante.setVisible(true);
             cajaSolicitante.setVisible(false);
             AutoCompleteDecorator.decorate(comboSolicitante);
-            comboSolicitante.setModel(new DefaultComboBoxModel(c.recuperarSolicitantes(c.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()))));
+            comboSolicitante.setModel(new DefaultComboBoxModel(c.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()))));
             comboSolicitante.setSelectedItem(m.getSolicitante());
             checkGuardar.setSelected(true);
         }
@@ -525,7 +527,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
                 nuevaMuestra.setFechaElaboracion(fechaElaboracion);
             }
             nuevaMuestra.setProcedencia(String.valueOf(comboProcedencia.getSelectedItem()));
-            nuevaMuestra.setIdcliente(c.obtenerIdCliente(String.valueOf(comboProcedencia.getSelectedItem())));
+            nuevaMuestra.setIdcliente(clienteRepository.obtenerIdCliente(String.valueOf(comboProcedencia.getSelectedItem())));
             nuevaMuestra.setSolicitante(cajaSolicitante.isVisible() ? cajaSolicitante.getText() : comboSolicitante.getSelectedItem().toString());
             nuevaMuestra.setNumeroEstablecimiento(cajaHabilitacion.getText());
             nuevaMuestra.setFechaMuestreo(fechaMuestreo);
@@ -555,7 +557,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
                 if (id < 1) {
                     nuevaMuestra.setId(muestraRepository.recuperarIdMuestrasSiguiente());
                     if (muestraRepository.agregarMuestra(nuevaMuestra)) {
-                        if (c.guardarSolicitanteGuardar(nuevaMuestra.getIdcliente(), checkGuardar.isSelected())) {
+                        if (clienteRepository.guardarSolicitanteGuardar(nuevaMuestra.getIdcliente(), checkGuardar.isSelected())) {
                             int idaux = muestraRepository.obtenerIdMuestra();
                             if (nuevaMuestra.getTipo().contains("Tabla nutricional")) {
                                 c.guardarMarca(idaux, cajaMarca.getText());
@@ -575,7 +577,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
 
                     nuevaMuestra.setId(id);
                     if (muestraRepository.editarMuestra(nuevaMuestra)) {
-                        if (c.guardarSolicitanteGuardar(nuevaMuestra.getIdcliente(), checkGuardar.isSelected())) {
+                        if (clienteRepository.guardarSolicitanteGuardar(nuevaMuestra.getIdcliente(), checkGuardar.isSelected())) {
                             if (nuevaMuestra.getTipo().contains("Tabla nutricional")) {
                                 c.guardarMarca(id, cajaMarca.getText());
                             }
@@ -777,11 +779,11 @@ public class AgregarMuestra extends javax.swing.JDialog {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             String procedencia = String.valueOf(comboProcedencia.getSelectedItem());
             cajaHabilitacion.setText(c.obtenerHablitacion(procedencia));
-            solicitantes = c.recuperarSolicitantes(c.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()));
+            solicitantes = c.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()));
             AutoCompleteDecorator.decorate(comboSolicitante);
             comboSolicitante.setModel(new DefaultComboBoxModel(solicitantes));
             existeSolicitante = true;
-            checkGuardar.setSelected(!c.consultarGuardar(c.recuperarIdCliente(comboProcedencia.getSelectedItem().toString())));
+            checkGuardar.setSelected(!clienteRepository.consultarGuardar(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString())));
             checkGuardar.doClick();
             if (editar) {
                 editar = false;
@@ -808,7 +810,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
                 cajaSolicitante.setVisible(false);
             }
             AutoCompleteDecorator.decorate(comboSolicitante);
-            comboSolicitante.setModel(new DefaultComboBoxModel(c.recuperarSolicitantes(c.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()))));
+            comboSolicitante.setModel(new DefaultComboBoxModel(c.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()))));
         } else {
             comboSolicitante.setVisible(false);
             cajaSolicitante.setVisible(true);

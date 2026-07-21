@@ -1,6 +1,7 @@
 package org.ignaciorodriguez.vista;
 
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.ClienteRepository;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import javax.swing.*;
@@ -26,6 +27,7 @@ public class TablaEntregas extends javax.swing.JDialog {
     DefaultTableModel modeloTabla = consultas.recuperarEntregas();
     int anchos[] = {38, 379, 170, 201, 107, 102, 101};
     Map<String, String> map = consultas.recuperarIdentificaciones();
+    ClienteRepository clienteRepository = new ClienteRepository();
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JPanel jPanel1;
     private JLabel jLabel1;
@@ -311,7 +313,7 @@ public class TablaEntregas extends javax.swing.JDialog {
         if (!tipo2.equals("no")) {
             String procedencia = jTable1.getValueAt(fila, 1).toString();
             String rutaGuardado = consultas.recuperarRutas("Reportes");
-            String aux = "\\Informe " + id + tipo2 + consultas.obtenerProcedenciayNombre(consultas.obtenerIdCliente(String.valueOf(jTable1.getValueAt(fila, 1)))); //en estas tres lineas se sacan espacios de
+            String aux = "\\Informe " + id + tipo2 + clienteRepository.obtenerProcedenciayNombre(clienteRepository.obtenerIdCliente(String.valueOf(jTable1.getValueAt(fila, 1)))); //en estas tres lineas se sacan espacios de
             String aux2 = aux.replaceAll("^\\s*", "");                                                       //principio, final y se sacan las comillas
             String aux3 = aux2.replaceAll("\\s*$", "");
             String pdf = aux3.replaceAll("\"", "");

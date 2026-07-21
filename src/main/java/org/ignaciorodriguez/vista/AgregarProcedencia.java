@@ -2,6 +2,8 @@ package org.ignaciorodriguez.vista;
 
 import org.ignaciorodriguez.modelo.Cliente;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.ClienteRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -19,6 +21,7 @@ public class AgregarProcedencia extends javax.swing.JDialog {
     int id;
     String[] datos = new String[7];
     boolean editar = false, muestra = false;
+    ClienteRepository clienteRepository = new ClienteRepository();
 
     public AgregarProcedencia(java.awt.Frame parent, boolean modal, boolean editar, int id, boolean muestra) {
         super(parent, modal);
@@ -31,7 +34,7 @@ public class AgregarProcedencia extends javax.swing.JDialog {
         this.id = id;
         if (editar) {
             botonAgregar.setText("Editar cliente");
-            datos = consultas.recuperarDatosCliente(id);
+            datos = clienteRepository.recuperarDatosCliente(id);
             id = Integer.parseInt(datos[0]);
             if (datos[1].equals("")) {
                 botonEmpresa.doClick();
@@ -358,7 +361,7 @@ public class AgregarProcedencia extends javax.swing.JDialog {
             c.setTelefono(cajaTelefono.getText());
             c.setEmail(cajaEmail.getText());
             c.setCuit(cajaCuit.getText());
-            if (consultas.editarCliente(cajaNombre.isEnabled(), cajaEmpresa.isEnabled(), c, id)) {
+            if (clienteRepository.editarCliente(c, id)) {
                 JOptionPane.showMessageDialog(null, "Cliente editado con éxito.");
                 this.dispose();
             } else {
@@ -377,7 +380,7 @@ public class AgregarProcedencia extends javax.swing.JDialog {
             c.setTelefono(cajaTelefono.getText());
             c.setEmail(cajaEmail.getText());
             c.setCuit(cajaCuit.getText());
-            if (consultas.agregarCliente(cajaNombre.isEnabled(), cajaEmpresa.isEnabled(), c)) {
+            if (clienteRepository.agregarCliente(c)) {
                 JOptionPane.showMessageDialog(null, "Cliente ingresado con éxito.");
                 dispose();
                 if (muestra) {

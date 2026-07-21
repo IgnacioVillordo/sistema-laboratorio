@@ -3,18 +3,20 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.ClienteRepository;
 
 public class AnalisisEnProceso extends javax.swing.JDialog {
 
     Consultas c = Consultas.getInstancia();
     int id;
     String auxiliar;
+    ClienteRepository clienteRepository = new ClienteRepository();
 
     public AnalisisEnProceso(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
         initComponents();
         this.id = id;
-        int idcliente = c.recuperarIdCliente(this.id);
+        int idcliente = clienteRepository.recuperarIdCliente(this.id);
         String tipo = c.recuperarTipoAnalisis(this.id);
         if (tipo.contains("Microbiológico de agua")) {
             tipo = "microbiológico de agua";
@@ -45,9 +47,9 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
         fecha = cal.getTime();
 
         auxiliar = "Por la presente se certifica que se está realizando el análisis "
-                + tipo + " de " + c.recuperarProcedencia(idcliente)
+                + tipo + " de " + clienteRepository.recuperarProcedencia(idcliente)
                 + " solicitado por " + c.recuperarSolicitante(idcliente) + " sito en "
-                + c.recuperarDireccion(idcliente) + " de " + (c.recuperarCiudad(idcliente).equals("Bariloche") ? "esta ciudad" : c.recuperarCiudad(idcliente))
+                + clienteRepository.recuperarDireccion(idcliente) + " de " + (clienteRepository.recuperarCiudad(idcliente).equals("Bariloche") ? "esta ciudad" : clienteRepository.recuperarCiudad(idcliente))
                 + " bajo el número de ingreso " + this.id + ".\n"
                 + "Siendo entregado el resultado el día " + df.format(fecha) + " del corriente.\n"
                 + "Para ser presentado ante las autoridades que lo requieran.";
