@@ -9,6 +9,8 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
+import org.ignaciorodriguez.repository.MuestraRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
@@ -29,6 +31,7 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
     double[] ph;
     private String aux;
     private boolean activarShigella = true;
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaMBAguaBidon(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -37,7 +40,7 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
         this.editar = editar;
         this.pdf = pdf.substring(1, pdf.length());
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Microbiológico agua de bidón");
+        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico agua de bidón");
         ph = c.recuperarPhYCloro(id);
         if (procedencia.contains("Municipio de Dina Huapi")) {
             CheckDinaHuapi.setSelected(true);
@@ -1422,15 +1425,15 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
         String[] valores = {idmuestra, germenes, coliformesTotales, coliformesFecales, escherichia, pseudomona, "", ph, cloro, caracteres, "", shigella};
         if (editar) {
             if (CheckDinaHuapi.isSelected()) {
-                if (c.recuperarObservaciones(id) != null && c.recuperarObservaciones(id).length() > 5) {
+                if (muestraRepository.recuperarObservaciones(id) != null && muestraRepository.recuperarObservaciones(id).length() > 5) {
                     valores[6] = JOptionPane.showInputDialog("Digite la observacion:", "Se reciben: frasco estéril x 500 ml con tiolsulfato"
-                            + "de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. " + c.recuperarObservaciones(id).substring(160));
+                            + "de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. " + muestraRepository.recuperarObservaciones(id).substring(160));
                 } else {
                     valores[6] = JOptionPane.showInputDialog("Digite la observacion:", "Se reciben: frasco estéril x 500 ml con tiolsulfato"
                             + "de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. ");
                 }
             } else {
-                valores[6] = JOptionPane.showInputDialog("Digite la observacion:", c.recuperarObservaciones(id));
+                valores[6] = JOptionPane.showInputDialog("Digite la observacion:", muestraRepository.recuperarObservaciones(id));
             }
         } else {
             if (CheckDinaHuapi.isSelected()) {
@@ -1458,21 +1461,21 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
         
         valores[9] = caracteres;
         String conclusion = crearConclusion();
-        c.guardarConclusion(conclusion, id);
+        muestraRepository.guardarConclusion(conclusion, id);
         r.setResultadoMB(valores);
         if (editar) {
             File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
             File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
             if (c.editarMBAgua(r)) {
-                c.guardarFechaAnalisisMBAGUA(r, id);
-                c.guardarFechaAnalisis(r, id);
+                muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
+                muestraRepository.guardarFechaAnalisis(r, id);
                 if (c.checkearVencimiento(r)) {
                     c.actualizarVencimiento(r);
                 } else {
                     c.agregarVencimiento(r);
                 }
-                c.guardarObservaciones(valores[6], id);
+                muestraRepository.guardarObservaciones(valores[6], id);
                 System.out.println(campoColiformesFecales.getWidth());
                 this.dispose();
                 c.generarReporteMBAguaBidon(id, procedencia);
@@ -1480,14 +1483,14 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
             
         } else {
             if (c.guardarResultadoMBAgua(r)) {
-                c.guardarFechaAnalisisMBAGUA(r, id);
-                c.guardarFechaAnalisis(r, id);
+                muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
+                muestraRepository.guardarFechaAnalisis(r, id);
                 if (c.checkearVencimiento(r)) {
                     c.actualizarVencimiento(r);
                 } else {
                     c.agregarVencimiento(r);
                 }
-                c.guardarObservaciones(valores[6], id);
+                muestraRepository.guardarObservaciones(valores[6], id);
                 this.dispose();
                 c.generarReporteMBAguaBidon(id, procedencia);
             }
@@ -1536,14 +1539,14 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
             conclusion = conclusion.substring(0, conclusion.length() - 1);
             String recomendacion = "";
             if (editar) {
-                recomendacion = JOptionPane.showInputDialog("Ingrese la recomendacion:", c.recuperarRecomendacion(id));
+                recomendacion = JOptionPane.showInputDialog("Ingrese la recomendacion:", muestraRepository.recuperarRecomendacion(id));
             } else {
                 recomendacion = JOptionPane.showInputDialog("Ingrese la recomendacion:");
             }
             if (recomendacion.endsWith(".")) {
                 recomendacion = recomendacion.substring(0, recomendacion.length() - 1);
             }
-            c.guardarRecomendacion(recomendacion, id);
+            muestraRepository.guardarRecomendacion(recomendacion, id);
             if (recomendacion.length() < 1) {
                 conclusion += " la muestra no cumple con las especificaciones microbiológicas "
                         + "estipuladas por el art. 982 del Código Alimentario Argentino (Ley 18284).";

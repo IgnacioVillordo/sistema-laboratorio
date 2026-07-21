@@ -39,6 +39,7 @@ import javax.swing.UIManager;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
+import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.UsuarioRepository;
 
 public class VentanaEmail extends javax.swing.JDialog {
@@ -50,6 +51,8 @@ public class VentanaEmail extends javax.swing.JDialog {
     boolean editar = false;
     Frame parent;
     private static final Dotenv dotenv = Dotenv.load();
+    MuestraRepository muestraRepository = new MuestraRepository();
+
     public VentanaEmail(java.awt.Frame parent, boolean modal, int id, String pdf) {
         super(parent, modal);
         this.parent = parent;
@@ -414,12 +417,12 @@ public class VentanaEmail extends javax.swing.JDialog {
         if (!email.equals(cajaPara.getText())) {
             int guardar;
             if (to.contains(",")) {
-                guardar = JOptionPane.showConfirmDialog(null, "Emails enviado, ¿desea guardar los emails " + cajaPara.getText().replaceAll(" ", "") + " para el cliente " + c.obtenerProcedencia(id));
+                guardar = JOptionPane.showConfirmDialog(null, "Emails enviado, ¿desea guardar los emails " + cajaPara.getText().replaceAll(" ", "") + " para el cliente " + muestraRepository.obtenerProcedencia(id));
             } else {
-                guardar = JOptionPane.showConfirmDialog(null, "Email enviado, ¿desea guardar el email " + cajaPara.getText().replaceAll(" ", "") + " para el cliente " + c.obtenerProcedencia(id));
+                guardar = JOptionPane.showConfirmDialog(null, "Email enviado, ¿desea guardar el email " + cajaPara.getText().replaceAll(" ", "") + " para el cliente " + muestraRepository.obtenerProcedencia(id));
             }
             if (guardar == JOptionPane.YES_OPTION) {
-                c.guardarEmail(cajaPara.getText(), c.obtenerIdCliente(c.obtenerProcedencia(id)));
+                c.guardarEmail(cajaPara.getText(), c.obtenerIdCliente(muestraRepository.obtenerProcedencia(id)));
             }
         } else {
             JOptionPane.showMessageDialog(null, "Email enviado.");
@@ -434,7 +437,7 @@ public class VentanaEmail extends javax.swing.JDialog {
         usuario.setId(usuarioRepository.obtenerIdUsuario(nombre));
         if (!c.hayEntrega(id)) {
             c.entregarMuestra(usuario, id);
-            c.entregado(id);
+            muestraRepository.entregado(id);
         }
     }
 

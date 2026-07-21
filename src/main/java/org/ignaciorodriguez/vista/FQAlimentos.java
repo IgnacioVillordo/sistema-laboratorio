@@ -21,6 +21,7 @@ import javax.swing.JComponent;
 import org.ignaciorodriguez.modelo.CustomListModel;
 import org.ignaciorodriguez.modelo.Determinacion;
 import org.ignaciorodriguez.modelo.DeterminacionHumedad;
+import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.UsuarioRepository;
 import org.ignaciorodriguez.utils.ListUtils;
 
@@ -32,6 +33,7 @@ public class FQAlimentos extends javax.swing.JDialog {
     int id;
     boolean editar = false, auxiliar;
     Consultas consultas = Consultas.getInstancia();
+    MuestraRepository muestraRepository = new MuestraRepository();
     String pdf;
     int alimentos;
     List<Determinacion> determinaciones = new LinkedList<>();
@@ -42,7 +44,7 @@ public class FQAlimentos extends javax.swing.JDialog {
         inicializarLista();
         initComponents();
         comboDeterminaciones.setModel(modeloCombo);
-        setTitle("ID. " + id + ". " + "Informe físico quimico " + (alimentos == 0 ? "de alimentos" : alimentos == 1 ? "de agua" : "genérico") + ". " + consultas.obtenerProcedencia(id));
+        setTitle("ID. " + id + ". " + "Informe físico quimico " + (alimentos == 0 ? "de alimentos" : alimentos == 1 ? "de agua" : "genérico") + ". " + muestraRepository.obtenerProcedencia(id));
         this.id = id;
         this.editar = editar;
         this.pdf = pdf;

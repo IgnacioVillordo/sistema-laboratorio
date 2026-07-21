@@ -33,6 +33,7 @@ import javax.swing.JLabel;
 
 import org.ignaciorodriguez.modelo.Determinacion;
 import org.ignaciorodriguez.modelo.DeterminacionHumedad;
+import org.ignaciorodriguez.repository.MuestraRepository;
 
 public class Determinaciones extends javax.swing.JDialog {
 
@@ -42,6 +43,7 @@ public class Determinaciones extends javax.swing.JDialog {
     boolean editar = false;
     int alimentos;
     String pdf, auxObservaciones, auxConclusion = "";
+    MuestraRepository muestraRepository = new MuestraRepository();
     Frame parent;
     ButtonGroup bg;
     public List<Determinacion> determinaciones = new ArrayList();
@@ -56,7 +58,7 @@ public class Determinaciones extends javax.swing.JDialog {
         super(parent, modal);
         this.parent = parent;
         initComponents();
-        setTitle("ID. " + id + ". " + "Informe físico quimico " + (alimentos == 0 ? "de alimentos" : alimentos == 1 ? "de agua" : "genérico") + ". " + consultas.obtenerProcedencia(id));
+        setTitle("ID. " + id + ". " + "Informe físico quimico " + (alimentos == 0 ? "de alimentos" : alimentos == 1 ? "de agua" : "genérico") + ". " + muestraRepository.obtenerProcedencia(id));
         bg = new ButtonGroup();
         bg.add(checkConclusion);
         bg.add(checkConclusionPersonalizada);
@@ -80,7 +82,7 @@ public class Determinaciones extends javax.swing.JDialog {
             cajaFechaAnalisis.setDate(consultas.recuperarFechaAnalisis(id).toString().equals("1111-11-11") ? null : consultas.recuperarFechaAnalisis(id));
             consultas.recuperarDatosDeterminaciones(determinaciones, id);
             determinaciones.forEach(Determinacion::llenarCampos);
-            auxConclusion += consultas.recuperarConclusion(id);
+            auxConclusion += muestraRepository.recuperarConclusion(id);
             String oracion = auxConclusion.replaceAll("\\b\\d+\\b", "NUMERO");
             if (auxConclusion.equals("-") || auxConclusion.equals("-.")) {
                 auxConclusion = "";
@@ -269,7 +271,7 @@ public class Determinaciones extends javax.swing.JDialog {
                 conclusion = "";
             }
             conclusion = conclusion.isBlank() ? "" : conclusion.equals("-") ? "" : conclusion.trim().endsWith(".") ? conclusion : conclusion + ".";
-            consultas.guardarConclusion(conclusion, id);
+            muestraRepository.guardarConclusion(conclusion, id);
             File rv = new File(consultas.recuperarRutas("Reportes") + "\\" + pdf);
             File rn = new File(consultas.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
@@ -277,8 +279,8 @@ public class Determinaciones extends javax.swing.JDialog {
             observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
             consultas.borrarDeterminaciones(id);
             if (consultas.guardarDeterminaciones(determinaciones, id)) {
-                consultas.guardarObservaciones(observaciones, id);
-                consultas.guardarFechaAnalisis(r, id);
+                muestraRepository.guardarObservaciones(observaciones, id);
+                muestraRepository.guardarFechaAnalisis(r, id);
                 this.dispose();
                 if (alimentos == Determinaciones.ALIMENTO) {
                     consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);
@@ -306,11 +308,11 @@ public class Determinaciones extends javax.swing.JDialog {
             } else {
                 conclusion = "";
             }
-            consultas.guardarConclusion(conclusion, id);
+            muestraRepository.guardarConclusion(conclusion, id);
             observaciones = JOptionPane.showInputDialog("Digite la observación:");
             if (consultas.guardarDeterminaciones(determinaciones, id)) {
-                consultas.guardarObservaciones(observaciones, id);
-                consultas.guardarFechaAnalisis(r, id);
+                muestraRepository.guardarObservaciones(observaciones, id);
+                muestraRepository.guardarFechaAnalisis(r, id);
                 this.dispose();
                 if (alimentos == Determinaciones.ALIMENTO) {
                     consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);
@@ -344,7 +346,7 @@ public class Determinaciones extends javax.swing.JDialog {
     }
 
     public void apretarBoton() {
-        auxObservaciones = consultas.recuperarObservaciones(id);
+        auxObservaciones = muestraRepository.recuperarObservaciones(id);
         Resultados r = new Resultados();
         java.util.Date fm = cajaFechaAnalisis.getDate();
         Long dm = fm.getTime();

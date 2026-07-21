@@ -3,6 +3,8 @@ package org.ignaciorodriguez.vista;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.MuestraRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -18,6 +20,7 @@ public class InformeMuestras extends javax.swing.JDialog {
 
     Consultas consultas = Consultas.getInstancia();
     private final DefaultTableModel modeloTabla;
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public InformeMuestras(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -156,7 +159,7 @@ public class InformeMuestras extends javax.swing.JDialog {
         this.dispose();
         consultas.generarReporteMuestras(List.copyOf(ids));
         for (Integer id : ids) {
-            consultas.analizado(id);
+            muestraRepository.analizado(id);
         }
     }
 

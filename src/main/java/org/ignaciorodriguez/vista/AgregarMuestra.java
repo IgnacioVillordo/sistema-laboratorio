@@ -6,6 +6,7 @@ import com.toedter.calendar.JDateChooser;
 import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Muestra;
+import org.ignaciorodriguez.repository.MuestraRepository;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 
@@ -27,6 +28,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
     public JTextField cajaHabilitacion;
     public JTextField cajaSolicitante;
     Consultas c = Consultas.getInstancia();
+    MuestraRepository muestraRepository = new MuestraRepository();
     int id, pago = 0, factura = 0;
     boolean editar = true, primero = true, delturista = false;
     Muestra m = new Muestra();
@@ -80,7 +82,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
         java.sql.Date def = new java.sql.Date(-789, 10, 11);
         llenarComboBox();
         etiquetaAgregar.setText("Editar análisis");
-        m = c.obtenerMuestra(id);
+        m = muestraRepository.obtenerMuestra(id);
         cajaHabilitacion.setText(m.getNumeroEstablecimiento());
         cajaMuestreo.setDate(m.getFechaMuestreo());
         comboRealizado.setSelectedItem(m.getRealizadoPor());
@@ -551,10 +553,10 @@ public class AgregarMuestra extends javax.swing.JDialog {
 
             try {
                 if (id < 1) {
-                    nuevaMuestra.setId(c.recuperarIdMuestrasSiguiente());
-                    if (c.agregarMuestra(nuevaMuestra)) {
+                    nuevaMuestra.setId(muestraRepository.recuperarIdMuestrasSiguiente());
+                    if (muestraRepository.agregarMuestra(nuevaMuestra)) {
                         if (c.guardarSolicitanteGuardar(nuevaMuestra.getIdcliente(), checkGuardar.isSelected())) {
-                            int idaux = c.obtenerIdMuestra();
+                            int idaux = muestraRepository.obtenerIdMuestra();
                             if (nuevaMuestra.getTipo().contains("Tabla nutricional")) {
                                 c.guardarMarca(idaux, cajaMarca.getText());
                             }
@@ -572,7 +574,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
                 } else {
 
                     nuevaMuestra.setId(id);
-                    if (c.editarMuestra(nuevaMuestra)) {
+                    if (muestraRepository.editarMuestra(nuevaMuestra)) {
                         if (c.guardarSolicitanteGuardar(nuevaMuestra.getIdcliente(), checkGuardar.isSelected())) {
                             if (nuevaMuestra.getTipo().contains("Tabla nutricional")) {
                                 c.guardarMarca(id, cajaMarca.getText());

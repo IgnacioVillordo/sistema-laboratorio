@@ -22,6 +22,7 @@ import javax.swing.KeyStroke;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.MuestraRepository;
 
 public class TablaBaseHelada extends javax.swing.JDialog {
 
@@ -32,6 +33,7 @@ public class TablaBaseHelada extends javax.swing.JDialog {
             activarEscherichia = true, activarMohos = true, activarSalmonella = true, activarStaphilococos = true;
     boolean[] auxBool = new boolean[6];
     Frame parent;
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaBaseHelada(java.awt.Frame parent, boolean modal, int id, String procedencia,
                            boolean editar, String pdf) {
@@ -42,7 +44,7 @@ public class TablaBaseHelada extends javax.swing.JDialog {
         this.editar = editar;
         this.pdf = pdf;
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Base helada");
+        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Base helada");
         setLocationRelativeTo(null);
         if (editar == true) {
             Map<String, String> resultados = c.recuperarResultadosBaseHelada(id);
@@ -163,7 +165,7 @@ public class TablaBaseHelada extends javax.swing.JDialog {
                     }
                     cajaFechaAnalisis.setDate(utilFecha);
                 }
-                auxObservaciones = c.recuperarObservaciones(id);
+                auxObservaciones = muestraRepository.recuperarObservaciones(id);
             }
         }
 
@@ -1233,7 +1235,7 @@ public class TablaBaseHelada extends javax.swing.JDialog {
             m.put("salmonella", "-2");
         }
         m.put("procedencia", procedencia);
-        c.guardarConclusion(crearConclusion(), id);
+        muestraRepository.guardarConclusion(crearConclusion(), id);
         try {
             java.util.Date fm = cajaFechaAnalisis.getDate(); //obtener fecha
             Long dm = fm.getTime(); //sacar timepo
@@ -1247,19 +1249,19 @@ public class TablaBaseHelada extends javax.swing.JDialog {
             }
             observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
             m.put("observaciones", observaciones);
-            c.guardarFechaAnalisis(m);
+            muestraRepository.guardarFechaAnalisis(m);
             if (editar) {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
                 if (c.editarResultadoBaseHelada(m)) {
-                    c.guardarObservaciones(observaciones, id);
+                    muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
                     c.generarReporteMBBaseHelada(id, procedencia);
                 }
             } else {
                 if (c.guardarResultadoBaseHelada(m)) {
-                    c.guardarObservaciones(observaciones, id);
+                    muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
                     c.generarReporteMBBaseHelada(id, procedencia);
 

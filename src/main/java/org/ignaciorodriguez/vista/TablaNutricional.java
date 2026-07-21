@@ -3,6 +3,8 @@ package org.ignaciorodriguez.vista;
 import java.io.File;
 import javax.swing.JOptionPane;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.MuestraRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.text.DecimalFormat;
@@ -19,6 +21,7 @@ public class TablaNutricional extends javax.swing.JDialog {
     Consultas consultas = Consultas.getInstancia();
     boolean editar = false;
     String pdf, auxObservaciones, unidad = "";
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaNutricional(java.awt.Frame parent, boolean modal, int id, boolean editar, String pdf) {
         super(parent, modal);
@@ -181,12 +184,12 @@ public class TablaNutricional extends javax.swing.JDialog {
                     campoPorcion.setText(datos[22]);
                 }
 
-                auxObservaciones = consultas.recuperarObservaciones(id);
+                auxObservaciones = muestraRepository.recuperarObservaciones(id);
                 if (datos[23] != "null") {
                     campoUnidad.setText(datos[23]);
                 }
 
-                auxObservaciones = consultas.recuperarObservaciones(id);
+                auxObservaciones = muestraRepository.recuperarObservaciones(id);
                 etiquetaKjul.setText(datos[24].equals("null") ? "" : datos[24]);
                 System.out.println("datos[25] = " + datos[25]);
                 if (datos[25] != "null") {
@@ -1623,7 +1626,7 @@ public class TablaNutricional extends javax.swing.JDialog {
 
 //        observaciones = JOptionPane.showInputDialog("Ingrese la observación:", auxObservaciones);
 //        observaciones = observaciones.isBlank()? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
-        consultas.guardarObservaciones(observaciones, id);
+        muestraRepository.guardarObservaciones(observaciones, id);
         unidad = campoUnidad.getText();
         String porcionesEnvase = campoPorcionesPorEnvase.getText();
         if (editar) {
@@ -1632,12 +1635,12 @@ public class TablaNutricional extends javax.swing.JDialog {
             rv.renameTo(rn);
             if (consultas.editarTablaNutricional(valores, id, unidad, porcion, porcionesEnvase)) {
                 this.dispose();
-                consultas.generarReporteTN(id, consultas.obtenerProcedencia(id));
+                consultas.generarReporteTN(id, muestraRepository.obtenerProcedencia(id));
             }
         } else {
             if (consultas.guardarTablaNutricional(valores, id, unidad, porcion, porcionesEnvase)) {
                 this.dispose();
-                consultas.generarReporteTN(id, consultas.obtenerProcedencia(id));
+                consultas.generarReporteTN(id, muestraRepository.obtenerProcedencia(id));
             }
         }
 

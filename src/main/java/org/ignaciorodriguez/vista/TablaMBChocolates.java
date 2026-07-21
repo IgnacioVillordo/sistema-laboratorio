@@ -11,6 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.MuestraRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -30,6 +32,7 @@ public class TablaMBChocolates extends javax.swing.JDialog {
     Consultas c = Consultas.getInstancia();
     boolean editar, activarGermenes = true, activarTotales = true, activarFecales = true,
             activarMohos = true, activarEscherichia = true, activarSalmonella = true;
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaMBChocolates(java.awt.Frame parent, boolean modal, int id, String procedencia,
                              boolean editar, String pdf) {
@@ -39,7 +42,7 @@ public class TablaMBChocolates extends javax.swing.JDialog {
         this.editar = editar;
         this.pdf = pdf;
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Microbiológico de chocolates");
+        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico de chocolates");
         setLocationRelativeTo(null);
         panelGermenesMousePressed(click(panelGermenes));
         if (editar) {
@@ -115,7 +118,7 @@ public class TablaMBChocolates extends javax.swing.JDialog {
                         comboUnidadSalmonella.setSelectedIndex(1);
                     }
                 }
-                auxObservaciones = c.recuperarObservaciones(id);
+                auxObservaciones = muestraRepository.recuperarObservaciones(id);
             }
         }
         ImageIcon icon = new ImageIcon("src\\vista\\icono.png");
@@ -1001,7 +1004,7 @@ public class TablaMBChocolates extends javax.swing.JDialog {
             Long dm = fm.getTime(); //sacar timepo
             java.sql.Date fechaAnalisis = new java.sql.Date(dm); //cast de fecha
             m.put("fechaAnalisis", fechaAnalisis);
-            c.guardarFechaAnalisis(m);
+            muestraRepository.guardarFechaAnalisis(m);
             if (editar) {
                 observaciones = JOptionPane.showInputDialog("Digite la observación:", auxObservaciones);
             } else {
@@ -1014,15 +1017,15 @@ public class TablaMBChocolates extends javax.swing.JDialog {
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
                 if (c.editarResultadoMBChocolates(m)) {
-                    c.guardarObservaciones(observaciones, id);
-                    c.guardarConclusion(String.valueOf(m.get("conclusion")), id);
+                    muestraRepository.guardarObservaciones(observaciones, id);
+                    muestraRepository.guardarConclusion(String.valueOf(m.get("conclusion")), id);
                     this.dispose();
                     c.generarReporteMBChocolates(id, procedencia);
                 }
             } else {
                 if (c.guardarResultadoMBChocolates(m)) {
-                    c.guardarObservaciones(observaciones, id);
-                    c.guardarConclusion(String.valueOf(m.get("conclusion")), id);
+                    muestraRepository.guardarObservaciones(observaciones, id);
+                    muestraRepository.guardarConclusion(String.valueOf(m.get("conclusion")), id);
                     this.dispose();
                     c.generarReporteMBChocolates(id, procedencia);
                 }

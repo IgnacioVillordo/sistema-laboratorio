@@ -37,13 +37,15 @@ import javax.swing.table.DefaultTableCellRenderer;
 import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
+import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.UsuarioRepository;
 
 public class Principal extends JFrame {
 
     Consultas consultas = Consultas.getInstancia();
     UsuarioRepository usuarioRepository = new UsuarioRepository();
-    public DefaultTableModel modeloTabla = consultas.llenarTabla();
+    MuestraRepository muestraRepository = new MuestraRepository();
+    public DefaultTableModel modeloTabla = muestraRepository.llenarTabla();
     int fila2;
     public static int id;
     String rutaRespaldo = consultas.recuperarRutas("Respaldo");
@@ -922,7 +924,7 @@ public class Principal extends JFrame {
         n = new DialogoBuscar(this, true);
         n.setVisible(true);
         if (n.parametro != "-1" && n.valor != "-1") {
-            modeloTabla = consultas.buscarTabla(n.parametro, n.valor);
+            modeloTabla = muestraRepository.buscarTabla(n.parametro, n.valor);
             if (modeloTabla.getRowCount() != 0) {
                 panelColores.setVisible(true);
                 int tabla = modeloTabla.getColumnCount() - 1;
@@ -966,7 +968,7 @@ public class Principal extends JFrame {
             }
         } else {
             if (!Objects.equals(n.parametro, "-1") && !Objects.equals(n.valor, "-1")) {
-                modeloTabla = consultas.buscarTabla(n.parametro, n.valor);
+                modeloTabla = muestraRepository.buscarTabla(n.parametro, n.valor);
                 if (modeloTabla.getRowCount() != 0) {
                     panelColores.setVisible(true);
                     int tabla = modeloTabla.getColumnCount() - 1;
@@ -1277,7 +1279,7 @@ public class Principal extends JFrame {
         if (nombre.equals("error")) {
         } else {
             if (consultas.entregarMuestra(usuario, id)) {
-                consultas.entregado(id);
+                muestraRepository.entregado(id);
                 JOptionPane.showMessageDialog(null, "Entrega guardada.");
             } else {
                 JOptionPane.showMessageDialog(null, "Error al guardar la entrega.");
@@ -1783,7 +1785,7 @@ public class Principal extends JFrame {
     public javax.swing.JTable tablaDatos;
 
     public void modeloTabla() {
-        modeloTabla = consultas.llenarTabla();
+        modeloTabla = muestraRepository.llenarTabla();
         int anchos[] = {24, 288, 208, 97, 63, 63, 75, 69, 60, 52, 219};
         for (int i = 0; i < 11; i++) {
             tablaDatos.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);

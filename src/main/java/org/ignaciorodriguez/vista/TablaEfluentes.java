@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.MuestraRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -30,6 +32,7 @@ public class TablaEfluentes extends javax.swing.JDialog {
     Consultas c = Consultas.getInstancia();
     boolean editar, activarPh = true, activarDQO = true, activarDBO = true,
             activarSolidos10 = true, activarSolidos120 = true, activarHidrocarburos = true;
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaEfluentes(java.awt.Frame parent, boolean modal, int id, String procedencia,
                           boolean editar, String pdf, String lugarMuestreo) {
@@ -40,7 +43,7 @@ public class TablaEfluentes extends javax.swing.JDialog {
         this.editar = editar;
         this.pdf = pdf;
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Efluentes");
+        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Efluentes");
         if (editar == true) {
             Map<String, String> resultados = c.recuperarResultadosEfluentes(id);
             Locale currentLocale = Locale.getDefault();
@@ -51,7 +54,7 @@ public class TablaEfluentes extends javax.swing.JDialog {
             if (resultados == null) {
                 this.editar = false;
             } else {
-                auxConclusion = c.recuperarConclusion(id);
+                auxConclusion = muestraRepository.recuperarConclusion(id);
                 if (auxConclusion == null) {
 
                 } else {
@@ -1097,7 +1100,7 @@ public class TablaEfluentes extends javax.swing.JDialog {
 
     private void botonGenerarActionPerformed(java.awt.event.ActionEvent evt) {
         String observaciones = "";
-        observaciones = JOptionPane.showInputDialog("Ingrese las observaciones:", c.recuperarObservaciones(id));
+        observaciones = JOptionPane.showInputDialog("Ingrese las observaciones:", muestraRepository.recuperarObservaciones(id));
         observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
         String ph = cajaPh.getText(), dqo = cajaDQO.getText(), dbo = cajaDBO.getText(),
                 solidos20 = comboSolidos20.getSelectedItem().toString() + " " + cajaSolidos20.getText(),
@@ -1135,24 +1138,24 @@ public class TablaEfluentes extends javax.swing.JDialog {
             rv.renameTo(rn);
             if (c.editarEfluentes(resultados, id)) {
                 if (checkConclusion.isSelected()) {
-                    c.guardarConclusion(resultados[6], id);
+                    muestraRepository.guardarConclusion(resultados[6], id);
                 } else {
-                    c.guardarConclusion(null, id);
+                    muestraRepository.guardarConclusion(null, id);
                 }
-                c.guardarObservaciones(observaciones, id);
+                muestraRepository.guardarObservaciones(observaciones, id);
                 this.dispose();
                 c.generarReporteEfluentes(id, procedencia);
             }
         } else {
             if (c.guardarResultadosEfluentes(resultados, id)) {
                 if (checkConclusion.isSelected()) {
-                    c.guardarConclusion(resultados[6], id);
+                    muestraRepository.guardarConclusion(resultados[6], id);
                 } else {
-                    c.guardarConclusion(null, id);
+                    muestraRepository.guardarConclusion(null, id);
                 }
                 observaciones = JOptionPane.showInputDialog("Ingrese las observaciones:");
                 observaciones = observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
-                c.guardarObservaciones(observaciones, id);
+                muestraRepository.guardarObservaciones(observaciones, id);
                 this.dispose();
                 c.generarReporteEfluentes(id, procedencia);
 

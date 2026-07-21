@@ -10,6 +10,8 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
+import org.ignaciorodriguez.repository.MuestraRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -32,6 +34,7 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
             activarFecales = true, activarEscherichia = true, activarPseudomona = true, activarShigella = true;
     double[] ph;
     private String aux;
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaMBAguaCOFES(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -40,7 +43,7 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
         this.editar = editar;
         this.pdf = pdf.substring(1, pdf.length());
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Microbiológico de agua COFES");
+        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico de agua COFES");
         ph = c.recuperarPhYCloro(this.id);
         DecimalFormat df = new DecimalFormat("#.##");
         if (procedencia.contains("Municipio de Dina Huapi")) {
@@ -1526,15 +1529,15 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
             r.setFechaAnalisis(fechaAnalisis);
             if (editar) {
                 if (checkDinaHuapi.isSelected()) {
-                    if (c.recuperarObservaciones(id) != null && c.recuperarObservaciones(id).length() > 5) {
+                    if (muestraRepository.recuperarObservaciones(id) != null && muestraRepository.recuperarObservaciones(id).length() > 5) {
                         valores[6] = JOptionPane.showInputDialog("Digite la observacion:", "Se reciben: frasco estéril x 500 ml con tiosulfato "
-                                + "de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. " + c.recuperarObservaciones(id).substring(160));
+                                + "de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. " + muestraRepository.recuperarObservaciones(id).substring(160));
                     } else {
                         valores[6] = JOptionPane.showInputDialog("Digite la observacion:", "Se reciben: frasco estéril x 500 ml con tiosulfato"
                                 + " de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. ");
                     }
                 } else {
-                    valores[6] = JOptionPane.showInputDialog("Digite la observacion:", c.recuperarObservaciones(id));
+                    valores[6] = JOptionPane.showInputDialog("Digite la observacion:", muestraRepository.recuperarObservaciones(id));
                 }
             } else {
                 if (checkDinaHuapi.isSelected()) {
@@ -1557,7 +1560,7 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
             }
             valores[9] = caracteres;
             String conclusion = crearConclusion();
-            c.guardarConclusion(conclusion, id);
+            muestraRepository.guardarConclusion(conclusion, id);
             r.setResultadoMB(valores);
             if (editar) {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
@@ -1569,9 +1572,9 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
                     } else {
                         c.agregarVencimiento(r);
                     }
-                    c.guardarObservaciones(valores[6], id);
-                    c.guardarFechaAnalisis(r, id);
-                    c.guardarFechaAnalisisMBAGUA(r, id);
+                    muestraRepository.guardarObservaciones(valores[6], id);
+                    muestraRepository.guardarFechaAnalisis(r, id);
+                    muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                     this.dispose();
                     c.generarReporteMBAguaCOFES(id, procedencia);
                 }
@@ -1583,9 +1586,9 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
                     } else {
                         c.agregarVencimiento(r);
                     }
-                    c.guardarFechaAnalisis(r, id);
-                    c.guardarFechaAnalisisMBAGUA(r, id);
-                    c.guardarObservaciones(valores[6], id);
+                    muestraRepository.guardarFechaAnalisis(r, id);
+                    muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
+                    muestraRepository.guardarObservaciones(valores[6], id);
                     this.dispose();
                     c.generarReporteMBAguaCOFES(id, procedencia);
                 }
@@ -1666,14 +1669,14 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
             conclusion = conclusion.substring(0, conclusion.length() - 1);
             String recomendacion = "";
             if (editar) {
-                recomendacion = JOptionPane.showInputDialog("Ingrese la recomendacion:", c.recuperarRecomendacion(id));
+                recomendacion = JOptionPane.showInputDialog("Ingrese la recomendacion:", muestraRepository.recuperarRecomendacion(id));
             } else {
                 recomendacion = JOptionPane.showInputDialog("Ingrese la recomendacion:");
             }
             if (recomendacion.endsWith(".")) {
                 recomendacion = recomendacion.substring(0, recomendacion.length() - 1);
             }
-            c.guardarRecomendacion(recomendacion, id);
+            muestraRepository.guardarRecomendacion(recomendacion, id);
             if (recomendacion.length() < 1) {
                 conclusion += " la muestra analizada no cumple con las especificaciones microbiológicas "
                         + "estipuladas por la norma COFES (1996).";

@@ -10,11 +10,14 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
+import org.ignaciorodriguez.repository.MuestraRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
 import java.util.Map;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.ImageIcon;
@@ -31,7 +34,8 @@ public class TablaMBAgua extends javax.swing.JDialog {
             activarFecales = true, activarEscherichia = true, activarPseudomona = true, activarMohos = true, activarShigella = true;
     double[] ph;
     private String aux;
-    org.slf4j.Logger log;
+    MuestraRepository muestraRepository = new MuestraRepository();
+    private static final Logger logger = Logger.getLogger(TablaMBAgua.class.getName());
 
     public TablaMBAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -40,7 +44,7 @@ public class TablaMBAgua extends javax.swing.JDialog {
         this.editar = editar;
         this.pdf = pdf.substring(1, pdf.length());
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Microbiológico de agua código");
+        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico de agua código");
         jLabel13MousePressed(click(jLabel13));
         ph = c.recuperarPhYCloro(id);
         DecimalFormat df = new DecimalFormat("#.##");
@@ -1708,7 +1712,7 @@ public class TablaMBAgua extends javax.swing.JDialog {
             java.util.Date fm = cajaFechaAnalisis.getDate(); //obtener fecha
             Long dm = fm.getTime(); //sacar timepo
         } catch (Exception e) {
-            log.info("error");
+            logger.severe("error");
         }
         Resultados r = new Resultados();
         String germenes = "-2";
@@ -1767,14 +1771,14 @@ public class TablaMBAgua extends javax.swing.JDialog {
             }
         }
         if (editar) {
-            valores[6] = JOptionPane.showInputDialog("Digite la observacion:", c.recuperarObservaciones(id));
+            valores[6] = JOptionPane.showInputDialog("Digite la observacion:", muestraRepository.recuperarObservaciones(id));
         } else {
             valores[6] = JOptionPane.showInputDialog("Digite la observacion:");
         }
         valores[6] = valores[6].isBlank() ? "" : valores[6].trim().endsWith(".") ? valores[6] : valores[6] + ".";
         valores[9] = caracteres;
         String conclusion = crearConclusion();
-        c.guardarConclusion(conclusion, id);
+        muestraRepository.guardarConclusion(conclusion, id);
         r.setResultadoMB(valores);
         if (editar) {
             File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
@@ -1782,14 +1786,14 @@ public class TablaMBAgua extends javax.swing.JDialog {
             rv.renameTo(rn);
             if (c.editarMBAgua(r)) {
                 c.guardarLimiteMohos(id, checkLimiteMohos.isSelected());
-                c.guardarFechaAnalisisMBAGUA(r, id);
-                c.guardarFechaAnalisis(r, id);
+                muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
+                muestraRepository.guardarFechaAnalisis(r, id);
                 if (c.checkearVencimiento(r)) {
                     c.actualizarVencimiento(r);
                 } else {
                     c.agregarVencimiento(r);
                 }
-                c.guardarObservaciones(valores[6], id);
+                muestraRepository.guardarObservaciones(valores[6], id);
                 c.esconderFechaVencimiento(id, checkPonerVencimiento.isSelected());
                 this.dispose();
                 c.generarReporteMBAgua(id, procedencia);
@@ -1798,14 +1802,14 @@ public class TablaMBAgua extends javax.swing.JDialog {
         } else {
             if (c.guardarResultadoMBAgua(r)) {
                 c.guardarLimiteMohos(id, checkLimiteMohos.isSelected());
-                c.guardarFechaAnalisisMBAGUA(r, id);
-                c.guardarFechaAnalisis(r, id);
+                muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
+                muestraRepository.guardarFechaAnalisis(r, id);
                 if (c.checkearVencimiento(r)) {
                     c.actualizarVencimiento(r);
                 } else {
                     c.agregarVencimiento(r);
                 }
-                c.guardarObservaciones(valores[6], id);
+                muestraRepository.guardarObservaciones(valores[6], id);
                 c.esconderFechaVencimiento(id, checkPonerVencimiento.isSelected());
                 this.dispose();
                 c.generarReporteMBAgua(id, procedencia);
@@ -1888,14 +1892,14 @@ public class TablaMBAgua extends javax.swing.JDialog {
             conclusion = conclusion.substring(0, conclusion.length() - 1);
             String recomendacion = "";
             if (editar) {
-                recomendacion = JOptionPane.showInputDialog("Ingrese la recomendacion:", c.recuperarRecomendacion(id));
+                recomendacion = JOptionPane.showInputDialog("Ingrese la recomendacion:", muestraRepository.recuperarRecomendacion(id));
             } else {
                 recomendacion = JOptionPane.showInputDialog("Ingrese la recomendacion:");
             }
             if (recomendacion.endsWith(".")) {
                 recomendacion = recomendacion.substring(0, recomendacion.length() - 1);
             }
-            c.guardarRecomendacion(recomendacion, id);
+            muestraRepository.guardarRecomendacion(recomendacion, id);
             if (recomendacion.length() < 1) {
                 conclusion += " la muestra no cumple con las especificaciones microbiológicas "
                         + "estipuladas por el art. 982 del Código Alimentario Argentino (Ley 18284).";

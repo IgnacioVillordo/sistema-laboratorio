@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.MuestraRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -32,6 +34,7 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             activarColiformes = true, activarHidrocarburos = true, activarNitratos = true, activarCloro = true,
             activarEscherichia = true, activarColiformesTotales = true, activarSulfuros = true;
     String procedencia, pdf, auxObservaciones, auxOlor, tipo, auxConclusion;
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaEfluentesInfiltracion(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf, String tipo) {
         super(parent, modal);
@@ -41,7 +44,7 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         this.tipo = tipo;
         this.procedencia = procedencia;
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Efluentes inflitración");
+        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Efluentes inflitración");
         if (tipo.equals("Efluentes infiltración")) {
             etiquetaColiformesFecales.setText("COLIFORMES FECALES");
             area72.setText("1 mg/l");
@@ -53,8 +56,8 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             if (resultados == null) {
                 this.editar = false;
             } else {
-                auxObservaciones = c.recuperarObservaciones(id);
-                auxConclusion = c.recuperarConclusion(id);
+                auxObservaciones = muestraRepository.recuperarObservaciones(id);
+                auxConclusion = muestraRepository.recuperarConclusion(id);
                 if (auxConclusion == null) {
                 } else {
                     checkConclusion.setSelected(!auxConclusion.isEmpty());
@@ -2830,13 +2833,13 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             if (c.editarResultadosEfluentesTipo(m)) {
                 if (checkConclusion.isSelected()) {
                     conclusion = crearConclusion();
-                    c.guardarConclusion(conclusion, id);
+                    muestraRepository.guardarConclusion(conclusion, id);
                 } else {
-                    c.guardarConclusion(null, id);
+                    muestraRepository.guardarConclusion(null, id);
                 }
                 observaciones = JOptionPane.showInputDialog("Ingrese las observaciones");
                 observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
-                c.guardarObservaciones(observaciones, id);
+                muestraRepository.guardarObservaciones(observaciones, id);
                 this.dispose();
                 c.generarReporteEfluentesInfiltracion(id, procedencia);;
             }
@@ -2844,17 +2847,17 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             if (c.guardarResultadosEfluentesTipo(m)) {
                 if (checkConclusion.isSelected()) {
                     conclusion = crearConclusion();
-                    c.guardarConclusion(conclusion, id);
+                    muestraRepository.guardarConclusion(conclusion, id);
                 } else {
-                    c.guardarConclusion(null, id);
+                    muestraRepository.guardarConclusion(null, id);
                 }
                 observaciones = JOptionPane.showInputDialog("Ingrese las observaciones:");
-                c.guardarObservaciones(observaciones, id);
+                muestraRepository.guardarObservaciones(observaciones, id);
                 this.dispose();
                 c.generarReporteEfluentesInfiltracion(id, procedencia);
             }
         }
-        c.guardarFechaAnalisis(m);
+        muestraRepository.guardarFechaAnalisis(m);
     }
 
     private void etiquetaPhMousePressed(java.awt.event.MouseEvent evt) {

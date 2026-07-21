@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.MuestraRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -30,7 +32,8 @@ public class TablaEfluentesCloaca extends javax.swing.JDialog {
             activarGrasas = true, activarFosforo = true, activarNitrogeno = true, activarSustancias = true,
             activarColiformes = true, activarHidrocarburos = true, activarNitratos = true, activarCloro = true,
             activarEscherichia = true, activarColiformesTotales = true, activarSulfuros = true;
-    String procedencia, pdf, auxObservaciones, auxConclusion, auxOlor, tipo;
+    String procedencia, pdf, auxObservaciones, auxConclusion, tipo;
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaEfluentesCloaca(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf, String tipo) {
         super(parent, modal);
@@ -40,15 +43,15 @@ public class TablaEfluentesCloaca extends javax.swing.JDialog {
         this.tipo = tipo;
         this.procedencia = procedencia;
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Efluentes cloaca");
+        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Efluentes cloaca");
         this.setLocationRelativeTo(null);
         if (editar == true) {
             Map<String, String> resultados = c.recuperarResultadosEfluentesTipo(id);
             if (resultados == null) {
                 this.editar = false;
             } else {
-                auxObservaciones = c.recuperarObservaciones(id);
-                auxConclusion = c.recuperarConclusion(id);
+                auxObservaciones = muestraRepository.recuperarObservaciones(id);
+                auxConclusion = muestraRepository.recuperarConclusion(id);
                 if (auxConclusion == null) {
                 } else {
                     checkConclusion.setSelected(!auxConclusion.isEmpty());
@@ -2744,13 +2747,13 @@ public class TablaEfluentesCloaca extends javax.swing.JDialog {
             if (c.editarResultadosEfluentesTipo(m)) {
                 if (checkConclusion.isSelected()) {
                     conclusion = crearConclusion();
-                    c.guardarConclusion(conclusion, id);
+                    muestraRepository.guardarConclusion(conclusion, id);
                 } else {
-                    c.guardarConclusion(null, id);
+                    muestraRepository.guardarConclusion(null, id);
                 }
                 observaciones = JOptionPane.showInputDialog("Ingrese las observaciones");
                 observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
-                c.guardarObservaciones(observaciones, id);
+                muestraRepository.guardarObservaciones(observaciones, id);
                 this.dispose();
                 c.generarReporteEfluentesCloaca(id, procedencia);;
             }
@@ -2758,12 +2761,12 @@ public class TablaEfluentesCloaca extends javax.swing.JDialog {
             if (c.guardarResultadosEfluentesTipo(m)) {
                 if (checkConclusion.isSelected()) {
                     conclusion = crearConclusion();
-                    c.guardarConclusion(conclusion, id);
+                    muestraRepository.guardarConclusion(conclusion, id);
                 } else {
-                    c.guardarConclusion(null, id);
+                    muestraRepository.guardarConclusion(null, id);
                 }
                 observaciones = JOptionPane.showInputDialog("Ingrese las observaciones:");
-                c.guardarObservaciones(observaciones, id);
+                muestraRepository.guardarObservaciones(observaciones, id);
                 this.dispose();
                 c.generarReporteEfluentesCloaca(id, procedencia);
             }

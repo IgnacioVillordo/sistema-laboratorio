@@ -22,6 +22,7 @@ import javax.swing.KeyStroke;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.MuestraRepository;
 
 public class TablaHisopados extends javax.swing.JDialog {
 
@@ -34,6 +35,7 @@ public class TablaHisopados extends javax.swing.JDialog {
     boolean[] auxBool = new boolean[9];
     Frame parent;
     private String auxRecomendacion = "";
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaHisopados(java.awt.Frame parent, boolean modal, int id, String procedencia,
                           boolean editar, String pdf) {
@@ -280,9 +282,9 @@ public class TablaHisopados extends javax.swing.JDialog {
                     }
                     cajaFechaAnalisis.setDate(utilFecha);
                 }
-                auxObservaciones = c.recuperarObservaciones(id);
+                auxObservaciones = muestraRepository.recuperarObservaciones(id);
 
-                String auxConclusion = c.recuperarConclusion(id);
+                String auxConclusion = muestraRepository.recuperarConclusion(id);
                 if (auxConclusion != null) {
                     checkConclusion.doClick();
                 }
@@ -1883,23 +1885,23 @@ public class TablaHisopados extends javax.swing.JDialog {
             observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
             m.put("observaciones", observaciones);
             if (checkConclusion.isSelected()) {
-                c.guardarConclusion(crearConclusion(), id);
+                muestraRepository.guardarConclusion(crearConclusion(), id);
             } else {
-                c.guardarConclusion(null, id);
+                muestraRepository.guardarConclusion(null, id);
             }
-            c.guardarFechaAnalisis(m);
+            muestraRepository.guardarFechaAnalisis(m);
             if (editar) {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
                 if (c.editarResultadosHisopados(m)) {
-                    c.guardarObservaciones(observaciones, id);
+                    muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
                     c.generarReporteHisopados(id, procedencia);
                 }
             } else {
                 if (c.guardarResultadosHisopados(m)) {
-                    c.guardarObservaciones(observaciones, id);
+                    muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
 
                     c.generarReporteHisopados(id, procedencia);

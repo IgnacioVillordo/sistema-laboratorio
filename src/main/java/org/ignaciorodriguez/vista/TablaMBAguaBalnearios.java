@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import javax.swing.border.MatteBorder;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
+import org.ignaciorodriguez.repository.MuestraRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -26,6 +28,7 @@ public class TablaMBAguaBalnearios extends javax.swing.JDialog {
     String procedencia, pdf, auxCaracteres;
     Consultas c = Consultas.getInstancia();
     boolean editar, activarColiformes = true, activarEscherichia = true, activarShigella = true;
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaMBAguaBalnearios(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -34,7 +37,7 @@ public class TablaMBAguaBalnearios extends javax.swing.JDialog {
         this.editar = editar;
         this.pdf = pdf.substring(1, pdf.length());
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Microbiológico de agua código balnearios");
+        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico de agua código balnearios");
         if (procedencia.contains("Municipio de Dina Huapi")) {
             checkDinaHuapi.setSelected(true);
         }
@@ -688,15 +691,15 @@ public class TablaMBAguaBalnearios extends javax.swing.JDialog {
         String[] valores = {idmuestra, "", coliformesTotales, "", escherichia, "", "", String.valueOf(-1), String.valueOf(-1), caracteres, "", shigella};
         if (editar) {
             if (checkDinaHuapi.isSelected()) {
-                if (c.recuperarObservaciones(id) != null && c.recuperarObservaciones(id).length() > 5) {
+                if (muestraRepository.recuperarObservaciones(id) != null && muestraRepository.recuperarObservaciones(id).length() > 5) {
                     valores[6] = JOptionPane.showInputDialog("Digite la observacion:", "Se reciben: frasco estéril x 500 ml con tiolsulfato"
-                            + "de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. " + c.recuperarObservaciones(id).substring(160));
+                            + "de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. " + muestraRepository.recuperarObservaciones(id).substring(160));
                 } else {
                     valores[6] = JOptionPane.showInputDialog("Digite la observacion:", "Se reciben: frasco estéril x 500 ml con tiolsulfato"
                             + "de sodio para análisis microbiológico y frasco estéril x 120 ml para determinaciones de cloro residual y pH. ");
                 }
             } else {
-                valores[6] = JOptionPane.showInputDialog("Digite la observacion:", c.recuperarObservaciones(id));
+                valores[6] = JOptionPane.showInputDialog("Digite la observacion:", muestraRepository.recuperarObservaciones(id));
             }
         } else {
             if (checkDinaHuapi.isSelected()) {
@@ -730,20 +733,20 @@ public class TablaMBAguaBalnearios extends javax.swing.JDialog {
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
                 if (c.editarMBAgua(r)) {
-                    c.guardarFechaAnalisis(r, id);
-                    c.guardarFechaAnalisisMBAGUA(r, id);
+                    muestraRepository.guardarFechaAnalisis(r, id);
+                    muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                     c.actualizarVencimiento(r);
-                    c.guardarObservaciones(valores[6], id);
+                    muestraRepository.guardarObservaciones(valores[6], id);
                     this.dispose();
                     c.generarReporteMBAguaBalnearios(id, procedencia);
                 }
 
             } else {
                 if (c.guardarResultadoMBAgua(r)) {
-                    c.guardarFechaAnalisisMBAGUA(r, id);
-                    c.guardarFechaAnalisis(r, id);
+                    muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
+                    muestraRepository.guardarFechaAnalisis(r, id);
                     c.agregarVencimiento(r);
-                    c.guardarObservaciones(valores[6], id);
+                    muestraRepository.guardarObservaciones(valores[6], id);
                     this.dispose();
                     c.generarReporteMBAguaBalnearios(id, procedencia);
                 }

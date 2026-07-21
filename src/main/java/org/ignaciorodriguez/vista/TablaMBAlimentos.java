@@ -23,6 +23,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.MuestraRepository;
 
 public class TablaMBAlimentos extends javax.swing.JDialog {
 
@@ -57,6 +58,7 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
     private String auxVibrio;
     private String auxVibrioCholerae;
     private int auxVibrioCholeraeCombo;
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaMBAlimentos(java.awt.Frame parent, boolean modal, int id, String procedencia,
                             boolean editar, String pdf) {
@@ -66,7 +68,7 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         this.editar = editar;
         this.pdf = pdf;
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Microbiológico de alimentos");
+        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico de alimentos");
         if (editar == true) {
             Map<String, String> map = c.recuperarResultadosMBAlimentos(id);
             if (map == null) {
@@ -640,8 +642,8 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                     System.err.println("error, " + e);
                 }
                 cajaFechaAnalisis.setDate(utilFecha);
-                auxObservaciones = c.recuperarObservaciones(id);
-                auxConclusion = c.recuperarConclusion(id);
+                auxObservaciones = muestraRepository.recuperarObservaciones(id);
+                auxConclusion = muestraRepository.recuperarConclusion(id);
                 if (auxObservaciones != null) {
                     auxObservaciones = sacarPuntosFinales(auxObservaciones);
                     System.out.println("auxObservaciones en editar = " + auxObservaciones);
@@ -4053,7 +4055,7 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 conclusion = JOptionPane.showInputDialog("Ingrese la conclusion", auxConclusion);
                 conclusion = conclusion.isBlank() ? "" : conclusion.trim().endsWith(".") ? conclusion : conclusion + ".";
             }
-            c.guardarConclusion(conclusion, id);
+            muestraRepository.guardarConclusion(conclusion, id);
             if (editar) {
                 observaciones = JOptionPane.showInputDialog("Digite la observación:", auxObservaciones);
             } else {
@@ -4066,15 +4068,15 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
                 if (c.editarMBAlimentos(m)) {
-                    c.guardarFechaAnalisis(m);
-                    c.guardarObservaciones(observaciones, id);
+                    muestraRepository.guardarFechaAnalisis(m);
+                    muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
                     c.generarReporteMBAlimentos(id, procedencia);
                 }
             } else {
                 if (c.guardarResultadoMBAlimentos(m)) {
-                    c.guardarFechaAnalisis(m);
-                    c.guardarObservaciones(observaciones, id);
+                    muestraRepository.guardarFechaAnalisis(m);
+                    muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
                     c.generarReporteMBAlimentos(id, procedencia);
                 }

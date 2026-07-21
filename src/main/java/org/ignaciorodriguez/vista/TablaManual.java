@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.MuestraRepository;
 
 public class TablaManual extends javax.swing.JDialog {
 
@@ -26,12 +27,13 @@ public class TablaManual extends javax.swing.JDialog {
     Consultas c = Consultas.getInstancia();
     String auxTitulo, auxConclusion, procedencia, pdf, auxObservacion;
     Point mousePoint;
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaManual(java.awt.Frame parent, boolean modal, boolean editar, int id, String procedencia, String pdf) {
         super(parent, modal);
         this.id = id;
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Informe manual");
+        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Informe manual");
         int width = getPreferredSize().width;
         int height = (int) (Toolkit.getDefaultToolkit().getScreenSize().height * 0.7);
         jScrollPane81.setPreferredSize(new Dimension(width, height));
@@ -473,14 +475,14 @@ public class TablaManual extends javax.swing.JDialog {
             metodo33.setText(map.get("metodo33"));
             metodo34.setText(map.get("metodo34"));
             auxTitulo = map.get("titulo");
-            auxConclusion = c.recuperarConclusion(id);
+            auxConclusion = muestraRepository.recuperarConclusion(id);
             cajaFechaAnalisis.setDate(c.recuperarFechaAnalisis(id));
             if (c.consultarMostrar(id)) {
                 botonMostrar.setSelected(true);
             } else {
                 botonNoMostrar.setSelected(true);
             }
-            auxObservacion = c.recuperarObservaciones(id);
+            auxObservacion = muestraRepository.recuperarObservaciones(id);
             if (auxConclusion != null) {
                 if (auxConclusion.contains("debido a")) {
                     radioMal.setSelected(true);
@@ -3351,9 +3353,9 @@ public class TablaManual extends javax.swing.JDialog {
                 m.put("titulo", JOptionPane.showInputDialog("Ingrese el título del análsis", auxTitulo));
                 observaciones = JOptionPane.showInputDialog("Ingrese la observación", auxObservacion);
                 observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
-                c.guardarObservaciones(observaciones, id);
-                c.guardarConclusion(crearConclusion(), id);
-                c.guardarFechaAnalisis(m);
+                muestraRepository.guardarObservaciones(observaciones, id);
+                muestraRepository.guardarConclusion(crearConclusion(), id);
+                muestraRepository.guardarFechaAnalisis(m);
                 if (c.editarResultadoManual(m)) {
                     this.dispose();
                     c.generarReporteManual(id, procedencia);
@@ -3363,9 +3365,9 @@ public class TablaManual extends javax.swing.JDialog {
                 m.put("titulo", JOptionPane.showInputDialog("Ingrese el título del análsis"));
                 observaciones = JOptionPane.showInputDialog("Ingrese la observación");
                 observaciones = observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
-                c.guardarObservaciones(observaciones, id);
-                c.guardarConclusion(crearConclusion(), id);
-                c.guardarFechaAnalisis(m);
+                muestraRepository.guardarObservaciones(observaciones, id);
+                muestraRepository.guardarConclusion(crearConclusion(), id);
+                muestraRepository.guardarFechaAnalisis(m);
                 if (c.guardarResultadoManual(m)) {
                     this.dispose();
                     c.generarReporteManual(id, procedencia);
@@ -3704,7 +3706,7 @@ public class TablaManual extends javax.swing.JDialog {
             }
         } else if (radioManual.isSelected()) {
             if (this.editar) {
-                conclusion = JOptionPane.showInputDialog("Ingrese la conclusión:", c.recuperarConclusion(id));
+                conclusion = JOptionPane.showInputDialog("Ingrese la conclusión:", muestraRepository.recuperarConclusion(id));
             } else {
                 conclusion = JOptionPane.showInputDialog("Ingrese la conclusión:");
             }

@@ -22,6 +22,7 @@ import javax.swing.KeyStroke;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.MuestraRepository;
 
 public class TablaHisopadosAlliance extends javax.swing.JDialog {
 
@@ -31,6 +32,7 @@ public class TablaHisopadosAlliance extends javax.swing.JDialog {
     boolean editar, activarGermens = true, activarTotales = true, activarFecales = true,
             activarEscherichia = true, activarEnterobacterias = true, activarStaphilococos = true;
     Frame parent;
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public TablaHisopadosAlliance(java.awt.Frame parent, boolean modal, int id, String procedencia,
                                   boolean editar, String pdf) {
@@ -41,7 +43,7 @@ public class TablaHisopadosAlliance extends javax.swing.JDialog {
         this.editar = editar;
         this.pdf = pdf;
         initComponents();
-        setTitle("ID " + id + ". " + c.obtenerProcedencia(id) + ". Hisopado sin límites");
+        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Hisopado sin límites");
         setLocationRelativeTo(null);
         if (editar == true) {
             Map<String, String> resultados = c.recuperarResultadosHisopadosAlliance(id);
@@ -145,7 +147,7 @@ public class TablaHisopadosAlliance extends javax.swing.JDialog {
                     System.err.println("error, " + e);
                 }
                 cajaFechaAnalisis.setDate(utilFecha);
-                auxObservaciones = c.recuperarObservaciones(id);
+                auxObservaciones = muestraRepository.recuperarObservaciones(id);
                 if (resultados.get("limiteGermenes").equals("400")) {
                     Limite400.setSelected(true);
                 } else if (resultados.get("limiteGermenes").equals("3000")) {
@@ -1164,20 +1166,20 @@ public class TablaHisopadosAlliance extends javax.swing.JDialog {
                 observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
                 m.put("observaciones", observaciones);
 
-                c.guardarConclusion(crearConclusion(), id);
-                c.guardarFechaAnalisis(m);
+                muestraRepository.guardarConclusion(crearConclusion(), id);
+                muestraRepository.guardarFechaAnalisis(m);
                 if (editar) {
                     File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                     File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                     rv.renameTo(rn);
                     if (c.editarResultadosHisopadosAlliance(m)) {
-                        c.guardarObservaciones(observaciones, id);
+                        muestraRepository.guardarObservaciones(observaciones, id);
                         this.dispose();
                         c.generarReporteHisopadosAlliance(id, procedencia);
                     }
                 } else {
                     if (c.guardarResultadosHisopadosAlliance(m)) {
-                        c.guardarObservaciones(observaciones, id);
+                        muestraRepository.guardarObservaciones(observaciones, id);
                         this.dispose();
 
                         c.generarReporteHisopadosAlliance(id, procedencia);
