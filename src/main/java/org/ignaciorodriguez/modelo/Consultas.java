@@ -54,25 +54,9 @@ public class Consultas extends Conexion {
     ResultSet rs = null;
     String nombreUsuario = null;
     //Principal p = new Principal();
-    String vencimientoMb = "INSERT INTO `laboratorio`.`vencimientos` "
-            + "(`fechaVencimiento`,idmuestras) VALUES (date_add(?,interval 6 month),?)";
-    String vencimientoFq = "INSERT INTO `laboratorio`.`vencimientos` "
-            + "(`fechaVencimiento`,idmuestras) VALUES (date_add(?,interval 12 month),?)";
-    String recuperarFQ = "select acidez, acidosorbico, alcalinidad, alcohol, aluminio, amonio, amoniacos, "
-            + "antimonio, aroma, arsenico, asbesto, aspecto, azucares, azucaresReductores, azucaresInvertidos, "
-            + "bario, bicarbonatos, boro, cadmiototal, calcio, caracteristicas, carbonatos, cenizas, "
-            + "cenizasInsolublesAcido, cenizasInsolublesAgua, cianuros, cloroactivo, clororesidual, clorototal, "
-            + "cloruros, cobalto, cobre, colesterol, color, colorantesartificiales, colorantesnaturales, colorantes, "
-            + "conductividad, cromohexavalente, "
-            + "dbo, detergentes, dqo, dureza, estano, extracto, fenoles, fluoruros, fluor, fosforototal, "
-            + "gliadinas, gluten, gradofermentacion, gradosbrix, grasa, hidrocarburos, hierro, humedad, "
-            + "magnesio, manganeso, materiagrasa, mercuriototal, molibdeno, nitratos, nitritos, nitrogenoamoniacal, "
-            + "nitrogenototal, niquel , observacionmicroscopica, olor, organoclorados, oxigenodisuelto, "
-            + "ph, plata, plomo, porcentajecloruro, potasio, propionato, relacion, residuo105, "
-            + "residuo180, residuoseco, sabor, selenio, silicatos, sodio, solidostotales, solidosnograsos, "
-            + "solidos2horas, solidos10minutos, solidossuspendidostotales, solidossuspendidosvolatiles, "
-            + "sulfatos, sulfuros, sustancias, sustanciaseteretilico, turbidez, vanadio, zinc from determinaciones where idmuestras = ?"; //cambiar al agregar
-    DefaultTableModel modeloTablaProcedencia = new DefaultTableModel();
+    String vencimientoMb = "INSERT INTO `laboratorio`.`vencimientos` " + "(`fechaVencimiento`,idmuestras) VALUES (date_add(?,interval 6 month),?)";
+    String vencimientoFq = "INSERT INTO `laboratorio`.`vencimientos` " + "(`fechaVencimiento`,idmuestras) VALUES (date_add(?,interval 12 month),?)";
+
     DefaultTableModel modeloEntregas = new DefaultTableModel();
     DefaultTableModel modeloAnalisis = new DefaultTableModel() {
         @Override
@@ -112,7 +96,6 @@ public class Consultas extends Conexion {
         }
         return instancia;
     }
-
 
 
     public void generarReporteMBAgua(int id, String procedencia) {
@@ -555,9 +538,7 @@ public class Consultas extends Conexion {
     public void agregarAdministracion(int id, double precio, int pago, int factura) {
         Connection conexion = con.getConnection();
         try {
-            ps = conexion.prepareStatement("INSERT INTO administracion "
-                    + "(idmuestras,precioTotal,pago,factura,entrada,borrado)VALUES "
-                    + "(?,?,?,?,current_timestamp(),0)");
+            ps = conexion.prepareStatement("INSERT INTO administracion " + "(idmuestras,precioTotal,pago,factura,entrada,borrado)VALUES " + "(?,?,?,?,current_timestamp(),0)");
             ps.setInt(1, id);
             ps.setDouble(2, precio);
             ps.setInt(3, pago);
@@ -577,8 +558,7 @@ public class Consultas extends Conexion {
     public void editarAdministracion(int id, double precio, int pago, int factura) {
         Connection conexion = con.getConnection();
         try {
-            ps = conexion.prepareStatement("update administracion set precioTotal"
-                    + " = ?, pago = ?, factura = ?, borrado = 0 where idmuestras = ?");
+            ps = conexion.prepareStatement("update administracion set precioTotal" + " = ?, pago = ?, factura = ?, borrado = 0 where idmuestras = ?");
             ps.setDouble(1, precio);
             ps.setInt(2, pago);
             ps.setInt(3, factura);
@@ -594,11 +574,6 @@ public class Consultas extends Conexion {
             }
         }
     }
-
-
-
-
-
 
 
     public boolean agregarVencimiento(Resultados r) { //se agega el vencimiento, si es mb se agregan 6 meses y fq 12 meses
@@ -645,11 +620,9 @@ public class Consultas extends Conexion {
         java.sql.Date hastaSql = new java.sql.Date(hasta.getTime());
         try {
             if (actualizar) {
-                ps = conexion.prepareStatement("select * from vistavencimientos where"
-                        + " fechaVencimiento between ? and ? order by fechaVencimiento asc"); // se recuperan los datos de la base de datos de los vencimeintos de todo el mes
+                ps = conexion.prepareStatement("select * from vistavencimientos where" + " fechaVencimiento between ? and ? order by fechaVencimiento asc"); // se recuperan los datos de la base de datos de los vencimeintos de todo el mes
             } else {
-                ps = conexion.prepareStatement("select * from vistavencimientos where"
-                        + " fechaVencimiento between first_day(?) and last_day(?) order by fechaVencimiento asc"); // se recuperan los datos de la base de datos de los vencimeintos de todo el mes
+                ps = conexion.prepareStatement("select * from vistavencimientos where" + " fechaVencimiento between first_day(?) and last_day(?) order by fechaVencimiento asc"); // se recuperan los datos de la base de datos de los vencimeintos de todo el mes
             }
             ps.setDate(1, desdeSql);
             ps.setDate(2, hastaSql);
@@ -786,8 +759,7 @@ public class Consultas extends Conexion {
         }
         try {
             modeloTabla.setRowCount(0);
-            ps = conexion.prepareStatement("select idmuestras, procedencia, solicitante,"
-                    + " fechaMuestreo, fechaAnalisis, tipo from vistaborrados");
+            ps = conexion.prepareStatement("select idmuestras, procedencia, solicitante," + " fechaMuestreo, fechaAnalisis, tipo from vistaborrados");
             rs = ps.executeQuery();
             while (rs.next()) {
                 for (int i = 0; i < 6; i++) {
@@ -835,11 +807,6 @@ public class Consultas extends Conexion {
     }
 
 
-
-
-
-
-
     public boolean checkearVencimiento(Resultados r) {
         Connection conexion = con.getConnection();
         try {
@@ -866,13 +833,11 @@ public class Consultas extends Conexion {
         Connection conexion = con.getConnection();
         try {
             if (r.getTipo().startsWith("Microbiológico")) {
-                ps = conexion.prepareStatement("update vencimientos set fechaVencimiento = "
-                        + "(date_add(?,interval 6 month)) where `idmuestras` = ?");
+                ps = conexion.prepareStatement("update vencimientos set fechaVencimiento = " + "(date_add(?,interval 6 month)) where `idmuestras` = ?");
                 ps.setDate(1, r.getFechaAnalisis());
                 ps.setInt(2, r.getIdmuestras());
             } else if (r.getTipo().startsWith("Físico químico")) {
-                ps = conexion.prepareStatement("update vencimientos set fechaVencimiento = "
-                        + "(date_add(?,interval 12 month)) where `idmuestras` = ?");
+                ps = conexion.prepareStatement("update vencimientos set fechaVencimiento = " + "(date_add(?,interval 12 month)) where `idmuestras` = ?");
                 ps.setDate(1, r.getFechaAnalisis());
                 ps.setInt(2, r.getIdmuestras());
             }
@@ -938,8 +903,7 @@ public class Consultas extends Conexion {
         TextArea textArea;
         textArea = new TextArea(null, 10, 10, SCROLLBARS_NONE);
         textArea.setFont(new Font("SegoeUI", Font.PLAIN, 12));
-        int ret = JOptionPane.showConfirmDialog(null, textArea, "Introduzca los "
-                + "caracteres organoléptios", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int ret = JOptionPane.showConfirmDialog(null, textArea, "Introduzca los " + "caracteres organoléptios", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (ret == 0) {
             String retorno = textArea.getText();
             return retorno;
@@ -952,8 +916,7 @@ public class Consultas extends Conexion {
         textArea = new TextArea(null, 10, 10, SCROLLBARS_NONE);
         textArea.setFont(new Font("SegoeUI", Font.PLAIN, 12));
         textArea.append(carecteres);
-        int ret = JOptionPane.showConfirmDialog(null, textArea, "Introduzca los "
-                + "carecteres organoléptios", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
+        int ret = JOptionPane.showConfirmDialog(null, textArea, "Introduzca los " + "carecteres organoléptios", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
         if (ret == JOptionPane.YES_OPTION) {
             String retorno = textArea.getText();
             return retorno;
@@ -1048,8 +1011,7 @@ public class Consultas extends Conexion {
     public boolean entregarMuestra(Usuario usuario, int idmuestra) {
         Connection conexion = con.getConnection();
         try {
-            ps = conexion.prepareStatement("insert into entregas (idmuestras, "
-                    + "idusuario, persona, hora) values (?,?,?,current_timestamp())");
+            ps = conexion.prepareStatement("insert into entregas (idmuestras, " + "idusuario, persona, hora) values (?,?,?,current_timestamp())");
             ps.setInt(1, idmuestra);
             ps.setInt(2, usuario.getId());
             ps.setString(3, usuario.getUsuario());
@@ -1114,13 +1076,6 @@ public class Consultas extends Conexion {
     }
 
 
-
-
-
-
-
-
-
     public String recuperarMarca(int id) {
         Connection conexion = con.getConnection();
         try {
@@ -1174,10 +1129,7 @@ public class Consultas extends Conexion {
         modeloAnalisis.addColumn("Tipo");
         modeloAnalisis.addColumn("Impreso");
         try {
-            ps = conexion.prepareStatement("select m.idmuestras, p.procedencia, "
-                    + "m.solicitante,m.fechaMuestreo, m.tipo, a.analizado from muestras m join "
-                    + "administracion a on m.idmuestras = a.idmuestras join "
-                    + "vistaprocedencia p on m.idcliente = p.idcliente order by idmuestras desc");
+            ps = conexion.prepareStatement("select m.idmuestras, p.procedencia, " + "m.solicitante,m.fechaMuestreo, m.tipo, a.analizado from muestras m join " + "administracion a on m.idmuestras = a.idmuestras join " + "vistaprocedencia p on m.idcliente = p.idcliente order by idmuestras desc");
             rs = ps.executeQuery();
             while (rs.next()) {
                 for (int i = 0; i < fila.length; i++) {
@@ -1210,459 +1162,6 @@ public class Consultas extends Conexion {
             ps.executeUpdate();
         } catch (Exception e) {
             System.err.println("Error, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-
-
-    public boolean guardarResultadoMBAgua(Resultados r) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("insert into MBAgua (idmuestras, "
-                    + "germenes, coliformesTotales, coliformesFecales, escherichia, pseudomona,"
-                    + " ph, cloroLibre, caracteresOrganolepticos, mohos, shigella) values (?,?,?,?,?,?,?,?,?,?,?)");
-            ps.setInt(1, r.getIdmuestras());
-            ps.setString(2, r.getGermenes());
-            ps.setString(3, r.getColiformesTotales());
-            ps.setString(4, r.getColiformesFecales());
-            ps.setString(5, r.getEscherichia());
-            ps.setString(6, r.getPseudomona());
-            ps.setDouble(7, r.getPh());
-            ps.setDouble(8, r.getClorototal());
-            ps.setString(9, r.getCaracteresOrgasnolepticos());
-            ps.setString(10, r.getMohos());
-            ps.setString(11, r.getShigella());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean guardarResultadoManual(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            // Construcción dinámica de la parte VALUES (?,?,?...)
-            StringBuilder values = new StringBuilder("?"); // El primero es idmuestras
-            for (int i = 0; i < (34 * 4) + 2; i++) { // 34 campos * 4 categorías + titulo + mostrar
-                values.append(",?");
-            }
-
-            ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`manual` ("
-                    + "`idmuestras`,"
-                    + "`determinacion1`,`determinacion2`,`determinacion3`,`determinacion4`,`determinacion5`,`determinacion6`,`determinacion7`,`determinacion8`,`determinacion9`,`determinacion10`,"
-                    + "`determinacion11`,`determinacion12`,`determinacion13`,`determinacion14`,`determinacion15`,`determinacion16`,`determinacion17`,`determinacion18`,`determinacion19`,`determinacion20`,"
-                    + "`determinacion21`,`determinacion22`,`determinacion23`,`determinacion24`,`determinacion25`,`determinacion26`,`determinacion27`,`determinacion28`,`determinacion29`,`determinacion30`,"
-                    + "`determinacion31`,`determinacion32`,`determinacion33`,`determinacion34`,"
-                    + "`recuentoObtenido1`,`recuentoObtenido2`,`recuentoObtenido3`,`recuentoObtenido4`,`recuentoObtenido5`,`recuentoObtenido6`,`recuentoObtenido7`,`recuentoObtenido8`,`recuentoObtenido9`,`recuentoObtenido10`,"
-                    + "`recuentoObtenido11`,`recuentoObtenido12`,`recuentoObtenido13`,`recuentoObtenido14`,`recuentoObtenido15`,`recuentoObtenido16`,`recuentoObtenido17`,`recuentoObtenido18`,`recuentoObtenido19`,`recuentoObtenido20`,"
-                    + "`recuentoObtenido21`,`recuentoObtenido22`,`recuentoObtenido23`,`recuentoObtenido24`,`recuentoObtenido25`,`recuentoObtenido26`,`recuentoObtenido27`,`recuentoObtenido28`,`recuentoObtenido29`,`recuentoObtenido30`,"
-                    + "`recuentoObtenido31`,`recuentoObtenido32`,`recuentoObtenido33`,`recuentoObtenido34`,"
-                    + "`recuentoNormal1`,`recuentoNormal2`,`recuentoNormal3`,`recuentoNormal4`,`recuentoNormal5`,`recuentoNormal6`,`recuentoNormal7`,`recuentoNormal8`,`recuentoNormal9`,`recuentoNormal10`,"
-                    + "`recuentoNormal11`,`recuentoNormal12`,`recuentoNormal13`,`recuentoNormal14`,`recuentoNormal15`,`recuentoNormal16`,`recuentoNormal17`,`recuentoNormal18`,`recuentoNormal19`,`recuentoNormal20`,"
-                    + "`recuentoNormal21`,`recuentoNormal22`,`recuentoNormal23`,`recuentoNormal24`,`recuentoNormal25`,`recuentoNormal26`,`recuentoNormal27`,`recuentoNormal28`,`recuentoNormal29`,`recuentoNormal30`,"
-                    + "`recuentoNormal31`,`recuentoNormal32`,`recuentoNormal33`,`recuentoNormal34`,"
-                    + "`metodo1`,`metodo2`,`metodo3`,`metodo4`,`metodo5`,`metodo6`,`metodo7`,`metodo8`,`metodo9`,`metodo10`,"
-                    + "`metodo11`,`metodo12`,`metodo13`,`metodo14`,`metodo15`,`metodo16`,`metodo17`,`metodo18`,`metodo19`,`metodo20`,"
-                    + "`metodo21`,`metodo22`,`metodo23`,`metodo24`,`metodo25`,`metodo26`,`metodo27`,`metodo28`,`metodo29`,`metodo30`,"
-                    + "`metodo31`,`metodo32`,`metodo33`,`metodo34`, `titulo`, `mostrar`"
-                    + ") VALUES (" + values.toString() + ")");
-
-            int index = 1;
-
-// 1. idmuestras
-            ps.setInt(index++, (int) m.get("idmuestras"));
-
-// 2. Determinaciones 1-34
-            for (int i = 1; i <= 34; i++) {
-                ps.setString(index++, String.valueOf(m.get("determinacion" + i)));
-            }
-
-// 3. Recuentos Obtenidos 1-34
-            for (int i = 1; i <= 34; i++) {
-                ps.setString(index++, String.valueOf(m.get("recuentoObtenido" + i)));
-            }
-
-// 4. Recuentos Normales 1-34
-            for (int i = 1; i <= 34; i++) {
-                ps.setString(index++, String.valueOf(m.get("recuentoNormal" + i)));
-            }
-
-// 5. Metodos 1-34
-            for (int i = 1; i <= 34; i++) {
-                ps.setString(index++, String.valueOf(m.get("metodo" + i)));
-            }
-
-// 6. Campos finales
-            ps.setString(index++, String.valueOf(m.get("titulo")));
-            ps.setString(index++, String.valueOf(m.get("mostrar")));
-
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean checkearResultadoManual(int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select * from manual where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return true;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return false;
-    }
-
-    public Map<String, String> recuperarResultadoManual(int id) {
-        Connection conexion = con.getConnection();
-        Map<String, String> map = new HashMap();
-        try {
-            ps = conexion.prepareStatement("select * from manual where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 3; i < rs.getMetaData().getColumnCount(); i++) {
-                    map.put(rs.getMetaData().getColumnName(i), rs.getString(i));
-                }
-            }
-            return map;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean editarResultadoManual(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("UPDATE `laboratorio`.`manual` SET "
-                    + "`determinacion1` = ?,`determinacion2` = ?,`determinacion3` = ?,`determinacion4` = ?,`determinacion5` = ?,`determinacion6` = ?,`determinacion7` = ?,`determinacion8` = ?,`determinacion9` = ?,`determinacion10` = ?,"
-                    + "`determinacion11` = ?,`determinacion12` = ?,`determinacion13` = ?,`determinacion14` = ?,`determinacion15` = ?,`determinacion16` = ?,`determinacion17` = ?,`determinacion18` = ?,`determinacion19` = ?,`determinacion20` = ?,"
-                    + "`determinacion21` = ?,`determinacion22` = ?,`determinacion23` = ?,`determinacion24` = ?,`determinacion25` = ?,`determinacion26` = ?,`determinacion27` = ?,`determinacion28` = ?,`determinacion29` = ?,`determinacion30` = ?,"
-                    + "`determinacion31` = ?,`determinacion32` = ?,`determinacion33` = ?,`determinacion34` = ?,"
-                    + "`recuentoObtenido1` = ?,`recuentoObtenido2` = ?,`recuentoObtenido3` = ?,`recuentoObtenido4` = ?,`recuentoObtenido5` = ?,`recuentoObtenido6` = ?,`recuentoObtenido7` = ?,`recuentoObtenido8` = ?,`recuentoObtenido9` = ?,`recuentoObtenido10` = ?,"
-                    + "`recuentoObtenido11` = ?,`recuentoObtenido12` = ?,`recuentoObtenido13` = ?,`recuentoObtenido14` = ?,`recuentoObtenido15` = ?,`recuentoObtenido16` = ?,`recuentoObtenido17` = ?,`recuentoObtenido18` = ?,`recuentoObtenido19` = ?,`recuentoObtenido20` = ?,"
-                    + "`recuentoObtenido21` = ?,`recuentoObtenido22` = ?,`recuentoObtenido23` = ?,`recuentoObtenido24` = ?,`recuentoObtenido25` = ?,`recuentoObtenido26` = ?,`recuentoObtenido27` = ?,`recuentoObtenido28` = ?,`recuentoObtenido29` = ?,`recuentoObtenido30` = ?,"
-                    + "`recuentoObtenido31` = ?,`recuentoObtenido32` = ?,`recuentoObtenido33` = ?,`recuentoObtenido34` = ?,"
-                    + "`recuentoNormal1` = ?,`recuentoNormal2` = ?,`recuentoNormal3` = ?,`recuentoNormal4` = ?,`recuentoNormal5` = ?,`recuentoNormal6` = ?,`recuentoNormal7` = ?,`recuentoNormal8` = ?,`recuentoNormal9` = ?,`recuentoNormal10` = ?,"
-                    + "`recuentoNormal11` = ?,`recuentoNormal12` = ?,`recuentoNormal13` = ?,`recuentoNormal14` = ?,`recuentoNormal15` = ?,`recuentoNormal16` = ?,`recuentoNormal17` = ?,`recuentoNormal18` = ?,`recuentoNormal19` = ?,`recuentoNormal20` = ?,"
-                    + "`recuentoNormal21` = ?,`recuentoNormal22` = ?,`recuentoNormal23` = ?,`recuentoNormal24` = ?,`recuentoNormal25` = ?,`recuentoNormal26` = ?,`recuentoNormal27` = ?,`recuentoNormal28` = ?,`recuentoNormal29` = ?,`recuentoNormal30` = ?,"
-                    + "`recuentoNormal31` = ?,`recuentoNormal32` = ?,`recuentoNormal33` = ?,`recuentoNormal34` = ?,"
-                    + "`metodo1` = ?,`metodo2` = ?,`metodo3` = ?,`metodo4` = ?,`metodo5` = ?,`metodo6` = ?,`metodo7` = ?,`metodo8` = ?,`metodo9` = ?,`metodo10` = ?,"
-                    + "`metodo11` = ?,`metodo12` = ?,`metodo13` = ?,`metodo14` = ?,`metodo15` = ?,`metodo16` = ?,`metodo17` = ?,`metodo18` = ?,`metodo19` = ?,`metodo20` = ?,"
-                    + "`metodo21` = ?,`metodo22` = ?,`metodo23` = ?,`metodo24` = ?,`metodo25` = ?,`metodo26` = ?,`metodo27` = ?,`metodo28` = ?,`metodo29` = ?,`metodo30` = ?,"
-                    + "`metodo31` = ?,`metodo32` = ?,`metodo33` = ?,`metodo34` = ?, titulo = ?, mostrar = ? "
-                    + "WHERE `idmuestras` = ?;");
-
-            int index = 1;
-// Determinaciones 1-34
-            for (int i = 1; i <= 34; i++) {
-                ps.setString(index++, String.valueOf(m.get("determinacion" + i)));
-            }
-// Recuentos Obtenidos 1-34
-            for (int i = 1; i <= 34; i++) {
-                ps.setString(index++, String.valueOf(m.get("recuentoObtenido" + i)));
-            }
-// Recuentos Normales 1-34
-            for (int i = 1; i <= 34; i++) {
-                ps.setString(index++, String.valueOf(m.get("recuentoNormal" + i)));
-            }
-// Metodos 1-34
-            for (int i = 1; i <= 34; i++) {
-                ps.setString(index++, String.valueOf(m.get("metodo" + i)));
-            }
-
-// Campos finales
-            ps.setString(index++, String.valueOf(m.get("titulo")));
-            ps.setString(index++, String.valueOf(m.get("mostrar")));
-            ps.setInt(index, (int) m.get("idmuestras"));
-
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean guardarResultadoMBAguaDeRecreacion(Resultados r, int vencimiento) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("insert into MBAgua (idmuestras, "
-                    + "germenes, coliformesTotales, coliformesFecales, escherichia, "
-                    + "pseudomona, ph, cloroTotal, caracteresOrganolepticos, staphilococos, "
-                    + "streptococos, cloroLibre, vencimiento, shigella) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            ps.setInt(1, r.getIdmuestras());
-            ps.setString(2, r.getGermenes());
-            ps.setString(3, r.getColiformesTotales());
-            ps.setString(4, r.getColiformesFecales());
-            ps.setString(5, r.getEscherichia());
-            ps.setString(6, r.getPseudomona());
-            ps.setDouble(7, r.getPh());
-            ps.setDouble(8, r.getClorototal());
-            ps.setString(9, r.getCaracteresOrgasnolepticos());
-            ps.setString(10, r.getStaphilococos());
-            ps.setString(11, r.getStreptococos());
-            ps.setDouble(12, r.getCloroLibre());
-            ps.setInt(13, vencimiento);
-            ps.setString(14, r.getShigella());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public double[] recuperarPhYCloro(int id) {
-        Connection conexion = con.getConnection();
-        double[] aux = {-1, -1, -1};
-        try {
-            ps = conexion.prepareStatement("select cloroLibre, cloroTotal,ph from mbagua where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < aux.length; i++) {
-                    if (rs.getObject(i + 1) != null) {
-                        aux[i] = rs.getDouble(i + 1);
-                    }
-                }
-            }
-            return aux;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean checkearResultadoMBAgua(int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select * from mbagua where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return true;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al checkearResultadosMBAgua, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return false;
-    }
-
-    public Map<String, String> recuperarResultadosMBAgua(int id) {
-        Connection conexion = con.getConnection();
-        Map valores = new HashMap();
-        boolean nulo = true;
-        try {
-            ps = conexion.prepareStatement("select germenes, coliformesTotales, coliformesFecales, escherichia,"
-                    + " pseudomona, caracteresOrganolepticos, fechaAnalisis, mohos, mohosLimite, shigella from "
-                    + "mbagua where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                    if (rs.getObject(i + 1) != null) {
-                        nulo = false;
-                        valores.put(rs.getMetaData().getColumnName(i + 1), String.valueOf(rs.getObject(i + 1)));
-                    }
-                }
-                return nulo ? null : valores;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public Map<String, String> recuperarResultadosMBAguaCOFES(int id) {
-        Connection conexion = con.getConnection();
-        Map<String, String> valores = new HashMap();
-        try {
-            ps = conexion.prepareStatement("select germenes, coliformesTotales, coliformesFecales, escherichia,"
-                    + " pseudomona, caracteresOrganolepticos, fechaAnalisis, shigella from "
-                    + "mbagua where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < ps.getMetaData().getColumnCount(); i++) {
-                    if (rs.getObject(i + 1) == null) {
-                        return null;
-                    } else {
-                        valores.put(rs.getMetaData().getColumnName(i + 1),
-                                String.valueOf(rs.getObject(i + 1)));
-                    }
-                }
-                return valores;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public Map<String, String> recuperarResultadosMBAguaDeRecreacion(int id) {
-        Connection conexion = con.getConnection();
-        Map<String, String> valores = new HashMap();
-        try {
-            ps = conexion.prepareStatement("select germenes, coliformesTotales, "
-                    + "coliformesFecales, escherichia, pseudomona, staphilococos, "
-                    + "streptococos, caracteresOrganolepticos, fechaanalisis, shigella from "
-                    + "mbagua where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < ps.getMetaData().getColumnCount(); i++) {
-                    valores.put(ps.getMetaData().getColumnName(i + 1),
-                            String.valueOf(rs.getObject(i + 1)));
-                }
-                return valores;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public Map<String, String> recuperarResultadosFQAgua(int id) {
-        Connection conexion = con.getConnection();
-        Map<String, String> valores = new HashMap<>();
-        try {
-            ps = conexion.prepareStatement("select `ph`,`cloroTotal`,"
-                    + "`olor`,`color`,`turbidez`,`alcalinidad`,`durezatotal`,`conductividad`,"
-                    + "`solidosDisueltos`,`hierro`,`nitratos`,`nitritos`,`sulfatos` from"
-                    + " `laboratorio`.`fqagua` where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                    valores.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
-                }
-                System.out.println(valores.isEmpty() + " recuperar");
-                return valores;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public boolean guardarResultadoFQAgua(Resultados r) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("insert into fqagua (idmuestras, ph, cloroTotal, "
-                    + "olor, color, turbidez, alcalinidad, durezatotal, conductividad, "
-                    + "solidosDisueltos, hierro, nitratos, nitritos, sulfatos, conclusion)"
-                    + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            ps.setInt(1, r.getIdmuestras());
-            ps.setDouble(2, r.getPh());
-            ps.setDouble(3, r.getClorototal());
-            ps.setString(4, r.getOlor());
-            ps.setString(5, r.getColor());
-            ps.setString(6, r.getTurbidez());
-            ps.setDouble(7, r.getAlcalinidad());
-            ps.setDouble(8, r.getDurezatotal());
-            ps.setDouble(9, r.getConductividad());
-            ps.setDouble(10, r.getSolidosdisueltos());
-            ps.setString(11, r.getHierro());
-            ps.setString(12, r.getNitratos());
-            ps.setString(13, r.getNitritos());
-            ps.setString(14, r.getSulfatos());
-            ps.setString(15, r.getConclusion());
-
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
         } finally {
             try {
                 conexion.close();
@@ -1774,58 +1273,7 @@ public class Consultas extends Conexion {
         }
     }
 
-    public boolean guardarTablaNutricional(Double[] valores, int id, String unidad, String porcion, String porcionesPorEnvase) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("INSERT INTO laboratorio.tablanutricional "
-                    + "(idmuestras,calorias,kjul,carbohidratos,proteinas,grasasTotales,"
-                    + "grasasSaturadas,grasasTrans,GrasasMonoinsaturadas,GrasasPoliinsaturadas,Colesterol,"
-                    + "fibraAlimentaria,sodio,VDCalorias,VDCarbohidratos,VDProteinas,"
-                    + "VDGrasasTotales,VDGrasasSaturadas,VDFibraAlimentaria,VDSodio, "
-                    + "porcion, unidad, azucares, almidon, vdazucares, vdalmidon, PorcionesPorEnvase, azucaresAnadidos, vdazucaresAnadidos)"
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            ps.setInt(1, id); //idmuestras
-            ps.setInt(2, (int) Math.round(valores[0]));//calorias
-            ps.setDouble(3, valores[1]);//kjul
-            ps.setDouble(4, valores[2]);//carbohidratos
-            ps.setDouble(5, valores[3]);//proteinas
-            ps.setDouble(6, valores[4]);//grasasTotales
-            ps.setDouble(7, valores[5]);//grasasSaturadas
-            ps.setDouble(8, valores[6]);//grasasTrans
-            ps.setDouble(9, valores[7]);//grasasMonoinsaturadas
-            ps.setDouble(10, valores[8]);//grasasPoliinsaturadas
-            ps.setDouble(11, valores[9]);//colesterol
-            ps.setDouble(12, valores[10]);//fibraAlimentaria
-            ps.setDouble(13, valores[11]);//sodio
-            ps.setDouble(14, (int) Math.round(valores[12]));//vdcalorias
-            ps.setDouble(15, (int) Math.round(valores[13]));//vdcarbohidratos
-            ps.setDouble(16, (int) Math.round(valores[14]));//vdproteinas
-            ps.setDouble(17, (int) Math.round(valores[15]));//vdgrasasTotales
-            ps.setDouble(18, (int) Math.round(valores[16]));//vdGrasassaturadas
-            ps.setDouble(19, (int) Math.round(valores[21]));//vdFibraalimentaria
-            ps.setDouble(20, (int) Math.round(valores[22]));//vdSodio
-            ps.setString(21, porcion);//porcion
-            ps.setString(22, String.valueOf(valores[24]) + unidad);//unidad
-            ps.setDouble(23, valores[25]);
-            ps.setDouble(24, valores[26]);
-            ps.setDouble(25, valores[27]);
-            ps.setDouble(26, valores[28]);
-            ps.setString(27, porcionesPorEnvase);
-            ps.setDouble(28, valores[29]);
-            ps.setDouble(29, valores[30]);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al guardar TN, " + e);
-            }
-        }
-    }
+    
 
     public void generarReporteTN(int id, String procedencia) {
         Connection conexion = con.getConnection();
@@ -1907,254 +1355,7 @@ public class Consultas extends Conexion {
         return m;
     }
 
-    public String[] recuperarTablaNutricional(int id) {
-        Connection conexion = con.getConnection();
-        String[] valores = new String[30];
-        try {
-            ps = conexion.prepareStatement("select calorias, carbohidratos, "
-                    + "proteinas, grasasTotales, grasasSaturadas, grasasTrans, "
-                    + "grasasMonoinsaturadas, grasasPoliinsaturadas, colesterol, "
-                    + "fibraAlimentaria, sodio, VDCalorias, VDCarbohidratos, "
-                    + "VDProteinas, VDGrasasTotales, VDGrasasMonoinsaturadas, "
-                    + "VDGrasasPoliinsaturadas, VDColesterol, VDGrasasSaturadas, "
-                    + "VDGrasasTrans, VDFibraAlimentaria, VDSodio, porcion, unidad, "
-                    + "kjul, azucares, almidon, PorcionesPorEnvase, azucaresanadidos, vdazucaresanadidos from tablanutricional "
-                    + "where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < valores.length; i++) {
-                    valores[i] = String.valueOf(rs.getObject(i + 1));
-                    ;
-                }
-                return valores;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarTablaNutricional, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
 
-    public boolean editarTablaNutricional(Double[] valores, int id, String unidad, String porcion, String porcionesPorEnvase) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update tablanutricional set calorias = ?,"
-                    + "kjul = ?,carbohidratos = ?,proteinas = ?,grasasTotales = ?,"
-                    + "grasasSaturadas = ?,grasasTrans = ?, GrasasMonoinsaturadas = ?,"
-                    + " GrasasPoliinsaturadas = ?, Colesterol = ?, fibraAlimentaria = ?,"
-                    + "sodio = ?,VDCalorias = ?,VDCarbohidratos = ?,VDProteinas = ?"
-                    + ",VDGrasasTotales = ?,VDGrasasSaturadas = ?, VDGrasasTrans = ?, "
-                    + "VDGrasasMonoinsaturadas = ?, VDGrasasPoliinsaturadas = ?, VDColesterol = ?"
-                    + ",VDFibraAlimentaria = ?,VDSodio = ?, porcion = ?, unidad = ?, azucares = ?, "
-                    + "almidon = ?, PorcionesPorEnvase = ?, azucaresAnadidos = ?, VDAzucaresAnadidos = ? where idmuestras = ?");
-            ps.setInt(1, (int) Math.round(valores[0]));
-            ps.setDouble(2, valores[1]);
-            ps.setDouble(3, valores[2]);
-            ps.setDouble(4, valores[3]);
-            ps.setDouble(5, valores[4]);
-            ps.setDouble(6, valores[5]);
-            ps.setDouble(7, valores[6]);
-            ps.setDouble(8, valores[7]);
-            ps.setDouble(9, valores[8]);
-            ps.setDouble(10, valores[9]);
-            ps.setDouble(11, valores[10]);
-            ps.setDouble(12, valores[11]);
-            ps.setDouble(13, valores[12]);
-            ps.setDouble(14, valores[13]);
-            ps.setDouble(15, valores[14]);
-            ps.setDouble(16, valores[15]);
-            ps.setDouble(17, valores[16]);
-            ps.setDouble(18, valores[17]);
-            ps.setDouble(19, valores[18]);
-            ps.setDouble(20, valores[19]);
-            ps.setDouble(21, valores[20]);
-            ps.setDouble(22, valores[21]);
-            ps.setDouble(23, valores[22]);
-            ps.setString(24, porcion);
-            ps.setString(25, unidad);
-            ps.setDouble(26, valores[25]);
-            ps.setDouble(27, valores[26]);
-            ps.setString(28, porcionesPorEnvase);
-            ps.setDouble(29, valores[29]);
-            ps.setDouble(30, valores[30]);
-            ps.setInt(31, id);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al editar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al  TN, " + e);
-            }
-        }
-    }
-
-    public String[] recuperarDatosFQCompleto(int id) {
-        Connection conexion = con.getConnection();
-        String aux[] = new String[73];
-        try {
-            ps = conexion.prepareStatement(recuperarFQ);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < aux.length; i++) {
-                    Object auxx = rs.getObject(i + 1);
-                    if (i == 0) {
-                    }
-                    if (auxx == null) {
-                        aux[i] = "-1";
-                    } else {
-                        aux[i] = String.valueOf(rs.getObject(i + 1));
-                    }
-                }
-            }
-            return aux;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarDatosFQCompleto, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar datos FQ, " + e);
-            }
-        }
-    }
-
-    public boolean editarFQAgua(Resultados r) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("UPDATE `laboratorio`.`fqagua` "
-                    + "SET `ph` = ? , `cloroTotal` = ? , `olor` = ? , `color` = ? ,"
-                    + " `turbidez` = ? , `alcalinidad` = ? , `durezatotal` = ? , "
-                    + "`conductividad` = ? , `solidosDisueltos` = ? , `hierro` = ?, "
-                    + "`nitratos` = ? , `nitritos` = ? , `sulfatos` = ?"
-                    + "  WHERE `idmuestras` = ? ; ");
-            ps.setDouble(1, r.getPh());
-            ps.setDouble(2, r.getClorototal());
-            ps.setString(3, r.getOlor());
-            ps.setString(4, r.getColor());
-            ps.setString(5, r.getTurbidez());
-            ps.setDouble(6, r.getAlcalinidad());
-            ps.setDouble(7, r.getDurezatotal());
-            ps.setDouble(8, r.getConductividad());
-            ps.setDouble(9, r.getSolidosdisueltos());
-            ps.setString(10, r.getHierro());
-            ps.setString(11, r.getNitratos());
-            ps.setString(12, r.getNitritos());
-            ps.setString(13, r.getSulfatos());
-            ps.setInt(14, r.getIdmuestras());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al editar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean editarMBAgua(Resultados r) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("UPDATE `laboratorio`.`mbagua` SET `germenes` = ? "
-                    + ", `coliformesTotales` = ? , `coliformesFecales` = ?, `escherichia` = ? , `pseudomona` = ?, "
-                    + "ph = ?, cloroLibre = ?, caracteresOrganolepticos = ?, mohos = ?, fechaAnalisis = ?, shigella = ?"
-                    + " WHERE `idmuestras` = ? ;");
-            ps.setString(1, r.getGermenes());
-            ps.setString(2, r.getColiformesTotales());
-            ps.setString(3, r.getColiformesFecales());
-            ps.setString(4, r.getEscherichia());
-            ps.setString(5, r.getPseudomona());
-            ps.setDouble(6, r.getPh());
-            ps.setDouble(7, r.getClorototal());
-            ps.setString(8, r.getCaracteresOrgasnolepticos());
-            ps.setString(9, r.getMohos());
-            ps.setDate(10, r.getFechaAnalisis());
-            ps.setString(11, r.getShigella());
-            ps.setInt(12, r.getIdmuestras());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al editar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean guardarResultadosEfluentes(String[] resultados, int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`efluentes` "
-                    + "(idmuestras,ph,dqo,dbo,solidos10,solidos120,"
-                    + "conclusion, hidrocarburos) values (?,?,?,?,?,?,?,?)");
-            ps.setInt(1, id);
-            ps.setDouble(2, Double.parseDouble(resultados[1]));
-            ps.setDouble(3, Double.parseDouble(resultados[2]));
-            ps.setDouble(4, Double.parseDouble(resultados[3]));
-            ps.setString(5, resultados[4]);
-            ps.setString(6, resultados[5]);
-            ps.setString(7, resultados[6]);
-            ps.setString(8, resultados[7]);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al guardar efluentes, " + e);
-            }
-        }
-    }
-
-    public boolean editarEfluentes(String[] resultados, int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("UPDATE `laboratorio`.`efluentes` SET `ph` = ? "
-                    + ", `dqo` = ? , `dbo` = ? , `solidos10` = ? "
-                    + ",`solidos120` = ?, conclusion = ?, hidrocarburos = ?  WHERE `idmuestras` = ? ;");
-            ps.setDouble(1, Double.parseDouble(resultados[1]));
-            ps.setDouble(2, Double.parseDouble(resultados[2]));
-            ps.setDouble(3, Double.parseDouble(resultados[3]));
-            ps.setString(4, resultados[4]);
-            ps.setString(5, resultados[5]);
-            ps.setString(6, resultados[6]);
-            ps.setString(7, resultados[7]);
-            ps.setInt(8, id);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al editar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
 
     public void generarReporteEfluentes(int id, String procedencia) {
         Connection conexion = con.getConnection();
@@ -2235,8 +1436,7 @@ public class Consultas extends Conexion {
     public String obtenerLugarMuestreo(int id) {
         Connection conexion = con.getConnection();
         try {
-            ps = conexion.prepareStatement("select lugarMuestreo from muestras "
-                    + "where idmuestras = ?");
+            ps = conexion.prepareStatement("select lugarMuestreo from muestras " + "where idmuestras = ?");
             ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -2474,392 +1674,7 @@ public class Consultas extends Conexion {
         }
     }
 
-    public boolean guardarResultadoBaseHelada(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`mbchocolates`"
-                    + "(`idmuestras`,`germenes`, `coliformesTotales`,"
-                    + "`coliformesFecales`, `escherichia`,`mohos`, conclusion, staphilococos, salmonella) "
-                    + "VALUES (?,?,?,?,?,?,?,?,?)");
-            ps.setInt(1, (int) m.get("idmuestras"));
-            ps.setString(2, String.valueOf(m.get("germenes")));
-            ps.setString(3, String.valueOf(m.get("coliformesTotales")));
-            ps.setString(4, String.valueOf(m.get("coliformesFecales")));
-            ps.setString(5, String.valueOf(m.get("escherichia")));
-            ps.setString(6, String.valueOf(m.get("mohos")));
-            ps.setString(7, String.valueOf(String.valueOf(m.get("conclusion"))));
-            ps.setString(8, String.valueOf(m.get("staphilococos")));
-            ps.setString(9, String.valueOf(m.get("salmonella")));
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
 
-    public boolean editarResultadoBaseHelada(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update mbchocolates set germenes = ?, "
-                    + "coliformesTotales = ?, coliformesFecales = ?, escherichia = ?, "
-                    + "mohos = ?, conclusion = ?,"
-                    + "staphilococos = ?, salmonella = ? where idmuestras = ?");
-            ps.setString(1, String.valueOf(m.get("germenes")));
-            ps.setString(2, String.valueOf(m.get("coliformesTotales")));
-            ps.setString(3, String.valueOf(m.get("coliformesFecales")));
-            ps.setString(4, String.valueOf(m.get("escherichia")));
-            ps.setString(5, String.valueOf(m.get("mohos")));
-            ps.setString(6, String.valueOf(String.valueOf(m.get("conclusion"))));
-            ps.setString(7, String.valueOf(m.get("staphilococos")));
-            ps.setString(8, String.valueOf(m.get("salmonella")));
-            ps.setInt(9, (int) m.get("idmuestras"));
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean guardarResultadoMBChocolates(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`mbchocolates`"
-                    + "(`idmuestras`,`germenes`, `coliformesTotales`,"
-                    + "`coliformesFecales`, `escherichia`,`mohos`, conclusion, salmonella) "
-                    + "VALUES (?,?,?,?,?,?,?,?)");
-            ps.setInt(1, (int) m.get("idmuestras"));
-            ps.setString(2, String.valueOf(m.get("germenes")));
-            ps.setString(3, String.valueOf(m.get("coliformesTotales")));
-            ps.setString(4, String.valueOf(m.get("coliformesFecales")));
-            ps.setString(5, String.valueOf(m.get("escherichia")));
-            ps.setString(6, String.valueOf(m.get("mohos")));
-            ps.setString(7, String.valueOf(m.get("conclusion")));
-            ps.setString(8, String.valueOf(m.get("salmonella")));
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean editarResultadoMBChocolates(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update mbchocolates set germenes = ?, "
-                    + "coliformesTotales = ?, coliformesFecales = ?, escherichia = ?, "
-                    + "mohos = ?, conclusion = ?, salmonella = ? where idmuestras = ?");
-            ps.setString(1, String.valueOf(m.get("germenes")));
-            ps.setString(2, String.valueOf(m.get("coliformesTotales")));
-            ps.setString(3, String.valueOf(m.get("coliformesFecales")));
-            ps.setString(4, String.valueOf(m.get("escherichia")));
-            ps.setString(5, String.valueOf(m.get("mohos")));
-            ps.setString(6, String.valueOf(m.get("conclusion")));
-            ps.setString(7, String.valueOf(m.get("salmonella")));
-            ps.setInt(8, (int) m.get("idmuestras"));
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al editar datos, " + e);
-            e.printStackTrace();
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-
-
-    public boolean editarMBAlimentos(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update mbalimentos set coliformesTotales = ?, "
-                    + "coliformesFecales = ?, staphilococos = ?, salmonella = ?, mohosLevadura = ?, "
-                    + "escherichia = ?, germenes = ?, coliformesTotalesMetodo = ?, "
-                    + "coliformesFecalesMetodo = ?, staphilococosMetodo = ?, salmonellaMetodo = ?, mohosLevaduraMetodo = ?, "
-                    + "escherichiaMetodo = ?, germenesMetodo = ?, escherichiah7 = ?,"
-                    + "escherichia157 = ?, enterobacterias = ?, listeria = ?, bacillus = ?,"
-                    + "perfringens = ?, sulfito = ?, campilobacter = ?, escherichiah7Metodo = ?,"
-                    + "escherichia157Metodo = ?, enterobacteriasMetodo = ?, listeriaMetodo = ?, bacillusMetodo = ?,"
-                    + "perfringensMetodo = ?, sulfitoMetodo = ?, campilobacterMetodo = ?, "
-                    + "caracteristicas = ?, caracteristicasMetodo = ?, coliformesTotalesA30 = ?,coliformesTotalesA30Metodo = ?,"
-                    + " coliformesTotalesProbables = ?,coliformesTotalesProbablesMetodo = ?, "
-                    + "lactobacillus = ?, lactobacillusMetodo = ?, bacteriasLacticas = ?, bacteriasLacticasMetodo = ?,"
-                    + " coliformesTotales45 = ?, coliformesTotales45Metodo = ?, vibrio = ?, vibrioMetodo = ?, vibrioCholerae = ?, vibrioCholeraeMetodo = ?,"
-                    + "shigella = ?, shigellaMetodo = ? where idmuestras = ?");
-            ps.setString(1, String.valueOf(m.get("coliformesTotales")));
-            ps.setString(2, String.valueOf(m.get("coliformesFecales")));
-            ps.setString(3, String.valueOf(m.get("staphilococos")));
-            ps.setString(4, String.valueOf(m.get("salmonella")));
-            ps.setString(5, String.valueOf(m.get("mohosLevaduras")));
-            ps.setString(6, String.valueOf(m.get("escherichia")));
-            ps.setString(7, String.valueOf(m.get("germenes")));
-            ps.setString(8, String.valueOf(m.get("metodoColiformesTotales")));
-            ps.setString(9, String.valueOf(m.get("metodoColiformesFecales")));
-            ps.setString(10, String.valueOf(m.get("metodoStaphilococos")));
-            ps.setString(11, String.valueOf(m.get("metodoSalmonella")));
-            ps.setString(12, String.valueOf(m.get("metodoMohos")));
-            ps.setString(13, String.valueOf(m.get("metodoEscherichia")));
-            ps.setString(14, String.valueOf(m.get("metodoGermenes")));
-            ps.setString(15, String.valueOf(m.get("escherichiaH7")));
-            ps.setString(16, String.valueOf(m.get("escherichia157")));
-            ps.setString(17, String.valueOf(m.get("enterobacterias")));
-            ps.setString(18, String.valueOf(m.get("listeria")));
-            ps.setString(19, String.valueOf(m.get("bacillus")));
-            ps.setString(20, String.valueOf(m.get("perfringens")));
-            ps.setString(21, String.valueOf(m.get("sulfito")));
-            ps.setString(22, String.valueOf(m.get("campilobacter")));
-            ps.setString(23, String.valueOf(m.get("metodoEscherichiaH7")));
-            ps.setString(24, String.valueOf(m.get("metodoEscherichia157")));
-            ps.setString(25, String.valueOf(m.get("metodoEnterobacterias")));
-            ps.setString(26, String.valueOf(m.get("metodoListeria")));
-            ps.setString(27, String.valueOf(m.get("metodoBacillus")));
-            ps.setString(28, String.valueOf(m.get("metodoPerfringens")));
-            ps.setString(29, String.valueOf(m.get("metodoSulfito")));
-            ps.setString(30, String.valueOf(m.get("metodoCampilobacter")));
-            ps.setString(31, String.valueOf(m.get("caracteristicas")));
-            ps.setString(32, String.valueOf(m.get("metodoCaracteristicas")));
-            ps.setString(33, String.valueOf(m.get("coliformesTotalesA30")));
-            ps.setString(34, String.valueOf(m.get("metodoColiformesTotalesA30")));
-            ps.setString(35, String.valueOf(m.get("coliformesTotalesProbables")));
-            ps.setString(36, String.valueOf(m.get("metodoColiformesTotalesProbables")));
-            ps.setString(37, String.valueOf(m.get("lactobacillus")));
-            ps.setString(38, String.valueOf(m.get("metodoLactobacillus")));
-            ps.setString(39, String.valueOf(m.get("bacteriasLacticas")));
-            ps.setString(40, String.valueOf(m.get("metodoBacteriasLacticas")));
-            ps.setString(41, String.valueOf(m.get("coliformesTotales45")));
-            ps.setString(42, String.valueOf(m.get("metodoColiformesTotales45")));
-            ps.setString(43, String.valueOf(m.get("vibrio")));
-            ps.setString(44, String.valueOf(m.get("metodoVibrio")));
-            ps.setString(45, String.valueOf(m.get("vibrioCholerae")));
-            ps.setString(46, String.valueOf(m.get("metodoVibrioCholerae")));
-            ps.setString(47, String.valueOf(m.get("shigella")));
-            ps.setString(48, String.valueOf(m.get("metodoShigella")));
-            ps.setInt(49, (int) m.get("idmuestras"));
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al editar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean guardarResultadoMBAlimentos(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`mbalimentos` "
-                    + "(`idmuestras`, `coliformesTotales`, coliformesFecales, `staphilococos`, "
-                    + "`salmonella`, `mohosLevadura`,`escherichia`, germenes,`coliformesTotalesMetodo`, "
-                    + "coliformesFecalesMetodo, `staphilococosMetodo`, `salmonellaMetodo`, `mohosLevaduraMetodo`,"
-                    + "`escherichiaMetodo`, germenesMetodo, `escherichiah7`, `escherichia157`, "
-                    + "`enterobacterias`, `listeria`, `bacillus`, `perfringens`, "
-                    + "`sulfito`, `campilobacter`, `escherichiah7Metodo`, `escherichia157Metodo`, "
-                    + "`enterobacteriasMetodo`, `listeriaMetodo`, `bacillusMetodo`, "
-                    + "`perfringensMetodo`, `sulfitoMetodo`, `campilobacterMetodo`, caracteristicas, caracteristicasMetodo, "
-                    + "coliformesTotalesA30, coliformesTotalesA30Metodo, coliformesTotalesProbables, coliformesTotalesProbablesMetodo,"
-                    + "lactobacillus, lactobacillusMetodo, bacteriasLacticas, bacteriasLacticasMetodo, coliformesTotales45, coliformesTotales45Metodo, vibrio, vibrioMetodo, vibrioCholerae, vibrioCholeraeMetodo, shigella, shigellaMetodo) "
-                    + "VALUES (?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            ps.setInt(1, (int) m.get("idmuestras"));
-            ps.setString(2, String.valueOf(m.get("coliformesTotales")));
-            ps.setString(3, String.valueOf(m.get("coliformesFecales")));
-            ps.setString(4, String.valueOf(m.get("staphilococos")));
-            ps.setString(5, String.valueOf(m.get("salmonella")));
-            ps.setString(6, m.get("mohosLevaduras").toString());
-            ps.setString(7, String.valueOf(m.get("escherichia")));
-            ps.setString(8, String.valueOf(m.get("germenes")));
-            ps.setString(9, String.valueOf(m.get("metodoColiformesTotales")));
-            ps.setString(10, String.valueOf(m.get("metodoColiformesFecales")));
-            ps.setString(11, String.valueOf(m.get("metodoStaphilococos")));
-            ps.setString(12, String.valueOf(m.get("metodoSalmonella")));
-            ps.setString(13, String.valueOf(m.get("metodoMohos")));
-            ps.setString(14, String.valueOf(m.get("metodoEscherichia")));
-            ps.setString(15, String.valueOf(m.get("metodoGermenes")));
-            ps.setString(16, String.valueOf(m.get("escherichiaH7")));
-            ps.setString(17, String.valueOf(m.get("escherichia157")));
-            ps.setString(18, String.valueOf(m.get("enterobacterias")));
-            ps.setString(19, String.valueOf(m.get("listeria")));
-            ps.setString(20, String.valueOf(m.get("bacillus")));
-            ps.setString(21, String.valueOf(m.get("perfringens")));
-            ps.setString(22, String.valueOf(m.get("sulfito")));
-            ps.setString(23, String.valueOf(m.get("campilobacter")));
-            ps.setString(24, String.valueOf(m.get("metodoEscherichiaH7")));
-            ps.setString(25, String.valueOf(m.get("metodoEscherichia157")));
-            ps.setString(26, String.valueOf(m.get("metodoEnterobacterias")));
-            ps.setString(27, String.valueOf(m.get("metodoListeria")));
-            ps.setString(28, String.valueOf(m.get("metodoBacillus")));
-            ps.setString(29, String.valueOf(m.get("metodoPerfringens")));
-            ps.setString(30, String.valueOf(m.get("metodoSulfito")));
-            ps.setString(31, String.valueOf(m.get("metodoCampilobacter")));
-            ps.setString(32, String.valueOf(m.get("caracteristicas")));
-            ps.setString(33, String.valueOf(m.get("metodoCaracteristicas")));
-            ps.setString(34, String.valueOf(m.get("coliformesTotalesA30")));
-            ps.setString(35, String.valueOf(m.get("metodoColiformesTotalesA30")));
-            ps.setString(36, String.valueOf(m.get("coliformesTotalesProbables")));
-            ps.setString(37, String.valueOf(m.get("metodoColiformesTotalesProbables")));
-            ps.setString(38, String.valueOf(m.get("lactobacillus")));
-            ps.setString(39, String.valueOf(m.get("metodoLactobacillus")));
-            ps.setString(40, String.valueOf(m.get("bacteriasLacticas")));
-            ps.setString(41, String.valueOf(m.get("metodoBacteriasLacticas")));
-            ps.setString(42, String.valueOf(m.get("coliformesTotales45")));
-            ps.setString(43, String.valueOf(m.get("metodoColiformesTotales45")));
-            ps.setString(44, String.valueOf(m.get("vibrio")));
-            ps.setString(45, String.valueOf(m.get("metodoVibrio")));
-            ps.setString(46, String.valueOf(m.get("vibrioCholerae")));
-            ps.setString(47, String.valueOf(m.get("metodoVibrioCholerae")));
-            ps.setString(48, String.valueOf(m.get("shigella")));
-            ps.setString(49, String.valueOf(m.get("metodoShigella")));
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean verificarVacioMuestras() {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select * from muestras");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return false;
-            }
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al verificar datos, " + e);
-            return true;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public Map recuperarResultadosMBAlimentos(int id) {
-        Connection conexion = con.getConnection();
-        Map map = new HashMap();
-        try {
-            ps = conexion.prepareStatement("select coliformesTotales, coliformesFecales, escherichia, "
-                    + "staphilococos, salmonella, mohosLevaduras, fechaAnalisis, germenes, "
-                    + "coliformesTotalesMetodo, coliformesFecalesMetodo, escherichiaMetodo, "
-                    + "staphilococosMetodo, salmonellaMetodo, mohosLevadurasMetodo, germenesMetodo, "
-                    + "`escherichiah7`, `escherichia157`, "
-                    + "`enterobacterias`, `listeria`, `bacillus`, `perfringens`, "
-                    + "`sulfito`, `campilobacter`, `escherichiah7Metodo`, `escherichia157Metodo`, "
-                    + "`enterobacteriasMetodo`, `listeriaMetodo`, `bacillusMetodo`, "
-                    + "`perfringensMetodo`, `sulfitoMetodo`, `campilobacterMetodo`, caracteristicas, caracteristicasMetodo,"
-                    + "coliformesTotalesA30, coliformesTotalesProbables,coliformesTotalesA30Metodo, coliformesTotalesProbablesMetodo,"
-                    + " lactobacillus, lactobacillusMetodo, bacteriasLacticas, bacteriasLacticasMetodo, coliformesTotales45, coliformesTotales45Metodo,"
-                    + "vibrio, vibrioMetodo, vibrioCholerae, vibrioCholeraeMetodo, shigella, shigellaMetodo"
-                    + " from vistambalimentos where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                    if (rs.getObject(i + 1) == null) {
-                        map.put(rs.getMetaData().getColumnName(i + 1), "");
-                    } else {
-                        map.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1).toString());
-                    }
-                }
-                return map;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarResultadosMBAlimentos, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public boolean guardarPhYCloro(Map m) {
-        Connection conexion = con.getConnection();
-        String[] aux = new String[31];
-        try {
-            ps = conexion.prepareStatement("insert into mbagua (ph, cloroLibre, cloroTotal,idmuestras) values (?,?,?,?)");
-            ps.setString(1, String.valueOf(m.get("ph")));
-            ps.setString(2, String.valueOf(m.get("libre")));
-            ps.setString(3, String.valueOf(m.get("total")));
-            ps.setInt(4, Integer.parseInt(String.valueOf(m.get("id"))));
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean editarPhYCloro(Map m) {
-        Connection conexion = con.getConnection();
-        String[] aux = new String[31];
-        try {
-            ps = conexion.prepareStatement("update mbagua set ph = ?, cloroLibre = ?, cloroTotal = ? where idmuestras = ?");
-            ps.setString(1, String.valueOf(m.get("ph")));
-            ps.setString(2, String.valueOf(m.get("libre")));
-            ps.setString(3, String.valueOf(m.get("total")));
-            ps.setInt(4, Integer.parseInt(String.valueOf(m.get("id"))));
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
 
     public Date recuperarFechaAnalisis(int id) {
         Connection conexion = con.getConnection();
@@ -2885,62 +1700,6 @@ public class Consultas extends Conexion {
         return null;
     }
 
-    public Map<String, String> recuperarResultadosMBChocolates(int id) {
-        Connection conexion = con.getConnection();
-        Map<String, String> aux = new HashMap();
-        try {
-            ps = conexion.prepareStatement("select germenes,coliformesTotales,"
-                    + " coliformesFecales, escherichia, mohos, salmonella"
-                    + " from mbchocolates where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                    aux.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
-                }
-                return aux;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarResultadosMBChocolates, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-
-
-    public Map<String, String> recuperarResultadosEfluentes(int id) {
-        Connection conexion = con.getConnection();
-        Map<String, String> aux = new HashMap();
-        try {
-            ps = conexion.prepareStatement("select ph, dqo, dbo, solidos10, solidos120, "
-                    + "hidrocarburos from efluentes where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                    aux.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
-                }
-                return aux;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarResultadosEfluentes, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
 
     public void exportarExcelTradicional(Date desde, Date hasta, int idcliente, String tipo, Tipo t) {
 
@@ -2990,9 +1749,7 @@ public class Consultas extends Conexion {
         }
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         try {
-            String ruta = recuperarRutas("Reportes") + org.ignaciorodriguez.utils.SeparatorUtils.s + tipo + " " + recuperarProcedencia(idcliente)
-                    + " desde " + formatter.format(desdeSql)
-                    + " hasta " + formatter.format(hastaSql) + ".xlsx";
+            String ruta = recuperarRutas("Reportes") + org.ignaciorodriguez.utils.SeparatorUtils.s + tipo + " " + recuperarProcedencia(idcliente) + " desde " + formatter.format(desdeSql) + " hasta " + formatter.format(hastaSql) + ".xlsx";
             fileOut = new FileOutputStream(ruta);
             workbook.write(fileOut);
             Desktop.getDesktop().open(new File(ruta));
@@ -3024,11 +1781,9 @@ public class Consultas extends Conexion {
         org.apache.poi.xddf.usermodel.chart.XDDFValueAxis leftAxis = chart.createValueAxis(AxisPosition.LEFT);
         leftAxis.setCrossBetween(AxisCrossBetween.BETWEEN);
         XDDFLineChartData data = (XDDFLineChartData) chart.createData(ChartTypes.LINE, bottomAxis, leftAxis);
-        XDDFDataSource<String> xs = XDDFDataSourcesFactory.fromStringCellRange((XSSFSheet) sheetHidden,
-                new CellRangeAddress(0, rowNumGraph - 1, colInicio, colInicio));
+        XDDFDataSource<String> xs = XDDFDataSourcesFactory.fromStringCellRange((XSSFSheet) sheetHidden, new CellRangeAddress(0, rowNumGraph - 1, colInicio, colInicio));
 
-        XDDFNumericalDataSource<Double> ys = XDDFDataSourcesFactory.fromNumericCellRange((XSSFSheet) sheetHidden,
-                new CellRangeAddress(0, rowNumGraph - 1, colInicio + 1, colInicio + 1));
+        XDDFNumericalDataSource<Double> ys = XDDFDataSourcesFactory.fromNumericCellRange((XSSFSheet) sheetHidden, new CellRangeAddress(0, rowNumGraph - 1, colInicio + 1, colInicio + 1));
 
         XDDFLineChartData.Series series = (XDDFLineChartData.Series) data.addSeries(xs, ys);
         series.setSmooth(true);
@@ -3044,8 +1799,7 @@ public class Consultas extends Conexion {
             chart.getCTChart().getPlotArea().getLineChartArray(0).getSerArray(0).addNewDLbls();
         }
 
-        org.openxmlformats.schemas.drawingml.x2006.chart.CTDLbls dLbls
-                = chart.getCTChart().getPlotArea().getLineChartArray(0).getSerArray(0).getDLbls();
+        org.openxmlformats.schemas.drawingml.x2006.chart.CTDLbls dLbls = chart.getCTChart().getPlotArea().getLineChartArray(0).getSerArray(0).getDLbls();
 
         dLbls.addNewShowVal().setVal(true);
         dLbls.addNewShowCatName().setVal(false);
@@ -3079,12 +1833,7 @@ public class Consultas extends Conexion {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Row row = sheet.createRow(rowNum[0]++);
-                String[] parametros = {
-                        "ph", "dqo", "dbo", "solidos10", "solidos120", "detergentes",
-                        "grasas", "fosforo", "nitrogeno", "sustancias", "coliformesTotales",
-                        "coliformesFecales", "escherichia", "conductividad", "hidrocarburos",
-                        "nitratos", "cloro", "sulfuros"
-                };
+                String[] parametros = {"ph", "dqo", "dbo", "solidos10", "solidos120", "detergentes", "grasas", "fosforo", "nitrogeno", "sustancias", "coliformesTotales", "coliformesFecales", "escherichia", "conductividad", "hidrocarburos", "nitratos", "cloro", "sulfuros"};
                 String idmuestras = String.valueOf(rs.getInt("idmuestras"));
                 row.createCell(0).setCellValue(idmuestras);
                 row.createCell(1).setCellValue(formatearEntradaExcel(rs.getDate("fechaMuestreo").toString()));
@@ -3130,10 +1879,7 @@ public class Consultas extends Conexion {
 
     private void consultarMBAguaCofesParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowNumGraph, int[] rowCont, Workbook workbook) {
         Connection conexion = con.getConnection();
-        String sql = "SELECT vistatabla_idmuestras, vistatabla_fechaMuestreo, vistatabla_porcentajeTotalCloro, "
-                + "vistatabla_ph, germenes, coliformesTotales, coliformesFecales, escherichia, pseudomona, s"
-                + "higella FROM vistambagua WHERE vistatabla_idmuestras in (select idmuestras from muestras where "
-                + "idcliente = ? and tipo = ?) and vistatabla_fechaMuestreo BETWEEN ? AND ?";
+        String sql = "SELECT vistatabla_idmuestras, vistatabla_fechaMuestreo, vistatabla_porcentajeTotalCloro, " + "vistatabla_ph, germenes, coliformesTotales, coliformesFecales, escherichia, pseudomona, s" + "higella FROM vistambagua WHERE vistatabla_idmuestras in (select idmuestras from muestras where " + "idcliente = ? and tipo = ?) and vistatabla_fechaMuestreo BETWEEN ? AND ?";
         for (int i = 0; i < rowCont.length; i++) {
             rowCont[i] = 0;
         }
@@ -3277,10 +2023,7 @@ public class Consultas extends Conexion {
 
     private void consultarMBAguaCodigoParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowNumGraph, int[] rowCont, Workbook workbook) {
         Connection conexion = con.getConnection();
-        String sql = "SELECT vistatabla_idmuestras, vistatabla_fechaMuestreo, vistatabla_porcentajeTotalCloro, "
-                + "vistatabla_ph, germenes, coliformesTotales, coliformesFecales, escherichia, pseudomona, mohos, s"
-                + "higella FROM vistambagua WHERE vistatabla_idmuestras in (select idmuestras from muestras where "
-                + "idcliente = ? and tipo = ?) and vistatabla_fechaMuestreo BETWEEN ? AND ?";
+        String sql = "SELECT vistatabla_idmuestras, vistatabla_fechaMuestreo, vistatabla_porcentajeTotalCloro, " + "vistatabla_ph, germenes, coliformesTotales, coliformesFecales, escherichia, pseudomona, mohos, s" + "higella FROM vistambagua WHERE vistatabla_idmuestras in (select idmuestras from muestras where " + "idcliente = ? and tipo = ?) and vistatabla_fechaMuestreo BETWEEN ? AND ?";
         for (int i = 0; i < rowCont.length; i++) {
             rowCont[i] = 0;
         }
@@ -3434,22 +2177,7 @@ public class Consultas extends Conexion {
 
     private void consultarDeterminacionesParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowCont, Workbook workbook) {
         Connection conexion = con.getConnection();
-        String sql = "SELECT d.idmuestras, vd.fechaAnalisis, d.acidez, d.acidoCianurico, d.acidoSorbico, d.actividadAcuosa, d.alcalinidad, d.alcohol, "
-                + "d.aluminio, d.amonio, d.amoniacos, d.antimonio, d.aroma, d.arsenico, d.asbesto, d.aspecto, d.azucares, d.azucaresDeducidas, "
-                + "d.azucaresInvertidos, d.azucaresReductores, d.bario, d.bicarbonatos, d.boro, d.bromuro, d.cadmioTotal, d.calcio, d.caracteristicas, "
-                + "d.carbonatos, d.cenizas, d.cenizasInsolublesAcido, d.cenizasInsolublesAgua, d.cianuros, d.cloroActivo, d.cloroResidual, d.cloroTotal, "
-                + "d.cloruros, d.cobalto, d.cobre, d.colesterol, d.color, d.colorantesartificiales, d.colorantesnaturales, d.colorantes, d.conductividad, "
-                + "d.cromoHexavalente, d.dbo, d.detergentes, d.dqo, d.dureza, d.edulcorantes, d.estano, d.extracto, d.extractoseco, d.fenoles, d.fluoruros, "
-                + "d.fluor, d.fosfatos, d.fosforoTotal, d.gliadinas, d.gluten, d.gradoFermentacion, d.gradosBrix, d.grasa, d.grasasCacao, d.grasasLeche, "
-                + "d.grasasyAceites, d.hidracina, d.hidrocarburos, d.hidrocarburosc6, d.hidrocarburosc6_c35, d.hidrocarburosc6_c8, d.hidrocarburosc8_c10, "
-                + "d.hidrocarburosc10_c12, d.hidrocarburosc12_c16, d.hidrocarburosc16_c21, d.hidrocarburosc21_c35, d.hierro, d.humedad, d.magnesio, "
-                + "d.manganeso, d.materiagrasa, d.mercurioTotal, d.molibdeno, d.nitratos, d.nitritos, d.nitrogenoAmoniacal, d.nitrogenoTotal, d.niquel, "
-                + "d.observacionMicroscopica, d.olor, d.organoclorados, d.oxigenoDisuelto, d.ozono, d.peroxidoHidrogeno, d.ph, d.plata, d.plomo, "
-                + "d.porcentajeCloruro, d.potasio, d.propionato, d.relacion, d.residuo105, d.residuo180, d.residuoSeco, d.sabor, d.selenio, d.silicatos, "
-                + "d.sodio, d.sulfatos, d.sulfuros, d.sustancias, d.sustanciasEterEtilico, d.solidosTotales, d.solidosNoGrasosCacao, d.solidosNoGrasos, "
-                + "d.solidos10Minutos, d.solidos2Horas, d.solidosSuspendidosTotales, d.solidosSuspendidosVolatiles, d.temperatura, d.turbidez, d.vanadio, "
-                + "d.vibrio, d.zinc FROM determinaciones d join vistafqcompleto vd on d.idmuestras = vd.idmuestras WHERE d.idmuestras IN "
-                + "(SELECT idmuestras FROM muestras WHERE idcliente = ? AND tipo = ? AND fechaAnalisis BETWEEN ? AND ?)";
+        String sql = "SELECT d.idmuestras, vd.fechaAnalisis, d.acidez, d.acidoCianurico, d.acidoSorbico, d.actividadAcuosa, d.alcalinidad, d.alcohol, " + "d.aluminio, d.amonio, d.amoniacos, d.antimonio, d.aroma, d.arsenico, d.asbesto, d.aspecto, d.azucares, d.azucaresDeducidas, " + "d.azucaresInvertidos, d.azucaresReductores, d.bario, d.bicarbonatos, d.boro, d.bromuro, d.cadmioTotal, d.calcio, d.caracteristicas, " + "d.carbonatos, d.cenizas, d.cenizasInsolublesAcido, d.cenizasInsolublesAgua, d.cianuros, d.cloroActivo, d.cloroResidual, d.cloroTotal, " + "d.cloruros, d.cobalto, d.cobre, d.colesterol, d.color, d.colorantesartificiales, d.colorantesnaturales, d.colorantes, d.conductividad, " + "d.cromoHexavalente, d.dbo, d.detergentes, d.dqo, d.dureza, d.edulcorantes, d.estano, d.extracto, d.extractoseco, d.fenoles, d.fluoruros, " + "d.fluor, d.fosfatos, d.fosforoTotal, d.gliadinas, d.gluten, d.gradoFermentacion, d.gradosBrix, d.grasa, d.grasasCacao, d.grasasLeche, " + "d.grasasyAceites, d.hidracina, d.hidrocarburos, d.hidrocarburosc6, d.hidrocarburosc6_c35, d.hidrocarburosc6_c8, d.hidrocarburosc8_c10, " + "d.hidrocarburosc10_c12, d.hidrocarburosc12_c16, d.hidrocarburosc16_c21, d.hidrocarburosc21_c35, d.hierro, d.humedad, d.magnesio, " + "d.manganeso, d.materiagrasa, d.mercurioTotal, d.molibdeno, d.nitratos, d.nitritos, d.nitrogenoAmoniacal, d.nitrogenoTotal, d.niquel, " + "d.observacionMicroscopica, d.olor, d.organoclorados, d.oxigenoDisuelto, d.ozono, d.peroxidoHidrogeno, d.ph, d.plata, d.plomo, " + "d.porcentajeCloruro, d.potasio, d.propionato, d.relacion, d.residuo105, d.residuo180, d.residuoSeco, d.sabor, d.selenio, d.silicatos, " + "d.sodio, d.sulfatos, d.sulfuros, d.sustancias, d.sustanciasEterEtilico, d.solidosTotales, d.solidosNoGrasosCacao, d.solidosNoGrasos, " + "d.solidos10Minutos, d.solidos2Horas, d.solidosSuspendidosTotales, d.solidosSuspendidosVolatiles, d.temperatura, d.turbidez, d.vanadio, " + "d.vibrio, d.zinc FROM determinaciones d join vistafqcompleto vd on d.idmuestras = vd.idmuestras WHERE d.idmuestras IN " + "(SELECT idmuestras FROM muestras WHERE idcliente = ? AND tipo = ? AND fechaAnalisis BETWEEN ? AND ?)";
 
         // Reiniciar contadores
         for (int i = 0; i < rowCont.length; i++) {
@@ -3520,17 +2248,13 @@ public class Consultas extends Conexion {
         System.out.println("valor = " + valor);
 
         // Caso 1: tiene "=" -> "< LC = 5.0" o "<LC=5.0"
-        java.util.regex.Matcher m = java.util.regex.Pattern
-                .compile("=\\s*([0-9]+(?:[.,][0-9]+)?)")
-                .matcher(valor);
+        java.util.regex.Matcher m = java.util.regex.Pattern.compile("=\\s*([0-9]+(?:[.,][0-9]+)?)").matcher(valor);
         if (m.find()) {
             return Double.parseDouble(m.group(1).replace(",", "."));
         }
 
         // Caso 2: no tiene "=" -> "<LC 5.0 mg/kg" o "texto antes <LC 5.0"
-        m = java.util.regex.Pattern
-                .compile("lc\\D*([0-9]+(?:[.,][0-9]+)?)", java.util.regex.Pattern.CASE_INSENSITIVE)
-                .matcher(valor);
+        m = java.util.regex.Pattern.compile("lc\\D*([0-9]+(?:[.,][0-9]+)?)", java.util.regex.Pattern.CASE_INSENSITIVE).matcher(valor);
         if (m.find()) {
             return Double.parseDouble(m.group(1).replace(",", "."));
         }
@@ -3541,12 +2265,7 @@ public class Consultas extends Conexion {
 
     private void consultarMBAlimentosParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowCont, Workbook workbook) {
         Connection conexion = con.getConnection();
-        String sql = "SELECT idmuestras, fechaAnalisis, germenes, coliformesTotales, coliformesFecales, escherichia, "
-                + "escherichiah7, escherichia157, enterobacterias, staphilococos, mohosLevaduras, salmonella, listeria, "
-                + "bacillus, perfringens, sulfito, campilobacter, coliformesTotalesA30, coliformesTotalesProbables, "
-                + "caracteristicas, lactobacillus, bacteriasLacticas, coliformesTotales45, vibrio, shigella, vibrioCholerae "
-                + "FROM vistambalimentos WHERE idmuestras IN (SELECT idmuestras FROM muestras WHERE idcliente = ? AND tipo = ?) "
-                + "AND fechaAnalisis BETWEEN ? AND ?";
+        String sql = "SELECT idmuestras, fechaAnalisis, germenes, coliformesTotales, coliformesFecales, escherichia, " + "escherichiah7, escherichia157, enterobacterias, staphilococos, mohosLevaduras, salmonella, listeria, " + "bacillus, perfringens, sulfito, campilobacter, coliformesTotalesA30, coliformesTotalesProbables, " + "caracteristicas, lactobacillus, bacteriasLacticas, coliformesTotales45, vibrio, shigella, vibrioCholerae " + "FROM vistambalimentos WHERE idmuestras IN (SELECT idmuestras FROM muestras WHERE idcliente = ? AND tipo = ?) " + "AND fechaAnalisis BETWEEN ? AND ?";
 
         // Columnas que se procesan como presencia/ausencia
         List<String> columnasPresencia = Arrays.asList("escherichia", "escherichiah7", "escherichia157", "salmonella", "shigella");
@@ -3629,42 +2348,15 @@ public class Consultas extends Conexion {
     private String[] obtenerColumnas(Tipo c) {
         switch (c) {
             case EFLUENTES:
-                return new String[]{"ID", "Fecha", " pH", "DEMANDA QUÍMICA DE OXÍGENO (DQO)", "DEMANDA BIOQUÍMICA DE OXÍGENO (DBO)",
-                        "SÓLIDOS DISUELTOS SEDIMENTABLES EN 10’", "SÓLIDOS DISUELTOS SEDIMENTABLES EN 120’", "DETERGENTES", "GRASAS Y ACEITES",
-                        "FÒSFORO TOTAL", "NITRÓGENO TOTAL", "SUSTANCIAS SOLUBLES EN ETER ETILICO", "COLIFORMES TOTALES",
-                        "COLIFORMES FECALES", "ESCHERICHIA COLI", "CONDUCTIVIDAD", "HIDROCARBUROS TOTALES DE PETRÓLEO (IR)",
-                        "NITRATOS", "CLORO", "SULFUROS"};
+                return new String[]{"ID", "Fecha", " pH", "DEMANDA QUÍMICA DE OXÍGENO (DQO)", "DEMANDA BIOQUÍMICA DE OXÍGENO (DBO)", "SÓLIDOS DISUELTOS SEDIMENTABLES EN 10’", "SÓLIDOS DISUELTOS SEDIMENTABLES EN 120’", "DETERGENTES", "GRASAS Y ACEITES", "FÒSFORO TOTAL", "NITRÓGENO TOTAL", "SUSTANCIAS SOLUBLES EN ETER ETILICO", "COLIFORMES TOTALES", "COLIFORMES FECALES", "ESCHERICHIA COLI", "CONDUCTIVIDAD", "HIDROCARBUROS TOTALES DE PETRÓLEO (IR)", "NITRATOS", "CLORO", "SULFUROS"};
             case MBAGUACODIGO:
-                return new String[]{"ID", "FECHA", "% Total Libre", "pH", "GERMENES AEROBIOS TOTALES", "COLIFORMES TOTALES", "COLIFORMES FECALES",
-                        "ESCHERICHIA COLI", "PSEUDOMONA AERUGINOSA", "MOHOS Y LEVADURAS", "SHIGELLA"};
+                return new String[]{"ID", "FECHA", "% Total Libre", "pH", "GERMENES AEROBIOS TOTALES", "COLIFORMES TOTALES", "COLIFORMES FECALES", "ESCHERICHIA COLI", "PSEUDOMONA AERUGINOSA", "MOHOS Y LEVADURAS", "SHIGELLA"};
             case MBALIMENTOS:
-                return new String[]{"ID", "FECHA", "GERMENES AEROBIOS TOTALES", "COLIFORMES TOTALES", "COLIFORMES FECALES", "ESCHERICHIA COLI",
-                        "ESCHERICHIA COLI O 157 H7", "ESCHERICHIA COLI NO O 157", "ENTEROBACTERIAS", "STAPHILOCOCOS AUREUS COAGULASA (+)", "MOHOS Y LEVADURAS",
-                        "SALMONELLA sp", "LISTERIA MONOCYTOGENES", "BACILLUS CEREUS", "CLOSTRIDIUM PERFRINGENS", "CLOSTRIDIUM SULFITO REDUCTORES Ó ANAEROBIOS",
-                        "CAMPILOBACTER", "COLIFORMES TOTALES A 30°C", "COLIFORMES TOTALES POR NÚMERO MÁS PROBABLE", "CARACTERISTICAS ORGANOLEPTICAS", "RECUENTO DE LACTOBACILLUS",
-                        "RECUENTO DE BACTERIAS LÁCTICAS", "RECUENTO DE COLIFORMES TOTALES A 45°C", "VIBRIO PARAHEMOLITYCUS", "SHIGELLA", "VIBRIO CHOLERAE"};
+                return new String[]{"ID", "FECHA", "GERMENES AEROBIOS TOTALES", "COLIFORMES TOTALES", "COLIFORMES FECALES", "ESCHERICHIA COLI", "ESCHERICHIA COLI O 157 H7", "ESCHERICHIA COLI NO O 157", "ENTEROBACTERIAS", "STAPHILOCOCOS AUREUS COAGULASA (+)", "MOHOS Y LEVADURAS", "SALMONELLA sp", "LISTERIA MONOCYTOGENES", "BACILLUS CEREUS", "CLOSTRIDIUM PERFRINGENS", "CLOSTRIDIUM SULFITO REDUCTORES Ó ANAEROBIOS", "CAMPILOBACTER", "COLIFORMES TOTALES A 30°C", "COLIFORMES TOTALES POR NÚMERO MÁS PROBABLE", "CARACTERISTICAS ORGANOLEPTICAS", "RECUENTO DE LACTOBACILLUS", "RECUENTO DE BACTERIAS LÁCTICAS", "RECUENTO DE COLIFORMES TOTALES A 45°C", "VIBRIO PARAHEMOLITYCUS", "SHIGELLA", "VIBRIO CHOLERAE"};
             case MBAGUACOFES:
-                return new String[]{"ID", "FECHA", "% Total Libre", "pH", "GERMENES AEROBIOS TOTALES", "COLIFORMES TOTALES", "COLIFORMES FECALES",
-                        "ESCHERICHIA COLI", "PSEUDOMONA AERUGINOSA", "SHIGELLA"};
+                return new String[]{"ID", "FECHA", "% Total Libre", "pH", "GERMENES AEROBIOS TOTALES", "COLIFORMES TOTALES", "COLIFORMES FECALES", "ESCHERICHIA COLI", "PSEUDOMONA AERUGINOSA", "SHIGELLA"};
             case FQALIMENTOS:
-                return new String[]{"ID", "FECHA", "Acidez", "Ácido cianúrico", "Ácido sórbico", "Actividad acuosa", "Alcalinidad", "Alcohol", "Aluminio", "Amonio",
-                        "Amoníaco", "Antimonio", "Aroma", "Arsénico", "Asbesto", "Aspecto", "Azúcares", "Azúcares deducidas de la lactosa", "Azúcares invertidos",
-                        "Azúcares reductores", "Bario", "Bicarbonatos", "Boro", "Bromuro", "Cadmio total", "Calcio", "Características Organolépticas",
-                        "Carbonatos", "Cenizas", "Cenizas insolubles en ácido cítrico", "Cenizas solubles en agua de las cenizas totales", "Cianuros",
-                        "Cloro activo", "Cloro residual o libre", "Cloro total", "Cloruros", "Cobalto", "Cobre", "Colesterol", "Color", "Colorantes artificiales",
-                        "Colorantes naturales", "Colorantes naturales y artificiales", "Conductividad", "Cromo Hexavalente", "DBO", "Detergentes", "DQO",
-                        "Dureza", "Edulcorantes", "Estaño", "Extracto primitivo", "Extracto seco", "Fenoles", "Fluoruros", "Flúor", "Fosfatos", "Fósforo total",
-                        "Gliadinas", "Gluten", "Grado de fermentación", "Grados Brix", "Grasa", "Grasas de cacao", "Grasas de leche", "Grasas y aceites",
-                        "Hidracina", "Hidrocarburos", "HIDROCARBUROS TOTALES DE PETROLEO (C6)", "HIDROCARBUROS TOTALES DE PETROLEO (C6-C35)",
-                        "HIDROCARBUROS TOTALES DE PETROLEO (C6-C8)", "HIDROCARBUROS TOTALES DE PETROLEO (C8-C10)", "HIDROCARBUROS TOTALES DE PETROLEO (C10-C12)",
-                        "HIDROCARBUROS TOTALES DE PETROLEO (C12-C16)", "HIDROCARBUROS TOTALES DE PETROLEO (C16-C21)", "HIDROCARBUROS TOTALES DE PETROLEO (C21-C35)",
-                        "Hierro", "Humedad", "Magnesio", "Manganeso", "Materia grasa", "Mercurio Total", "Molibdeno", "Nitratos", "Nitritos",
-                        "Nitrógeno Amoniacal", "Nitrógeno total", "Níquel", "Observación microscópica", "Olor", "Organoclorados", "Oxígeno disuelto",
-                        "Ozono", "Peróxido de hidrógeno", "pH", "Plata", "Plomo", "Porcentaje de cloruro de sodio", "Potasio", "Propionato de sodio",
-                        "Relación Peso/Humedad", "Residuo evaporación a 105ºC", "Residuo evaporación a 180ºC", "Residuo Seco", "Sabor", "Selenio",
-                        "Silicatos", "Sodio", "Sulfatos", "Sulfuros", "Sustancias extrañas", "Sustancias solubles en éter etílico", "Sólidos Disueltos totales",
-                        "Sólidos no grasos de cacao", "Sólidos no grasos de leche", "Sólidos sedimentables en 10 minutos", "Sólidos sedimentables en 2 horas",
-                        "Sólidos suspendidos totales", "Sólidos suspendidos volátiles", "Temperatura", "Turbidez", "Vanadio", "VIBRIO CHOLERAE", "Zinc"};
+                return new String[]{"ID", "FECHA", "Acidez", "Ácido cianúrico", "Ácido sórbico", "Actividad acuosa", "Alcalinidad", "Alcohol", "Aluminio", "Amonio", "Amoníaco", "Antimonio", "Aroma", "Arsénico", "Asbesto", "Aspecto", "Azúcares", "Azúcares deducidas de la lactosa", "Azúcares invertidos", "Azúcares reductores", "Bario", "Bicarbonatos", "Boro", "Bromuro", "Cadmio total", "Calcio", "Características Organolépticas", "Carbonatos", "Cenizas", "Cenizas insolubles en ácido cítrico", "Cenizas solubles en agua de las cenizas totales", "Cianuros", "Cloro activo", "Cloro residual o libre", "Cloro total", "Cloruros", "Cobalto", "Cobre", "Colesterol", "Color", "Colorantes artificiales", "Colorantes naturales", "Colorantes naturales y artificiales", "Conductividad", "Cromo Hexavalente", "DBO", "Detergentes", "DQO", "Dureza", "Edulcorantes", "Estaño", "Extracto primitivo", "Extracto seco", "Fenoles", "Fluoruros", "Flúor", "Fosfatos", "Fósforo total", "Gliadinas", "Gluten", "Grado de fermentación", "Grados Brix", "Grasa", "Grasas de cacao", "Grasas de leche", "Grasas y aceites", "Hidracina", "Hidrocarburos", "HIDROCARBUROS TOTALES DE PETROLEO (C6)", "HIDROCARBUROS TOTALES DE PETROLEO (C6-C35)", "HIDROCARBUROS TOTALES DE PETROLEO (C6-C8)", "HIDROCARBUROS TOTALES DE PETROLEO (C8-C10)", "HIDROCARBUROS TOTALES DE PETROLEO (C10-C12)", "HIDROCARBUROS TOTALES DE PETROLEO (C12-C16)", "HIDROCARBUROS TOTALES DE PETROLEO (C16-C21)", "HIDROCARBUROS TOTALES DE PETROLEO (C21-C35)", "Hierro", "Humedad", "Magnesio", "Manganeso", "Materia grasa", "Mercurio Total", "Molibdeno", "Nitratos", "Nitritos", "Nitrógeno Amoniacal", "Nitrógeno total", "Níquel", "Observación microscópica", "Olor", "Organoclorados", "Oxígeno disuelto", "Ozono", "Peróxido de hidrógeno", "pH", "Plata", "Plomo", "Porcentaje de cloruro de sodio", "Potasio", "Propionato de sodio", "Relación Peso/Humedad", "Residuo evaporación a 105ºC", "Residuo evaporación a 180ºC", "Residuo Seco", "Sabor", "Selenio", "Silicatos", "Sodio", "Sulfatos", "Sulfuros", "Sustancias extrañas", "Sustancias solubles en éter etílico", "Sólidos Disueltos totales", "Sólidos no grasos de cacao", "Sólidos no grasos de leche", "Sólidos sedimentables en 10 minutos", "Sólidos sedimentables en 2 horas", "Sólidos suspendidos totales", "Sólidos suspendidos volátiles", "Temperatura", "Turbidez", "Vanadio", "VIBRIO CHOLERAE", "Zinc"};
         }
 
         return null;
@@ -3866,238 +2558,6 @@ public class Consultas extends Conexion {
         }
     }
 
-    public boolean guardarResultadosHisopados(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`hisopados` "
-                    + "(`idmuestras`, `coliformesTotales`, `coliformesFecales`, `escherichia`, "
-                    + "`germenes`,`staphilococos`, enterobacterias, salmonella, mohos, listeria, vibrio) VALUES "
-                    + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            ps.setInt(1, (int) m.get("idmuestras"));
-            ps.setString(2, m.get("coliformesTotales").toString());
-            ps.setString(3, m.get("coliformesFecales").toString());
-            ps.setString(4, m.get("escherichia").toString());
-            ps.setString(5, m.get("germenes").toString());
-            ps.setString(6, m.get("staphilococos").toString());
-            ps.setString(7, m.get("enterobacterias").toString());
-            ps.setString(8, m.get("salmonella").toString());
-            ps.setString(9, m.get("mohos").toString());
-            ps.setString(10, m.get("listeria").toString());
-            ps.setString(11, m.get("vibrio").toString());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean guardarResultadosHisopadosAlliance(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`hisopados` "
-                    + "(`idmuestras`, `coliformesTotales`, `coliformesFecales`, `escherichia`, "
-                    + "`germenes`,`staphilococos`, enterobacterias, limiteGermenes, limiteTotales)"
-                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            ps.setInt(1, (int) m.get("idmuestras"));
-            ps.setString(2, m.get("coliformesTotales").toString());
-            ps.setString(3, m.get("coliformesFecales").toString());
-            ps.setString(4, m.get("escherichia").toString());
-            ps.setString(5, m.get("germenes").toString());
-            ps.setString(6, m.get("staphilococos").toString());
-            ps.setString(7, m.get("enterobacterias").toString());
-            ps.setInt(8, Integer.parseInt(m.get("limiteGermenes").toString()));
-            ps.setInt(9, Integer.parseInt(m.get("limiteTotales").toString()));
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e + " en línea " + e.getStackTrace()[0].getLineNumber());
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean editarResultadosHisopados(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update hisopados set coliformesTotales = ?, "
-                    + "coliformesFecales = ?, escherichia= ?, germenes= ?, "
-                    + "staphilococos = ?, enterobacterias = ?, salmonella = ?, mohos = ?, listeria = ?, vibrio = ? where idmuestras = ?");
-            ps.setString(1, m.get("coliformesTotales").toString());
-            ps.setString(2, m.get("coliformesFecales").toString());
-            ps.setString(3, m.get("escherichia").toString());
-            ps.setString(4, m.get("germenes").toString());
-            ps.setString(5, m.get("staphilococos").toString());
-            ps.setString(6, m.get("enterobacterias").toString());
-            ps.setString(7, m.get("salmonella").toString());
-            ps.setString(8, m.get("mohos").toString());
-            ps.setString(9, m.get("listeria").toString());
-            ps.setString(10, m.get("vibrio").toString());
-            ps.setInt(11, (int) m.get("idmuestras"));
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al editar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean editarResultadosHisopadosAlliance(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update hisopados set coliformesTotales = ?, "
-                    + "coliformesFecales = ?, escherichia= ?, germenes= ?, "
-                    + "staphilococos = ?, enterobacterias = ?, limiteGermenes = ?,"
-                    + "limiteTotales = ? where idmuestras = ?");
-            ps.setString(1, m.get("coliformesTotales").toString());
-            ps.setString(2, m.get("coliformesFecales").toString());
-            ps.setString(3, m.get("escherichia").toString());
-            ps.setString(4, m.get("germenes").toString());
-            ps.setString(5, m.get("staphilococos").toString());
-            ps.setString(6, m.get("enterobacterias").toString());
-            ps.setInt(7, Integer.parseInt(String.valueOf(m.get("limiteGermenes"))));
-            ps.setInt(8, Integer.parseInt(String.valueOf(m.get("limiteTotales"))));
-            ps.setInt(9, (int) m.get("idmuestras"));
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al editar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public Map<String, String> recuperarResultadosHisopados(int id) {
-        Connection conexion = con.getConnection();
-        Map<String, String> aux = new HashMap();
-        try {
-            ps = conexion.prepareStatement("select germenes, coliformesTotales, "
-                    + "coliformesFecales, escherichia, staphilococos, fechaAnalisis, enterobacterias, salmonella, mohos, listeria, vibrio from "
-                    + "vistaHisopado where vistatabla_idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                    System.out.println("rs.getMetaData().getColumnName(i + 1) = " + rs.getMetaData().getColumnName(i + 1));
-                    System.out.println("rs.getObject(i + 1) = " + rs.getObject(i + 1));
-                    aux.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
-                }
-                return aux;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarResultadosHisopados, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public Map<String, String> recuperarResultadosHisopadosAlliance(int id) {
-        Connection conexion = con.getConnection();
-        Map<String, String> aux = new HashMap<>();
-        try {
-            ps = conexion.prepareStatement("select germenes, coliformesTotales, "
-                    + "coliformesFecales, escherichia, staphilococos, fechaAnalisis, enterobacterias,"
-                    + "germenesPotencia, totalesPotencia, staphilococosPotencia, limiteGermenes, limiteTotales from "
-                    + "vistaHisopado where vistatabla_idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                    aux.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
-                }
-                return aux;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarResultadosHisopadosAlliance, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public Map<String, String> recuperarResultadosBaseHelada(int id) {
-        Connection conexion = con.getConnection();
-        Map<String, String> aux = new HashMap();
-        try {
-            ps = conexion.prepareStatement("select `germenes`, `coliformesTotales`,"
-                    + "`coliformesFecales`, `escherichia`,`mohos`, conclusion, staphilococos, salmonella, fechaAnalisis from vistambchocolates where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                    aux.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
-                }
-                return aux;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarResultadosBaseHelada, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public String consultarMetodoDeterminaciones(int id, String determinacion) {
-        Connection conexion = con.getConnection();
-        String aux = "";
-        try {
-            ps = conexion.prepareStatement(" select " + determinacion + "Metodo from determinaciones where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                aux = rs.getString(1);
-                return aux;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarResultadosBaseHelada, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
 
 
 
@@ -4153,13 +2613,6 @@ public class Consultas extends Conexion {
         }
         return false;
     }
-
-
-
-
-
-
-
 
 
     public void generarReporteMBAguaDeRecreacion(int id, String procedencia) {
@@ -4312,152 +2765,6 @@ public class Consultas extends Conexion {
 
 
 
-    public boolean editarMBAguaDeRecreacion(Resultados r, int vencimiento) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("UPDATE `laboratorio`.`mbagua` SET "
-                    + "`germenes` = ?, `coliformesTotales` = ? , `coliformesFecales` = ?, "
-                    + "`escherichia` = ? , `pseudomona` = ?, ph = ?, cloroTotal = ?, "
-                    + "caracteresOrganolepticos = ?, staphilococos = ?, streptococos = ?, "
-                    + "cloroLibre = ?, vencimiento = ?, shigella = ? WHERE `idmuestras` = ? ;");
-            ps.setString(1, r.getGermenes());
-            ps.setString(2, r.getColiformesTotales());
-            ps.setString(3, r.getColiformesFecales());
-            ps.setString(4, r.getEscherichia());
-            ps.setString(5, r.getPseudomona());
-            ps.setDouble(6, r.getPh());
-            ps.setDouble(7, r.getClorototal());
-            ps.setString(8, r.getCaracteresOrgasnolepticos());
-            ps.setString(9, r.getStaphilococos());
-            ps.setString(10, r.getStreptococos());
-            ps.setDouble(11, r.getCloroLibre());
-            ps.setInt(12, vencimiento);
-            ps.setString(13, r.getShigella());
-            ps.setInt(14, r.getIdmuestras());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al editar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-
-
-    public boolean guardarResultadosEfluentesTipo(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("insert into efluentes (idmuestras, ph, conductividad,"
-                    + " dqo, dbo, solidos10, solidos120, detergentes, grasasAceite,"
-                    + " fosforoTotal, nitrogenoTotal, sustancias, coliformesFecales, hidrocarburos, nitratos, cloro, coliformesTotales, escherichia , sulfuros) "
-                    + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            ps.setInt(1, (int) m.get("idmuestras"));
-            ps.setDouble(2, (double) m.get("ph"));
-            ps.setString(3, m.get("conductividad").toString());
-            ps.setString(4, m.get("dqo").toString());
-            ps.setString(5, m.get("dbo").toString());
-            ps.setString(6, String.valueOf(m.get("solidos10")));
-            ps.setString(7, String.valueOf(m.get("solidos120")));
-            ps.setString(8, String.valueOf(m.get("detergentes")));
-            ps.setString(9, String.valueOf(m.get("grasas")));
-            ps.setString(10, String.valueOf(m.get("fosforo")));
-            ps.setString(11, String.valueOf(m.get("nitrogeno")));
-            ps.setString(12, String.valueOf(m.get("sustancias")));
-            ps.setString(13, String.valueOf(m.get("coliformesFecales")));
-            ps.setString(14, m.get("hidrocarburos").toString());
-            ps.setString(15, m.get("nitratos").toString());
-            ps.setString(16, m.get("cloro").toString());
-            ps.setString(17, m.get("coliformesFecales").toString());
-            ps.setString(18, m.get("escherichia").toString());
-            ps.setString(19, m.get("sulfuros").toString());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean editarResultadosEfluentesTipo(Map m) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update efluentes set ph = ?, conductividad = ?,"
-                    + " dqo = ?, dbo = ?, solidos10 = ?, solidos120 = ?, detergentes = ?, grasasAceite = ?, "
-                    + "fosforoTotal = ?, nitrogenoTotal = ?, sustancias = ?, coliformesFecales = ?, "
-                    + "hidrocarburos = ?, nitratos = ?, cloro = ?, coliformesTotales = ?, escherichia = ?, sulfuros = ? where idmuestras = ?");
-            ps.setDouble(1, (double) m.get("ph"));//ph
-            ps.setString(2, m.get("conductividad").toString());//conductividad
-            ps.setString(3, m.get("dqo").toString());//dqo
-            ps.setString(4, m.get("dbo").toString());//dbo
-            ps.setString(5, String.valueOf(m.get("solidos10")));//solidos10
-            ps.setString(6, String.valueOf(m.get("solidos120")));//solidos120
-            ps.setString(7, String.valueOf(m.get("detergentes")));//detergentes
-            ps.setString(8, String.valueOf(m.get("grasas")));//grasasAceite
-            ps.setString(9, String.valueOf(m.get("fosforo")));//fosforoTotal
-            ps.setString(10, String.valueOf(m.get("nitrogeno")));//nitrogenoTotal
-            ps.setString(11, String.valueOf(m.get("sustancias")));//sustancias
-            ps.setString(12, String.valueOf(m.get("coliformesFecales")));//coliformes
-            ps.setString(13, m.get("hidrocarburos").toString());//hidrocarburos
-            ps.setString(14, m.get("nitratos").toString());//hidrocarburos
-            ps.setString(15, m.get("cloro").toString());//hidrocarburos
-            ps.setString(16, m.get("coliformesTotales").toString());//hidrocarburos
-            ps.setString(17, m.get("escherichia").toString());//hidrocarburos
-            ps.setString(18, m.get("sulfuros").toString());//hidrocarburos
-            ps.setInt(19, (int) m.get("idmuestras"));//idmuestras
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e + " en línea " + e.getStackTrace()[0].getLineNumber());
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public Map<String, String> recuperarResultadosEfluentesTipo(int id) {
-        Connection conexion = con.getConnection();
-        Map<String, String> aux = new HashMap();
-        try {
-            ps = conexion.prepareStatement("select ph, conductividad, dqo, dbo, "
-                    + "solidos10, solidos120, detergentes, grasasAceite, "
-                    + "fosforoTotal, nitrogenoTotal, sustancias, coliformesFecales, hidrocarburos, nitratos, cloro, coliformesTotales, escherichia, sulfuros "
-                    + "from efluentes where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-                    aux.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
-                }
-                return aux;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar datos, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
 
     public void generarReporteEfluentesCloaca(int id, String procedencia) {
         Connection conexion = con.getConnection();
@@ -4674,12 +2981,11 @@ public class Consultas extends Conexion {
         }
         return "";
     }
+
     public String recuperarSolicitante(int id) {
         Connection conexion = con.getConnection();
         try {
-            ps = conexion.prepareStatement("select solicitante, count(solicitante)"
-                    + " as mostCommon from muestras where idcliente = ? group by "
-                    + "solicitante order by count(solicitante) desc");
+            ps = conexion.prepareStatement("select solicitante, count(solicitante)" + " as mostCommon from muestras where idcliente = ? group by " + "solicitante order by count(solicitante) desc");
             ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -4702,9 +3008,7 @@ public class Consultas extends Conexion {
         Connection conexion = con.getConnection();
         Vector<String> solicitantes = new Stack<>();
         try {
-            ps = conexion.prepareStatement("select solicitante, count(solicitante)"
-                    + " as mostCommon from muestras where idcliente = ? group by "
-                    + "solicitante order by mostCommon desc");
+            ps = conexion.prepareStatement("select solicitante, count(solicitante)" + " as mostCommon from muestras where idcliente = ? group by " + "solicitante order by mostCommon desc");
             ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -4804,41 +3108,7 @@ public class Consultas extends Conexion {
         }
     }
 
-    public void cambiarHisopado(int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update hisopados set germenesPotencia = 0, "
-                    + "totalesPotencia = 0, staphilococosPotencia = 0, enterobacterias = 0 where idmuestras = ?");
-            ps.setInt(1, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cambia de tipo de hisopado, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
 
-    public void cambiarTipo(int id, String db) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("delete from " + db + " where idmuestras = ?");
-            ps.setInt(1, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            System.err.println("Error al cambia de tipo de hisopado, " + e);
-            JOptionPane.showMessageDialog(null, "Error al cambia de tipo de hisopado, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
 
     public void esconderFechaVencimiento(int id, boolean poner) {
         Connection conexion = con.getConnection();
@@ -4962,28 +3232,6 @@ public class Consultas extends Conexion {
 
 
 
-    public String recuperarTituloManual(int id) {
-        Connection conexion = con.getConnection();
-        String titulo = "";
-        try {
-            ps = conexion.prepareStatement("select titulo from manual where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                titulo = rs.getString("titulo");
-            }
-            return titulo;
-        } catch (Exception e) {
-            JOptionPane.showInputDialog("Error al recuperar titulo " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
 
     public Date recuperarEntrada(int id) {
         Connection conexion = con.getConnection();
@@ -5060,7 +3308,6 @@ public class Consultas extends Conexion {
     }
 
 
-
     public boolean cancelarEntrega(int id) {
         Connection conexion = con.getConnection();
         try {
@@ -5126,11 +3373,7 @@ public class Consultas extends Conexion {
         Connection conexion = con.getConnection();
         String[] aux = new String[6];
         try {
-            ps = conexion.prepareStatement("select e.email, v.fechaVencimiento, "
-                    + "v.idmuestras, m.tipo, m.realizadoPor, p.procedencia  from "
-                    + "vistaemail e join vencimientos v on e.idmuestras = v.idmuestras "
-                    + "join muestras m on v.idmuestras = m.idmuestras join vistaprocedencia "
-                    + "p on p.idcliente = m.idcliente where v.idmuestras = ?;");
+            ps = conexion.prepareStatement("select e.email, v.fechaVencimiento, " + "v.idmuestras, m.tipo, m.realizadoPor, p.procedencia  from " + "vistaemail e join vencimientos v on e.idmuestras = v.idmuestras " + "join muestras m on v.idmuestras = m.idmuestras join vistaprocedencia " + "p on p.idcliente = m.idcliente where v.idmuestras = ?;");
             ps.setInt(1, id);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -5152,209 +3395,7 @@ public class Consultas extends Conexion {
         return null;
     }
 
-    public List recuperarFQAguaCompleto(int id, List<Determinacion> determinaciones) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 3; i < rs.getMetaData().getColumnCount() + 1; i++) {
-                    Object auxx = rs.getObject(i);
-                    System.out.println("auxx = " + auxx);
-                    if (auxx != null) {
-                        if (!auxx.toString().isBlank()) {
-                            for (int j = 0; j < determinaciones.size(); j++) {
-                                if (determinaciones.get(j).getNombreDB().equals(rs.getMetaData().getColumnLabel(i))) {
-                                    determinaciones.get(j).setActivado(true);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            return determinaciones;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarFQAguaCompleto, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar FQCompleto, " + e);
-            }
-        }
-        return null;
-    }
 
-    public List<Determinacion> recuperarDatosDeterminaciones(List<Determinacion> determinaciones, int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-
-                determinaciones.forEach(d -> {
-                    try {
-                        String res = rs.getString(d.getNombreDB());
-                        System.out.println("nombre = " + d.getNombreDB());
-                        System.out.println("res = " + res);
-                        d.formatearResultado(res == null || res.trim().isEmpty() ? "-1" : res);
-                    } catch (SQLException ex) {
-                        System.getLogger(Consultas.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-                    }
-                });
-            }
-            return determinaciones;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarDatosDeterminaciones, " + e.getStackTrace()[0]);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar datos FQ, " + e);
-            }
-        }
-    }
-
-    public List<Determinacion> recuperarDatosDeterminacionesGenerar(List<Determinacion> determinaciones, int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-
-                determinaciones.forEach(d -> {
-                    try {
-                        String res = rs.getString(d.getNombreDB());
-                        d.formatearResultadoGenerar(res == null ? "-1" : res);
-                    } catch (SQLException ex) {
-                        System.getLogger(Consultas.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-                    }
-                });
-            }
-            return determinaciones;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarDatosDeterminaciones, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar datos FQ, " + e);
-            }
-        }
-    }
-
-    public List<Determinacion> recuperarMetodosDeterminaciones(List<Determinacion> determinaciones, int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select * from determinacionesMetodo where idmuestras = ?");//Cambiar al agregar
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                determinaciones.forEach(d -> {
-                    try {
-                        d.setMetodo(rs.getString(d.getNombreDB() + "Metodo"));
-                    } catch (SQLException ex) {
-                        System.getLogger(Consultas.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-                    }
-                });
-            }
-            return determinaciones;
-        } catch (Exception e) {
-
-            JOptionPane.showMessageDialog(null, "Error al recuperarMetodosDeterminaciones, " + e);
-            StackTraceElement stackTraceElement = Arrays.stream(e.getStackTrace()).filter(ste -> ste.getClassName().equals(this.getClass().getName())).collect(Collectors.toList()).get(0);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar datos FQ, " + e);
-            }
-        }
-    }
-
-    public boolean[] recuperarFQCompleto(int id) {
-        Connection conexion = con.getConnection();
-        boolean[] aux = new boolean[92]; //Cambiar al agregar
-        try {
-            ps = conexion.prepareStatement(recuperarFQ);
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < aux.length; i++) {
-                    Object o = rs.getObject(i + 1);
-                    if (o == null) {
-                        aux[i] = false;
-                    } else {
-                        aux[i] = true;
-                    }
-                }
-            }
-            return aux;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarFQCompleto, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar FQCompleto, " + e);
-            }
-        }
-        return null;
-    }
-
-    public boolean blankearDeterminaciones(String query, int id, int cont) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement(query);
-            for (int i = 0; i < cont; i++) {
-                ps.setString(i + 1, null);
-            }
-            ps.setInt(cont + 1, id);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al blankearDeterminaciones, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar FQCompleto, " + e);
-            }
-        }
-        return false;
-    }
-
-    public boolean borrarDeterminaciones(int id) {
-        Connection conexion = con.getConnection();
-        try {
-            conexion.setAutoCommit(false);
-            PreparedStatement ps1 = conexion.prepareStatement("delete from determinaciones where idmuestras = ?");
-            PreparedStatement ps2 = conexion.prepareStatement("delete from determinacionesMetodo where idmuestras = ?");
-            ps1.setInt(1, id);
-            ps2.setInt(1, id);
-            ps1.execute();
-            ps2.execute();
-            conexion.commit();
-
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al blankearDeterminaciones, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar FQCompleto, " + e);
-            }
-        }
-        return false;
-    }
 
     public void generarReporteFQCompleto(int id, String titulo, List<Determinacion> resultados) {
         Connection conexion = con.getConnection();
@@ -5447,57 +3488,7 @@ public class Consultas extends Conexion {
         }
     }
 
-    public boolean guardarDeterminaciones(List<Determinacion> resultados, int id) {
-        Connection conexion = con.getConnection();
 
-        String queryDet = "insert into determinaciones (";
-        for (int i = 0; i < resultados.size(); i++) {
-            queryDet += resultados.get(i).getNombreDB() + ", ";
-        }
-        queryDet += "idmuestras) values (";
-        for (int i = 0; i < resultados.size(); i++) {
-            queryDet += "?, ";
-        }
-        queryDet += "?)";
-
-        String queryMetodo = "insert into determinacionesMetodo (";
-        for (int i = 0; i < resultados.size(); i++) {
-            queryMetodo += resultados.get(i).getNombreDB() + "Metodo, ";
-        }
-        queryMetodo += "idmuestras) values (";
-        for (int i = 0; i < resultados.size(); i++) {
-            queryMetodo += "?, ";
-        }
-        queryMetodo += "?)";
-        try {
-            conexion.setAutoCommit(false);
-            PreparedStatement ps1 = conexion.prepareStatement(queryDet);
-            for (int i = 0; i < resultados.size(); i++) {
-                ps1.setString(i + 1, resultados.get(i).getResultado());
-            }
-            ps1.setInt(resultados.size() + 1, id);
-
-            PreparedStatement ps2 = conexion.prepareStatement(queryMetodo);
-            for (int i = 0; i < resultados.size(); i++) {
-                ps2.setString(i + 1, resultados.get(i).getMetodo());
-            }
-            ps2.setInt(resultados.size() + 1, id);
-
-            ps1.execute();
-            ps2.execute();
-            conexion.commit();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
 
     public boolean hayEntrega(int id) {
         Connection conexion = con.getConnection();
@@ -5522,43 +3513,7 @@ public class Consultas extends Conexion {
         }
     }
 
-    public void guardarLimiteMohos(int id, boolean selected) {
-        Connection conexion = con.getConnection();
 
-        try {
-            ps = conexion.prepareStatement("update mbagua set mohosLimite = ? where idmuestras = ?");
-            ps.setInt(1, selected ? 1 : 0);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public void guardarMostrar(int id, String mostrar) {
-        Connection conexion = con.getConnection();
-
-        try {
-            ps = conexion.prepareStatement("update manual set mostrar = ? where idmuestras = ?");
-            ps.setString(1, mostrar);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
 
     public int consultarActualizacion() {
         String aux = "";
@@ -5702,53 +3657,6 @@ public class Consultas extends Conexion {
         }
     }
 
-    public boolean recuperarFQAguaCompleto(int id) {
-        Connection conexion = con.getConnection();
-
-        try {
-            ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return false;
-    }
-
-
-
-    public boolean consultarMostrar(int idmuestras) {
-        Connection conexion = con.getConnection();
-
-        try {
-            ps = conexion.prepareStatement("select mostrar from manual where idmuestras = ?");
-            ps.setInt(1, idmuestras);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return rs.getString("mostrar") == "true" ? true : false;
-            }
-            return false;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return false;
-    }
 
 
 

@@ -11,6 +11,7 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -36,6 +37,7 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
             activarFecales = true, activarEscherichia = true, activarPseudomona = true,
             activarStaphilococos = true, activarStreptococos = true, activarShigella = true;
     MuestraRepository muestraRepository = new MuestraRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
 
     public TablaMBAguaRecreacion(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -48,7 +50,7 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
         if (procedencia.contains("Municipio de Dina Huapi")) {
             checkDinaHuapi.setSelected(true);
         }
-        ph = c.recuperarPhYCloro(id);
+        ph = resultadosRepository.recuperarPhYCloro(id);
         DecimalFormat df = new DecimalFormat("#.##");
         if (ph != null) {
             if (ph[2] != -1) {
@@ -65,7 +67,7 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
             }
         }
         if (this.editar == true) {
-            Map<String, String> resultados = c.recuperarResultadosMBAguaDeRecreacion(id);
+            Map<String, String> resultados = resultadosRepository.recuperarResultadosMBAguaDeRecreacion(id);
             if (resultados == null) {
                 if (!this.ingresoPh) {
                     this.editar = false;
@@ -2028,7 +2030,7 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
-                if (c.editarMBAguaDeRecreacion(r, vencimiento)) {
+                if (resultadosRepository.editarMBAguaDeRecreacion(r, vencimiento)) {
                     muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                     muestraRepository.guardarFechaAnalisis(r, id);
                     if (c.checkearVencimiento(r)) {
@@ -2041,7 +2043,7 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
                 }
 
             } else {
-                if (c.guardarResultadoMBAguaDeRecreacion(r, vencimiento)) {
+                if (resultadosRepository.guardarResultadoMBAguaDeRecreacion(r, vencimiento)) {
                     muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                     muestraRepository.guardarFechaAnalisis(r, id);
                     if (c.checkearVencimiento(r)) {

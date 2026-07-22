@@ -12,6 +12,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -33,6 +34,7 @@ public class TablaMBChocolates extends javax.swing.JDialog {
     boolean editar, activarGermenes = true, activarTotales = true, activarFecales = true,
             activarMohos = true, activarEscherichia = true, activarSalmonella = true;
     MuestraRepository muestraRepository = new MuestraRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
 
     public TablaMBChocolates(java.awt.Frame parent, boolean modal, int id, String procedencia,
                              boolean editar, String pdf) {
@@ -46,7 +48,7 @@ public class TablaMBChocolates extends javax.swing.JDialog {
         setLocationRelativeTo(null);
         panelGermenesMousePressed(click(panelGermenes));
         if (editar) {
-            Map<String, String> resultados = c.recuperarResultadosMBChocolates(id);
+            Map<String, String> resultados = resultadosRepository.recuperarResultadosMBChocolates(id);
             Date fecha = c.recuperarFechaAnalisis(id);
             Date fechaAux = new Date(6, 10, -789);
             if (fecha.equals(fechaAux)) {
@@ -1016,14 +1018,14 @@ public class TablaMBChocolates extends javax.swing.JDialog {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
-                if (c.editarResultadoMBChocolates(m)) {
+                if (resultadosRepository.editarResultadoMBChocolates(m)) {
                     muestraRepository.guardarObservaciones(observaciones, id);
                     muestraRepository.guardarConclusion(String.valueOf(m.get("conclusion")), id);
                     this.dispose();
                     c.generarReporteMBChocolates(id, procedencia);
                 }
             } else {
-                if (c.guardarResultadoMBChocolates(m)) {
+                if (resultadosRepository.guardarResultadoMBChocolates(m)) {
                     muestraRepository.guardarObservaciones(observaciones, id);
                     muestraRepository.guardarConclusion(String.valueOf(m.get("conclusion")), id);
                     this.dispose();

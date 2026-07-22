@@ -10,6 +10,7 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -34,6 +35,7 @@ public class TablaFQAgua extends javax.swing.JDialog {
             activarHierro = true, activarNitratos = true, activarNitritos = true, activarSulfatos = true;
     String procedencia, pdf, auxObservaciones, auxOlor;
     MuestraRepository muestraRepository = new MuestraRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
 
     public TablaFQAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -45,7 +47,7 @@ public class TablaFQAgua extends javax.swing.JDialog {
         setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Físico químico de agua");
         this.setLocationRelativeTo(null);
         if (editar == true) {
-            Map<String, String> resultados = c.recuperarResultadosFQAgua(id);
+            Map<String, String> resultados = resultadosRepository.recuperarResultadosFQAgua(id);
             auxObservaciones = muestraRepository.recuperarObservaciones(id);
             if (resultados == null) {
                 this.editar = false;
@@ -1860,7 +1862,7 @@ public class TablaFQAgua extends javax.swing.JDialog {
             File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
             File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
-            if (c.editarFQAgua(r)) {
+            if (resultadosRepository.editarFQAgua(r)) {
                 muestraRepository.guardarObservaciones(valores[15], id);
                 c.actualizarVencimiento(r);
                 File tn = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
@@ -1885,7 +1887,7 @@ public class TablaFQAgua extends javax.swing.JDialog {
             r.setTipo("Físico químico de agua básico");
             r.setIdmuestras(id);
             r.setFechaAnalisis(fechaAnalisis);
-            if (c.guardarResultadoFQAgua(r)) {
+            if (resultadosRepository.guardarResultadoFQAgua(r)) {
                 c.agregarVencimiento(r);
                 muestraRepository.guardarObservaciones(valores[15], id);
                 muestraRepository.guardarConclusion(conclusion, id);

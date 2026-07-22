@@ -4,6 +4,7 @@ import java.io.File;
 import javax.swing.JOptionPane;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -22,6 +23,7 @@ public class TablaNutricional extends javax.swing.JDialog {
     boolean editar = false;
     String pdf, auxObservaciones, unidad = "";
     MuestraRepository muestraRepository = new MuestraRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
 
     public TablaNutricional(java.awt.Frame parent, boolean modal, int id, boolean editar, String pdf) {
         super(parent, modal);
@@ -30,7 +32,7 @@ public class TablaNutricional extends javax.swing.JDialog {
         this.pdf = pdf.substring(1);
         initComponents();
         if (editar) {
-            String[] datos = consultas.recuperarTablaNutricional(id);
+            String[] datos = resultadosRepository.recuperarTablaNutricional(id);
             if (datos == null) {
                 this.editar = false;
             } else {
@@ -1633,12 +1635,12 @@ public class TablaNutricional extends javax.swing.JDialog {
             File rv = new File(consultas.recuperarRutas("Reportes") + "\\" + pdf);
             File rn = new File(consultas.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
-            if (consultas.editarTablaNutricional(valores, id, unidad, porcion, porcionesEnvase)) {
+            if (resultadosRepository.editarTablaNutricional(valores, id, unidad, porcion, porcionesEnvase)) {
                 this.dispose();
                 consultas.generarReporteTN(id, muestraRepository.obtenerProcedencia(id));
             }
         } else {
-            if (consultas.guardarTablaNutricional(valores, id, unidad, porcion, porcionesEnvase)) {
+            if (resultadosRepository.guardarTablaNutricional(valores, id, unidad, porcion, porcionesEnvase)) {
                 this.dispose();
                 consultas.generarReporteTN(id, muestraRepository.obtenerProcedencia(id));
             }

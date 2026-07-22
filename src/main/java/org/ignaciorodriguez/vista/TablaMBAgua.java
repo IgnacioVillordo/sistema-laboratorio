@@ -11,6 +11,7 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -36,6 +37,7 @@ public class TablaMBAgua extends javax.swing.JDialog {
     private String aux;
     MuestraRepository muestraRepository = new MuestraRepository();
     private static final Logger logger = Logger.getLogger(TablaMBAgua.class.getName());
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
 
     public TablaMBAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -46,7 +48,7 @@ public class TablaMBAgua extends javax.swing.JDialog {
         initComponents();
         setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico de agua código");
         jLabel13MousePressed(click(jLabel13));
-        ph = c.recuperarPhYCloro(id);
+        ph = resultadosRepository.recuperarPhYCloro(id);
         DecimalFormat df = new DecimalFormat("#.##");
         if (ph != null) {
             if (ph[2] != -1) {
@@ -59,7 +61,7 @@ public class TablaMBAgua extends javax.swing.JDialog {
             }
         }
         if (this.editar == true) {
-            Map<String, String> resultados = c.recuperarResultadosMBAgua(id);
+            Map<String, String> resultados = resultadosRepository.recuperarResultadosMBAgua(id);
             if (resultados == null) {
                 if (!this.ingresoPh) {
                     this.editar = false;
@@ -1784,8 +1786,8 @@ public class TablaMBAgua extends javax.swing.JDialog {
             File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
             File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
-            if (c.editarMBAgua(r)) {
-                c.guardarLimiteMohos(id, checkLimiteMohos.isSelected());
+            if (resultadosRepository.editarMBAgua(r)) {
+                resultadosRepository.guardarLimiteMohos(id, checkLimiteMohos.isSelected());
                 muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                 muestraRepository.guardarFechaAnalisis(r, id);
                 if (c.checkearVencimiento(r)) {
@@ -1800,8 +1802,8 @@ public class TablaMBAgua extends javax.swing.JDialog {
             }
 
         } else {
-            if (c.guardarResultadoMBAgua(r)) {
-                c.guardarLimiteMohos(id, checkLimiteMohos.isSelected());
+            if (resultadosRepository.guardarResultadoMBAgua(r)) {
+                resultadosRepository.guardarLimiteMohos(id, checkLimiteMohos.isSelected());
                 muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                 muestraRepository.guardarFechaAnalisis(r, id);
                 if (c.checkearVencimiento(r)) {

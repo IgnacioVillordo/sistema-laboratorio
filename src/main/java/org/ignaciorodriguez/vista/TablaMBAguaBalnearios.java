@@ -8,6 +8,7 @@ import javax.swing.border.MatteBorder;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -29,6 +30,7 @@ public class TablaMBAguaBalnearios extends javax.swing.JDialog {
     Consultas c = Consultas.getInstancia();
     boolean editar, activarColiformes = true, activarEscherichia = true, activarShigella = true;
     MuestraRepository muestraRepository = new MuestraRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
 
     public TablaMBAguaBalnearios(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -42,7 +44,7 @@ public class TablaMBAguaBalnearios extends javax.swing.JDialog {
             checkDinaHuapi.setSelected(true);
         }
         if (editar == true) {
-            Map<String, String> resultados = c.recuperarResultadosMBAgua(id);
+            Map<String, String> resultados = resultadosRepository.recuperarResultadosMBAgua(id);
             if (resultados == null) {
                 this.editar = false;
             } else {
@@ -732,7 +734,7 @@ public class TablaMBAguaBalnearios extends javax.swing.JDialog {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
-                if (c.editarMBAgua(r)) {
+                if (resultadosRepository.editarMBAgua(r)) {
                     muestraRepository.guardarFechaAnalisis(r, id);
                     muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                     c.actualizarVencimiento(r);
@@ -742,7 +744,7 @@ public class TablaMBAguaBalnearios extends javax.swing.JDialog {
                 }
 
             } else {
-                if (c.guardarResultadoMBAgua(r)) {
+                if (resultadosRepository.guardarResultadoMBAgua(r)) {
                     muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                     muestraRepository.guardarFechaAnalisis(r, id);
                     c.agregarVencimiento(r);

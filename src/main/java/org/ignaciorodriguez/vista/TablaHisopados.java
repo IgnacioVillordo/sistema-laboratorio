@@ -23,6 +23,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 
 public class TablaHisopados extends javax.swing.JDialog {
 
@@ -36,6 +37,7 @@ public class TablaHisopados extends javax.swing.JDialog {
     Frame parent;
     private String auxRecomendacion = "";
     MuestraRepository muestraRepository = new MuestraRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
 
     public TablaHisopados(java.awt.Frame parent, boolean modal, int id, String procedencia,
                           boolean editar, String pdf) {
@@ -48,7 +50,7 @@ public class TablaHisopados extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         if (editar == true) {
-            Map<String, String> resultados = c.recuperarResultadosHisopados(id);
+            Map<String, String> resultados = resultadosRepository.recuperarResultadosHisopados(id);
             if (resultados == null) {
                 this.editar = false;
             } else {
@@ -1894,13 +1896,13 @@ public class TablaHisopados extends javax.swing.JDialog {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
-                if (c.editarResultadosHisopados(m)) {
+                if (resultadosRepository.editarResultadosHisopados(m)) {
                     muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
                     c.generarReporteHisopados(id, procedencia);
                 }
             } else {
-                if (c.guardarResultadosHisopados(m)) {
+                if (resultadosRepository.guardarResultadosHisopados(m)) {
                     muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
 

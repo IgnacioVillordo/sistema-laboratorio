@@ -22,6 +22,7 @@ import org.ignaciorodriguez.modelo.CustomListModel;
 import org.ignaciorodriguez.modelo.Determinacion;
 import org.ignaciorodriguez.modelo.DeterminacionHumedad;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 import org.ignaciorodriguez.repository.UsuarioRepository;
 import org.ignaciorodriguez.utils.ListUtils;
 
@@ -34,6 +35,7 @@ public class FQAlimentos extends javax.swing.JDialog {
     boolean editar = false, auxiliar;
     Consultas consultas = Consultas.getInstancia();
     MuestraRepository muestraRepository = new MuestraRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
     String pdf;
     int alimentos;
     List<Determinacion> determinaciones = new LinkedList<>();
@@ -52,7 +54,7 @@ public class FQAlimentos extends javax.swing.JDialog {
 
         modelo = new CustomListModel<>();
         listaDeterminaciones.setModel(modelo);
-        consultas.recuperarFQAguaCompleto(id, determinaciones);
+        resultadosRepository.recuperarFQAguaCompleto(id, determinaciones);
         for (int i = 0; i < determinaciones.size(); i++) {
             if (i == 0) {
                 auxiliar = determinaciones.get(i).isActivado();

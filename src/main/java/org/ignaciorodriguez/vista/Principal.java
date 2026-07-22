@@ -39,6 +39,7 @@ import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 import org.ignaciorodriguez.repository.UsuarioRepository;
 
 public class Principal extends JFrame {
@@ -57,6 +58,7 @@ public class Principal extends JFrame {
     DialogoBuscar n;
     int actualizacion = -1;
     ClienteRepository clienteRepository = new ClienteRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
     private static final Logger logger = Logger.getLogger(Principal.class.getName());
 
     public Principal() {
@@ -965,7 +967,7 @@ public class Principal extends JFrame {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {
         if (actualizar) {
-            if (!consultas.verificarVacioMuestras()) {
+            if (!resultadosRepository.verificarVacioMuestras()) {
                 modeloTabla();
             }
         } else {
@@ -1479,7 +1481,7 @@ public class Principal extends JFrame {
             } else {
                 switch (tipo) {
                     case "Microbiológico de agua código":
-                        if (consultas.checkearResultadoMBAgua(id)) {
+                        if (resultadosRepository.checkearResultadoMBAgua(id)) {
                             WeakReference<TablaMBAgua> mb = new WeakReference<>(new TablaMBAgua(this, true, id, procedencia, true, pdf));
                             mb.get().setVisible(true);
                         } else {
@@ -1488,7 +1490,7 @@ public class Principal extends JFrame {
                         }
                         break;
                     case "Microbiológico de agua bidón":
-                        if (consultas.checkearResultadoMBAgua(id)) {
+                        if (resultadosRepository.checkearResultadoMBAgua(id)) {
                             TablaMBAguaBidon mbbidon = new TablaMBAguaBidon(this, true, id, procedencia, true, pdf);
                             mbbidon.setVisible(true);
                         } else {
@@ -1497,7 +1499,7 @@ public class Principal extends JFrame {
                         }
                         break;
                     case "Microbiológico de agua balnearios":
-                        if (consultas.checkearResultadoMBAgua(id)) {
+                        if (resultadosRepository.checkearResultadoMBAgua(id)) {
                             TablaMBAguaBalnearios mbb = new TablaMBAguaBalnearios(this, true, id, procedencia, true, pdf);
                             mbb.setVisible(true);
                         } else {
@@ -1507,7 +1509,7 @@ public class Principal extends JFrame {
                         break;
 
                     case "Microbiológico de agua COFES":
-                        if (consultas.checkearResultadoMBAgua(id)) {
+                        if (resultadosRepository.checkearResultadoMBAgua(id)) {
                             TablaMBAguaCOFES mbc = new TablaMBAguaCOFES(this, true, id, procedencia, true, pdf);
                             mbc.setVisible(true);
                         } else {
@@ -1516,7 +1518,7 @@ public class Principal extends JFrame {
                         }
                         break;
                     case "Microbiológico de agua de recreación":
-                        if (consultas.checkearResultadoMBAgua(id)) {
+                        if (resultadosRepository.checkearResultadoMBAgua(id)) {
                             TablaMBAguaRecreacion mbr = new TablaMBAguaRecreacion(this, true, id, procedencia, true, pdf);
                             mbr.setVisible(true);
                         } else {
@@ -1699,7 +1701,7 @@ public class Principal extends JFrame {
     }
 
     private void itemBorrarPruebaActionPerformed(java.awt.event.ActionEvent evt) {
-        if (consultas.borrarDeterminaciones(1)) {
+        if (resultadosRepository.borrarDeterminaciones(1)) {
             JOptionPane.showMessageDialog(null, "Prueba reseteada.");
         }
     }

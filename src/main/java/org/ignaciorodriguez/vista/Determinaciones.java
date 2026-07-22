@@ -34,6 +34,7 @@ import javax.swing.JLabel;
 import org.ignaciorodriguez.modelo.Determinacion;
 import org.ignaciorodriguez.modelo.DeterminacionHumedad;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 
 public class Determinaciones extends javax.swing.JDialog {
 
@@ -44,6 +45,7 @@ public class Determinaciones extends javax.swing.JDialog {
     int alimentos;
     String pdf, auxObservaciones, auxConclusion = "";
     MuestraRepository muestraRepository = new MuestraRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
     Frame parent;
     ButtonGroup bg;
     public List<Determinacion> determinaciones = new ArrayList();
@@ -80,7 +82,7 @@ public class Determinaciones extends javax.swing.JDialog {
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         if (this.editar) {
             cajaFechaAnalisis.setDate(consultas.recuperarFechaAnalisis(id).toString().equals("1111-11-11") ? null : consultas.recuperarFechaAnalisis(id));
-            consultas.recuperarDatosDeterminaciones(determinaciones, id);
+            resultadosRepository.recuperarDatosDeterminaciones(determinaciones, id);
             determinaciones.forEach(Determinacion::llenarCampos);
             auxConclusion += muestraRepository.recuperarConclusion(id);
             String oracion = auxConclusion.replaceAll("\\b\\d+\\b", "NUMERO");
@@ -97,7 +99,7 @@ public class Determinaciones extends javax.swing.JDialog {
             } else {
                 checkConclusionPersonalizada.setSelected(true);
             }
-            consultas.recuperarMetodosDeterminaciones(determinaciones, id);
+            resultadosRepository.recuperarMetodosDeterminaciones(determinaciones, id);
             String auxiliarEtiqueta = "";
 
         }
@@ -250,7 +252,7 @@ public class Determinaciones extends javax.swing.JDialog {
         });
         String observaciones = "";
         determinaciones.forEach(d -> d.guardarMetodo());
-        consultas.recuperarFQAguaCompleto(id, determinaciones);
+        resultadosRepository.recuperarFQAguaCompleto(id, determinaciones);
         String conclusion = "";
         if (editar) {
 
@@ -277,8 +279,8 @@ public class Determinaciones extends javax.swing.JDialog {
             rv.renameTo(rn);
             observaciones = JOptionPane.showInputDialog("Digite la observación:", auxObservaciones);
             observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
-            consultas.borrarDeterminaciones(id);
-            if (consultas.guardarDeterminaciones(determinaciones, id)) {
+            resultadosRepository.borrarDeterminaciones(id);
+            if (resultadosRepository.guardarDeterminaciones(determinaciones, id)) {
                 muestraRepository.guardarObservaciones(observaciones, id);
                 muestraRepository.guardarFechaAnalisis(r, id);
                 this.dispose();
@@ -310,7 +312,7 @@ public class Determinaciones extends javax.swing.JDialog {
             }
             muestraRepository.guardarConclusion(conclusion, id);
             observaciones = JOptionPane.showInputDialog("Digite la observación:");
-            if (consultas.guardarDeterminaciones(determinaciones, id)) {
+            if (resultadosRepository.guardarDeterminaciones(determinaciones, id)) {
                 muestraRepository.guardarObservaciones(observaciones, id);
                 muestraRepository.guardarFechaAnalisis(r, id);
                 this.dispose();
@@ -352,8 +354,8 @@ public class Determinaciones extends javax.swing.JDialog {
         Long dm = fm.getTime();
         java.sql.Date fechaAnalisis = new java.sql.Date(dm);
         r.setFechaAnalisis(fechaAnalisis);
-        consultas.recuperarDatosDeterminacionesGenerar(determinaciones, id);
-        consultas.recuperarMetodosDeterminaciones(determinaciones, id);
+        resultadosRepository.recuperarDatosDeterminacionesGenerar(determinaciones, id);
+        resultadosRepository.recuperarMetodosDeterminaciones(determinaciones, id);
 
         if (alimentos == Determinaciones.ALIMENTO) {
             consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);

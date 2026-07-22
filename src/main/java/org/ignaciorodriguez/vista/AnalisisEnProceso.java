@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 
 public class AnalisisEnProceso extends javax.swing.JDialog {
 
@@ -11,6 +12,7 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
     int id;
     String auxiliar;
     ClienteRepository clienteRepository = new ClienteRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
 
     public AnalisisEnProceso(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
@@ -29,7 +31,7 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
         } else if (tipo.contains("Hisopado")) {
             tipo = "hisopado";
         } else if (tipo.contains("Manual")) {
-            tipo = c.recuperarTituloManual(id).toLowerCase();
+            tipo = resultadosRepository.recuperarTituloManual(id).toLowerCase();
         } else {
             tipo = tipo.toLowerCase();
         }

@@ -23,6 +23,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 
 public class TablaHisopadosAlliance extends javax.swing.JDialog {
 
@@ -33,6 +34,7 @@ public class TablaHisopadosAlliance extends javax.swing.JDialog {
             activarEscherichia = true, activarEnterobacterias = true, activarStaphilococos = true;
     Frame parent;
     MuestraRepository muestraRepository = new MuestraRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
 
     public TablaHisopadosAlliance(java.awt.Frame parent, boolean modal, int id, String procedencia,
                                   boolean editar, String pdf) {
@@ -46,7 +48,7 @@ public class TablaHisopadosAlliance extends javax.swing.JDialog {
         setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Hisopado sin límites");
         setLocationRelativeTo(null);
         if (editar == true) {
-            Map<String, String> resultados = c.recuperarResultadosHisopadosAlliance(id);
+            Map<String, String> resultados = resultadosRepository.recuperarResultadosHisopadosAlliance(id);
             if (resultados == null) {
                 this.editar = false;
             } else {
@@ -1172,13 +1174,13 @@ public class TablaHisopadosAlliance extends javax.swing.JDialog {
                     File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                     File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                     rv.renameTo(rn);
-                    if (c.editarResultadosHisopadosAlliance(m)) {
+                    if (resultadosRepository.editarResultadosHisopadosAlliance(m)) {
                         muestraRepository.guardarObservaciones(observaciones, id);
                         this.dispose();
                         c.generarReporteHisopadosAlliance(id, procedencia);
                     }
                 } else {
-                    if (c.guardarResultadosHisopadosAlliance(m)) {
+                    if (resultadosRepository.guardarResultadosHisopadosAlliance(m)) {
                         muestraRepository.guardarObservaciones(observaciones, id);
                         this.dispose();
 

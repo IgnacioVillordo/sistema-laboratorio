@@ -8,6 +8,7 @@ import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Muestra;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 
@@ -28,6 +29,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
     public JDateChooser cajaMuestreo;
     public JTextField cajaHabilitacion;
     public JTextField cajaSolicitante;
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
     Consultas c = Consultas.getInstancia();
     MuestraRepository muestraRepository = new MuestraRepository();
     ClienteRepository clienteRepository = new ClienteRepository();
@@ -651,9 +653,9 @@ public class AgregarMuestra extends javax.swing.JDialog {
                                         break;
                                 }
                                 if (auxTipo.equals("Hisopados") && (nuevaMuestra.getTipo().equals("Hisopados Alliance") || nuevaMuestra.getTipo().equals("Hisopados con límites"))) {
-                                    c.cambiarHisopado(id);
+                                    resultadosRepository.cambiarHisopado(id);
                                 } else {
-                                    c.cambiarTipo(id, db);
+                                    resultadosRepository.cambiarTipo(id, db);
                                 }
                             }
 

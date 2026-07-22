@@ -11,6 +11,7 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -35,6 +36,7 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
     double[] ph;
     private String aux;
     MuestraRepository muestraRepository = new MuestraRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
 
     public TablaMBAguaCOFES(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -44,7 +46,7 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
         this.pdf = pdf.substring(1, pdf.length());
         initComponents();
         setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico de agua COFES");
-        ph = c.recuperarPhYCloro(this.id);
+        ph = resultadosRepository.recuperarPhYCloro(this.id);
         DecimalFormat df = new DecimalFormat("#.##");
         if (procedencia.contains("Municipio de Dina Huapi")) {
             checkDinaHuapi.setSelected(true);
@@ -60,8 +62,8 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
                 this.ingresoPh = true;
             }
         }
-        if (this.editar == true) {
-            Map<String, String> resultados = c.recuperarResultadosMBAguaCOFES(this.id);
+        if (this.editar) {
+            Map<String, String> resultados = resultadosRepository.recuperarResultadosMBAguaCOFES(this.id);
             if (resultados == null) {
                 if (!this.ingresoPh) {
                     this.editar = false;
@@ -1566,7 +1568,7 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
-                if (c.editarMBAgua(r)) {
+                if (resultadosRepository.editarMBAgua(r)) {
                     if (c.checkearVencimiento(r)) {
                         c.actualizarVencimiento(r);
                     } else {
@@ -1580,7 +1582,7 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
                 }
 
             } else {
-                if (c.guardarResultadoMBAgua(r)) {
+                if (resultadosRepository.guardarResultadoMBAgua(r)) {
                     if (c.checkearVencimiento(r)) {
                         c.actualizarVencimiento(r);
                     } else {

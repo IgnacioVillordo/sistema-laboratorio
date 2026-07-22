@@ -19,6 +19,7 @@ import javax.swing.SwingUtilities;
 
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadosRepository;
 
 public class TablaManual extends javax.swing.JDialog {
 
@@ -28,6 +29,7 @@ public class TablaManual extends javax.swing.JDialog {
     String auxTitulo, auxConclusion, procedencia, pdf, auxObservacion;
     Point mousePoint;
     MuestraRepository muestraRepository = new MuestraRepository();
+    ResultadosRepository resultadosRepository = new ResultadosRepository();
 
     public TablaManual(java.awt.Frame parent, boolean modal, boolean editar, int id, String procedencia, String pdf) {
         super(parent, modal);
@@ -37,8 +39,8 @@ public class TablaManual extends javax.swing.JDialog {
         int width = getPreferredSize().width;
         int height = (int) (Toolkit.getDefaultToolkit().getScreenSize().height * 0.7);
         jScrollPane81.setPreferredSize(new Dimension(width, height));
-        Map<String, String> map = c.recuperarResultadoManual(id);
-        this.editar = c.checkearResultadoManual(id);
+        Map<String, String> map = resultadosRepository.recuperarResultadoManual(id);
+        this.editar = resultadosRepository.checkearResultadoManual(id);
         this.procedencia = procedencia;
         this.pdf = pdf;
         botonMostrar.setSelected(true);
@@ -477,7 +479,7 @@ public class TablaManual extends javax.swing.JDialog {
             auxTitulo = map.get("titulo");
             auxConclusion = muestraRepository.recuperarConclusion(id);
             cajaFechaAnalisis.setDate(c.recuperarFechaAnalisis(id));
-            if (c.consultarMostrar(id)) {
+            if (resultadosRepository.consultarMostrar(id)) {
                 botonMostrar.setSelected(true);
             } else {
                 botonNoMostrar.setSelected(true);
@@ -3346,7 +3348,7 @@ public class TablaManual extends javax.swing.JDialog {
             m.put("fechaAnalisis", fechaAnalisis);
             String observaciones;
             if (editar) {
-                c.guardarMostrar(id, m.get("mostrar").toString());
+                resultadosRepository.guardarMostrar(id, m.get("mostrar").toString());
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
@@ -3356,7 +3358,7 @@ public class TablaManual extends javax.swing.JDialog {
                 muestraRepository.guardarObservaciones(observaciones, id);
                 muestraRepository.guardarConclusion(crearConclusion(), id);
                 muestraRepository.guardarFechaAnalisis(m);
-                if (c.editarResultadoManual(m)) {
+                if (resultadosRepository.editarResultadoManual(m)) {
                     this.dispose();
                     c.generarReporteManual(id, procedencia);
                 }
@@ -3368,7 +3370,7 @@ public class TablaManual extends javax.swing.JDialog {
                 muestraRepository.guardarObservaciones(observaciones, id);
                 muestraRepository.guardarConclusion(crearConclusion(), id);
                 muestraRepository.guardarFechaAnalisis(m);
-                if (c.guardarResultadoManual(m)) {
+                if (resultadosRepository.guardarResultadoManual(m)) {
                     this.dispose();
                     c.generarReporteManual(id, procedencia);
                 }
