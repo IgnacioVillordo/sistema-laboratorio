@@ -24,7 +24,7 @@ public class InformeMuestras extends javax.swing.JDialog {
 
     public InformeMuestras(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        modeloTabla = consultas.tablaAnalisis();
+        modeloTabla = muestraRepository.tablaAnalisis();
         initComponents();
         this.setSize(1000, this.getHeight());
         this.setLocationRelativeTo(null);

@@ -8,22 +8,22 @@ import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
 import org.ignaciorodriguez.modelo.Consultas;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 
 public class AgregarPh extends javax.swing.JDialog {
 
     boolean editar = false;
     int id;
     Consultas c = Consultas.getInstancia();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
 
     public AgregarPh(java.awt.Frame parent, boolean modal, int id, String tipo) {
         super(parent, modal);
-        editar = resultadosRepository.checkearResultadoMBAgua(id);
-        double[] resultados = resultadosRepository.recuperarPhYCloro(id);
+        editar = resultadoRepository.checkearResultadoMBAgua(id);
+        double[] resultados = resultadoRepository.recuperarPhYCloro(id);
         DecimalFormat df = new DecimalFormat("#.##");
         if (!editar) {
-            if (resultadosRepository.checkearResultadoMBAgua(id)) {
+            if (resultadoRepository.checkearResultadoMBAgua(id)) {
                 editar = true;
                 etiquetaTitulo.setText("Editar pH y cloro");
             }
@@ -151,12 +151,12 @@ public class AgregarPh extends javax.swing.JDialog {
         m.put("libre", cajaLibre.getText());
         m.put("id", id);
         if (editar) {
-            if (resultadosRepository.editarPhYCloro(m)) {
+            if (resultadoRepository.editarPhYCloro(m)) {
                 JOptionPane.showMessageDialog(null, "Datos editados con éxito.");
                 this.dispose();
             }
         } else {
-            if (resultadosRepository.guardarPhYCloro(m)) {
+            if (resultadoRepository.guardarPhYCloro(m)) {
                 JOptionPane.showMessageDialog(null, "Datos ingresados con éxito.");
                 this.dispose();
             }

@@ -4,7 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 
 public class AnalisisEnProceso extends javax.swing.JDialog {
 
@@ -12,14 +13,15 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
     int id;
     String auxiliar;
     ClienteRepository clienteRepository = new ClienteRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    MuestraRepository muestraRepository = new MuestraRepository();
 
     public AnalisisEnProceso(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
         initComponents();
         this.id = id;
         int idcliente = clienteRepository.recuperarIdCliente(this.id);
-        String tipo = c.recuperarTipoAnalisis(this.id);
+        String tipo = muestraRepository.recuperarTipoAnalisis(this.id);
         if (tipo.contains("Microbiológico de agua")) {
             tipo = "microbiológico de agua";
         } else if (tipo.contains("Fisicoquímico de agua")) {
@@ -31,7 +33,7 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
         } else if (tipo.contains("Hisopado")) {
             tipo = "hisopado";
         } else if (tipo.contains("Manual")) {
-            tipo = resultadosRepository.recuperarTituloManual(id).toLowerCase();
+            tipo = resultadoRepository.recuperarTituloManual(id).toLowerCase();
         } else {
             tipo = tipo.toLowerCase();
         }
@@ -50,7 +52,7 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
 
         auxiliar = "Por la presente se certifica que se está realizando el análisis "
                 + tipo + " de " + clienteRepository.recuperarProcedencia(idcliente)
-                + " solicitado por " + c.recuperarSolicitante(idcliente) + " sito en "
+                + " solicitado por " + muestraRepository.recuperarSolicitante(idcliente) + " sito en "
                 + clienteRepository.recuperarDireccion(idcliente) + " de " + (clienteRepository.recuperarCiudad(idcliente).equals("Bariloche") ? "esta ciudad" : clienteRepository.recuperarCiudad(idcliente))
                 + " bajo el número de ingreso " + this.id + ".\n"
                 + "Siendo entregado el resultado el día " + df.format(fecha) + " del corriente.\n"

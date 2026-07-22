@@ -31,6 +31,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.VencimientoRepository;
 
 public class VentanaEmailVencimientos extends javax.swing.JDialog {
 
@@ -40,6 +41,7 @@ public class VentanaEmailVencimientos extends javax.swing.JDialog {
     boolean editar = false;
     MuestraRepository muestraRepository = new MuestraRepository();
     ClienteRepository clienteRepository = new ClienteRepository();
+    VencimientoRepository vencimientoRepository = new VencimientoRepository();
 
     public VentanaEmailVencimientos(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
@@ -351,7 +353,7 @@ public class VentanaEmailVencimientos extends javax.swing.JDialog {
             }
 
             Consultas c = Consultas.getInstancia();
-            c.actualizarAvisados(id, 1);
+            vencimientoRepository.actualizarAvisados(id, 1);
         } catch (MessagingException mex) {
             JOptionPane.showMessageDialog(null, "Error al enviar email.");
             System.err.println(mex);

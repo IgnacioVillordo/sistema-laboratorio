@@ -34,7 +34,7 @@ import javax.swing.JLabel;
 import org.ignaciorodriguez.modelo.Determinacion;
 import org.ignaciorodriguez.modelo.DeterminacionHumedad;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 
 public class Determinaciones extends javax.swing.JDialog {
 
@@ -45,7 +45,7 @@ public class Determinaciones extends javax.swing.JDialog {
     int alimentos;
     String pdf, auxObservaciones, auxConclusion = "";
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
     Frame parent;
     ButtonGroup bg;
     public List<Determinacion> determinaciones = new ArrayList();
@@ -81,8 +81,8 @@ public class Determinaciones extends javax.swing.JDialog {
         jScrollPane1.setPreferredSize(new Dimension(width, height));
         jScrollPane1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         if (this.editar) {
-            cajaFechaAnalisis.setDate(consultas.recuperarFechaAnalisis(id).toString().equals("1111-11-11") ? null : consultas.recuperarFechaAnalisis(id));
-            resultadosRepository.recuperarDatosDeterminaciones(determinaciones, id);
+            cajaFechaAnalisis.setDate(muestraRepository.recuperarFechaAnalisis(id).toString().equals("1111-11-11") ? null : muestraRepository.recuperarFechaAnalisis(id));
+            resultadoRepository.recuperarDatosDeterminaciones(determinaciones, id);
             determinaciones.forEach(Determinacion::llenarCampos);
             auxConclusion += muestraRepository.recuperarConclusion(id);
             String oracion = auxConclusion.replaceAll("\\b\\d+\\b", "NUMERO");
@@ -99,7 +99,7 @@ public class Determinaciones extends javax.swing.JDialog {
             } else {
                 checkConclusionPersonalizada.setSelected(true);
             }
-            resultadosRepository.recuperarMetodosDeterminaciones(determinaciones, id);
+            resultadoRepository.recuperarMetodosDeterminaciones(determinaciones, id);
             String auxiliarEtiqueta = "";
 
         }
@@ -252,7 +252,7 @@ public class Determinaciones extends javax.swing.JDialog {
         });
         String observaciones = "";
         determinaciones.forEach(d -> d.guardarMetodo());
-        resultadosRepository.recuperarFQAguaCompleto(id, determinaciones);
+        resultadoRepository.recuperarFQAguaCompleto(id, determinaciones);
         String conclusion = "";
         if (editar) {
 
@@ -279,8 +279,8 @@ public class Determinaciones extends javax.swing.JDialog {
             rv.renameTo(rn);
             observaciones = JOptionPane.showInputDialog("Digite la observación:", auxObservaciones);
             observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
-            resultadosRepository.borrarDeterminaciones(id);
-            if (resultadosRepository.guardarDeterminaciones(determinaciones, id)) {
+            resultadoRepository.borrarDeterminaciones(id);
+            if (resultadoRepository.guardarDeterminaciones(determinaciones, id)) {
                 muestraRepository.guardarObservaciones(observaciones, id);
                 muestraRepository.guardarFechaAnalisis(r, id);
                 this.dispose();
@@ -312,7 +312,7 @@ public class Determinaciones extends javax.swing.JDialog {
             }
             muestraRepository.guardarConclusion(conclusion, id);
             observaciones = JOptionPane.showInputDialog("Digite la observación:");
-            if (resultadosRepository.guardarDeterminaciones(determinaciones, id)) {
+            if (resultadoRepository.guardarDeterminaciones(determinaciones, id)) {
                 muestraRepository.guardarObservaciones(observaciones, id);
                 muestraRepository.guardarFechaAnalisis(r, id);
                 this.dispose();
@@ -354,8 +354,8 @@ public class Determinaciones extends javax.swing.JDialog {
         Long dm = fm.getTime();
         java.sql.Date fechaAnalisis = new java.sql.Date(dm);
         r.setFechaAnalisis(fechaAnalisis);
-        resultadosRepository.recuperarDatosDeterminacionesGenerar(determinaciones, id);
-        resultadosRepository.recuperarMetodosDeterminaciones(determinaciones, id);
+        resultadoRepository.recuperarDatosDeterminacionesGenerar(determinaciones, id);
+        resultadoRepository.recuperarMetodosDeterminaciones(determinaciones, id);
 
         if (alimentos == Determinaciones.ALIMENTO) {
             consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);

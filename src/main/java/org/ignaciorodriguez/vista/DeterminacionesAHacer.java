@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import org.ignaciorodriguez.modelo.Consultas;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 
 
 public class DeterminacionesAHacer extends javax.swing.JDialog {
@@ -17,7 +17,7 @@ public class DeterminacionesAHacer extends javax.swing.JDialog {
     private Vector<String> determinacionesAHacer = new Vector<>();
     private Map original = new HashMap();
     Consultas consultas = Consultas.getInstancia();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
 
     private int limiteDeterminaciones = 0;
     private int id;
@@ -317,55 +317,55 @@ public class DeterminacionesAHacer extends javax.swing.JDialog {
         this.editar = editar;
         switch (tipo) {
             case "Microbiológico de agua código":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosMBAgua(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosMBAgua(id);
                 break;
             case "Microbiológico de agua COFES":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosMBAguaCOFES(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosMBAguaCOFES(id);
                 break;
             case "Microbiológico de agua de recreación":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosMBAguaDeRecreacion(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosMBAguaDeRecreacion(id);
                 break;
             case "Microbiológico de agua balnearios":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosMBAgua(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosMBAgua(id);
                 break;
             case "Microbiológico de agua bidón":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosMBAgua(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosMBAgua(id);
                 break;
             case "Microbiológico de alimentos":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosMBAlimentos(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosMBAlimentos(id);
                 break;
             case "Hisopados":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosHisopados(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosHisopados(id);
                 break;
             case "Hisopados con límites":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosHisopadosAlliance(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosHisopadosAlliance(id);
                 break;
             case "Base helada Del Turista":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosBaseHelada(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosBaseHelada(id);
                 break;
             case "Microbiológico de chocolates Del Turista":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosMBChocolates(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosMBChocolates(id);
                 break;
             case "Efluentes":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosEfluentes(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosEfluentes(id);
                 break;
             case "Efluentes cloaca":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosEfluentesTipo(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosEfluentesTipo(id);
                 break;
             case "Efluentes infiltración":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosEfluentesTipo(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosEfluentesTipo(id);
                 break;
             case "Físico químico de agua básico":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosFQAgua(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosFQAgua(id);
                 break;
             case "Físico químico de agua completo":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosMBAguaDeRecreacion(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosMBAguaDeRecreacion(id);
                 break;
             case "Físico químico de alimentos":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosMBAguaDeRecreacion(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosMBAguaDeRecreacion(id);
                 break;
             case "Físico químico genérico":
-                this.valoresGuardados = resultadosRepository.recuperarResultadosMBAguaDeRecreacion(id);
+                this.valoresGuardados = resultadoRepository.recuperarResultadosMBAguaDeRecreacion(id);
                 break;
         }
         initComponents();
@@ -609,11 +609,11 @@ public class DeterminacionesAHacer extends javax.swing.JDialog {
         int cont = 0;
         int contAnular = 0;
         if (tipo == "Físico químico de alimentos" || tipo == "Físico químico de agua completo") {
-            boolean existe = resultadosRepository.recuperarFQAguaCompleto(id);
+            boolean existe = resultadoRepository.recuperarFQAguaCompleto(id);
             if (existe) {
                 Determinaciones determinaciones = new Determinaciones();
 
-                resultadosRepository.recuperarFQAguaCompleto(id, determinaciones.determinaciones);
+                resultadoRepository.recuperarFQAguaCompleto(id, determinaciones.determinaciones);
                 String db = "update determinaciones set ";
                 int contInt = 0;
                 for (int i = 0; i < determinaciones.determinaciones.size(); i++) {
@@ -624,7 +624,7 @@ public class DeterminacionesAHacer extends javax.swing.JDialog {
                 }
                 db = db.substring(0, db.length() - 2);
                 db += " where idmuestras = ?";
-                resultadosRepository.blankearDeterminaciones(db, id, contInt);
+                resultadoRepository.blankearDeterminaciones(db, id, contInt);
                 if (consultas.guardarDeterminacionesAHacerFQAlimentosAgua(listaDb, id, existe)) {
                     this.dispose();
                     JOptionPane.showMessageDialog(null, "Análisis editado con éxito");

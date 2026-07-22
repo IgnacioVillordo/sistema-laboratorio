@@ -10,7 +10,8 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.repository.VencimientoRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -35,7 +36,8 @@ public class TablaFQAgua extends javax.swing.JDialog {
             activarHierro = true, activarNitratos = true, activarNitritos = true, activarSulfatos = true;
     String procedencia, pdf, auxObservaciones, auxOlor;
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    VencimientoRepository vencimientoRepository = new VencimientoRepository();
 
     public TablaFQAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -47,12 +49,12 @@ public class TablaFQAgua extends javax.swing.JDialog {
         setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Físico químico de agua");
         this.setLocationRelativeTo(null);
         if (editar == true) {
-            Map<String, String> resultados = resultadosRepository.recuperarResultadosFQAgua(id);
+            Map<String, String> resultados = resultadoRepository.recuperarResultadosFQAgua(id);
             auxObservaciones = muestraRepository.recuperarObservaciones(id);
             if (resultados == null) {
                 this.editar = false;
             } else {
-                boolean auxiliarVencimiento = c.recuperarEsconderFechaVencimiento(this.id);
+                boolean auxiliarVencimiento = muestraRepository.recuperarEsconderFechaVencimiento(this.id);
                 checkPoner.setSelected(auxiliarVencimiento);
                 etiquetaTitulo.setText("Editar resultados del análisis");
                 String aux;
@@ -191,7 +193,7 @@ public class TablaFQAgua extends javax.swing.JDialog {
                     cajaSulfatos.setText(aux);
                 }
             }
-            cajaFechaAnalisis.setDate(c.recuperarFechaAnalisis(id));
+            cajaFechaAnalisis.setDate(muestraRepository.recuperarFechaAnalisis(id));
         }
         ImageIcon icon = new ImageIcon("src\\vista\\icono.png");
         this.setIconImage(icon.getImage());
@@ -1862,9 +1864,9 @@ public class TablaFQAgua extends javax.swing.JDialog {
             File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
             File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
-            if (resultadosRepository.editarFQAgua(r)) {
+            if (resultadoRepository.editarFQAgua(r)) {
                 muestraRepository.guardarObservaciones(valores[15], id);
-                c.actualizarVencimiento(r);
+                vencimientoRepository.actualizarVencimiento(r);
                 File tn = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File tnnuevo = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 tn.renameTo(tnnuevo);
@@ -1887,8 +1889,8 @@ public class TablaFQAgua extends javax.swing.JDialog {
             r.setTipo("Físico químico de agua básico");
             r.setIdmuestras(id);
             r.setFechaAnalisis(fechaAnalisis);
-            if (resultadosRepository.guardarResultadoFQAgua(r)) {
-                c.agregarVencimiento(r);
+            if (resultadoRepository.guardarResultadoFQAgua(r)) {
+                vencimientoRepository.agregarVencimiento(r);
                 muestraRepository.guardarObservaciones(valores[15], id);
                 muestraRepository.guardarConclusion(conclusion, id);
                 c.esconderFechaVencimiento(id, checkPoner.isSelected());

@@ -3,7 +3,6 @@ package org.ignaciorodriguez.vista;
 import java.awt.event.ItemEvent;
 import javax.swing.DefaultListModel;
 
-import lombok.extern.slf4j.Slf4j;
 import org.ignaciorodriguez.modelo.Consultas;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -22,8 +21,7 @@ import org.ignaciorodriguez.modelo.CustomListModel;
 import org.ignaciorodriguez.modelo.Determinacion;
 import org.ignaciorodriguez.modelo.DeterminacionHumedad;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
-import org.ignaciorodriguez.repository.UsuarioRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.utils.ListUtils;
 
 public class FQAlimentos extends javax.swing.JDialog {
@@ -35,7 +33,7 @@ public class FQAlimentos extends javax.swing.JDialog {
     boolean editar = false, auxiliar;
     Consultas consultas = Consultas.getInstancia();
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
     String pdf;
     int alimentos;
     List<Determinacion> determinaciones = new LinkedList<>();
@@ -54,7 +52,7 @@ public class FQAlimentos extends javax.swing.JDialog {
 
         modelo = new CustomListModel<>();
         listaDeterminaciones.setModel(modelo);
-        resultadosRepository.recuperarFQAguaCompleto(id, determinaciones);
+        resultadoRepository.recuperarFQAguaCompleto(id, determinaciones);
         for (int i = 0; i < determinaciones.size(); i++) {
             if (i == 0) {
                 auxiliar = determinaciones.get(i).isActivado();

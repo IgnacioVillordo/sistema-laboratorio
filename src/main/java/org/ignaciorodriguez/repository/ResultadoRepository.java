@@ -17,10 +17,10 @@ import java.util.Map;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class ResultadosRepository {
+public class ResultadoRepository {
 
     Conexion con = new Conexion();
-    private static final Logger logger = Logger.getLogger(ResultadosRepository.class.getName());
+    private static final Logger logger = Logger.getLogger(ResultadoRepository.class.getName());
 
     public boolean guardarResultadoMBAgua(Resultados r) {
         

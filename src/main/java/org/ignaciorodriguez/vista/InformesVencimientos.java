@@ -2,6 +2,8 @@ package org.ignaciorodriguez.vista;
 
 import javax.swing.table.DefaultTableModel;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.VencimientoRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.time.Instant;
@@ -36,6 +38,7 @@ public class InformesVencimientos extends javax.swing.JDialog {
             }
         }
     };
+    private VencimientoRepository vencimientoRepository = new VencimientoRepository();
     private static final Logger logger = Logger.getLogger(InformesVencimientos.class.getName());
 
     public InformesVencimientos(java.awt.Frame parent, boolean modal) {
@@ -53,7 +56,7 @@ public class InformesVencimientos extends javax.swing.JDialog {
             hasta = Date.from(Instant.from(agregarMes.withDayOfMonth(1).plusMonths(1).atStartOfDay(ZoneId.of("GMT"))));
 
         }
-        modeloTabla = consultas.obtenerVencimientosInformes(desde, hasta);
+        modeloTabla = vencimientoRepository.obtenerVencimientosInformes(desde, hasta);
         tablaDatos.setModel(modeloTabla);
         tablaDatos.setAutoCreateRowSorter(true);
         tablaDatos.getColumnModel().getColumn(0).setPreferredWidth(36);
@@ -212,7 +215,7 @@ public class InformesVencimientos extends javax.swing.JDialog {
         for (int i = 0; i < tablaDatos.getRowCount(); i++) {
             try {
                 if ((boolean) tablaDatos.getValueAt(i, 4)) {
-                    consultas.actualizarAvisados(Integer.parseInt(tablaDatos.getValueAt(i, 0).toString()), 1);
+                    vencimientoRepository.actualizarAvisados(Integer.parseInt(tablaDatos.getValueAt(i, 0).toString()), 1);
                 }
             } catch (NullPointerException e) {
                 System.err.println("Valor nulo");

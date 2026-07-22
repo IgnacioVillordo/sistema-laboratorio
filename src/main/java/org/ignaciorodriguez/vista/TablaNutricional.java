@@ -4,7 +4,7 @@ import java.io.File;
 import javax.swing.JOptionPane;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -23,7 +23,7 @@ public class TablaNutricional extends javax.swing.JDialog {
     boolean editar = false;
     String pdf, auxObservaciones, unidad = "";
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
 
     public TablaNutricional(java.awt.Frame parent, boolean modal, int id, boolean editar, String pdf) {
         super(parent, modal);
@@ -32,7 +32,7 @@ public class TablaNutricional extends javax.swing.JDialog {
         this.pdf = pdf.substring(1);
         initComponents();
         if (editar) {
-            String[] datos = resultadosRepository.recuperarTablaNutricional(id);
+            String[] datos = resultadoRepository.recuperarTablaNutricional(id);
             if (datos == null) {
                 this.editar = false;
             } else {
@@ -1635,12 +1635,12 @@ public class TablaNutricional extends javax.swing.JDialog {
             File rv = new File(consultas.recuperarRutas("Reportes") + "\\" + pdf);
             File rn = new File(consultas.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
-            if (resultadosRepository.editarTablaNutricional(valores, id, unidad, porcion, porcionesEnvase)) {
+            if (resultadoRepository.editarTablaNutricional(valores, id, unidad, porcion, porcionesEnvase)) {
                 this.dispose();
                 consultas.generarReporteTN(id, muestraRepository.obtenerProcedencia(id));
             }
         } else {
-            if (resultadosRepository.guardarTablaNutricional(valores, id, unidad, porcion, porcionesEnvase)) {
+            if (resultadoRepository.guardarTablaNutricional(valores, id, unidad, porcion, porcionesEnvase)) {
                 this.dispose();
                 consultas.generarReporteTN(id, muestraRepository.obtenerProcedencia(id));
             }

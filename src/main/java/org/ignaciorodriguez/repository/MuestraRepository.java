@@ -11,9 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class MuestraRepository {
@@ -526,6 +524,240 @@ public class MuestraRepository {
             ps.executeUpdate();
         } catch (Exception e) {
             logger.severe("Error al actualizar entregado, " + e);
+        }
+    }
+
+    public String obtenerLugarMuestreo(int id) {
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select lugarMuestreo from muestras " + "where idmuestras = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("lugarMuestreo");
+            }
+        } catch (Exception e) {
+            logger.severe("Error al obtenerLugarMuestreo, " + e);
+            return null;
+        }
+        return null;
+    }
+
+    public Date recuperarFechaAnalisis(int id) {
+        Connection conexion = con.getConnection();
+        try {
+            PreparedStatement ps = conexion.prepareStatement("select fechaAnalisis from muestras where idmuestras = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getDate("fechaAnalisis");
+            }
+        } catch (Exception e) {
+            logger.severe("Error al recuperarFechaAnalisis, " + e);
+            return null;
+        }
+        return null;
+    }
+
+    public String recuperarNota(int id) {
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select notas from muestras where idmuestras = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            logger.severe("Error al generar informe fq, " + e);
+            return "";
+        }
+        return "";
+    }
+
+    public boolean guardarNota(int id, String nota) {
+        Connection conexion = con.getConnection();
+        try {
+            PreparedStatement ps = conexion.prepareStatement("update muestras set notas = ? where idmuestras = ?");
+            ps.setString(1, nota);
+            ps.setInt(2, id);
+            int response = ps.executeUpdate();
+            return response > 0;
+        } catch (Exception e) {
+            logger.severe("Error al guardar nota, " + e);
+            return false;
+        }
+    }
+
+    public String recuperarSolicitante(int id) {
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select solicitante, count(solicitante)" + " as mostCommon from muestras where idcliente = ? group by " + "solicitante order by count(solicitante) desc");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            logger.severe("Error al recuperar solicitante, " + e);
+            return "";
+        }
+        return "";
+    }
+
+    public Vector<String> recuperarSolicitantes(int id) {
+        Vector<String> solicitantes = new Stack<>();
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select solicitante, count(solicitante)" + " as mostCommon from muestras where idcliente = ? group by " + "solicitante order by mostCommon desc");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                solicitantes.add(rs.getString("solicitante"));
+            }
+            return solicitantes;
+        } catch (Exception e) {
+            logger.severe("Error al recuperar solicitante, " + e);
+            return null;
+        }
+    }
+
+    public boolean recuperarEsconderFechaVencimiento(int id) {
+        boolean aux = false;
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select ponerFechaVencimiento from muestras where idmuestras = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                aux = rs.getBoolean("ponerFechaVencimiento");
+            }
+            return aux;
+        } catch (Exception e) {
+            JOptionPane.showInputDialog("Error al recuperar estado de fecha de vencimiento, " + e);
+        }
+        return false;
+    }
+
+    public String recuperarIdentificacion(int id) {
+        String aux = "";
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select identificacion from muestras where idmuestras = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                aux = rs.getString("identificacion");
+            }
+            return aux;
+        } catch (Exception e) {
+            logger.severe("Error al recuperar identificacion, " + e);
+        }
+        return null;
+    }
+
+    public Map<String, String> recuperarIdentificaciones() {
+        String aux = "";
+        Map mapa = new HashMap();
+        String idmuestras;
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select identificacion,idmuestras from muestras order by idmuestras desc");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                aux = rs.getString("identificacion");
+                idmuestras = String.valueOf(rs.getInt("idmuestras"));
+                mapa.put(idmuestras, aux);
+            }
+            return mapa;
+        } catch (Exception e) {
+            JOptionPane.showInputDialog("Error al recuperar identificaciones, " + e);
+        }
+        return null;
+    }
+
+    public String recuperarTipoAnalisis(int id) {
+        String tipo = "";
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select tipo from vistaTabla where idmuestras = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                tipo = rs.getString("tipo");
+            }
+            return tipo;
+        } catch (Exception e) {
+            logger.severe("Error al recuperar tipo de analisis, " + e);
+            return null;
+        }
+    }
+
+    public boolean consultarFechaIngresada(int id) {
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select fechaElaboracion, fechaVencimiento from muestras where idmuestras = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs.getDate("fechaElaboracion") != null && rs.getDate("fechaVencimiento") != null) {
+                    return true;
+                }
+            }
+        } catch (Exception e) {
+            logger.severe("Error al consultar usuario, " + e);
+            return false;
+        }
+        return false;
+    }
+
+    public void agregarTipoAgua(int id, String tipo) {
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("update muestras set aguaTipo = ? where idmuestras = ?");
+            ps.setString(1, tipo);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            logger.severe("Error al agregar datos, " + e);
+        }
+    }
+
+    public String recuperarTipoAgua(int id) {
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select aguaTipo from muestras where idmuestras = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("aguaTipo");
+            }
+        } catch (Exception e) {
+            logger.severe("Error al recuperar datos, " + e);
+        }
+        return null;
+    }
+
+    public DefaultTableModel tablaAnalisis() {
+        Object[] fila = new Object[7];
+        DefaultTableModel modeloAnalisis = new DefaultTableModel();
+        modeloAnalisis.addColumn("");
+        modeloAnalisis.addColumn("ID");
+        modeloAnalisis.addColumn("Procedencia");
+        modeloAnalisis.addColumn("Solicitante");
+        modeloAnalisis.addColumn("Fecha de muestreo");
+        modeloAnalisis.addColumn("Tipo");
+        modeloAnalisis.addColumn("Impreso");
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select m.idmuestras, p.procedencia, " + "m.solicitante,m.fechaMuestreo, m.tipo, a.analizado from muestras m join " + "administracion a on m.idmuestras = a.idmuestras join " + "vistaprocedencia p on m.idcliente = p.idcliente order by idmuestras desc");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                for (int i = 0; i < fila.length; i++) {
+                    fila[0] = false;
+                    fila[1] = rs.getObject("idmuestras");
+                    fila[2] = rs.getObject("procedencia");
+                    fila[3] = rs.getObject("solicitante");
+                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                    fila[4] = df.format(rs.getDate("fechaMuestreo"));
+                    fila[5] = rs.getObject("tipo");
+                    int analizado = rs.getInt("analizado");
+                    fila[6] = analizado > 1 ? analizado + " veces." : analizado == 1 ? "1 vez." : "0 veces.";
+                }
+                modeloAnalisis.addRow(fila);
+            }
+            return modeloAnalisis;
+        } catch (Exception e) {
+            logger.severe("Error al obtener muestra, " + e);
+            return null;
         }
     }
 }

@@ -96,7 +96,24 @@ public class Consultas extends Conexion {
         }
         return instancia;
     }
-
+    public boolean seleccionarVencimiento(int id, int seleccionar) {
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("update administracion set seleccionadoVencimiento = ? where idmuestras = ?");
+            ps.setInt(1, seleccionar);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar vencimiento, " + e);
+            return false;
+        } finally {
+            try (Connection conexion = con.getConnection()) {
+                conexion.close();
+            } catch (Exception e) {
+                System.err.println("Error, " + e);
+            }
+        }
+    }
 
     public void generarReporteMBAgua(int id, String procedencia) {
         Connection conexion = con.getConnection();
@@ -471,69 +488,7 @@ public class Consultas extends Conexion {
         }
     }
 
-    public boolean consultarFechaIngresada(int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select fechaElaboracion, fechaVencimiento from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                if (rs.getDate("fechaElaboracion") != null && rs.getDate("fechaVencimiento") != null) {
-                    return true;
-                }
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al consultar usuario, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return false;
-    }
 
-    public void agregarTipoAgua(int id, String tipo) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update muestras set aguaTipo = ? where idmuestras = ?");
-            ps.setString(1, tipo);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al agregar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public String recuperarTipoAgua(int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select aguaTipo from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                String aux = rs.getString("aguaTipo");
-                return aux;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
 
     public void agregarAdministracion(int id, double precio, int pago, int factura) {
         Connection conexion = con.getConnection();
@@ -573,160 +528,7 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }
-
-
-    public boolean agregarVencimiento(Resultados r) { //se agega el vencimiento, si es mb se agregan 6 meses y fq 12 meses
-        Connection conexion = con.getConnection();
-        int id = obtenerIdMuestra();
-        try {
-            if (r.getTipo().startsWith("Microbiológico")) {
-                ps = conexion.prepareStatement(vencimientoMb);
-                ps.setDate(1, r.getFechaAnalisis());
-                ps.setInt(2, r.getIdmuestras());
-            } else if (r.getTipo().startsWith("Físico químico")) {
-                ps = conexion.prepareStatement(vencimientoFq);
-                ps.setDate(1, r.getFechaAnalisis());
-                ps.setInt(2, r.getIdmuestras());
-            }
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al agregar vencimiento, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public DefaultTableModel obtenerVencimientos(Date desde, Date hasta, boolean actualizar) {//se obtienen los datos para la tabla de vencimientos
-        Connection conexion = con.getConnection();
-        Object fila[] = new Object[5];
-        boolean aviso = false;
-        modeloVencimientos.setColumnCount(0);
-        if (modeloVencimientos.getColumnCount() == 0) {
-            modeloVencimientos.addColumn("ID");
-            modeloVencimientos.addColumn("Procedencia");
-            modeloVencimientos.addColumn("Solicitante");
-            modeloVencimientos.addColumn("Fecha de vencimiento");
-            modeloVencimientos.addColumn("Avisado");
-        }
-        modeloVencimientos.setRowCount(0);
-        java.sql.Date desdeSql = new java.sql.Date(desde.getTime());
-        java.sql.Date hastaSql = new java.sql.Date(hasta.getTime());
-        try {
-            if (actualizar) {
-                ps = conexion.prepareStatement("select * from vistavencimientos where" + " fechaVencimiento between ? and ? order by fechaVencimiento asc"); // se recuperan los datos de la base de datos de los vencimeintos de todo el mes
-            } else {
-                ps = conexion.prepareStatement("select * from vistavencimientos where" + " fechaVencimiento between first_day(?) and last_day(?) order by fechaVencimiento asc"); // se recuperan los datos de la base de datos de los vencimeintos de todo el mes
-            }
-            ps.setDate(1, desdeSql);
-            ps.setDate(2, hastaSql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < 5; i++) {
-                    switch (i) {
-                        case 0: {
-                            fila[i] = String.valueOf(rs.getInt("idmuestras"));
-                            break;
-                        }
-                        case 3: {
-                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //se formatea de forma tal de que sea más entendible por el usuario
-                            fila[i] = formatter.format(rs.getDate("fechaVencimiento"));
-                            break;
-                        }
-                        case 4: {
-                            if (rs.getInt("aviso") == 0) {
-                                aviso = false;
-                                fila[i] = aviso;
-                            } else {
-                                aviso = true;
-                                fila[i] = aviso;
-                            }
-                            break;
-                        }
-                        default: {
-                            fila[i] = rs.getString(i + 1);
-                            break;
-                        }
-                    }
-                }
-                modeloVencimientos.addRow(fila);
-            }
-            return modeloVencimientos;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener vencimientos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public DefaultTableModel obtenerVencimientosInformes(Date desde, Date hasta) {//se obtienen los datos para la tabla de vencimientos
-        Connection conexion = con.getConnection();
-        Object fila[] = new Object[4];
-        boolean aviso = false;
-        modeloTabla.setColumnCount(0);
-        if (modeloTabla.getColumnCount() == 0) {
-            modeloVencimientos.addColumn("ID");
-            modeloVencimientos.addColumn("Procedencia");
-            modeloVencimientos.addColumn("Vencimiento");
-            modeloVencimientos.addColumn("Tipo");
-            modeloVencimientos.addColumn("Seleccionar");
-        }
-        java.sql.Date desdeSql = new java.sql.Date(desde.getTime());
-        java.sql.Date hastaSql = new java.sql.Date(hasta.getTime());
-        try {
-            ps = conexion.prepareStatement("select idmuestras, procedencia, fechaVencimiento, tipo from vistavencimientos where aviso = 0 and fechaVencimiento between ? and ?");
-            ps.setDate(1, desdeSql);
-            ps.setDate(2, hastaSql);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < 4; i++) {
-                    switch (i) {
-                        case 0: {
-                            fila[i] = String.valueOf(rs.getInt("idmuestras"));
-                            break;
-                        }
-                        case 2: {
-                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); //se formatea de forma tal de que sea más entendible por el usuario
-                            fila[i] = formatter.format(rs.getDate("fechaVencimiento"));
-                            break;
-                        }
-                        case 4: {
-                            fila[i] = false;
-                            break;
-                        }
-                        default: {
-                            fila[i] = rs.getString(i + 1);
-                            break;
-                        }
-                    }
-                }
-                modeloVencimientos.addRow(fila);
-            }
-            return modeloVencimientos;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener vencimientos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public boolean borrarAnalisis(int id, int sino) {
+    }    public boolean borrarAnalisis(int id, int sino) {
         Connection conexion = con.getConnection();
         try {
             ps = conexion.prepareStatement("update administracion set borrado = ? where idmuestras = ?");
@@ -804,58 +606,7 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }
-
-
-    public boolean checkearVencimiento(Resultados r) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select * from vencimientos where idmuestras = ?");
-            ps.setInt(1, r.getIdmuestras());
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return true;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar muestra, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error,cacacascasc " + e);
-            }
-        }
-        return false;
-    }
-
-    public boolean actualizarVencimiento(Resultados r) { // se actualiza un vencimiento
-        Connection conexion = con.getConnection();
-        try {
-            if (r.getTipo().startsWith("Microbiológico")) {
-                ps = conexion.prepareStatement("update vencimientos set fechaVencimiento = " + "(date_add(?,interval 6 month)) where `idmuestras` = ?");
-                ps.setDate(1, r.getFechaAnalisis());
-                ps.setInt(2, r.getIdmuestras());
-            } else if (r.getTipo().startsWith("Físico químico")) {
-                ps = conexion.prepareStatement("update vencimientos set fechaVencimiento = " + "(date_add(?,interval 12 month)) where `idmuestras` = ?");
-                ps.setDate(1, r.getFechaAnalisis());
-                ps.setInt(2, r.getIdmuestras());
-            }
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar vencimiento, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public boolean guardarDeterminacionesAHacer(String query, int num, boolean anular, int id) { // se actualiza un vencimiento
+    }    public boolean guardarDeterminacionesAHacer(String query, int num, boolean anular, int id) { // se actualiza un vencimiento
         Connection conexion = con.getConnection();
         try {
             ps = conexion.prepareStatement(query);
@@ -876,29 +627,7 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }
-
-    public boolean seleccionarVencimiento(int id, int seleccionar) { // se actualiza un vencimiento
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update administracion set seleccionadoVencimiento = ? where idmuestras = ?");
-            ps.setInt(1, seleccionar);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar vencimiento, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public String definirCaracteres() {//se agregar los caracteres organolepticos
+    }public String definirCaracteres() {//se agregar los caracteres organolepticos
 
         TextArea textArea;
         textArea = new TextArea(null, 10, 10, SCROLLBARS_NONE);
@@ -1075,7 +804,6 @@ public class Consultas extends Conexion {
         }
     }
 
-
     public String recuperarMarca(int id) {
         Connection conexion = con.getConnection();
         try {
@@ -1104,61 +832,6 @@ public class Consultas extends Conexion {
             ps.setInt(1, id);
             ps.setString(2, marca);
             ps.setString(3, marca);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            System.err.println("Error, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public DefaultTableModel tablaAnalisis() {
-        Connection conexion = con.getConnection();
-        Object fila[] = new Object[7];
-        modeloAnalisis.setRowCount(0);
-        modeloAnalisis.setColumnCount(0);
-        modeloAnalisis.addColumn("");
-        modeloAnalisis.addColumn("ID");
-        modeloAnalisis.addColumn("Procedencia");
-        modeloAnalisis.addColumn("Solicitante");
-        modeloAnalisis.addColumn("Fecha de muestreo");
-        modeloAnalisis.addColumn("Tipo");
-        modeloAnalisis.addColumn("Impreso");
-        try {
-            ps = conexion.prepareStatement("select m.idmuestras, p.procedencia, " + "m.solicitante,m.fechaMuestreo, m.tipo, a.analizado from muestras m join " + "administracion a on m.idmuestras = a.idmuestras join " + "vistaprocedencia p on m.idcliente = p.idcliente order by idmuestras desc");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < fila.length; i++) {
-                    fila[0] = false;
-                    fila[1] = rs.getObject("idmuestras");
-                    fila[2] = rs.getObject("procedencia");
-                    fila[3] = rs.getObject("solicitante");
-                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                    fila[4] = df.format(rs.getDate("fechaMuestreo"));
-                    fila[5] = rs.getObject("tipo");
-                    int analizado = rs.getInt("analizado");
-                    fila[6] = analizado > 1 ? analizado + " veces." : analizado == 1 ? "1 vez." : "0 veces.";
-                }
-                modeloAnalisis.addRow(fila);
-            }
-            return modeloAnalisis;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener muestra, " + e);
-            return null;
-        }
-    }
-
-    public void actualizarAvisados(int id, int aviso) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update vencimientos set aviso = ? where idmuestras = ?");
-            ps.setInt(1, aviso);
-            ps.setInt(2, id);
-            System.out.println("ps.toString() = " + ps.toString());
             ps.executeUpdate();
         } catch (Exception e) {
             System.err.println("Error, " + e);
@@ -1353,11 +1026,7 @@ public class Consultas extends Conexion {
         m.put("laboratorio", laboStream);
         m.put("firma", firmaStream);
         return m;
-    }
-
-
-
-    public void generarReporteEfluentes(int id, String procedencia) {
+    }public void generarReporteEfluentes(int id, String procedencia) {
         Connection conexion = con.getConnection();
         Principal p = new Principal();
         try {
@@ -1433,27 +1102,7 @@ public class Consultas extends Conexion {
         }
     }
 
-    public String obtenerLugarMuestreo(int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select lugarMuestreo from muestras " + "where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return rs.getString("lugarMuestreo");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtenerLugarMuestreo, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
+
 
     public void generarReporteMBAlimentos(int id, String procedencia) {
         Connection conexion = con.getConnection();
@@ -1674,35 +1323,7 @@ public class Consultas extends Conexion {
         }
     }
 
-
-
-    public Date recuperarFechaAnalisis(int id) {
-        Connection conexion = con.getConnection();
-        Date d;
-        try {
-            ps = conexion.prepareStatement("select fechaAnalisis from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                d = rs.getDate("fechaAnalisis");
-                return d;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarFechaAnalisis, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-
     public void exportarExcelTradicional(Date desde, Date hasta, int idcliente, String tipo, Tipo t) {
-
         Workbook workbook = new XSSFWorkbook();
         FileOutputStream fileOut = null;
         java.sql.Date desdeSql = new java.sql.Date(desde.getTime());
@@ -2556,12 +2177,7 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }
-
-
-
-
-    public boolean checkearPDF(int id, String db) {
+    }    public boolean checkearPDF(int id, String db) {
         Connection conexion = con.getConnection();
         try {
             if (db.contains("nutricional")) {
@@ -2613,7 +2229,6 @@ public class Consultas extends Conexion {
         }
         return false;
     }
-
 
     public void generarReporteMBAguaDeRecreacion(int id, String procedencia) {
         Connection conexion = con.getConnection();
@@ -2761,12 +2376,7 @@ public class Consultas extends Conexion {
                 System.err.println(e.getStackTrace()[0]);
             }
         }
-    }
-
-
-
-
-    public void generarReporteEfluentesCloaca(int id, String procedencia) {
+    }    public void generarReporteEfluentesCloaca(int id, String procedencia) {
         Connection conexion = con.getConnection();
         Principal p = new Principal();
         try {
@@ -2912,51 +2522,7 @@ public class Consultas extends Conexion {
         }
     }
 
-    public String recuperarNota(int id) {
-        Connection conexion = con.getConnection();
-        String nota = "";
-        try {
-            ps = conexion.prepareStatement("select notas from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                nota = rs.getString(1);
-                return nota;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al generar informe fq, " + e);
-            return "";
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return "";
-    }
 
-    public boolean guardarNota(int id, String nota) {
-        Connection conexion = con.getConnection();
-        try {
-            System.out.println("nota = " + nota);
-            ps = conexion.prepareStatement("update muestras set notas = ? where idmuestras = ?");
-            ps.setString(1, nota);
-            ps.setInt(2, id);
-            System.out.println(ps.toString());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar nota, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
 
     public String recuperarEmail(int id) {
         Connection conexion = con.getConnection();
@@ -2982,50 +2548,9 @@ public class Consultas extends Conexion {
         return "";
     }
 
-    public String recuperarSolicitante(int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select solicitante, count(solicitante)" + " as mostCommon from muestras where idcliente = ? group by " + "solicitante order by count(solicitante) desc");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return rs.getString(1);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar solicitante, " + e);
-            return "";
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return "";
-    }
 
-    public Vector<String> recuperarSolicitantes(int id) {
-        Connection conexion = con.getConnection();
-        Vector<String> solicitantes = new Stack<>();
-        try {
-            ps = conexion.prepareStatement("select solicitante, count(solicitante)" + " as mostCommon from muestras where idcliente = ? group by " + "solicitante order by mostCommon desc");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                solicitantes.add(rs.getString("solicitante"));
-            }
-            return solicitantes;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar solicitante, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
+
+
 
     public String[] recuperarDatosEmail(int id) {
         Connection conexion = con.getConnection();
@@ -3106,11 +2631,7 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }
-
-
-
-    public void esconderFechaVencimiento(int id, boolean poner) {
+    }public void esconderFechaVencimiento(int id, boolean poner) {
         Connection conexion = con.getConnection();
         try {
             ps = conexion.prepareStatement("update muestras set ponerFechaVencimiento = ? where idmuestras = ?");
@@ -3134,106 +2655,9 @@ public class Consultas extends Conexion {
         }
     }
 
-    public boolean recuperarEsconderFechaVencimiento(int id) {
-        Connection conexion = con.getConnection();
-        boolean aux = false;
-        try {
-            ps = conexion.prepareStatement("select ponerFechaVencimiento from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                aux = rs.getBoolean("ponerFechaVencimiento");
-            }
-            return aux;
-        } catch (Exception e) {
-            JOptionPane.showInputDialog("Error al recuperar estado de fecha de vencimiento, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return false;
-    }
-
-    public String recuperarIdentificacion(int id) {
-        Connection conexion = con.getConnection();
-        String aux = "";
-        try {
-            ps = conexion.prepareStatement("select identificacion from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                aux = rs.getString("identificacion");
-            }
-            return aux;
-        } catch (Exception e) {
-            JOptionPane.showInputDialog("Error al recuperar identificacion, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public Map<String, String> recuperarIdentificaciones() {
-        Connection conexion = con.getConnection();
-        String aux = "";
-        Map mapa = new HashMap();
-        String idmuestras;
-        int cont = 0;
-        try {
-            ps = conexion.prepareStatement("select identificacion,idmuestras from muestras order by idmuestras desc");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                aux = rs.getString("identificacion");
-                idmuestras = String.valueOf(rs.getInt("idmuestras"));
-                mapa.put(idmuestras, aux);
-            }
-            return mapa;
-        } catch (Exception e) {
-            JOptionPane.showInputDialog("Error al recuperar identificaciones, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public String recuperarTipoAnalisis(int id) {
-        Connection conexion = con.getConnection();
-        String tipo = "";
-        try {
-            ps = conexion.prepareStatement("select tipo from vistaTabla where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                tipo = rs.getString("tipo");
-            }
-            return tipo;
-        } catch (Exception e) {
-            JOptionPane.showInputDialog("Error al recuperar tipo de analisis, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
 
 
-
-
-    public Date recuperarEntrada(int id) {
+        public Date recuperarEntrada(int id) {
         Connection conexion = con.getConnection();
         Date analisis = null;
         try {
@@ -3306,7 +2730,6 @@ public class Consultas extends Conexion {
             }
         }
     }
-
 
     public boolean cancelarEntrega(int id) {
         Connection conexion = con.getConnection();
@@ -3393,11 +2816,7 @@ public class Consultas extends Conexion {
             }
         }
         return null;
-    }
-
-
-
-    public void generarReporteFQCompleto(int id, String titulo, List<Determinacion> resultados) {
+    }public void generarReporteFQCompleto(int id, String titulo, List<Determinacion> resultados) {
         Connection conexion = con.getConnection();
         Principal pr = new Principal();
         resultados.forEach(System.out::println);
@@ -3486,11 +2905,7 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }
-
-
-
-    public boolean hayEntrega(int id) {
+    }public boolean hayEntrega(int id) {
         Connection conexion = con.getConnection();
 
         try {
@@ -3511,11 +2926,7 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }
-
-
-
-    public int consultarActualizacion() {
+    }public int consultarActualizacion() {
         String aux = "";
         try {
             URL url = new URL("http://138.36.236.245/actualizar.php");
@@ -3655,12 +3066,7 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }
-
-
-
-
-    public void guardarArregloAHacer(int id, String query) {
+    }    public void guardarArregloAHacer(int id, String query) {
         Connection conexion = con.getConnection();
 
         try {

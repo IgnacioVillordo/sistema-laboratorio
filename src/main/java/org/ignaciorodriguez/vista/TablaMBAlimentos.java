@@ -24,7 +24,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 
 public class TablaMBAlimentos extends javax.swing.JDialog {
 
@@ -60,7 +60,7 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
     private String auxVibrioCholerae;
     private int auxVibrioCholeraeCombo;
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
 
     public TablaMBAlimentos(java.awt.Frame parent, boolean modal, int id, String procedencia,
                             boolean editar, String pdf) {
@@ -72,7 +72,7 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         initComponents();
         setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico de alimentos");
         if (editar == true) {
-            Map<String, String> map = resultadosRepository.recuperarResultadosMBAlimentos(id);
+            Map<String, String> map = resultadoRepository.recuperarResultadosMBAlimentos(id);
             if (map == null) {
                 this.editar = false;
             } else {
@@ -4069,14 +4069,14 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
-                if (resultadosRepository.editarMBAlimentos(m)) {
+                if (resultadoRepository.editarMBAlimentos(m)) {
                     muestraRepository.guardarFechaAnalisis(m);
                     muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
                     c.generarReporteMBAlimentos(id, procedencia);
                 }
             } else {
-                if (resultadosRepository.guardarResultadoMBAlimentos(m)) {
+                if (resultadoRepository.guardarResultadoMBAlimentos(m)) {
                     muestraRepository.guardarFechaAnalisis(m);
                     muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();

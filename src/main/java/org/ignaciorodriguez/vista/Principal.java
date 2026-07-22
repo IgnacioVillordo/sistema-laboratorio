@@ -24,7 +24,6 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.AbstractAction;
 import javax.swing.InputMap;
@@ -39,7 +38,7 @@ import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.repository.UsuarioRepository;
 
 public class Principal extends JFrame {
@@ -54,11 +53,11 @@ public class Principal extends JFrame {
     boolean ip = true, ph, anulado, borrar;
     public boolean actualizar = true;
     DefaultTableCellRenderer defaultRender;
-    Map<String, String> map = consultas.recuperarIdentificaciones();
+    Map<String, String> map = muestraRepository.recuperarIdentificaciones();
     DialogoBuscar n;
     int actualizacion = -1;
     ClienteRepository clienteRepository = new ClienteRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
     private static final Logger logger = Logger.getLogger(Principal.class.getName());
 
     public Principal() {
@@ -967,7 +966,7 @@ public class Principal extends JFrame {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {
         if (actualizar) {
-            if (!resultadosRepository.verificarVacioMuestras()) {
+            if (!resultadoRepository.verificarVacioMuestras()) {
                 modeloTabla();
             }
         } else {
@@ -1228,7 +1227,7 @@ public class Principal extends JFrame {
                     tn.setVisible(true);
                     break;
                 case "Efluentes":
-                    TablaEfluentes efluentes = new TablaEfluentes(this, true, id, clienteRepository.obtenerProcedenciayNombre(id), true, pdf, consultas.obtenerLugarMuestreo(id));
+                    TablaEfluentes efluentes = new TablaEfluentes(this, true, id, clienteRepository.obtenerProcedenciayNombre(id), true, pdf, muestraRepository.obtenerLugarMuestreo(id));
                     efluentes.setVisible(true);
                     break;
                 case "Microbiológico de chocolates Del Turista":
@@ -1481,7 +1480,7 @@ public class Principal extends JFrame {
             } else {
                 switch (tipo) {
                     case "Microbiológico de agua código":
-                        if (resultadosRepository.checkearResultadoMBAgua(id)) {
+                        if (resultadoRepository.checkearResultadoMBAgua(id)) {
                             WeakReference<TablaMBAgua> mb = new WeakReference<>(new TablaMBAgua(this, true, id, procedencia, true, pdf));
                             mb.get().setVisible(true);
                         } else {
@@ -1490,7 +1489,7 @@ public class Principal extends JFrame {
                         }
                         break;
                     case "Microbiológico de agua bidón":
-                        if (resultadosRepository.checkearResultadoMBAgua(id)) {
+                        if (resultadoRepository.checkearResultadoMBAgua(id)) {
                             TablaMBAguaBidon mbbidon = new TablaMBAguaBidon(this, true, id, procedencia, true, pdf);
                             mbbidon.setVisible(true);
                         } else {
@@ -1499,7 +1498,7 @@ public class Principal extends JFrame {
                         }
                         break;
                     case "Microbiológico de agua balnearios":
-                        if (resultadosRepository.checkearResultadoMBAgua(id)) {
+                        if (resultadoRepository.checkearResultadoMBAgua(id)) {
                             TablaMBAguaBalnearios mbb = new TablaMBAguaBalnearios(this, true, id, procedencia, true, pdf);
                             mbb.setVisible(true);
                         } else {
@@ -1509,7 +1508,7 @@ public class Principal extends JFrame {
                         break;
 
                     case "Microbiológico de agua COFES":
-                        if (resultadosRepository.checkearResultadoMBAgua(id)) {
+                        if (resultadoRepository.checkearResultadoMBAgua(id)) {
                             TablaMBAguaCOFES mbc = new TablaMBAguaCOFES(this, true, id, procedencia, true, pdf);
                             mbc.setVisible(true);
                         } else {
@@ -1518,7 +1517,7 @@ public class Principal extends JFrame {
                         }
                         break;
                     case "Microbiológico de agua de recreación":
-                        if (resultadosRepository.checkearResultadoMBAgua(id)) {
+                        if (resultadoRepository.checkearResultadoMBAgua(id)) {
                             TablaMBAguaRecreacion mbr = new TablaMBAguaRecreacion(this, true, id, procedencia, true, pdf);
                             mbr.setVisible(true);
                         } else {
@@ -1555,7 +1554,7 @@ public class Principal extends JFrame {
                         }
                     case "Efluentes":
                         TablaEfluentes e = new TablaEfluentes(this, true, id, procedencia,
-                                false, pdf, consultas.obtenerLugarMuestreo(id));
+                                false, pdf, muestraRepository.obtenerLugarMuestreo(id));
                         e.setVisible(true);
                         break;
                     case "Microbiológico de chocolates Del Turista":
@@ -1701,7 +1700,7 @@ public class Principal extends JFrame {
     }
 
     private void itemBorrarPruebaActionPerformed(java.awt.event.ActionEvent evt) {
-        if (resultadosRepository.borrarDeterminaciones(1)) {
+        if (resultadoRepository.borrarDeterminaciones(1)) {
             JOptionPane.showMessageDialog(null, "Prueba reseteada.");
         }
     }

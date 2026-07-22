@@ -11,7 +11,8 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.repository.VencimientoRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -36,34 +37,35 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
     double[] ph;
     private String aux;
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    VencimientoRepository vencimientoRepository = new VencimientoRepository();
 
     public TablaMBAguaCOFES(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
         this.procedencia = procedencia;
         this.id = id;
         this.editar = editar;
-        this.pdf = pdf.substring(1, pdf.length());
+        this.pdf = pdf.substring(1);
         initComponents();
         setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico de agua COFES");
-        ph = resultadosRepository.recuperarPhYCloro(this.id);
+        ph = resultadoRepository.recuperarPhYCloro(this.id);
         DecimalFormat df = new DecimalFormat("#.##");
         if (procedencia.contains("Municipio de Dina Huapi")) {
             checkDinaHuapi.setSelected(true);
         }
         if (ph != null) {
             if (ph[2] != -1) {
-                cajaPh.setText(df.format(ph[2]).replaceAll(",", "."));
+                cajaPh.setText(df.format(ph[2]).replace(",", "."));
                 this.ingresoPh = true;
                 System.out.println("ingresoPh = " + ingresoPh);
             }
             if (ph[0] != -1) {
-                cajaCloro.setText(df.format(ph[0]).replaceAll(",", "."));
+                cajaCloro.setText(df.format(ph[0]).replace(",", "."));
                 this.ingresoPh = true;
             }
         }
         if (this.editar) {
-            Map<String, String> resultados = resultadosRepository.recuperarResultadosMBAguaCOFES(this.id);
+            Map<String, String> resultados = resultadoRepository.recuperarResultadosMBAguaCOFES(this.id);
             if (resultados == null) {
                 if (!this.ingresoPh) {
                     this.editar = false;
@@ -1568,11 +1570,11 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
-                if (resultadosRepository.editarMBAgua(r)) {
-                    if (c.checkearVencimiento(r)) {
-                        c.actualizarVencimiento(r);
+                if (resultadoRepository.editarMBAgua(r)) {
+                    if (vencimientoRepository.checkearVencimiento(r)) {
+                        vencimientoRepository.actualizarVencimiento(r);
                     } else {
-                        c.agregarVencimiento(r);
+                        vencimientoRepository.agregarVencimiento(r);
                     }
                     muestraRepository.guardarObservaciones(valores[6], id);
                     muestraRepository.guardarFechaAnalisis(r, id);
@@ -1582,11 +1584,11 @@ public class TablaMBAguaCOFES extends javax.swing.JDialog {
                 }
 
             } else {
-                if (resultadosRepository.guardarResultadoMBAgua(r)) {
-                    if (c.checkearVencimiento(r)) {
-                        c.actualizarVencimiento(r);
+                if (resultadoRepository.guardarResultadoMBAgua(r)) {
+                    if (vencimientoRepository.checkearVencimiento(r)) {
+                        vencimientoRepository.actualizarVencimiento(r);
                     } else {
-                        c.agregarVencimiento(r);
+                        vencimientoRepository.agregarVencimiento(r);
                     }
                     muestraRepository.guardarFechaAnalisis(r, id);
                     muestraRepository.guardarFechaAnalisisMBAGUA(r, id);

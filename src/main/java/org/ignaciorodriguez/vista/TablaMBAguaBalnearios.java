@@ -8,7 +8,8 @@ import javax.swing.border.MatteBorder;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.repository.VencimientoRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -30,7 +31,8 @@ public class TablaMBAguaBalnearios extends javax.swing.JDialog {
     Consultas c = Consultas.getInstancia();
     boolean editar, activarColiformes = true, activarEscherichia = true, activarShigella = true;
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    VencimientoRepository vencimientoRepository = new VencimientoRepository();
 
     public TablaMBAguaBalnearios(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -44,7 +46,7 @@ public class TablaMBAguaBalnearios extends javax.swing.JDialog {
             checkDinaHuapi.setSelected(true);
         }
         if (editar == true) {
-            Map<String, String> resultados = resultadosRepository.recuperarResultadosMBAgua(id);
+            Map<String, String> resultados = resultadoRepository.recuperarResultadosMBAgua(id);
             if (resultados == null) {
                 this.editar = false;
             } else {
@@ -734,20 +736,20 @@ public class TablaMBAguaBalnearios extends javax.swing.JDialog {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
-                if (resultadosRepository.editarMBAgua(r)) {
+                if (resultadoRepository.editarMBAgua(r)) {
                     muestraRepository.guardarFechaAnalisis(r, id);
                     muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
-                    c.actualizarVencimiento(r);
+                    vencimientoRepository.actualizarVencimiento(r);
                     muestraRepository.guardarObservaciones(valores[6], id);
                     this.dispose();
                     c.generarReporteMBAguaBalnearios(id, procedencia);
                 }
 
             } else {
-                if (resultadosRepository.guardarResultadoMBAgua(r)) {
+                if (resultadoRepository.guardarResultadoMBAgua(r)) {
                     muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                     muestraRepository.guardarFechaAnalisis(r, id);
-                    c.agregarVencimiento(r);
+                    vencimientoRepository.agregarVencimiento(r);
                     muestraRepository.guardarObservaciones(valores[6], id);
                     this.dispose();
                     c.generarReporteMBAguaBalnearios(id, procedencia);

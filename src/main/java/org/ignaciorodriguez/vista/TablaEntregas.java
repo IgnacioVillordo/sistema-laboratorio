@@ -2,6 +2,7 @@ package org.ignaciorodriguez.vista;
 
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
+import org.ignaciorodriguez.repository.MuestraRepository;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import javax.swing.*;
@@ -25,8 +26,9 @@ public class TablaEntregas extends javax.swing.JDialog {
     List<? extends RowSorter.SortKey> sortKeys;
     Principal p = new Principal();
     DefaultTableModel modeloTabla = consultas.recuperarEntregas();
+    private MuestraRepository muestraRepository = new MuestraRepository();
     int anchos[] = {38, 379, 170, 201, 107, 102, 101};
-    Map<String, String> map = consultas.recuperarIdentificaciones();
+    Map<String, String> map = muestraRepository.recuperarIdentificaciones();
     ClienteRepository clienteRepository = new ClienteRepository();
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JPanel jPanel1;

@@ -23,7 +23,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 
 public class TablaBaseHelada extends javax.swing.JDialog {
 
@@ -35,7 +35,7 @@ public class TablaBaseHelada extends javax.swing.JDialog {
     boolean[] auxBool = new boolean[6];
     Frame parent;
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
 
     public TablaBaseHelada(java.awt.Frame parent, boolean modal, int id, String procedencia,
                            boolean editar, String pdf) {
@@ -49,7 +49,7 @@ public class TablaBaseHelada extends javax.swing.JDialog {
         setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Base helada");
         setLocationRelativeTo(null);
         if (editar == true) {
-            Map<String, String> resultados = resultadosRepository.recuperarResultadosBaseHelada(id);
+            Map<String, String> resultados = resultadoRepository.recuperarResultadosBaseHelada(id);
             if (resultados == null) {
                 this.editar = false;
             } else {
@@ -1256,13 +1256,13 @@ public class TablaBaseHelada extends javax.swing.JDialog {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
-                if (resultadosRepository.editarResultadoBaseHelada(m)) {
+                if (resultadoRepository.editarResultadoBaseHelada(m)) {
                     muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
                     c.generarReporteMBBaseHelada(id, procedencia);
                 }
             } else {
-                if (resultadosRepository.guardarResultadoBaseHelada(m)) {
+                if (resultadoRepository.guardarResultadoBaseHelada(m)) {
                     muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
                     c.generarReporteMBBaseHelada(id, procedencia);

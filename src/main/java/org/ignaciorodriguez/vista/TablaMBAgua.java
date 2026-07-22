@@ -11,7 +11,8 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.repository.VencimientoRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -37,7 +38,8 @@ public class TablaMBAgua extends javax.swing.JDialog {
     private String aux;
     MuestraRepository muestraRepository = new MuestraRepository();
     private static final Logger logger = Logger.getLogger(TablaMBAgua.class.getName());
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    VencimientoRepository vencimientoRepository = new VencimientoRepository();
 
     public TablaMBAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -48,7 +50,7 @@ public class TablaMBAgua extends javax.swing.JDialog {
         initComponents();
         setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico de agua código");
         jLabel13MousePressed(click(jLabel13));
-        ph = resultadosRepository.recuperarPhYCloro(id);
+        ph = resultadoRepository.recuperarPhYCloro(id);
         DecimalFormat df = new DecimalFormat("#.##");
         if (ph != null) {
             if (ph[2] != -1) {
@@ -61,7 +63,7 @@ public class TablaMBAgua extends javax.swing.JDialog {
             }
         }
         if (this.editar == true) {
-            Map<String, String> resultados = resultadosRepository.recuperarResultadosMBAgua(id);
+            Map<String, String> resultados = resultadoRepository.recuperarResultadosMBAgua(id);
             if (resultados == null) {
                 if (!this.ingresoPh) {
                     this.editar = false;
@@ -1786,14 +1788,14 @@ public class TablaMBAgua extends javax.swing.JDialog {
             File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
             File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
-            if (resultadosRepository.editarMBAgua(r)) {
-                resultadosRepository.guardarLimiteMohos(id, checkLimiteMohos.isSelected());
+            if (resultadoRepository.editarMBAgua(r)) {
+                resultadoRepository.guardarLimiteMohos(id, checkLimiteMohos.isSelected());
                 muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                 muestraRepository.guardarFechaAnalisis(r, id);
-                if (c.checkearVencimiento(r)) {
-                    c.actualizarVencimiento(r);
+                if (vencimientoRepository.checkearVencimiento(r)) {
+                    vencimientoRepository.actualizarVencimiento(r);
                 } else {
-                    c.agregarVencimiento(r);
+                    vencimientoRepository.agregarVencimiento(r);
                 }
                 muestraRepository.guardarObservaciones(valores[6], id);
                 c.esconderFechaVencimiento(id, checkPonerVencimiento.isSelected());
@@ -1802,14 +1804,14 @@ public class TablaMBAgua extends javax.swing.JDialog {
             }
 
         } else {
-            if (resultadosRepository.guardarResultadoMBAgua(r)) {
-                resultadosRepository.guardarLimiteMohos(id, checkLimiteMohos.isSelected());
+            if (resultadoRepository.guardarResultadoMBAgua(r)) {
+                resultadoRepository.guardarLimiteMohos(id, checkLimiteMohos.isSelected());
                 muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                 muestraRepository.guardarFechaAnalisis(r, id);
-                if (c.checkearVencimiento(r)) {
-                    c.actualizarVencimiento(r);
+                if (vencimientoRepository.checkearVencimiento(r)) {
+                    vencimientoRepository.actualizarVencimiento(r);
                 } else {
-                    c.agregarVencimiento(r);
+                    vencimientoRepository.agregarVencimiento(r);
                 }
                 muestraRepository.guardarObservaciones(valores[6], id);
                 c.esconderFechaVencimiento(id, checkPonerVencimiento.isSelected());

@@ -11,7 +11,8 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.repository.VencimientoRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -37,7 +38,8 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
             activarFecales = true, activarEscherichia = true, activarPseudomona = true,
             activarStaphilococos = true, activarStreptococos = true, activarShigella = true;
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    VencimientoRepository vencimientoRepository = new VencimientoRepository();
 
     public TablaMBAguaRecreacion(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -50,7 +52,7 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
         if (procedencia.contains("Municipio de Dina Huapi")) {
             checkDinaHuapi.setSelected(true);
         }
-        ph = resultadosRepository.recuperarPhYCloro(id);
+        ph = resultadoRepository.recuperarPhYCloro(id);
         DecimalFormat df = new DecimalFormat("#.##");
         if (ph != null) {
             if (ph[2] != -1) {
@@ -67,7 +69,7 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
             }
         }
         if (this.editar == true) {
-            Map<String, String> resultados = resultadosRepository.recuperarResultadosMBAguaDeRecreacion(id);
+            Map<String, String> resultados = resultadoRepository.recuperarResultadosMBAguaDeRecreacion(id);
             if (resultados == null) {
                 if (!this.ingresoPh) {
                     this.editar = false;
@@ -2030,26 +2032,26 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
-                if (resultadosRepository.editarMBAguaDeRecreacion(r, vencimiento)) {
+                if (resultadoRepository.editarMBAguaDeRecreacion(r, vencimiento)) {
                     muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                     muestraRepository.guardarFechaAnalisis(r, id);
-                    if (c.checkearVencimiento(r)) {
-                        c.actualizarVencimiento(r);
+                    if (vencimientoRepository.checkearVencimiento(r)) {
+                        vencimientoRepository.actualizarVencimiento(r);
                     } else {
-                        c.agregarVencimiento(r);
+                        vencimientoRepository.agregarVencimiento(r);
                     }
                     this.dispose();
                     c.generarReporteMBAguaDeRecreacion(id, procedencia);
                 }
 
             } else {
-                if (resultadosRepository.guardarResultadoMBAguaDeRecreacion(r, vencimiento)) {
+                if (resultadoRepository.guardarResultadoMBAguaDeRecreacion(r, vencimiento)) {
                     muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                     muestraRepository.guardarFechaAnalisis(r, id);
-                    if (c.checkearVencimiento(r)) {
-                        c.actualizarVencimiento(r);
+                    if (vencimientoRepository.checkearVencimiento(r)) {
+                        vencimientoRepository.actualizarVencimiento(r);
                     } else {
-                        c.agregarVencimiento(r);
+                        vencimientoRepository.agregarVencimiento(r);
                     }
                     muestraRepository.guardarObservaciones(valores[6], id);
                     this.dispose();

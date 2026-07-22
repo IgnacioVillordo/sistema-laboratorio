@@ -2,6 +2,8 @@ package org.ignaciorodriguez.vista;
 
 import javax.swing.table.DefaultTableModel;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.VencimientoRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.Calendar;
@@ -16,6 +18,7 @@ import javax.swing.JComponent;
 public class Vencimiento extends javax.swing.JDialog {
 
     Consultas consultas = Consultas.getInstancia();
+    VencimientoRepository vencimientoRepository = new VencimientoRepository();
     java.awt.Frame p = new java.awt.Frame();
     int row;
     DefaultTableModel modeloTabla = new DefaultTableModel() {
@@ -43,7 +46,7 @@ public class Vencimiento extends javax.swing.JDialog {
         initComponents();
         tablaVencimientos.setAutoCreateRowSorter(true);
         tablaVencimientos.setComponentPopupMenu(jPopupMenu1);
-        modeloTabla = consultas.obtenerVencimientos(desde, hasta, false);
+        modeloTabla = vencimientoRepository.obtenerVencimientos(desde, hasta, false);
         tablaVencimientos.setModel(modeloTabla);
         int anchos[] = {30, 220, 140, 91};
         for (int ancho = 0; ancho < 4; ancho++) {
@@ -232,7 +235,7 @@ public class Vencimiento extends javax.swing.JDialog {
                 aviso = 1;
             }
             id = (int) tablaVencimientos.getValueAt(i, 0);
-            consultas.actualizarAvisados(id, aviso);
+            vencimientoRepository.actualizarAvisados(id, aviso);
         }
     }
 
@@ -240,7 +243,7 @@ public class Vencimiento extends javax.swing.JDialog {
         desde = cajaDesde.getDate();
         hasta = cajaHasta.getDate();
         modeloTabla.setRowCount(0);
-        modeloTabla = consultas.obtenerVencimientos(desde, hasta, true);
+        modeloTabla = vencimientoRepository.obtenerVencimientos(desde, hasta, true);
         Object[] aux = {"NO SE ENCONTRARON VENCIMIENTOS ENTRE LAS FECHAS ESPECIFICADAS"};
         if (modeloTabla.getRowCount() == 0) {
             modeloTabla.setColumnCount(0);
@@ -264,7 +267,7 @@ public class Vencimiento extends javax.swing.JDialog {
     }
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {
-        modeloTabla = consultas.obtenerVencimientos(desde, hasta, false);
+        modeloTabla = vencimientoRepository.obtenerVencimientos(desde, hasta, false);
         tablaVencimientos.setModel(modeloTabla);
         int anchos[] = {38, 379, 170, 201, 107};
         for (int ancho = 0; ancho < anchos.length; ancho++) {

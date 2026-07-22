@@ -9,7 +9,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -34,7 +34,7 @@ public class TablaEfluentes extends javax.swing.JDialog {
     boolean editar, activarPh = true, activarDQO = true, activarDBO = true,
             activarSolidos10 = true, activarSolidos120 = true, activarHidrocarburos = true;
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
 
     public TablaEfluentes(java.awt.Frame parent, boolean modal, int id, String procedencia,
                           boolean editar, String pdf, String lugarMuestreo) {
@@ -47,7 +47,7 @@ public class TablaEfluentes extends javax.swing.JDialog {
         initComponents();
         setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Efluentes");
         if (editar == true) {
-            Map<String, String> resultados = resultadosRepository.recuperarResultadosEfluentes(id);
+            Map<String, String> resultados = resultadoRepository.recuperarResultadosEfluentes(id);
             Locale currentLocale = Locale.getDefault();
             DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(currentLocale);
             otherSymbols.setDecimalSeparator('.');
@@ -1138,7 +1138,7 @@ public class TablaEfluentes extends javax.swing.JDialog {
             File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
             File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
-            if (resultadosRepository.editarEfluentes(resultados, id)) {
+            if (resultadoRepository.editarEfluentes(resultados, id)) {
                 if (checkConclusion.isSelected()) {
                     muestraRepository.guardarConclusion(resultados[6], id);
                 } else {
@@ -1149,7 +1149,7 @@ public class TablaEfluentes extends javax.swing.JDialog {
                 c.generarReporteEfluentes(id, procedencia);
             }
         } else {
-            if (resultadosRepository.guardarResultadosEfluentes(resultados, id)) {
+            if (resultadoRepository.guardarResultadosEfluentes(resultados, id)) {
                 if (checkConclusion.isSelected()) {
                     muestraRepository.guardarConclusion(resultados[6], id);
                 } else {

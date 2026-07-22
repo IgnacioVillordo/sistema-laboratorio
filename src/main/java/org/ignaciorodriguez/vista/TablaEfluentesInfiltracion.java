@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -36,7 +36,7 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             activarEscherichia = true, activarColiformesTotales = true, activarSulfuros = true;
     String procedencia, pdf, auxObservaciones, auxOlor, tipo, auxConclusion;
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
 
     public TablaEfluentesInfiltracion(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf, String tipo) {
         super(parent, modal);
@@ -54,7 +54,7 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         }
         this.setLocationRelativeTo(null);
         if (editar == true) {
-            Map<String, String> resultados = resultadosRepository.recuperarResultadosEfluentesTipo(id);
+            Map<String, String> resultados = resultadoRepository.recuperarResultadosEfluentesTipo(id);
             if (resultados == null) {
                 this.editar = false;
             } else {
@@ -2832,7 +2832,7 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
             File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
-            if (resultadosRepository.editarResultadosEfluentesTipo(m)) {
+            if (resultadoRepository.editarResultadosEfluentesTipo(m)) {
                 if (checkConclusion.isSelected()) {
                     conclusion = crearConclusion();
                     muestraRepository.guardarConclusion(conclusion, id);
@@ -2846,7 +2846,7 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
                 c.generarReporteEfluentesInfiltracion(id, procedencia);;
             }
         } else {
-            if (resultadosRepository.guardarResultadosEfluentesTipo(m)) {
+            if (resultadoRepository.guardarResultadosEfluentesTipo(m)) {
                 if (checkConclusion.isSelected()) {
                     conclusion = crearConclusion();
                     muestraRepository.guardarConclusion(conclusion, id);

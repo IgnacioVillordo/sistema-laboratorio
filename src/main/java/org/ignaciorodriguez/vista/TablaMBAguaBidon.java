@@ -10,7 +10,8 @@ import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.repository.VencimientoRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -33,7 +34,8 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
     private String aux;
     private boolean activarShigella = true;
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    VencimientoRepository vencimientoRepository = new VencimientoRepository();
 
     public TablaMBAguaBidon(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -43,7 +45,7 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
         this.pdf = pdf.substring(1, pdf.length());
         initComponents();
         setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico agua de bidón");
-        ph = resultadosRepository.recuperarPhYCloro(id);
+        ph = resultadoRepository.recuperarPhYCloro(id);
         if (procedencia.contains("Municipio de Dina Huapi")) {
             CheckDinaHuapi.setSelected(true);
         }
@@ -59,7 +61,7 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
             }
         }
         if (this.editar) {
-            Map<String, String> resultados = resultadosRepository.recuperarResultadosMBAgua(id);
+            Map<String, String> resultados = resultadoRepository.recuperarResultadosMBAgua(id);
             if (resultados == null) {
                 if (!this.ingresoPh) {
                     this.editar = false;
@@ -1469,13 +1471,13 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
             File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
             File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
-            if (resultadosRepository.editarMBAgua(r)) {
+            if (resultadoRepository.editarMBAgua(r)) {
                 muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                 muestraRepository.guardarFechaAnalisis(r, id);
-                if (c.checkearVencimiento(r)) {
-                    c.actualizarVencimiento(r);
+                if (vencimientoRepository.checkearVencimiento(r)) {
+                    vencimientoRepository.actualizarVencimiento(r);
                 } else {
-                    c.agregarVencimiento(r);
+                    vencimientoRepository.agregarVencimiento(r);
                 }
                 muestraRepository.guardarObservaciones(valores[6], id);
                 System.out.println(campoColiformesFecales.getWidth());
@@ -1484,13 +1486,13 @@ public class TablaMBAguaBidon extends javax.swing.JDialog {
             }
             
         } else {
-            if (resultadosRepository.guardarResultadoMBAgua(r)) {
+            if (resultadoRepository.guardarResultadoMBAgua(r)) {
                 muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
                 muestraRepository.guardarFechaAnalisis(r, id);
-                if (c.checkearVencimiento(r)) {
-                    c.actualizarVencimiento(r);
+                if (vencimientoRepository.checkearVencimiento(r)) {
+                    vencimientoRepository.actualizarVencimiento(r);
                 } else {
-                    c.agregarVencimiento(r);
+                    vencimientoRepository.agregarVencimiento(r);
                 }
                 muestraRepository.guardarObservaciones(valores[6], id);
                 this.dispose();

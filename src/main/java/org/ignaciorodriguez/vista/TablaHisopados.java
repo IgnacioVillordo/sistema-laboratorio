@@ -23,7 +23,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 
 public class TablaHisopados extends javax.swing.JDialog {
 
@@ -37,7 +37,7 @@ public class TablaHisopados extends javax.swing.JDialog {
     Frame parent;
     private String auxRecomendacion = "";
     MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
 
     public TablaHisopados(java.awt.Frame parent, boolean modal, int id, String procedencia,
                           boolean editar, String pdf) {
@@ -50,7 +50,7 @@ public class TablaHisopados extends javax.swing.JDialog {
         initComponents();
         setLocationRelativeTo(null);
         if (editar == true) {
-            Map<String, String> resultados = resultadosRepository.recuperarResultadosHisopados(id);
+            Map<String, String> resultados = resultadoRepository.recuperarResultadosHisopados(id);
             if (resultados == null) {
                 this.editar = false;
             } else {
@@ -1896,13 +1896,13 @@ public class TablaHisopados extends javax.swing.JDialog {
                 File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
                 File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
-                if (resultadosRepository.editarResultadosHisopados(m)) {
+                if (resultadoRepository.editarResultadosHisopados(m)) {
                     muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
                     c.generarReporteHisopados(id, procedencia);
                 }
             } else {
-                if (resultadosRepository.guardarResultadosHisopados(m)) {
+                if (resultadoRepository.guardarResultadosHisopados(m)) {
                     muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
 

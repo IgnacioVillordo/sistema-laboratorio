@@ -8,7 +8,7 @@ import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Muestra;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadosRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 
@@ -29,10 +29,10 @@ public class AgregarMuestra extends javax.swing.JDialog {
     public JDateChooser cajaMuestreo;
     public JTextField cajaHabilitacion;
     public JTextField cajaSolicitante;
-    ResultadosRepository resultadosRepository = new ResultadosRepository();
-    Consultas c = Consultas.getInstancia();
+    ResultadoRepository resultadoRepository = new ResultadoRepository();
     MuestraRepository muestraRepository = new MuestraRepository();
     ClienteRepository clienteRepository = new ClienteRepository();
+    Consultas c = Consultas.getInstancia();
     int id, pago = 0, factura = 0;
     boolean editar = true, primero = true, delturista = false;
     Muestra m = new Muestra();
@@ -81,7 +81,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
         super(parent, modal);
         this.id = id;
         p = parent;
-        solicitantes = c.recuperarSolicitantes(m.getId());
+        solicitantes = muestraRepository.recuperarSolicitantes(m.getId());
         initComponents();
         java.sql.Date def = new java.sql.Date(-789, 10, 11);
         llenarComboBox();
@@ -129,7 +129,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
             comboSolicitante.setVisible(true);
             cajaSolicitante.setVisible(false);
             AutoCompleteDecorator.decorate(comboSolicitante);
-            comboSolicitante.setModel(new DefaultComboBoxModel(c.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()))));
+            comboSolicitante.setModel(new DefaultComboBoxModel(muestraRepository.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()))));
             comboSolicitante.setSelectedItem(m.getSolicitante());
             checkGuardar.setSelected(true);
         }
@@ -284,12 +284,6 @@ public class AgregarMuestra extends javax.swing.JDialog {
                     "Tabla nutricional"
             }));
             comboTipo.addItemListener(e -> comboTipoItemStateChanged(e));
-            comboTipo.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    comboTipoMouseClicked(e);
-                }
-            });
             comboTipo.addActionListener(e -> comboTipoActionPerformed(e));
             comboTipo.setEditable(false);
             jPanel1.add(comboTipo, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
@@ -310,13 +304,6 @@ public class AgregarMuestra extends javax.swing.JDialog {
             comboProcedencia.setMinimumSize(new Dimension(255, 20));
             comboProcedencia.setPreferredSize(new Dimension(255, 20));
             comboProcedencia.addItemListener(e -> comboProcedenciaItemStateChanged(e));
-            comboProcedencia.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    comboProcedenciaMousePressed(e);
-                }
-            });
-            comboProcedencia.addActionListener(e -> comboProcedenciaActionPerformed(e));
             jPanel1.add(comboProcedencia, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.NORTHWEST, GridBagConstraints.NONE,
                     new Insets(20, 20, 0, 0), 0, 0));
@@ -389,13 +376,6 @@ public class AgregarMuestra extends javax.swing.JDialog {
             cajaCoste.setMaximumSize(new Dimension(250, 20));
             cajaCoste.setMinimumSize(new Dimension(250, 20));
             cajaCoste.setPreferredSize(new Dimension(250, 20));
-            cajaCoste.addMouseListener(new MouseAdapter() {
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    cajaCosteMousePressed(e);
-                }
-            });
-            cajaCoste.addActionListener(e -> cajaCosteActionPerformed(e));
             jPanel1.add(cajaCoste, new GridBagConstraints(3, 4, 1, 1, 0.0, 0.0,
                     GridBagConstraints.NORTHWEST, GridBagConstraints.NONE,
                     new Insets(20, 20, 0, 0), 0, 0));
@@ -473,13 +453,6 @@ public class AgregarMuestra extends javax.swing.JDialog {
                 comboSolicitante.setMinimumSize(new Dimension(250, 20));
                 comboSolicitante.setName("");
                 comboSolicitante.setPreferredSize(new Dimension(250, 20));
-                comboSolicitante.addItemListener(e -> comboSolicitanteItemStateChanged(e));
-                comboSolicitante.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mousePressed(MouseEvent e) {
-                        comboSolicitanteMousePressed(e);
-                    }
-                });
                 jPanel2.add(comboSolicitante, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
                         GridBagConstraints.NORTHWEST, GridBagConstraints.NONE,
                         new Insets(20, 20, 0, 0), 0, 0));
@@ -566,7 +539,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
                             }
                             c.agregarAdministracion(idaux, Double.parseDouble(cajaCoste.getText()), pago, factura);
                             if (nuevaMuestra.getTipo().equals("Microbiológico de agua código")) {
-                                c.agregarTipoAgua(nuevaMuestra.getId(), nuevaMuestra.getTipoAgua());
+                                muestraRepository.agregarTipoAgua(nuevaMuestra.getId(), nuevaMuestra.getTipoAgua());
                             }
                             this.dispose();
 
@@ -586,7 +559,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
                             c.editarAdministracion(nuevaMuestra.getId(), nuevaMuestra.getCosteTotal(), nuevaMuestra.getPago(), nuevaMuestra.getFactura());
 
                             if (!m.getTipoAgua().isBlank()) {
-                                c.agregarTipoAgua(nuevaMuestra.getId(), "");
+                                muestraRepository.agregarTipoAgua(nuevaMuestra.getId(), "");
                             }
                             if (!auxTipo.equals(nuevaMuestra.getTipo())) {
                                 String db = "";
@@ -653,14 +626,14 @@ public class AgregarMuestra extends javax.swing.JDialog {
                                         break;
                                 }
                                 if (auxTipo.equals("Hisopados") && (nuevaMuestra.getTipo().equals("Hisopados Alliance") || nuevaMuestra.getTipo().equals("Hisopados con límites"))) {
-                                    resultadosRepository.cambiarHisopado(id);
+                                    resultadoRepository.cambiarHisopado(id);
                                 } else {
-                                    resultadosRepository.cambiarTipo(id, db);
+                                    resultadoRepository.cambiarTipo(id, db);
                                 }
                             }
 
                             if (nuevaMuestra.getTipo().equals("Microbiológico de agua código")) {
-                                c.agregarTipoAgua(nuevaMuestra.getId(), nuevaMuestra.getTipoAgua());
+                                muestraRepository.agregarTipoAgua(nuevaMuestra.getId(), nuevaMuestra.getTipoAgua());
                             }
                             this.dispose();
 
@@ -781,7 +754,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             String procedencia = String.valueOf(comboProcedencia.getSelectedItem());
             cajaHabilitacion.setText(c.obtenerHablitacion(procedencia));
-            solicitantes = c.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()));
+            solicitantes = muestraRepository.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()));
             AutoCompleteDecorator.decorate(comboSolicitante);
             comboSolicitante.setModel(new DefaultComboBoxModel(solicitantes));
             existeSolicitante = true;
@@ -812,33 +785,12 @@ public class AgregarMuestra extends javax.swing.JDialog {
                 cajaSolicitante.setVisible(false);
             }
             AutoCompleteDecorator.decorate(comboSolicitante);
-            comboSolicitante.setModel(new DefaultComboBoxModel(c.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()))));
+            comboSolicitante.setModel(new DefaultComboBoxModel(muestraRepository.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()))));
         } else {
             comboSolicitante.setVisible(false);
             cajaSolicitante.setVisible(true);
             cajaSolicitante.setText("");
         }
-    }
-
-    private void comboSolicitanteMousePressed(java.awt.event.MouseEvent evt) {
-    }
-
-    private void comboSolicitanteItemStateChanged(java.awt.event.ItemEvent evt) {
-    }
-
-    private void comboProcedenciaActionPerformed(java.awt.event.ActionEvent evt) {
-    }
-
-    private void comboTipoMouseClicked(java.awt.event.MouseEvent evt) {
-    }
-
-    private void comboProcedenciaMousePressed(java.awt.event.MouseEvent evt) {
-    }
-
-    private void cajaCosteMousePressed(java.awt.event.MouseEvent evt) {
-    }
-
-    private void cajaCosteActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
     public void llenarComboBox() {
