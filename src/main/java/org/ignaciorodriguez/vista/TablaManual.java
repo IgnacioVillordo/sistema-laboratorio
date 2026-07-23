@@ -3363,7 +3363,7 @@ public class TablaManual extends javax.swing.JDialog {
                     c.generarReporteManual(id, procedencia);
                 }
             } else {
-                c.guardarMarca(id, m.get("mostrar").toString());
+                resultadoRepository.guardarMarca(id, m.get("mostrar").toString());
                 m.put("titulo", JOptionPane.showInputDialog("Ingrese el título del análsis"));
                 observaciones = JOptionPane.showInputDialog("Ingrese la observación");
                 observaciones = observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";

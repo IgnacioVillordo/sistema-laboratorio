@@ -40,6 +40,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
 import org.ignaciorodriguez.repository.ClienteRepository;
+import org.ignaciorodriguez.repository.EntregaRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.UsuarioRepository;
 
@@ -54,6 +55,7 @@ public class VentanaEmail extends javax.swing.JDialog {
     private static final Dotenv dotenv = Dotenv.load();
     MuestraRepository muestraRepository = new MuestraRepository();
     ClienteRepository clienteRepository = new ClienteRepository();
+    EntregaRepository entregaRepository = new EntregaRepository();
 
     public VentanaEmail(java.awt.Frame parent, boolean modal, int id, String pdf) {
         super(parent, modal);
@@ -437,8 +439,8 @@ public class VentanaEmail extends javax.swing.JDialog {
         Usuario usuario = new Usuario();
         usuario.setUsuario(nombre);
         usuario.setId(usuarioRepository.obtenerIdUsuario(nombre));
-        if (!c.hayEntrega(id)) {
-            c.entregarMuestra(usuario, id);
+        if (!entregaRepository.hayEntrega(id)) {
+            entregaRepository.entregarMuestra(usuario, id);
             muestraRepository.entregado(id);
         }
     }

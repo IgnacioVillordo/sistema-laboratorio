@@ -2,6 +2,7 @@ package org.ignaciorodriguez.vista;
 
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
+import org.ignaciorodriguez.repository.EntregaRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
@@ -25,11 +26,12 @@ public class TablaEntregas extends javax.swing.JDialog {
     TableRowSorter sorter;
     List<? extends RowSorter.SortKey> sortKeys;
     Principal p = new Principal();
-    DefaultTableModel modeloTabla = consultas.recuperarEntregas();
-    private MuestraRepository muestraRepository = new MuestraRepository();
+    private final ClienteRepository clienteRepository = new ClienteRepository();
+    private final EntregaRepository entregaRepository = new EntregaRepository();
+    private final MuestraRepository muestraRepository = new MuestraRepository();
+    DefaultTableModel modeloTabla = entregaRepository.recuperarEntregas();
     int anchos[] = {38, 379, 170, 201, 107, 102, 101};
     Map<String, String> map = muestraRepository.recuperarIdentificaciones();
-    ClienteRepository clienteRepository = new ClienteRepository();
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables  @formatter:off
     private JPanel jPanel1;
     private JLabel jLabel1;
@@ -405,8 +407,8 @@ public class TablaEntregas extends javax.swing.JDialog {
     private void CancelarEntregaActionPerformed(java.awt.event.ActionEvent evt) {
         System.out.println(jTable1.getValueAt(fila, 0));
         int id = Integer.parseInt(jTable1.getValueAt(fila, 0).toString());
-        if (consultas.cancelarEntrega(id)) {
-            if (consultas.cancelarEntrega2(id)) {
+        if (entregaRepository.cancelarEntrega(id)) {
+            if (entregaRepository.cancelarEntrega2(id)) {
                 JOptionPane.showMessageDialog(null, "Se canceló la entrega");
             }
         }
@@ -417,7 +419,7 @@ public class TablaEntregas extends javax.swing.JDialog {
         sortKeys = sorter.getSortKeys();
         modeloTabla.setRowCount(0);
         modeloTabla.setColumnCount(0);
-        modeloTabla = consultas.recuperarEntregas();
+        modeloTabla = entregaRepository.recuperarEntregas();
         for (int i = 0; i < 6; i++) {
             jTable1.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
         }
@@ -473,7 +475,7 @@ public class TablaEntregas extends javax.swing.JDialog {
         cajaBuscar.setSelectedIndex(0);
         modeloTabla.setColumnCount(0);
         modeloTabla.setRowCount(0);
-        modeloTabla = consultas.recuperarEntregas();
+        modeloTabla = entregaRepository.recuperarEntregas();
         jTable1.setModel(modeloTabla);
         for (int i = 0; i < 6; i++) {
             jTable1.getColumnModel().getColumn(i).setPreferredWidth(anchos[i]);
@@ -485,7 +487,7 @@ public class TablaEntregas extends javax.swing.JDialog {
     }
 
     public void autocompletar() {
-        ArrayList<Object> lista = consultas.autocompletarEntregas();
+        ArrayList<Object> lista = entregaRepository.autocompletarEntregas();
         cajaBuscar.setModel(new DefaultComboBoxModel(lista.toArray()));
         AutoCompleteDecorator.decorate(cajaBuscar);
     }

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.EntregaRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 
 
@@ -625,12 +626,12 @@ public class DeterminacionesAHacer extends javax.swing.JDialog {
                 db = db.substring(0, db.length() - 2);
                 db += " where idmuestras = ?";
                 resultadoRepository.blankearDeterminaciones(db, id, contInt);
-                if (consultas.guardarDeterminacionesAHacerFQAlimentosAgua(listaDb, id, existe)) {
+                if (resultadoRepository.guardarDeterminacionesAHacerFQAlimentosAgua(listaDb, id, existe)) {
                     this.dispose();
                     JOptionPane.showMessageDialog(null, "Análisis editado con éxito");
                 }
             } else {
-                if (consultas.guardarDeterminacionesAHacerFQAlimentosAgua(listaDb, id, existe)) {
+                if (resultadoRepository.guardarDeterminacionesAHacerFQAlimentosAgua(listaDb, id, existe)) {
                     this.dispose();
                     JOptionPane.showMessageDialog(null, "Análisis editado con éxito");
                 }

@@ -36,10 +36,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
-import org.ignaciorodriguez.repository.ClienteRepository;
-import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadoRepository;
-import org.ignaciorodriguez.repository.UsuarioRepository;
+import org.ignaciorodriguez.repository.*;
 
 public class Principal extends JFrame {
 
@@ -58,6 +55,7 @@ public class Principal extends JFrame {
     int actualizacion = -1;
     ClienteRepository clienteRepository = new ClienteRepository();
     ResultadoRepository resultadoRepository = new ResultadoRepository();
+    EntregaRepository entregaRepository = new EntregaRepository();
     private static final Logger logger = Logger.getLogger(Principal.class.getName());
 
     public Principal() {
@@ -1281,7 +1279,7 @@ public class Principal extends JFrame {
         usuario.setId(usuarioRepository.obtenerIdUsuario(nombre));
         if (nombre.equals("error")) {
         } else {
-            if (consultas.entregarMuestra(usuario, id)) {
+            if (entregaRepository.entregarMuestra(usuario, id)) {
                 muestraRepository.entregado(id);
                 JOptionPane.showMessageDialog(null, "Entrega guardada.");
             } else {
@@ -1542,7 +1540,7 @@ public class Principal extends JFrame {
                         fqg.setVisible(true);
                         break;
                     case "Tabla nutricional":
-                        if (consultas.recuperarMarca(id) != null) {
+                        if (resultadoRepository.recuperarMarca(id) != null) {
                             System.out.println("recuperar");
                             TablaNutricional tn = new TablaNutricional(this, true, id, true, pdf);
                             tn.setVisible(true);

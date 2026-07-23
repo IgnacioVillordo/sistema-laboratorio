@@ -99,7 +99,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
         }
         comboTipo.setSelectedItem(m.getTipo());
         if (m.getTipo().equals("Tabla nutricional")) {
-            cajaMarca.setText(c.recuperarMarca(id));
+            cajaMarca.setText(resultadoRepository.recuperarMarca(id));
         }
         this.auxTipo = m.getTipo();
         cajaLote.setText(m.getLote());
@@ -535,7 +535,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
                         if (clienteRepository.guardarSolicitanteGuardar(nuevaMuestra.getIdcliente(), checkGuardar.isSelected())) {
                             int idaux = muestraRepository.obtenerIdMuestra();
                             if (nuevaMuestra.getTipo().contains("Tabla nutricional")) {
-                                c.guardarMarca(idaux, cajaMarca.getText());
+                                resultadoRepository.guardarMarca(idaux, cajaMarca.getText());
                             }
                             c.agregarAdministracion(idaux, Double.parseDouble(cajaCoste.getText()), pago, factura);
                             if (nuevaMuestra.getTipo().equals("Microbiológico de agua código")) {
@@ -554,7 +554,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
                     if (muestraRepository.editarMuestra(nuevaMuestra)) {
                         if (clienteRepository.guardarSolicitanteGuardar(nuevaMuestra.getIdcliente(), checkGuardar.isSelected())) {
                             if (nuevaMuestra.getTipo().contains("Tabla nutricional")) {
-                                c.guardarMarca(id, cajaMarca.getText());
+                                resultadoRepository.guardarMarca(id, cajaMarca.getText());
                             }
                             c.editarAdministracion(nuevaMuestra.getId(), nuevaMuestra.getCosteTotal(), nuevaMuestra.getPago(), nuevaMuestra.getFactura());
 
@@ -753,7 +753,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
     private void comboProcedenciaItemStateChanged(java.awt.event.ItemEvent evt) {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             String procedencia = String.valueOf(comboProcedencia.getSelectedItem());
-            cajaHabilitacion.setText(c.obtenerHablitacion(procedencia));
+            cajaHabilitacion.setText(muestraRepository.obtenerHablitacion(procedencia));
             solicitantes = muestraRepository.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()));
             AutoCompleteDecorator.decorate(comboSolicitante);
             comboSolicitante.setModel(new DefaultComboBoxModel(solicitantes));

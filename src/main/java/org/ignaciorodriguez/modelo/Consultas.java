@@ -606,7 +606,8 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }    public boolean guardarDeterminacionesAHacer(String query, int num, boolean anular, int id) { // se actualiza un vencimiento
+    }
+    public boolean guardarDeterminacionesAHacer(String query, int num, boolean anular, int id) { // se actualiza un vencimiento
         Connection conexion = con.getConnection();
         try {
             ps = conexion.prepareStatement(query);
@@ -627,55 +628,9 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }public String definirCaracteres() {//se agregar los caracteres organolepticos
-
-        TextArea textArea;
-        textArea = new TextArea(null, 10, 10, SCROLLBARS_NONE);
-        textArea.setFont(new Font("SegoeUI", Font.PLAIN, 12));
-        int ret = JOptionPane.showConfirmDialog(null, textArea, "Introduzca los " + "caracteres organoléptios", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
-        if (ret == 0) {
-            String retorno = textArea.getText();
-            return retorno;
-        }
-        return null;
     }
 
-    public String definirCaracteres(String carecteres) { //se editan los caracteres organolepticos
-        TextArea textArea;
-        textArea = new TextArea(null, 10, 10, SCROLLBARS_NONE);
-        textArea.setFont(new Font("SegoeUI", Font.PLAIN, 12));
-        textArea.append(carecteres);
-        int ret = JOptionPane.showConfirmDialog(null, textArea, "Introduzca los " + "carecteres organoléptios", JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE);
-        if (ret == JOptionPane.YES_OPTION) {
-            String retorno = textArea.getText();
-            return retorno;
-        } else {
-            return carecteres;
-        }
-    }
 
-    public String obtenerHablitacion(String s) { // se obtiene el numero de habilitación mediante la procedencia
-        String numero = null;
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select numeroEstablecimiento from vistaTabla where procedencia = ?");
-            ps.setString(1, s);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                numero = rs.getString("numeroEstablecimiento");
-                return numero;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener numero de habilitacion, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return numero;
-    }
 
     public void generarReporteMuestras(List id) { //generar main.resources.reporte de salida del análisis
         Connection conexion = con.getConnection();
@@ -735,113 +690,6 @@ public class Consultas extends Conexion {
             }
         }
         return false;
-    }
-
-    public boolean entregarMuestra(Usuario usuario, int idmuestra) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("insert into entregas (idmuestras, " + "idusuario, persona, hora) values (?,?,?,current_timestamp())");
-            ps.setInt(1, idmuestra);
-            ps.setInt(2, usuario.getId());
-            ps.setString(3, usuario.getUsuario());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al entregar muestra, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public DefaultTableModel recuperarEntregas() {
-        Connection conexion = con.getConnection();
-        modeloEntregas.addColumn("ID");
-        modeloEntregas.addColumn("Procedencia");
-        modeloEntregas.addColumn("Solicitante");
-        modeloEntregas.addColumn("Tipo de análisis");
-        modeloEntregas.addColumn("Entregó");
-        modeloEntregas.addColumn("Hora");
-        modeloEntregas.addColumn("Fecha de análisis");
-        Object fila[] = new Object[7];
-        try {
-            ps = conexion.prepareStatement("select * from vistaEntregas");
-            rs = ps.executeQuery();
-
-            while (rs.next()) {
-                for (int i = 0; i < fila.length; i++) {
-                    if (i == 5) {
-                        String timestamp = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(rs.getTimestamp(i + 1));
-                        fila[i] = timestamp;
-                    } else if (i == 6) {
-                        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(rs.getDate("fechaAnalisis"));
-                        if (fecha.equals("11/11/1111")) {
-                            fecha = "-";
-                        }
-                        fila[i] = fecha;
-                    } else if (i == 0) {
-                        fila[i] = String.format("%05d", rs.getObject(i + 1));
-                    } else {
-                        fila[i] = rs.getObject(i + 1);
-                    }
-                }
-                modeloEntregas.addRow(fila);
-            }
-            return modeloEntregas;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener entragas, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public String recuperarMarca(int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select marca from tablanutricional where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return rs.getString("marca");
-            }
-        } catch (Exception e) {
-            System.err.println("Error, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public void guardarMarca(int id, String marca) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("insert into tablanutricional (idmuestras, marca) values (?, ?) on duplicate key update marca = ?");
-            ps.setInt(1, id);
-            ps.setString(2, marca);
-            ps.setString(3, marca);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            System.err.println("Error, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
     }
 
     public boolean checkearRutas(String nombre) {
@@ -2731,66 +2579,7 @@ public class Consultas extends Conexion {
         }
     }
 
-    public boolean cancelarEntrega(int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("delete from entregas where idmuestras = ?");
-            ps.setInt(1, id);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cancelar la entrega, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
 
-    public boolean cancelarEntrega2(int id) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update administracion set entregado = ? where idmuestras = ?");
-            ps.setInt(1, 0);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al cancelar la entrega, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public ArrayList<Object> autocompletarEntregas() { //método para autocompletar el campo de busqueda en la pantalla principal
-        ArrayList<Object> arreglo = new ArrayList<>();
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select distinct procedencia from vistaEntregas");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                arreglo.add(rs.getString("procedencia"));
-            }
-            return arreglo;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
 
     public String[] recuperarEmailYVencimiento(int id) {
         Connection conexion = con.getConnection();
@@ -2905,27 +2694,6 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }public boolean hayEntrega(int id) {
-        Connection conexion = con.getConnection();
-
-        try {
-            ps = conexion.prepareStatement("select * from entregas where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return true;
-            }
-            return false;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
     }public int consultarActualizacion() {
         String aux = "";
         try {
@@ -2964,57 +2732,7 @@ public class Consultas extends Conexion {
         return -25962;
     }
 
-    public boolean guardarDeterminacionesAHacerFQAlimentosAgua(String[] listaDb, int id, boolean update) {
-        Connection conexion = con.getConnection();
-        if (update) {
-            String aux = "update determinaciones set ";
-            for (int i = 0; i < listaDb.length; i++) {
-                aux += listaDb[i] + " = ?, ";
-            }
-            aux = aux.substring(0, aux.length() - 2) + " where idmuestras = ?";
-            try {
-                ps = conexion.prepareStatement(aux);
-                for (int i = 0; i < listaDb.length; i++) {
-                    ps.setString(i + 1, "");
-                }
-                ps.setInt(listaDb.length + 1, id);
-            } catch (SQLException ex) {
-                Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            String aux = "insert into determinaciones (";
-            for (int i = 0; i < listaDb.length; i++) {
-                aux += listaDb[i] + ", ";
-            }
-            aux += "idmuestras) values (";
-            for (int i = 0; i < listaDb.length; i++) {
-                aux += "?, ";
-            }
-            aux += "?)";
-            try {
-                ps = conexion.prepareStatement(aux);
-                for (int i = 0; i < listaDb.length; i++) {
-                    ps.setString(i + 1, "");
-                }
-                ps.setInt(listaDb.length + 1, id);
-            } catch (SQLException ex) {
-                Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        try {
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
+
 
     public boolean guardarDeterminacionesAHacer(String[] listaDb, int id, boolean update, String db) {
         Connection conexion = con.getConnection();

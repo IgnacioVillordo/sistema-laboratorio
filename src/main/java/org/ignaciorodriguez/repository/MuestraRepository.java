@@ -2,6 +2,7 @@ package org.ignaciorodriguez.repository;
 
 import groovyjarjarantlr.preprocessor.Preprocessor;
 import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Muestra;
 import org.ignaciorodriguez.modelo.Resultados;
 
@@ -10,8 +11,10 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MuestraRepository {
@@ -760,4 +763,26 @@ public class MuestraRepository {
             return null;
         }
     }
+
+    public String obtenerHablitacion(String s) {
+        String numero = null;
+        try (Connection conexion = con.getConnection()) {
+            try {
+                PreparedStatement ps = conexion.prepareStatement("select numeroEstablecimiento from vistaTabla where procedencia = ?");
+                ps.setString(1, s);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    numero = rs.getString("numeroEstablecimiento");
+                    return numero;
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error al obtener numero de habilitacion, " + e);
+            }
+        } catch (Exception e) {
+            logger.severe("Error, " + e);
+        }
+        return numero;
+    }
+
+
 }

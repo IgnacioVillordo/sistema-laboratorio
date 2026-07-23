@@ -19,11 +19,11 @@ import java.util.stream.Collectors;
 
 public class ResultadoRepository {
 
-    Conexion con = new Conexion();
     private static final Logger logger = Logger.getLogger(ResultadoRepository.class.getName());
+    Conexion con = new Conexion();
 
     public boolean guardarResultadoMBAgua(Resultados r) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("insert into MBAgua (idmuestras, " + "germenes, coliformesTotales, coliformesFecales, escherichia, pseudomona," + " ph, cloroLibre, caracteresOrganolepticos, mohos, shigella) values (?,?,?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, r.getIdmuestras());
@@ -52,7 +52,7 @@ public class ResultadoRepository {
     }
 
     public boolean guardarResultadoManual(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             // Construcción dinámica de la parte VALUES (?,?,?...)
             StringBuilder values = new StringBuilder("?"); // El primero es idmuestras
@@ -93,7 +93,7 @@ public class ResultadoRepository {
     }
 
     public boolean checkearResultadoManual(int id) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from manual where idmuestras = ?");
             ps.setInt(1, id);
@@ -115,7 +115,7 @@ public class ResultadoRepository {
     }
 
     public Map<String, String> recuperarResultadoManual(int id) {
-        
+
         Map<String, String> map = new HashMap();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from manual where idmuestras = ?");
@@ -140,7 +140,7 @@ public class ResultadoRepository {
     }
 
     public boolean editarResultadoManual(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("UPDATE `laboratorio`.`manual` SET " + "`determinacion1` = ?,`determinacion2` = ?,`determinacion3` = ?,`determinacion4` = ?,`determinacion5` = ?,`determinacion6` = ?,`determinacion7` = ?,`determinacion8` = ?,`determinacion9` = ?,`determinacion10` = ?," + "`determinacion11` = ?,`determinacion12` = ?,`determinacion13` = ?,`determinacion14` = ?,`determinacion15` = ?,`determinacion16` = ?,`determinacion17` = ?,`determinacion18` = ?,`determinacion19` = ?,`determinacion20` = ?," + "`determinacion21` = ?,`determinacion22` = ?,`determinacion23` = ?,`determinacion24` = ?,`determinacion25` = ?,`determinacion26` = ?,`determinacion27` = ?,`determinacion28` = ?,`determinacion29` = ?,`determinacion30` = ?," + "`determinacion31` = ?,`determinacion32` = ?,`determinacion33` = ?,`determinacion34` = ?," + "`recuentoObtenido1` = ?,`recuentoObtenido2` = ?,`recuentoObtenido3` = ?,`recuentoObtenido4` = ?,`recuentoObtenido5` = ?,`recuentoObtenido6` = ?,`recuentoObtenido7` = ?,`recuentoObtenido8` = ?,`recuentoObtenido9` = ?,`recuentoObtenido10` = ?," + "`recuentoObtenido11` = ?,`recuentoObtenido12` = ?,`recuentoObtenido13` = ?,`recuentoObtenido14` = ?,`recuentoObtenido15` = ?,`recuentoObtenido16` = ?,`recuentoObtenido17` = ?,`recuentoObtenido18` = ?,`recuentoObtenido19` = ?,`recuentoObtenido20` = ?," + "`recuentoObtenido21` = ?,`recuentoObtenido22` = ?,`recuentoObtenido23` = ?,`recuentoObtenido24` = ?,`recuentoObtenido25` = ?,`recuentoObtenido26` = ?,`recuentoObtenido27` = ?,`recuentoObtenido28` = ?,`recuentoObtenido29` = ?,`recuentoObtenido30` = ?," + "`recuentoObtenido31` = ?,`recuentoObtenido32` = ?,`recuentoObtenido33` = ?,`recuentoObtenido34` = ?," + "`recuentoNormal1` = ?,`recuentoNormal2` = ?,`recuentoNormal3` = ?,`recuentoNormal4` = ?,`recuentoNormal5` = ?,`recuentoNormal6` = ?,`recuentoNormal7` = ?,`recuentoNormal8` = ?,`recuentoNormal9` = ?,`recuentoNormal10` = ?," + "`recuentoNormal11` = ?,`recuentoNormal12` = ?,`recuentoNormal13` = ?,`recuentoNormal14` = ?,`recuentoNormal15` = ?,`recuentoNormal16` = ?,`recuentoNormal17` = ?,`recuentoNormal18` = ?,`recuentoNormal19` = ?,`recuentoNormal20` = ?," + "`recuentoNormal21` = ?,`recuentoNormal22` = ?,`recuentoNormal23` = ?,`recuentoNormal24` = ?,`recuentoNormal25` = ?,`recuentoNormal26` = ?,`recuentoNormal27` = ?,`recuentoNormal28` = ?,`recuentoNormal29` = ?,`recuentoNormal30` = ?," + "`recuentoNormal31` = ?,`recuentoNormal32` = ?,`recuentoNormal33` = ?,`recuentoNormal34` = ?," + "`metodo1` = ?,`metodo2` = ?,`metodo3` = ?,`metodo4` = ?,`metodo5` = ?,`metodo6` = ?,`metodo7` = ?,`metodo8` = ?,`metodo9` = ?,`metodo10` = ?," + "`metodo11` = ?,`metodo12` = ?,`metodo13` = ?,`metodo14` = ?,`metodo15` = ?,`metodo16` = ?,`metodo17` = ?,`metodo18` = ?,`metodo19` = ?,`metodo20` = ?," + "`metodo21` = ?,`metodo22` = ?,`metodo23` = ?,`metodo24` = ?,`metodo25` = ?,`metodo26` = ?,`metodo27` = ?,`metodo28` = ?,`metodo29` = ?,`metodo30` = ?," + "`metodo31` = ?,`metodo32` = ?,`metodo33` = ?,`metodo34` = ?, titulo = ?, mostrar = ? " + "WHERE `idmuestras` = ?;");
             int index = 1;
@@ -175,7 +175,7 @@ public class ResultadoRepository {
     }
 
     public boolean guardarResultadoMBAguaDeRecreacion(Resultados r, int vencimiento) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("insert into MBAgua (idmuestras, " + "germenes, coliformesTotales, coliformesFecales, escherichia, " + "pseudomona, ph, cloroTotal, caracteresOrganolepticos, staphilococos, " + "streptococos, cloroLibre, vencimiento, shigella) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, r.getIdmuestras());
@@ -207,7 +207,7 @@ public class ResultadoRepository {
     }
 
     public double[] recuperarPhYCloro(int id) {
-        
+
         double[] aux = {-1, -1, -1};
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select cloroLibre, cloroTotal,ph from mbagua where idmuestras = ?");
@@ -234,7 +234,7 @@ public class ResultadoRepository {
     }
 
     public boolean checkearResultadoMBAgua(int id) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from mbagua where idmuestras = ?");
             ps.setInt(1, id);
@@ -255,7 +255,7 @@ public class ResultadoRepository {
     }
 
     public Map<String, String> recuperarResultadosMBAgua(int id) {
-        
+
         Map valores = new HashMap();
         boolean nulo = true;
         try (Connection conexion = con.getConnection()) {
@@ -285,7 +285,7 @@ public class ResultadoRepository {
     }
 
     public Map<String, String> recuperarResultadosMBAguaCOFES(int id) {
-        
+
         Map<String, String> valores = new HashMap();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select germenes, coliformesTotales, coliformesFecales, escherichia," + " pseudomona, caracteresOrganolepticos, fechaAnalisis, shigella from " + "mbagua where idmuestras = ?");
@@ -314,7 +314,7 @@ public class ResultadoRepository {
     }
 
     public Map<String, String> recuperarResultadosMBAguaDeRecreacion(int id) {
-        
+
         Map<String, String> valores = new HashMap();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select germenes, coliformesTotales, " + "coliformesFecales, escherichia, pseudomona, staphilococos, " + "streptococos, caracteresOrganolepticos, fechaanalisis, shigella from " + "mbagua where idmuestras = ?");
@@ -339,7 +339,7 @@ public class ResultadoRepository {
     }
 
     public Map<String, String> recuperarResultadosFQAgua(int id) {
-        
+
         Map<String, String> valores = new HashMap<>();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select `ph`,`cloroTotal`," + "`olor`,`color`,`turbidez`,`alcalinidad`,`durezatotal`,`conductividad`," + "`solidosDisueltos`,`hierro`,`nitratos`,`nitritos`,`sulfatos` from" + " `laboratorio`.`fqagua` where idmuestras = ?");
@@ -365,7 +365,7 @@ public class ResultadoRepository {
     }
 
     public boolean guardarResultadoFQAgua(Resultados r) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("insert into fqagua (idmuestras, ph, cloroTotal, " + "olor, color, turbidez, alcalinidad, durezatotal, conductividad, " + "solidosDisueltos, hierro, nitratos, nitritos, sulfatos, conclusion)" + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, r.getIdmuestras());
@@ -399,7 +399,7 @@ public class ResultadoRepository {
     }
 
     public String[] recuperarTablaNutricional(int id) {
-        
+
         String[] valores = new String[30];
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select calorias, carbohidratos, " + "proteinas, grasasTotales, grasasSaturadas, grasasTrans, " + "grasasMonoinsaturadas, grasasPoliinsaturadas, colesterol, " + "fibraAlimentaria, sodio, VDCalorias, VDCarbohidratos, " + "VDProteinas, VDGrasasTotales, VDGrasasMonoinsaturadas, " + "VDGrasasPoliinsaturadas, VDColesterol, VDGrasasSaturadas, " + "VDGrasasTrans, VDFibraAlimentaria, VDSodio, porcion, unidad, " + "kjul, azucares, almidon, PorcionesPorEnvase, azucaresanadidos, vdazucaresanadidos from tablanutricional " + "where idmuestras = ?");
@@ -425,7 +425,7 @@ public class ResultadoRepository {
     }
 
     public boolean editarTablaNutricional(Double[] valores, int id, String unidad, String porcion, String porcionesPorEnvase) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update tablanutricional set calorias = ?," + "kjul = ?,carbohidratos = ?,proteinas = ?,grasasTotales = ?," + "grasasSaturadas = ?,grasasTrans = ?, GrasasMonoinsaturadas = ?," + " GrasasPoliinsaturadas = ?, Colesterol = ?, fibraAlimentaria = ?," + "sodio = ?,VDCalorias = ?,VDCarbohidratos = ?,VDProteinas = ?" + ",VDGrasasTotales = ?,VDGrasasSaturadas = ?, VDGrasasTrans = ?, " + "VDGrasasMonoinsaturadas = ?, VDGrasasPoliinsaturadas = ?, VDColesterol = ?" + ",VDFibraAlimentaria = ?,VDSodio = ?, porcion = ?, unidad = ?, azucares = ?, " + "almidon = ?, PorcionesPorEnvase = ?, azucaresAnadidos = ?, VDAzucaresAnadidos = ? where idmuestras = ?");
             ps.setInt(1, (int) Math.round(valores[0]));
@@ -474,7 +474,7 @@ public class ResultadoRepository {
     }
 
     public boolean editarFQAgua(Resultados r) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("UPDATE `laboratorio`.`fqagua` " + "SET `ph` = ? , `cloroTotal` = ? , `olor` = ? , `color` = ? ," + " `turbidez` = ? , `alcalinidad` = ? , `durezatotal` = ? , " + "`conductividad` = ? , `solidosDisueltos` = ? , `hierro` = ?, " + "`nitratos` = ? , `nitritos` = ? , `sulfatos` = ?" + "  WHERE `idmuestras` = ? ; ");
             ps.setDouble(1, r.getPh());
@@ -506,7 +506,7 @@ public class ResultadoRepository {
     }
 
     public boolean editarMBAgua(Resultados r) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("UPDATE `laboratorio`.`mbagua` SET `germenes` = ? " + ", `coliformesTotales` = ? , `coliformesFecales` = ?, `escherichia` = ? , `pseudomona` = ?, " + "ph = ?, cloroLibre = ?, caracteresOrganolepticos = ?, mohos = ?, fechaAnalisis = ?, shigella = ?" + " WHERE `idmuestras` = ? ;");
             ps.setString(1, r.getGermenes());
@@ -536,7 +536,7 @@ public class ResultadoRepository {
     }
 
     public boolean guardarResultadosEfluentes(String[] resultados, int id) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`efluentes` " + "(idmuestras,ph,dqo,dbo,solidos10,solidos120," + "conclusion, hidrocarburos) values (?,?,?,?,?,?,?,?)");
             ps.setInt(1, id);
@@ -562,7 +562,7 @@ public class ResultadoRepository {
     }
 
     public boolean editarEfluentes(String[] resultados, int id) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("UPDATE `laboratorio`.`efluentes` SET `ph` = ? " + ", `dqo` = ? , `dbo` = ? , `solidos10` = ? " + ",`solidos120` = ?, conclusion = ?, hidrocarburos = ?  WHERE `idmuestras` = ? ;");
             ps.setDouble(1, Double.parseDouble(resultados[1]));
@@ -588,7 +588,7 @@ public class ResultadoRepository {
     }
 
     public boolean guardarResultadoBaseHelada(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`mbchocolates`" + "(`idmuestras`,`germenes`, `coliformesTotales`," + "`coliformesFecales`, `escherichia`,`mohos`, conclusion, staphilococos, salmonella) " + "VALUES (?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, (int) m.get("idmuestras"));
@@ -615,7 +615,7 @@ public class ResultadoRepository {
     }
 
     public boolean editarResultadoBaseHelada(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update mbchocolates set germenes = ?, " + "coliformesTotales = ?, coliformesFecales = ?, escherichia = ?, " + "mohos = ?, conclusion = ?," + "staphilococos = ?, salmonella = ? where idmuestras = ?");
             ps.setString(1, String.valueOf(m.get("germenes")));
@@ -642,7 +642,7 @@ public class ResultadoRepository {
     }
 
     public boolean guardarResultadoMBChocolates(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`mbchocolates`" + "(`idmuestras`,`germenes`, `coliformesTotales`," + "`coliformesFecales`, `escherichia`,`mohos`, conclusion, salmonella) " + "VALUES (?,?,?,?,?,?,?,?)");
             ps.setInt(1, (int) m.get("idmuestras"));
@@ -668,7 +668,7 @@ public class ResultadoRepository {
     }
 
     public boolean editarResultadoMBChocolates(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update mbchocolates set germenes = ?, " + "coliformesTotales = ?, coliformesFecales = ?, escherichia = ?, " + "mohos = ?, conclusion = ?, salmonella = ? where idmuestras = ?");
             ps.setString(1, String.valueOf(m.get("germenes")));
@@ -696,7 +696,7 @@ public class ResultadoRepository {
 
 
     public boolean editarMBAlimentos(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update mbalimentos set coliformesTotales = ?, " + "coliformesFecales = ?, staphilococos = ?, salmonella = ?, mohosLevadura = ?, " + "escherichia = ?, germenes = ?, coliformesTotalesMetodo = ?, " + "coliformesFecalesMetodo = ?, staphilococosMetodo = ?, salmonellaMetodo = ?, mohosLevaduraMetodo = ?, " + "escherichiaMetodo = ?, germenesMetodo = ?, escherichiah7 = ?," + "escherichia157 = ?, enterobacterias = ?, listeria = ?, bacillus = ?," + "perfringens = ?, sulfito = ?, campilobacter = ?, escherichiah7Metodo = ?," + "escherichia157Metodo = ?, enterobacteriasMetodo = ?, listeriaMetodo = ?, bacillusMetodo = ?," + "perfringensMetodo = ?, sulfitoMetodo = ?, campilobacterMetodo = ?, " + "caracteristicas = ?, caracteristicasMetodo = ?, coliformesTotalesA30 = ?,coliformesTotalesA30Metodo = ?," + " coliformesTotalesProbables = ?,coliformesTotalesProbablesMetodo = ?, " + "lactobacillus = ?, lactobacillusMetodo = ?, bacteriasLacticas = ?, bacteriasLacticasMetodo = ?," + " coliformesTotales45 = ?, coliformesTotales45Metodo = ?, vibrio = ?, vibrioMetodo = ?, vibrioCholerae = ?, vibrioCholeraeMetodo = ?," + "shigella = ?, shigellaMetodo = ? where idmuestras = ?");
             ps.setString(1, String.valueOf(m.get("coliformesTotales")));
@@ -763,7 +763,7 @@ public class ResultadoRepository {
     }
 
     public boolean guardarResultadoMBAlimentos(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`mbalimentos` " + "(`idmuestras`, `coliformesTotales`, coliformesFecales, `staphilococos`, " + "`salmonella`, `mohosLevadura`,`escherichia`, germenes,`coliformesTotalesMetodo`, " + "coliformesFecalesMetodo, `staphilococosMetodo`, `salmonellaMetodo`, `mohosLevaduraMetodo`," + "`escherichiaMetodo`, germenesMetodo, `escherichiah7`, `escherichia157`, " + "`enterobacterias`, `listeria`, `bacillus`, `perfringens`, " + "`sulfito`, `campilobacter`, `escherichiah7Metodo`, `escherichia157Metodo`, " + "`enterobacteriasMetodo`, `listeriaMetodo`, `bacillusMetodo`, " + "`perfringensMetodo`, `sulfitoMetodo`, `campilobacterMetodo`, caracteristicas, caracteristicasMetodo, " + "coliformesTotalesA30, coliformesTotalesA30Metodo, coliformesTotalesProbables, coliformesTotalesProbablesMetodo," + "lactobacillus, lactobacillusMetodo, bacteriasLacticas, bacteriasLacticasMetodo, coliformesTotales45, coliformesTotales45Metodo, vibrio, vibrioMetodo, vibrioCholerae, vibrioCholeraeMetodo, shigella, shigellaMetodo) " + "VALUES (?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, (int) m.get("idmuestras"));
@@ -830,7 +830,7 @@ public class ResultadoRepository {
     }
 
     public boolean verificarVacioMuestras() {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from muestras");
             ResultSet rs = ps.executeQuery();
@@ -851,7 +851,7 @@ public class ResultadoRepository {
     }
 
     public Map recuperarResultadosMBAlimentos(int id) {
-        
+
         Map map = new HashMap();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select coliformesTotales, coliformesFecales, escherichia, " + "staphilococos, salmonella, mohosLevaduras, fechaAnalisis, germenes, " + "coliformesTotalesMetodo, coliformesFecalesMetodo, escherichiaMetodo, " + "staphilococosMetodo, salmonellaMetodo, mohosLevadurasMetodo, germenesMetodo, " + "`escherichiah7`, `escherichia157`, " + "`enterobacterias`, `listeria`, `bacillus`, `perfringens`, " + "`sulfito`, `campilobacter`, `escherichiah7Metodo`, `escherichia157Metodo`, " + "`enterobacteriasMetodo`, `listeriaMetodo`, `bacillusMetodo`, " + "`perfringensMetodo`, `sulfitoMetodo`, `campilobacterMetodo`, caracteristicas, caracteristicasMetodo," + "coliformesTotalesA30, coliformesTotalesProbables,coliformesTotalesA30Metodo, coliformesTotalesProbablesMetodo," + " lactobacillus, lactobacillusMetodo, bacteriasLacticas, bacteriasLacticasMetodo, coliformesTotales45, coliformesTotales45Metodo," + "vibrio, vibrioMetodo, vibrioCholerae, vibrioCholeraeMetodo, shigella, shigellaMetodo" + " from vistambalimentos where idmuestras = ?");
@@ -881,7 +881,7 @@ public class ResultadoRepository {
     }
 
     public boolean guardarPhYCloro(Map m) {
-        
+
         String[] aux = new String[31];
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("insert into mbagua (ph, cloroLibre, cloroTotal,idmuestras) values (?,?,?,?)");
@@ -904,7 +904,7 @@ public class ResultadoRepository {
     }
 
     public boolean editarPhYCloro(Map m) {
-        
+
         String[] aux = new String[31];
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update mbagua set ph = ?, cloroLibre = ?, cloroTotal = ? where idmuestras = ?");
@@ -927,7 +927,7 @@ public class ResultadoRepository {
     }
 
     public Map<String, String> recuperarResultadosMBChocolates(int id) {
-        
+
         Map<String, String> aux = new HashMap();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select germenes,coliformesTotales," + " coliformesFecales, escherichia, mohos, salmonella" + " from mbchocolates where idmuestras = ?");
@@ -954,7 +954,7 @@ public class ResultadoRepository {
 
 
     public Map<String, String> recuperarResultadosEfluentes(int id) {
-        
+
         Map<String, String> aux = new HashMap();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select ph, dqo, dbo, solidos10, solidos120, " + "hidrocarburos from efluentes where idmuestras = ?");
@@ -980,7 +980,7 @@ public class ResultadoRepository {
     }
 
     public boolean guardarResultadosHisopados(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`hisopados` " + "(`idmuestras`, `coliformesTotales`, `coliformesFecales`, `escherichia`, " + "`germenes`,`staphilococos`, enterobacterias, salmonella, mohos, listeria, vibrio) VALUES " + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, (int) m.get("idmuestras"));
@@ -1009,7 +1009,7 @@ public class ResultadoRepository {
     }
 
     public boolean guardarResultadosHisopadosAlliance(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`hisopados` " + "(`idmuestras`, `coliformesTotales`, `coliformesFecales`, `escherichia`, " + "`germenes`,`staphilococos`, enterobacterias, limiteGermenes, limiteTotales)" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
             ps.setInt(1, (int) m.get("idmuestras"));
@@ -1036,7 +1036,7 @@ public class ResultadoRepository {
     }
 
     public boolean editarResultadosHisopados(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update hisopados set coliformesTotales = ?, " + "coliformesFecales = ?, escherichia= ?, germenes= ?, " + "staphilococos = ?, enterobacterias = ?, salmonella = ?, mohos = ?, listeria = ?, vibrio = ? where idmuestras = ?");
             ps.setString(1, m.get("coliformesTotales").toString());
@@ -1065,7 +1065,7 @@ public class ResultadoRepository {
     }
 
     public boolean editarResultadosHisopadosAlliance(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update hisopados set coliformesTotales = ?, " + "coliformesFecales = ?, escherichia= ?, germenes= ?, " + "staphilococos = ?, enterobacterias = ?, limiteGermenes = ?," + "limiteTotales = ? where idmuestras = ?");
             ps.setString(1, m.get("coliformesTotales").toString());
@@ -1092,7 +1092,7 @@ public class ResultadoRepository {
     }
 
     public Map<String, String> recuperarResultadosHisopados(int id) {
-        
+
         Map<String, String> aux = new HashMap();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select germenes, coliformesTotales, " + "coliformesFecales, escherichia, staphilococos, fechaAnalisis, enterobacterias, salmonella, mohos, listeria, vibrio from " + "vistaHisopado where vistatabla_idmuestras = ?");
@@ -1120,7 +1120,7 @@ public class ResultadoRepository {
     }
 
     public Map<String, String> recuperarResultadosHisopadosAlliance(int id) {
-        
+
         Map<String, String> aux = new HashMap<>();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select germenes, coliformesTotales, " + "coliformesFecales, escherichia, staphilococos, fechaAnalisis, enterobacterias," + "germenesPotencia, totalesPotencia, staphilococosPotencia, limiteGermenes, limiteTotales from " + "vistaHisopado where vistatabla_idmuestras = ?");
@@ -1146,7 +1146,7 @@ public class ResultadoRepository {
     }
 
     public Map<String, String> recuperarResultadosBaseHelada(int id) {
-        
+
         Map<String, String> aux = new HashMap();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select `germenes`, `coliformesTotales`," + "`coliformesFecales`, `escherichia`,`mohos`, conclusion, staphilococos, salmonella, fechaAnalisis from vistambchocolates where idmuestras = ?");
@@ -1172,7 +1172,7 @@ public class ResultadoRepository {
     }
 
     public String consultarMetodoDeterminaciones(int id, String determinacion) {
-        
+
         String aux = "";
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(" select " + determinacion + "Metodo from determinaciones where idmuestras = ?");
@@ -1196,7 +1196,7 @@ public class ResultadoRepository {
     }
 
     public boolean editarMBAguaDeRecreacion(Resultados r, int vencimiento) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("UPDATE `laboratorio`.`mbagua` SET " + "`germenes` = ?, `coliformesTotales` = ? , `coliformesFecales` = ?, " + "`escherichia` = ? , `pseudomona` = ?, ph = ?, cloroTotal = ?, " + "caracteresOrganolepticos = ?, staphilococos = ?, streptococos = ?, " + "cloroLibre = ?, vencimiento = ?, shigella = ? WHERE `idmuestras` = ? ;");
             ps.setString(1, r.getGermenes());
@@ -1229,7 +1229,7 @@ public class ResultadoRepository {
 
 
     public boolean guardarResultadosEfluentesTipo(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("insert into efluentes (idmuestras, ph, conductividad," + " dqo, dbo, solidos10, solidos120, detergentes, grasasAceite," + " fosforoTotal, nitrogenoTotal, sustancias, coliformesFecales, hidrocarburos, nitratos, cloro, coliformesTotales, escherichia , sulfuros) " + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             ps.setInt(1, (int) m.get("idmuestras"));
@@ -1266,7 +1266,7 @@ public class ResultadoRepository {
     }
 
     public boolean editarResultadosEfluentesTipo(Map m) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update efluentes set ph = ?, conductividad = ?," + " dqo = ?, dbo = ?, solidos10 = ?, solidos120 = ?, detergentes = ?, grasasAceite = ?, " + "fosforoTotal = ?, nitrogenoTotal = ?, sustancias = ?, coliformesFecales = ?, " + "hidrocarburos = ?, nitratos = ?, cloro = ?, coliformesTotales = ?, escherichia = ?, sulfuros = ? where idmuestras = ?");
             ps.setDouble(1, (double) m.get("ph"));//ph
@@ -1303,7 +1303,7 @@ public class ResultadoRepository {
     }
 
     public Map<String, String> recuperarResultadosEfluentesTipo(int id) {
-        
+
         Map<String, String> aux = new HashMap();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select ph, conductividad, dqo, dbo, " + "solidos10, solidos120, detergentes, grasasAceite, " + "fosforoTotal, nitrogenoTotal, sustancias, coliformesFecales, hidrocarburos, nitratos, cloro, coliformesTotales, escherichia, sulfuros " + "from efluentes where idmuestras = ?");
@@ -1329,7 +1329,7 @@ public class ResultadoRepository {
     }
 
     public void cambiarHisopado(int id) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update hisopados set germenesPotencia = 0, " + "totalesPotencia = 0, staphilococosPotencia = 0, enterobacterias = 0 where idmuestras = ?");
             ps.setInt(1, id);
@@ -1346,7 +1346,7 @@ public class ResultadoRepository {
     }
 
     public void cambiarTipo(int id, String db) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("delete from " + db + " where idmuestras = ?");
             ps.setInt(1, id);
@@ -1364,7 +1364,7 @@ public class ResultadoRepository {
     }
 
     public String recuperarTituloManual(int id) {
-        
+
         String titulo = "";
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select titulo from manual where idmuestras = ?");
@@ -1387,7 +1387,7 @@ public class ResultadoRepository {
     }
 
     public List recuperarFQAguaCompleto(int id, List<Determinacion> determinaciones) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
             ps.setInt(1, id);
@@ -1422,7 +1422,7 @@ public class ResultadoRepository {
     }
 
     public List<Determinacion> recuperarDatosDeterminaciones(List<Determinacion> determinaciones, int id) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
             ps.setInt(1, id);
@@ -1430,7 +1430,7 @@ public class ResultadoRepository {
             while (rs.next()) {
 
                 determinaciones.forEach(d -> {
-                    try  {
+                    try {
                         String res = rs.getString(d.getNombreDB());
                         d.formatearResultado(res == null || res.trim().isEmpty() ? "-1" : res);
                     } catch (SQLException ex) {
@@ -1452,7 +1452,7 @@ public class ResultadoRepository {
     }
 
     public List<Determinacion> recuperarDatosDeterminacionesGenerar(List<Determinacion> determinaciones, int id) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
             ps.setInt(1, id);
@@ -1482,7 +1482,7 @@ public class ResultadoRepository {
     }
 
     public List<Determinacion> recuperarMetodosDeterminaciones(List<Determinacion> determinaciones, int id) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from determinacionesMetodo where idmuestras = ?");//Cambiar al agregar
             ps.setInt(1, id);
@@ -1512,7 +1512,7 @@ public class ResultadoRepository {
     }
 
     public boolean blankearDeterminaciones(String query, int id, int cont) {
-        
+
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(query);
             for (int i = 0; i < cont; i++) {
@@ -1534,7 +1534,7 @@ public class ResultadoRepository {
     }
 
     public boolean borrarDeterminaciones(int id) {
-        
+
         try (Connection conexion = con.getConnection()) {
             conexion.setAutoCommit(false);
             PreparedStatement ps1 = conexion.prepareStatement("delete from determinaciones where idmuestras = ?");
@@ -1559,7 +1559,7 @@ public class ResultadoRepository {
     }
 
     public boolean guardarDeterminaciones(List<Determinacion> resultados, int id) {
-        
+
 
         String queryDet = "insert into determinaciones (";
         for (int i = 0; i < resultados.size(); i++) {
@@ -1611,7 +1611,7 @@ public class ResultadoRepository {
     }
 
     public void guardarLimiteMohos(int id, boolean selected) {
-        
+
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update mbagua set mohosLimite = ? where idmuestras = ?");
@@ -1630,7 +1630,7 @@ public class ResultadoRepository {
     }
 
     public void guardarMostrar(int id, String mostrar) {
-        
+
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update manual set mostrar = ? where idmuestras = ?");
@@ -1649,7 +1649,7 @@ public class ResultadoRepository {
     }
 
     public boolean recuperarFQAguaCompleto(int id) {
-        
+
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
@@ -1673,7 +1673,7 @@ public class ResultadoRepository {
 
 
     public boolean consultarMostrar(int idmuestras) {
-        
+
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select mostrar from manual where idmuestras = ?");
@@ -1733,5 +1733,70 @@ public class ResultadoRepository {
             logger.severe("Error al guardar datos, " + e);
             return false;
         }
+    }
+
+    public String recuperarMarca(int id) {
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select marca from tablanutricional where idmuestras = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("marca");
+            }
+        } catch (Exception e) {
+            logger.severe("Error, " + e);
+        }
+        return null;
+    }
+
+    public void guardarMarca(int id, String marca) {
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("insert into tablanutricional (idmuestras, marca) values (?, ?) on duplicate key update marca = ?");
+            ps.setInt(1, id);
+            ps.setString(2, marca);
+            ps.setString(3, marca);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            logger.severe("Error, " + e);
+        }
+    }
+
+    public boolean guardarDeterminacionesAHacerFQAlimentosAgua(String[] listaDb, int id, boolean update) {
+        String sql = buildDeterminacionesQuery(listaDb, update);
+
+        try (Connection conexion = con.getConnection();
+             PreparedStatement ps = conexion.prepareStatement(sql)) {
+
+            for (int i = 0; i < listaDb.length; i++) {
+                ps.setString(i + 1, "");
+            }
+            ps.setInt(listaDb.length + 1, id);
+            return ps.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            logger.severe("Error al guardar determinaciones: " + e.getMessage());
+            return false;
+        }
+    }
+
+    private String buildDeterminacionesQuery(String[] listaDb, boolean update) {
+        StringBuilder sql;
+        if (update) {
+            sql = new StringBuilder("UPDATE determinaciones SET ");
+            for (String col : listaDb) {
+                sql.append(col).append(" = ?, ");
+            }
+            sql.setLength(sql.length() - 2);
+            sql.append(" WHERE idmuestras = ?");
+        } else {
+            sql = new StringBuilder("INSERT INTO determinaciones (");
+            for (String col : listaDb) {
+                sql.append(col).append(", ");
+            }
+            sql.append("idmuestras) VALUES (");
+            sql.append("?, ".repeat(listaDb.length));
+            sql.append("?)");
+        }
+        return sql.toString();
     }
 }
