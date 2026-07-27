@@ -1,6 +1,8 @@
 package org.ignaciorodriguez.vista;
 
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.AdministracionRepository;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
@@ -16,7 +18,8 @@ public class TablaBorrados extends javax.swing.JDialog {
 
     Consultas consultas = Consultas.getInstancia();
     int fila;
-    DefaultTableModel modeloTabla = consultas.recuperarBorrados();
+    AdministracionRepository administracionRepository = new AdministracionRepository();
+    DefaultTableModel modeloTabla = administracionRepository.recuperarBorrados();
 
     public TablaBorrados(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -128,9 +131,9 @@ public class TablaBorrados extends javax.swing.JDialog {
 
     private void itemRecuperarActionPerformed(java.awt.event.ActionEvent evt) {
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila, 0));
-        if (consultas.borrarAnalisis(id, 0)) {
+        if (administracionRepository.borrarAnalisis(id, 0)) {
             JOptionPane.showMessageDialog(null, "Se recupero la muestra.");
-            consultas.recuperarBorrados();
+            administracionRepository.recuperarBorrados();
         } else {
             JOptionPane.showMessageDialog(null, "Error al recuperar la muestra.");
         }

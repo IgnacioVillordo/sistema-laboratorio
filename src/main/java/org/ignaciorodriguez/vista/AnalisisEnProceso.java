@@ -3,6 +3,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.AdministracionRepository;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
@@ -15,6 +16,7 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
     ClienteRepository clienteRepository = new ClienteRepository();
     ResultadoRepository resultadoRepository = new ResultadoRepository();
     MuestraRepository muestraRepository = new MuestraRepository();
+    AdministracionRepository administracionRepository = new AdministracionRepository();
 
     public AnalisisEnProceso(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
@@ -38,7 +40,7 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
             tipo = tipo.toLowerCase();
         }
 
-        Date fecha = c.recuperarEntrada(this.id);
+        Date fecha = administracionRepository.recuperarEntrada(this.id);
 
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         Calendar cal = Calendar.getInstance();

@@ -55,7 +55,7 @@ public class VentanaEmailVencimientos extends javax.swing.JDialog {
             texto = "Buenas tardes, ";
         }
         setLocationRelativeTo(null);
-        String[] aux = c.recuperarEmailYVencimiento(id);
+        String[] aux = muestraRepository.recuperarEmailYVencimiento(id);
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df2 = new SimpleDateFormat("dd/MM/yyyy");
         try {

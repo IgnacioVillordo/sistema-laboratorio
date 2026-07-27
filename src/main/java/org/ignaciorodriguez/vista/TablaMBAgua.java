@@ -1798,7 +1798,7 @@ public class TablaMBAgua extends javax.swing.JDialog {
                     vencimientoRepository.agregarVencimiento(r);
                 }
                 muestraRepository.guardarObservaciones(valores[6], id);
-                c.esconderFechaVencimiento(id, checkPonerVencimiento.isSelected());
+                muestraRepository.esconderFechaVencimiento(id, checkPonerVencimiento.isSelected());
                 this.dispose();
                 c.generarReporteMBAgua(id, procedencia);
             }
@@ -1814,7 +1814,7 @@ public class TablaMBAgua extends javax.swing.JDialog {
                     vencimientoRepository.agregarVencimiento(r);
                 }
                 muestraRepository.guardarObservaciones(valores[6], id);
-                c.esconderFechaVencimiento(id, checkPonerVencimiento.isSelected());
+                muestraRepository.esconderFechaVencimiento(id, checkPonerVencimiento.isSelected());
                 this.dispose();
                 c.generarReporteMBAgua(id, procedencia);
             }

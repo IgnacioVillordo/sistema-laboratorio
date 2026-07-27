@@ -2,6 +2,7 @@ package org.ignaciorodriguez.vista;
 
 import javax.swing.table.DefaultTableModel;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.AdministracionRepository;
 import org.ignaciorodriguez.repository.VencimientoRepository;
 
 import java.awt.event.ActionEvent;
@@ -25,6 +26,8 @@ public class InformesVencimientos extends javax.swing.JDialog {
     Date desde = null;
     Date hasta = null;
     Consultas consultas = Consultas.getInstancia();
+    AdministracionRepository administracionRepository = new AdministracionRepository();
+
     DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
         public Class getColumnClass(int columnIndex) {
@@ -204,7 +207,7 @@ public class InformesVencimientos extends javax.swing.JDialog {
         for (int i = 0; i < tablaDatos.getRowCount(); i++) {
             try {
                 if ((boolean) tablaDatos.getValueAt(i, 4)) {
-                    consultas.seleccionarVencimiento(Integer.parseInt(tablaDatos.getValueAt(i, 0).toString()), 1);
+                    administracionRepository.seleccionarVencimiento(Integer.parseInt(tablaDatos.getValueAt(i, 0).toString()), 1);
                 }
             } catch (Exception e) {
                 logger.severe("Error, " + e);

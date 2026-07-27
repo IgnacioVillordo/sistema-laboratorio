@@ -56,6 +56,7 @@ public class Principal extends JFrame {
     ClienteRepository clienteRepository = new ClienteRepository();
     ResultadoRepository resultadoRepository = new ResultadoRepository();
     EntregaRepository entregaRepository = new EntregaRepository();
+    AdministracionRepository administracionRepository = new AdministracionRepository();
     private static final Logger logger = Logger.getLogger(Principal.class.getName());
 
     public Principal() {
@@ -1297,8 +1298,7 @@ public class Principal extends JFrame {
 
     private void itemBorrarActionPerformed(java.awt.event.ActionEvent evt) {
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0));
-        System.out.println(consultas.borrarAnalisis(id, 1));
-        if (consultas.borrarAnalisis(id, 1)) {
+        if (administracionRepository.borrarAnalisis(id, 1)) {
             JOptionPane.showMessageDialog(null, "Análisis borrado.");
         } else {
             JOptionPane.showMessageDialog(null, "Error al borrar análisis.");
@@ -1598,9 +1598,9 @@ public class Principal extends JFrame {
 
     private void itemRecuperarActionPerformed(java.awt.event.ActionEvent evt) {
         int id = Integer.parseInt((String) tablaDatos.getValueAt(fila2, 0));
-        if (consultas.borrarAnalisis(id, 0)) {
+        if (administracionRepository.borrarAnalisis(id, 0)) {
             JOptionPane.showMessageDialog(null, "Se recupero la muestra.");
-            consultas.recuperarBorrados();
+            administracionRepository.recuperarBorrados();
         } else {
             JOptionPane.showMessageDialog(null, "Error al recuperar la muestra.");
         }

@@ -18,7 +18,6 @@ import org.apache.poi.xssf.usermodel.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
@@ -35,9 +34,6 @@ import java.util.*;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
-import static java.awt.TextArea.SCROLLBARS_NONE;
 
 public class Consultas extends Conexion {
 
@@ -48,43 +44,9 @@ public class Consultas extends Conexion {
     private static Consultas instancia;
     public String caracteres;
     public boolean email = false;
-    int contadorCreado = 0;
     Conexion con = new Conexion();
     PreparedStatement ps = null;
     ResultSet rs = null;
-    String nombreUsuario = null;
-    //Principal p = new Principal();
-    String vencimientoMb = "INSERT INTO `laboratorio`.`vencimientos` " + "(`fechaVencimiento`,idmuestras) VALUES (date_add(?,interval 6 month),?)";
-    String vencimientoFq = "INSERT INTO `laboratorio`.`vencimientos` " + "(`fechaVencimiento`,idmuestras) VALUES (date_add(?,interval 12 month),?)";
-
-    DefaultTableModel modeloEntregas = new DefaultTableModel();
-    DefaultTableModel modeloAnalisis = new DefaultTableModel() {
-        @Override
-        public Class getColumnClass(int columnIndex) {
-            switch (columnIndex) {
-                case 0: {
-                    return Boolean.class;
-                }
-                default: {
-                    return String.class;
-                }
-            }
-        }
-    };
-    DefaultTableModel modeloVencimientos = new DefaultTableModel() {
-        @Override
-        public Class getColumnClass(int columnIndex) {
-            Class clazz = String.class;
-            switch (columnIndex) {
-                case 4: {
-                    clazz = Boolean.class;
-                }
-            }
-            return clazz;
-        }
-    };
-    BufferedWriter bw = null;
-    File archivo = new File("src" + org.ignaciorodriguez.utils.SeparatorUtils.s + "vista" + org.ignaciorodriguez.utils.SeparatorUtils.s + "actualizacion.txt");
     DefaultTableModel modeloGanancias = new DefaultTableModel();
 
     private Consultas() {
@@ -96,24 +58,7 @@ public class Consultas extends Conexion {
         }
         return instancia;
     }
-    public boolean seleccionarVencimiento(int id, int seleccionar) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("update administracion set seleccionadoVencimiento = ? where idmuestras = ?");
-            ps.setInt(1, seleccionar);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar vencimiento, " + e);
-            return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
+
 
     public void generarReporteMBAgua(int id, String procedencia) {
         Connection conexion = con.getConnection();
@@ -488,150 +433,6 @@ public class Consultas extends Conexion {
         }
     }
 
-
-
-    public void agregarAdministracion(int id, double precio, int pago, int factura) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("INSERT INTO administracion " + "(idmuestras,precioTotal,pago,factura,entrada,borrado)VALUES " + "(?,?,?,?,current_timestamp(),0)");
-            ps.setInt(1, id);
-            ps.setDouble(2, precio);
-            ps.setInt(3, pago);
-            ps.setInt(4, factura);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al agregar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public void editarAdministracion(int id, double precio, int pago, int factura) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update administracion set precioTotal" + " = ?, pago = ?, factura = ?, borrado = 0 where idmuestras = ?");
-            ps.setDouble(1, precio);
-            ps.setInt(2, pago);
-            ps.setInt(3, factura);
-            ps.setInt(4, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al agregar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }    public boolean borrarAnalisis(int id, int sino) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update administracion set borrado = ? where idmuestras = ?");
-            ps.setInt(1, sino);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al borrar analisis, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public DefaultTableModel recuperarBorrados() {
-        String[] fila = new String[6];
-        Connection conexion = con.getConnection();
-        if (modeloTabla.getColumnCount() == 0) {
-            modeloTabla.addColumn("ID");
-            modeloTabla.addColumn("Procedencia");
-            modeloTabla.addColumn("Solicitante");
-            modeloTabla.addColumn("Muestreo");
-            modeloTabla.addColumn("Análisis");
-            modeloTabla.addColumn("Tipo de análisis");
-        }
-        try {
-            modeloTabla.setRowCount(0);
-            ps = conexion.prepareStatement("select idmuestras, procedencia, solicitante," + " fechaMuestreo, fechaAnalisis, tipo from vistaborrados");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < 6; i++) {
-                    switch (i) {
-                        case 0: {
-                            fila[i] = String.format("%05d", rs.getObject(i + 1));
-                            break;
-                        }
-                        case 3: {
-                            if (rs.getDate("fechaMuestreo").toString().equals("1111-11-11")) {
-                                fila[i] = "-";
-                            } else {
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                fila[i] = formatter.format(rs.getDate("fechaMuestreo"));
-                            }
-                            break;
-                        }
-                        case 4: {
-                            if (rs.getObject("fechaAnalisis").toString().equals("1111-11-11")) {
-                                fila[i] = "-";
-                            } else {
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                fila[i] = formatter.format(rs.getDate("fechaAnalisis"));
-                            }
-                            break;
-                        }
-                        default:
-                            fila[i] = String.valueOf(rs.getObject(i + 1));
-                            break;
-                    }
-                }
-                modeloTabla.addRow(fila); // se agrega un renglon al org.ignaciorodriguez.modelo de la tabla
-            }
-            return modeloTabla; //se devuelve un org.ignaciorodriguez.modelo de tabla
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperarBorrados, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-    public boolean guardarDeterminacionesAHacer(String query, int num, boolean anular, int id) { // se actualiza un vencimiento
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement(query);
-            for (int i = 0; i < num; i++) {
-                ps.setDouble(i + 1, (anular ? -2 : -1));
-            }
-            ps.setInt(num + 1, id);
-            System.out.println(ps.toString());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al " + (anular ? "anular" : "guardar") + " determinaciones, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-
-
     public void generarReporteMuestras(List id) { //generar main.resources.reporte de salida del análisis
         Connection conexion = con.getConnection();
         try {
@@ -682,31 +483,6 @@ public class Consultas extends Conexion {
             vistaReporte.setVisible(true);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al generar informe de muestras, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return false;
-    }
-
-    public boolean checkearRutas(String nombre) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select nombre from rutas");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                int i = 1;
-                if (rs.getString(i).equals(nombre)) {
-                    return true;
-                }
-                i++;
-            }
-            return false;
-        } catch (Exception e) {
-            System.err.println("Error, " + e);
         } finally {
             try {
                 conexion.close();
@@ -794,7 +570,6 @@ public class Consultas extends Conexion {
         }
     }
 
-    
 
     public void generarReporteTN(int id, String procedencia) {
         Connection conexion = con.getConnection();
@@ -874,7 +649,9 @@ public class Consultas extends Conexion {
         m.put("laboratorio", laboStream);
         m.put("firma", firmaStream);
         return m;
-    }public void generarReporteEfluentes(int id, String procedencia) {
+    }
+
+    public void generarReporteEfluentes(int id, String procedencia) {
         Connection conexion = con.getConnection();
         Principal p = new Principal();
         try {
@@ -949,7 +726,6 @@ public class Consultas extends Conexion {
             }
         }
     }
-
 
 
     public void generarReporteMBAlimentos(int id, String procedencia) {
@@ -2025,31 +1801,19 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }    public boolean checkearPDF(int id, String db) {
-        Connection conexion = con.getConnection();
-        try {
+    }
+
+    public boolean checkearPDF(int id, String db) {
+        try (Connection conexion = con.getConnection()) {
             if (db.contains("nutricional")) {
-                ps = conexion.prepareStatement("SELECT `tablanutricional`.`calorias`,`tablanutricional`.`kjul`,`tablanutricional`.`carbohidratos`,`tablanutricional`.`proteinas`,`tablanutricional`.`grasasTotales`,`tablanutricional`.`grasasSaturadas`,`tablanutricional`.`grasasTrans`,`tablanutricional`.`GrasasMonoinsaturadas`,`tablanutricional`.`GrasasPoliinsaturadas`,`tablanutricional`.`Colesterol`,`tablanutricional`.`fibraAlimentaria`,`tablanutricional`.`sodio`,`tablanutricional`.`VDCalorias`,`tablanutricional`.`VDCarbohidratos`,`tablanutricional`.`VDProteinas`,`tablanutricional`.`VDGrasasTotales`,`tablanutricional`.`VDGrasasSaturadas`,`tablanutricional`.`VDGrasasMonoinsaturadas`,`tablanutricional`.`VDGrasasPoliinsaturadas`,`tablanutricional`.`VDColesterol`,`tablanutricional`.`VDGrasasTrans`,`tablanutricional`.`VDFibraAlimentaria`,`tablanutricional`.`VDSodio`,`tablanutricional`.`porcion`,`tablanutricional`.`unidad`,`tablanutricional`.`azucares`,`tablanutricional`.`VDAzucares`,`tablanutricional`.`almidon`,`tablanutricional`.`VDAlmidon`,`tablanutricional`.`PorcionesPorEnvase`,`tablanutricional`.`azucaresAnadidos`,`tablanutricional`.`VDAzucaresAnadidos` FROM `laboratorio`.`tablanutricional` where idmuestras = ?");
+                ps = conexion.prepareStatement("SELECT `calorias`,`kjul`,`carbohidratos`, `proteinas`,`grasasTotales`,`grasasSaturadas`," + "`grasasTrans`,`GrasasMonoinsaturadas`,`GrasasPoliinsaturadas`,`Colesterol`,`fibraAlimentaria`,`sodio`," + "`VDCalorias`,`VDCarbohidratos`,`VDProteinas`,`VDGrasasTotales`,`VDGrasasSaturadas`,`VDGrasasMonoinsaturadas`," + "`VDGrasasPoliinsaturadas`,`VDColesterol`,`VDGrasasTrans`,`VDFibraAlimentaria`,`VDSodio`,`porcion`," + "`unidad`,`azucares`,`VDAzucares`,`almidon`,`VDAlmidon`,`PorcionesPorEnvase`,`azucaresAnadidos`," + "`VDAzucaresAnadidos` FROM `laboratorio`.`tablanutricional` where idmuestras = ?");
                 ps.setInt(1, id);
                 rs = ps.executeQuery();
-                while (rs.next()) {
-                    if (rs.getObject(1) == null) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-                return false;
+
             } else if (db.contains("mbagua")) {
                 ps = conexion.prepareStatement("select coliformesTotales from " + db + " where idmuestras = " + id);
                 rs = ps.executeQuery();
-                while (rs.next()) {
-                    if (rs.getObject(1) == null) {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
+                return rs.next() && rs.getObject(1) != null;
             } else {
                 ps = conexion.prepareStatement("select * from " + db + " where idmuestras = " + id);
                 rs = ps.executeQuery();
@@ -2058,7 +1822,7 @@ public class Consultas extends Conexion {
                 while (rs.next()) {
 
                     for (int i = 2; i < cantidad; i++) {
-                        existe = existe || (rs.getObject(i + 1) == null ? false : !rs.getObject(i + 1).toString().trim().isEmpty());
+                        existe = existe || (rs.getObject(i + 1) != null && !rs.getObject(i + 1).toString().trim().isEmpty());
                     }
                     return existe;
                 }
@@ -2068,12 +1832,6 @@ public class Consultas extends Conexion {
             StringWriter sw = new StringWriter();
             PrintWriter pw = new PrintWriter(sw);
             e.printStackTrace(pw);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return false;
     }
@@ -2224,7 +1982,9 @@ public class Consultas extends Conexion {
                 System.err.println(e.getStackTrace()[0]);
             }
         }
-    }    public void generarReporteEfluentesCloaca(int id, String procedencia) {
+    }
+
+    public void generarReporteEfluentesCloaca(int id, String procedencia) {
         Connection conexion = con.getConnection();
         Principal p = new Principal();
         try {
@@ -2371,7 +2131,6 @@ public class Consultas extends Conexion {
     }
 
 
-
     public String recuperarEmail(int id) {
         Connection conexion = con.getConnection();
         String aux;
@@ -2394,35 +2153,6 @@ public class Consultas extends Conexion {
             }
         }
         return "";
-    }
-
-
-
-
-
-    public String[] recuperarDatosEmail(int id) {
-        Connection conexion = con.getConnection();
-        String[] aux = new String[4];
-        try {
-            ps = conexion.prepareStatement("select destinatario, remitente, cuerpo, archivo from emails where idemails = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < aux.length; i++) {
-                    aux[i] = String.valueOf(rs.getObject(i + 1));
-                }
-            }
-            return aux;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar solicitante, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
     }
 
     public DefaultTableModel recuperarEmailsEnviados() {
@@ -2450,74 +2180,6 @@ public class Consultas extends Conexion {
             return emails;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al recuperar emails enviados, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public void guardarEmailEnviado(String destinatario, String cuerpo, String archivo, String remitente, String procedencia) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("insert into emails (destinatario, cuerpo, archivo, hora, remitente, procedencia) values (?,?,?,current_timestamp(),?,?)");
-            ps.setString(1, destinatario);
-            ps.setString(2, cuerpo);
-            ps.setString(3, archivo);
-            ps.setString(4, remitente);
-            ps.setString(5, procedencia);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar email enviado, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }public void esconderFechaVencimiento(int id, boolean poner) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update muestras set ponerFechaVencimiento = ? where idmuestras = ?");
-            int aux;
-            if (poner) {
-                aux = 1;
-            } else {
-                aux = 0;
-            }
-            ps.setInt(1, aux);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            JOptionPane.showInputDialog("Error al esconder fecha de vencimiento, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-
-
-        public Date recuperarEntrada(int id) {
-        Connection conexion = con.getConnection();
-        Date analisis = null;
-        try {
-            ps = conexion.prepareStatement("select entrada from administracion where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                analisis = rs.getDate("entrada");
-            }
-            return analisis;
-        } catch (Exception e) {
-            JOptionPane.showInputDialog("Error al recuperar titulo " + e);
             return null;
         } finally {
             try {
@@ -2580,32 +2242,7 @@ public class Consultas extends Conexion {
     }
 
 
-
-    public String[] recuperarEmailYVencimiento(int id) {
-        Connection conexion = con.getConnection();
-        String[] aux = new String[6];
-        try {
-            ps = conexion.prepareStatement("select e.email, v.fechaVencimiento, " + "v.idmuestras, m.tipo, m.realizadoPor, p.procedencia  from " + "vistaemail e join vencimientos v on e.idmuestras = v.idmuestras " + "join muestras m on v.idmuestras = m.idmuestras join vistaprocedencia " + "p on p.idcliente = m.idcliente where v.idmuestras = ?;");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < aux.length; i++) {
-                    aux[i] = rs.getObject(i + 1).toString();
-                }
-                return aux;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }public void generarReporteFQCompleto(int id, String titulo, List<Determinacion> resultados) {
+    public void generarReporteFQCompleto(int id, String titulo, List<Determinacion> resultados) {
         Connection conexion = con.getConnection();
         Principal pr = new Principal();
         resultados.forEach(System.out::println);
@@ -2694,7 +2331,9 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }public int consultarActualizacion() {
+    }
+
+    public int consultarActualizacion() {
         String aux = "";
         try {
             URL url = new URL("http://138.36.236.245/actualizar.php");
@@ -2730,158 +2369,6 @@ public class Consultas extends Conexion {
             Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
         }
         return -25962;
-    }
-
-
-
-    public boolean guardarDeterminacionesAHacer(String[] listaDb, int id, boolean update, String db) {
-        Connection conexion = con.getConnection();
-        if (update) {
-            String aux = "update" + db + " set ";
-            for (int i = 0; i < listaDb.length; i++) {
-                aux += listaDb[i] + " = ?, ";
-            }
-            aux = aux.substring(0, aux.length() - 2) + " where idmuestras = ?";
-            try {
-                ps = conexion.prepareStatement(aux);
-                for (int i = 0; i < listaDb.length; i++) {
-                    ps.setString(i + 1, "");
-                }
-                ps.setInt(listaDb.length + 1, id);
-            } catch (SQLException ex) {
-                Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            String aux = "insert into determinaciones (";
-            for (int i = 0; i < listaDb.length; i++) {
-                aux += listaDb[i] + ", ";
-            }
-            aux += "idmuestras) values (";
-            for (int i = 0; i < listaDb.length; i++) {
-                aux += "?, ";
-            }
-            aux += "?)";
-            try {
-                ps = conexion.prepareStatement(aux);
-                for (int i = 0; i < listaDb.length; i++) {
-                    ps.setString(i + 1, "");
-                }
-                ps.setInt(listaDb.length + 1, id);
-            } catch (SQLException ex) {
-                Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        try {
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-            return false;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }    public void guardarArregloAHacer(int id, String query) {
-        Connection conexion = con.getConnection();
-
-        try {
-            ps = conexion.prepareStatement("update muestras set aHacer = ? where idmuestras= ?");
-            ps.setString(1, query);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public DefaultTableModel obtenerGanancias(Date desde, Date hasta) {//se obtienen los datos para la tabla de vencimientos
-        Connection conexion = con.getConnection();
-        double total = 0;
-        Object fila[] = new Object[2];
-        modeloGanancias.setColumnCount(0);
-        DecimalFormat formato = new DecimalFormat("#.##");
-        if (modeloGanancias.getColumnCount() == 0) {
-            modeloGanancias.addColumn("Fecha");
-            modeloGanancias.addColumn("Ganancias");
-        }
-        modeloGanancias.setRowCount(0);
-        java.sql.Date desdeSql = new java.sql.Date(desde.getTime());
-        java.sql.Date hastaSql = new java.sql.Date(hasta.getTime());
-        try {
-            ps = conexion.prepareStatement("select sum(precioTotal) as ganancias, date(entrada) as fecha from administracion where date(entrada) between ? and ? group by fecha;"); // se recuperan los datos de la base de datos de los vencimeintos de todo el mes
-            ps.setDate(1, desdeSql);
-            ps.setDate(2, hastaSql);
-            System.out.println(ps.toString());
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                fila[0] = rs.getDate("fecha");
-                fila[1] = formato.format(rs.getDouble("ganancias"));
-                total += Double.parseDouble(fila[1].toString());
-                modeloGanancias.addRow(fila);
-            }
-            fila[0] = "Total:";
-            fila[1] = "$ " + formato.format(total);
-            modeloGanancias.addRow(fila);
-            return modeloGanancias;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener ganancias, " + e);
-            System.err.println(e.getStackTrace().toString());
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public void guardarPrecio(String determinacion, double precio) {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("update precios set precio = ? where determinacion = ?");
-            ps.setDouble(1, precio);
-            ps.setString(2, determinacion);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
-
-    public Map<Integer, DTOPrecio> consultarPrecios(int tipo) {
-        Connection conexion = con.getConnection();
-        Map<Integer, DTOPrecio> map = new HashMap<>();
-        try {
-            ps = conexion.prepareStatement("select p.determinacion, p.precio, p.idprecios from precios p join tipo t on p.idprecios = t.determinacion where t.tipo = ?");
-            ps.setInt(1, tipo);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                map.put(rs.getInt("idprecios"), new DTOPrecio(rs.getString("determinacion"), rs.getDouble("precio"), rs.getInt("idprecios")));
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al guardar datos, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return map;
     }
 
 }

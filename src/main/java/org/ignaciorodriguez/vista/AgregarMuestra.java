@@ -6,6 +6,7 @@ import com.toedter.calendar.JDateChooser;
 import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Muestra;
+import org.ignaciorodriguez.repository.AdministracionRepository;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
@@ -32,6 +33,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
     ResultadoRepository resultadoRepository = new ResultadoRepository();
     MuestraRepository muestraRepository = new MuestraRepository();
     ClienteRepository clienteRepository = new ClienteRepository();
+    AdministracionRepository administracionRepository = new AdministracionRepository();
     Consultas c = Consultas.getInstancia();
     int id, pago = 0, factura = 0;
     boolean editar = true, primero = true, delturista = false;
@@ -537,7 +539,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
                             if (nuevaMuestra.getTipo().contains("Tabla nutricional")) {
                                 resultadoRepository.guardarMarca(idaux, cajaMarca.getText());
                             }
-                            c.agregarAdministracion(idaux, Double.parseDouble(cajaCoste.getText()), pago, factura);
+                            administracionRepository.agregarAdministracion(idaux, Double.parseDouble(cajaCoste.getText()), pago, factura);
                             if (nuevaMuestra.getTipo().equals("Microbiológico de agua código")) {
                                 muestraRepository.agregarTipoAgua(nuevaMuestra.getId(), nuevaMuestra.getTipoAgua());
                             }
@@ -556,7 +558,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
                             if (nuevaMuestra.getTipo().contains("Tabla nutricional")) {
                                 resultadoRepository.guardarMarca(id, cajaMarca.getText());
                             }
-                            c.editarAdministracion(nuevaMuestra.getId(), nuevaMuestra.getCosteTotal(), nuevaMuestra.getPago(), nuevaMuestra.getFactura());
+                            administracionRepository.editarAdministracion(nuevaMuestra.getId(), nuevaMuestra.getCosteTotal(), nuevaMuestra.getPago(), nuevaMuestra.getFactura());
 
                             if (!m.getTipoAgua().isBlank()) {
                                 muestraRepository.agregarTipoAgua(nuevaMuestra.getId(), "");

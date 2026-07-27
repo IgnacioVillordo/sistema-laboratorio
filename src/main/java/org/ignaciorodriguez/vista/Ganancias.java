@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.AdministracionRepository;
 
 
 public class Ganancias extends javax.swing.JDialog {
@@ -12,6 +13,7 @@ public class Ganancias extends javax.swing.JDialog {
     Consultas c = Consultas.getInstancia();
     Date desde = null, hasta = null;
     DefaultTableModel modelo = new DefaultTableModel();
+    AdministracionRepository administracionRepository = new AdministracionRepository();
     public Ganancias(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -21,7 +23,7 @@ public class Ganancias extends javax.swing.JDialog {
         desde = agregarSemana.getTime();
         cajaDesde.setDate(desde);
         cajaHasta.setDate(hasta);
-        modelo = c.obtenerGanancias(desde, hasta);
+        modelo = administracionRepository.obtenerGanancias(desde, hasta);
         tablaGanancias.setModel(modelo);
         tablaGanancias.updateUI();
         setLocationRelativeTo(null);
@@ -168,7 +170,7 @@ public class Ganancias extends javax.swing.JDialog {
         hasta = cajaHasta.getDate();
         modelo.setRowCount(0);
         modelo.setColumnCount(0);
-        modelo = c.obtenerGanancias(desde, hasta);
+        modelo = administracionRepository.obtenerGanancias(desde, hasta);
         tablaGanancias.updateUI();
     }
 

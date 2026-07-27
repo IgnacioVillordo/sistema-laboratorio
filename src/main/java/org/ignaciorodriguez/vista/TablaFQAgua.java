@@ -1871,7 +1871,7 @@ public class TablaFQAgua extends javax.swing.JDialog {
                 File tnnuevo = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 tn.renameTo(tnnuevo);
                 muestraRepository.guardarConclusion(conclusion, id);
-                c.esconderFechaVencimiento(id, checkPoner.isSelected());
+                muestraRepository.esconderFechaVencimiento(id, checkPoner.isSelected());
                 this.dispose();
                 c.generarReporteFQAgua(id, procedencia);
             }
@@ -1893,7 +1893,7 @@ public class TablaFQAgua extends javax.swing.JDialog {
                 vencimientoRepository.agregarVencimiento(r);
                 muestraRepository.guardarObservaciones(valores[15], id);
                 muestraRepository.guardarConclusion(conclusion, id);
-                c.esconderFechaVencimiento(id, checkPoner.isSelected());
+                muestraRepository.esconderFechaVencimiento(id, checkPoner.isSelected());
                 this.dispose();
                 c.generarReporteFQAgua(id, procedencia);
             }

@@ -294,19 +294,19 @@ public class MuestraRepository {
         } else {
             DefaultTableModel modeloTabla = new DefaultTableModel();
             String[] fila = new String[13];
-                modeloTabla.addColumn("ID");
-                modeloTabla.addColumn("Procedencia");
-                modeloTabla.addColumn("Solicitante");
-                modeloTabla.addColumn("N° establecimiento");
-                modeloTabla.addColumn("Muestreo");
-                modeloTabla.addColumn("Análisis");
-                modeloTabla.addColumn("Realizado por");
-                modeloTabla.addColumn("Coste total");
-                modeloTabla.addColumn("Pago");
-                modeloTabla.addColumn("Factura ");
-                modeloTabla.addColumn("Tipo de análisis");
-                modeloTabla.addColumn("Identificaciones");
-                modeloTabla.addColumn("Estado");
+            modeloTabla.addColumn("ID");
+            modeloTabla.addColumn("Procedencia");
+            modeloTabla.addColumn("Solicitante");
+            modeloTabla.addColumn("N° establecimiento");
+            modeloTabla.addColumn("Muestreo");
+            modeloTabla.addColumn("Análisis");
+            modeloTabla.addColumn("Realizado por");
+            modeloTabla.addColumn("Coste total");
+            modeloTabla.addColumn("Pago");
+            modeloTabla.addColumn("Factura ");
+            modeloTabla.addColumn("Tipo de análisis");
+            modeloTabla.addColumn("Identificaciones");
+            modeloTabla.addColumn("Estado");
             try (Connection conexion = con.getConnection()) {
                 modeloTabla.setRowCount(0);
                 PreparedStatement ps;
@@ -785,4 +785,42 @@ public class MuestraRepository {
     }
 
 
+    public String[] recuperarEmailYVencimiento(int id) {
+        String[] aux = new String[6];
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select e.email, v.fechaVencimiento, " +
+                    "v.idmuestras, m.tipo, m.realizadoPor, p.procedencia  from " +
+                    "vistaemail e join vencimientos v on e.idmuestras = v.idmuestras " +
+                    "join muestras m on v.idmuestras = m.idmuestras join vistaprocedencia " +
+                    "p on p.idcliente = m.idcliente where v.idmuestras = ?;");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                for (int i = 0; i < aux.length; i++) {
+                    aux[i] = rs.getObject(i + 1).toString();
+                }
+                return aux;
+            }
+        } catch (Exception e) {
+            logger.severe("Error, " + e);
+        }
+        return null;
+    }
+
+    public void esconderFechaVencimiento(int id, boolean poner) {
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("update muestras set ponerFechaVencimiento = ? where idmuestras = ?");
+            int aux;
+            if (poner) {
+                aux = 1;
+            } else {
+                aux = 0;
+            }
+            ps.setInt(1, aux);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            logger.severe("Error al esconder fecha de vencimiento, " + e);
+        }
+    }
 }
