@@ -21,6 +21,8 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
@@ -33,8 +35,9 @@ public class TablaHisopadosAlliance extends javax.swing.JDialog {
     boolean editar, activarGermens = true, activarTotales = true, activarFecales = true,
             activarEscherichia = true, activarEnterobacterias = true, activarStaphilococos = true;
     Frame parent;
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
 
     public TablaHisopadosAlliance(java.awt.Frame parent, boolean modal, int id, String procedencia,
                                   boolean editar, String pdf) {

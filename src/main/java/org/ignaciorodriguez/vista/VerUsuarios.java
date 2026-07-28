@@ -8,6 +8,8 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.UsuarioRepository;
 
@@ -17,7 +19,8 @@ import org.ignaciorodriguez.repository.UsuarioRepository;
  */
 public class VerUsuarios extends javax.swing.JDialog {
 
-    UsuarioRepository c = new UsuarioRepository();
+    private final Conexion con = new Conexion();
+    UsuarioRepository c = new UsuarioRepository(con);
     DefaultTableModel modeloTabla = c.recuperarUsuariosTabla();
     Principal p = new Principal();
     int fila2;

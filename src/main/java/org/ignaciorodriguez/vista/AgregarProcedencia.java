@@ -1,6 +1,7 @@
 package org.ignaciorodriguez.vista;
 
 import org.ignaciorodriguez.modelo.Cliente;
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
 
@@ -21,7 +22,8 @@ public class AgregarProcedencia extends javax.swing.JDialog {
     int id;
     String[] datos = new String[7];
     boolean editar = false, muestra = false;
-    ClienteRepository clienteRepository = new ClienteRepository();
+    private final Conexion con = new Conexion();
+    ClienteRepository clienteRepository = new ClienteRepository(con);
 
     public AgregarProcedencia(java.awt.Frame parent, boolean modal, boolean editar, int id, boolean muestra) {
         super(parent, modal);

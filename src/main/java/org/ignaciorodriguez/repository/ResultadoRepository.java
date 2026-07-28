@@ -20,7 +20,11 @@ import java.util.stream.Collectors;
 public class ResultadoRepository {
 
     private static final Logger logger = Logger.getLogger(ResultadoRepository.class.getName());
-    Conexion con = new Conexion();
+    private final Conexion con;
+
+    public ResultadoRepository(Conexion con) {
+        this.con = con;
+    }
 
     public boolean guardarResultadoMBAgua(Resultados r) {
 

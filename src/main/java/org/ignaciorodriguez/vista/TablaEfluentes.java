@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
@@ -33,8 +35,9 @@ public class TablaEfluentes extends javax.swing.JDialog {
     Consultas c = Consultas.getInstancia();
     boolean editar, activarPh = true, activarDQO = true, activarDBO = true,
             activarSolidos10 = true, activarSolidos120 = true, activarHidrocarburos = true;
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
 
     public TablaEfluentes(java.awt.Frame parent, boolean modal, int id, String procedencia,
                           boolean editar, String pdf, String lugarMuestreo) {

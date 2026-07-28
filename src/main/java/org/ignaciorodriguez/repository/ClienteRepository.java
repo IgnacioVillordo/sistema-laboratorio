@@ -16,7 +16,11 @@ import java.util.stream.Collectors;
 
 public class ClienteRepository {
     private static final Logger logger = Logger.getLogger(ClienteRepository.class.getName());
-    Conexion con = new Conexion();
+    private final Conexion con;
+
+    public ClienteRepository(Conexion con) {
+        this.con = con;
+    }
 
     public boolean agregarCliente(Cliente c) {
         List<String> columnas = new ArrayList<>();

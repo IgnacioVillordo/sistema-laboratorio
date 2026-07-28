@@ -1,6 +1,8 @@
 package org.ignaciorodriguez.vista;
 
 import java.awt.event.KeyListener;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import javax.swing.JOptionPane;
 import org.ignaciorodriguez.modelo.Usuario;
@@ -17,7 +19,8 @@ import javax.swing.JComponent;
 
 public class EliminarUsuario extends javax.swing.JDialog {
 
-    UsuarioRepository usuarioRepository = new UsuarioRepository();
+    private final Conexion con = new Conexion();
+    UsuarioRepository usuarioRepository = new UsuarioRepository(con);
     Principal p = new Principal();
     boolean nombre = false;
 

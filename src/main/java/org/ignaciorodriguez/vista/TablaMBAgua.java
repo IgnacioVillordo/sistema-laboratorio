@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
@@ -36,10 +38,11 @@ public class TablaMBAgua extends javax.swing.JDialog {
             activarFecales = true, activarEscherichia = true, activarPseudomona = true, activarMohos = true, activarShigella = true;
     double[] ph;
     private String aux;
-    MuestraRepository muestraRepository = new MuestraRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    VencimientoRepository vencimientoRepository = new VencimientoRepository(con);
     private static final Logger logger = Logger.getLogger(TablaMBAgua.class.getName());
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
-    VencimientoRepository vencimientoRepository = new VencimientoRepository();
 
     public TablaMBAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);

@@ -2,6 +2,8 @@ package org.ignaciorodriguez.vista;
 
 import java.io.File;
 import javax.swing.JOptionPane;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
@@ -22,8 +24,9 @@ public class TablaNutricional extends javax.swing.JDialog {
     Consultas consultas = Consultas.getInstancia();
     boolean editar = false;
     String pdf, auxObservaciones, unidad = "";
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
 
     public TablaNutricional(java.awt.Frame parent, boolean modal, int id, boolean editar, String pdf) {
         super(parent, modal);

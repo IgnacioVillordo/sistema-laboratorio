@@ -7,6 +7,8 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
@@ -35,9 +37,10 @@ public class TablaFQAgua extends javax.swing.JDialog {
             activarDureza = true, activarConductividad = true, activarSolidos = true,
             activarHierro = true, activarNitratos = true, activarNitritos = true, activarSulfatos = true;
     String procedencia, pdf, auxObservaciones, auxOlor;
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
-    VencimientoRepository vencimientoRepository = new VencimientoRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    VencimientoRepository vencimientoRepository = new VencimientoRepository(con);
 
     public TablaFQAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);

@@ -18,7 +18,8 @@ public class VentanaExcel extends javax.swing.JDialog {
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaExcel.class.getName());
 
     Consultas c = Consultas.getInstancia();
-    ClienteRepository clienteRepository = new ClienteRepository();
+    private final Conexion con = new Conexion();
+    ClienteRepository clienteRepository = new ClienteRepository(con);
 
     public VentanaExcel(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

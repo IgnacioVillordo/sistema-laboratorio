@@ -1,5 +1,6 @@
 package org.ignaciorodriguez.vista;
 
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.EntregaRepository;
@@ -26,9 +27,10 @@ public class TablaEntregas extends javax.swing.JDialog {
     TableRowSorter sorter;
     List<? extends RowSorter.SortKey> sortKeys;
     Principal p = new Principal();
-    private final ClienteRepository clienteRepository = new ClienteRepository();
-    private final EntregaRepository entregaRepository = new EntregaRepository();
-    private final MuestraRepository muestraRepository = new MuestraRepository();
+    private final Conexion con = new Conexion();
+    private final ClienteRepository clienteRepository = new ClienteRepository(con);
+    private final EntregaRepository entregaRepository = new EntregaRepository(con);
+    private final MuestraRepository muestraRepository = new MuestraRepository(con);
     DefaultTableModel modeloTabla = entregaRepository.recuperarEntregas();
     int anchos[] = {38, 379, 170, 201, 107, 102, 101};
     Map<String, String> map = muestraRepository.recuperarIdentificaciones();

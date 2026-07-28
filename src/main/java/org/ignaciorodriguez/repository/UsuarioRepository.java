@@ -15,7 +15,11 @@ import java.util.logging.Logger;
 @Slf4j
 public class UsuarioRepository {
     private static final Logger logger = Logger.getLogger(UsuarioRepository.class.getName());
-    private final Conexion con = new Conexion();
+    private final Conexion con;
+
+    public UsuarioRepository(Conexion con) {
+        this.con = con;
+    }
 
     public boolean insertarUsuario(Usuario usuario) {
         try (Connection conexion = con.getConnection()) {

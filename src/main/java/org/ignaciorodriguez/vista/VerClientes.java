@@ -29,7 +29,8 @@ public class VerClientes extends javax.swing.JDialog {
     DefaultTableModel modeloTabla;
     int fila;
     Frame parent;
-    ClienteRepository clienteRepository = new ClienteRepository();
+    private final Conexion con = new Conexion();
+    ClienteRepository clienteRepository = new ClienteRepository(con);
     private boolean borrados;
     private javax.swing.JButton botonBorrar;
     private javax.swing.JButton botonBuscar;

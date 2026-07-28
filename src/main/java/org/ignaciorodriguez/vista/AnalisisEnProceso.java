@@ -2,6 +2,8 @@ package org.ignaciorodriguez.vista;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.AdministracionRepository;
 import org.ignaciorodriguez.repository.ClienteRepository;
@@ -13,10 +15,11 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
     Consultas c = Consultas.getInstancia();
     int id;
     String auxiliar;
-    ClienteRepository clienteRepository = new ClienteRepository();
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
-    MuestraRepository muestraRepository = new MuestraRepository();
-    AdministracionRepository administracionRepository = new AdministracionRepository();
+    private final Conexion con = new Conexion();
+    ClienteRepository clienteRepository = new ClienteRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    AdministracionRepository administracionRepository = new AdministracionRepository(con);
 
     public AnalisisEnProceso(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);

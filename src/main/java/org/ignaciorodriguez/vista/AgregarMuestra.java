@@ -30,11 +30,11 @@ public class AgregarMuestra extends javax.swing.JDialog {
     public JDateChooser cajaMuestreo;
     public JTextField cajaHabilitacion;
     public JTextField cajaSolicitante;
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ClienteRepository clienteRepository = new ClienteRepository();
-    AdministracionRepository administracionRepository = new AdministracionRepository();
-    Consultas c = Consultas.getInstancia();
+    private final Conexion con = new Conexion();
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ClienteRepository clienteRepository = new ClienteRepository(con);
+    AdministracionRepository administracionRepository = new AdministracionRepository(con);
     int id, pago = 0, factura = 0;
     boolean editar = true, primero = true, delturista = false;
     Muestra m = new Muestra();

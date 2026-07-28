@@ -22,6 +22,8 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
@@ -59,8 +61,9 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
     private String auxVibrio;
     private String auxVibrioCholerae;
     private int auxVibrioCholeraeCombo;
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
 
     public TablaMBAlimentos(java.awt.Frame parent, boolean modal, int id, String procedencia,
                             boolean editar, String pdf) {

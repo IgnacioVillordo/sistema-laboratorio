@@ -10,6 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
@@ -33,8 +35,9 @@ public class TablaMBChocolates extends javax.swing.JDialog {
     Consultas c = Consultas.getInstancia();
     boolean editar, activarGermenes = true, activarTotales = true, activarFecales = true,
             activarMohos = true, activarEscherichia = true, activarSalmonella = true;
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
 
     public TablaMBChocolates(java.awt.Frame parent, boolean modal, int id, String procedencia,
                              boolean editar, String pdf) {

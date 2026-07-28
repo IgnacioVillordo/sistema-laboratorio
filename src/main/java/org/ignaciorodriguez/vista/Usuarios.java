@@ -1,6 +1,8 @@
 package org.ignaciorodriguez.vista;
 
 import javax.swing.JOptionPane;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.repository.UsuarioRepository;
 
 import java.awt.event.ActionEvent;
@@ -16,7 +18,8 @@ public class Usuarios extends javax.swing.JDialog {
 
     String usuario = "error";
     int tipo;
-    UsuarioRepository usuarioRepository = new UsuarioRepository();
+    private final Conexion con = new Conexion();
+    UsuarioRepository usuarioRepository = new UsuarioRepository(con);
 
     public Usuarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

@@ -15,7 +15,11 @@ import java.util.logging.Logger;
 public class AdministracionRepository {
 
     private final static Logger logger = Logger.getLogger(AdministracionRepository.class.getName());
-    Conexion con = new Conexion();
+    private final Conexion con;
+
+    public AdministracionRepository(Conexion con) {
+        this.con = con;
+    }
 
     public boolean seleccionarVencimiento(int id, int seleccionar) {
         try (Connection conexion = con.getConnection()) {

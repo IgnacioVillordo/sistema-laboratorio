@@ -41,8 +41,13 @@ import org.ignaciorodriguez.repository.*;
 public class Principal extends JFrame {
 
     Consultas consultas = Consultas.getInstancia();
-    UsuarioRepository usuarioRepository = new UsuarioRepository();
-    MuestraRepository muestraRepository = new MuestraRepository();
+    private final Conexion con = new Conexion();
+    UsuarioRepository usuarioRepository = new UsuarioRepository(con);
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ClienteRepository clienteRepository = new ClienteRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    EntregaRepository entregaRepository = new EntregaRepository(con);
+    AdministracionRepository administracionRepository = new AdministracionRepository(con);
     public DefaultTableModel modeloTabla = muestraRepository.llenarTabla();
     int fila2;
     public static int id;
@@ -53,10 +58,6 @@ public class Principal extends JFrame {
     Map<String, String> map = muestraRepository.recuperarIdentificaciones();
     DialogoBuscar n;
     int actualizacion = -1;
-    ClienteRepository clienteRepository = new ClienteRepository();
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
-    EntregaRepository entregaRepository = new EntregaRepository();
-    AdministracionRepository administracionRepository = new AdministracionRepository();
     private static final Logger logger = Logger.getLogger(Principal.class.getName());
 
     public Principal() {

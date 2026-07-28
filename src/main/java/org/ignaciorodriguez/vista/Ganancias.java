@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.AdministracionRepository;
 
@@ -13,7 +15,8 @@ public class Ganancias extends javax.swing.JDialog {
     Consultas c = Consultas.getInstancia();
     Date desde = null, hasta = null;
     DefaultTableModel modelo = new DefaultTableModel();
-    AdministracionRepository administracionRepository = new AdministracionRepository();
+    private final Conexion con = new Conexion();
+    AdministracionRepository administracionRepository = new AdministracionRepository(con);
     public Ganancias(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();

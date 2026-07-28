@@ -3,7 +3,8 @@ package org.ignaciorodriguez.vista;
 import java.awt.event.ItemEvent;
 import javax.swing.DefaultListModel;
 
-import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.modelo.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -17,9 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 import javax.swing.JComponent;
-import org.ignaciorodriguez.modelo.CustomListModel;
-import org.ignaciorodriguez.modelo.Determinacion;
-import org.ignaciorodriguez.modelo.DeterminacionHumedad;
+
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.utils.ListUtils;
@@ -31,9 +30,9 @@ public class FQAlimentos extends javax.swing.JDialog {
     Principal p = new Principal();
     int id;
     boolean editar = false, auxiliar;
-    Consultas consultas = Consultas.getInstancia();
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
     String pdf;
     int alimentos;
     List<Determinacion> determinaciones = new LinkedList<>();

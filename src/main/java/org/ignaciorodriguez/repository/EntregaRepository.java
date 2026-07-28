@@ -14,8 +14,12 @@ import java.util.logging.Logger;
 
 public class EntregaRepository {
 
-    Conexion con = new Conexion();
+    private final Conexion con;
     private final static Logger logger = Logger.getLogger(EntregaRepository.class.getName());
+
+    public EntregaRepository(Conexion con) {
+        this.con = con;
+    }
 
     public boolean entregarMuestra(Usuario usuario, int idmuestra) {
         try (Connection conexion = con.getConnection()) {

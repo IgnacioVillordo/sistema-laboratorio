@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
 
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Usuario;
 import org.ignaciorodriguez.modelo.VerContrasena;
 import org.ignaciorodriguez.repository.UsuarioRepository;
@@ -21,6 +22,8 @@ public class CrearUsuario extends javax.swing.JDialog {
 
     boolean verContraseña = false;
     boolean verConfirmar = false;
+    private final Conexion con = new Conexion();
+    UsuarioRepository usuarioRepository = new UsuarioRepository(con);
     VerContrasena v = new VerContrasena();
     public CrearUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -221,6 +224,7 @@ public class CrearUsuario extends javax.swing.JDialog {
                 jPanel1.add(jPanel3, gridBagConstraints);
 
                 jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+
                 jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
                 jPanel4.setMinimumSize(new java.awt.Dimension(141, 21));
                 jPanel4.setPreferredSize(new java.awt.Dimension(154, 34));
@@ -288,7 +292,6 @@ public class CrearUsuario extends javax.swing.JDialog {
 
     private void botonCrearActionPerformed(java.awt.event.ActionEvent evt) {
         Usuario usuario = new Usuario();
-        UsuarioRepository usuarioRepository = new UsuarioRepository();
         if (cajaUsuario.getText().equals("") || cajaConfirmar.getText().equals("") || cajaContraseña.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Rellene todos los campos");
         } else {

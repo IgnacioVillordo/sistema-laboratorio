@@ -7,6 +7,8 @@ import java.awt.Point;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
@@ -35,8 +37,9 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
             activarColiformes = true, activarHidrocarburos = true, activarNitratos = true, activarCloro = true,
             activarEscherichia = true, activarColiformesTotales = true, activarSulfuros = true;
     String procedencia, pdf, auxObservaciones, auxOlor, tipo, auxConclusion;
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
 
     public TablaEfluentesInfiltracion(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf, String tipo) {
         super(parent, modal);

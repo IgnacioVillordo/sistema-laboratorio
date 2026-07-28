@@ -1,5 +1,6 @@
 package org.ignaciorodriguez.vista;
 
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.AdministracionRepository;
 
@@ -18,7 +19,8 @@ public class TablaBorrados extends javax.swing.JDialog {
 
     Consultas consultas = Consultas.getInstancia();
     int fila;
-    AdministracionRepository administracionRepository = new AdministracionRepository();
+    private final Conexion con = new Conexion();
+    AdministracionRepository administracionRepository = new AdministracionRepository(con);
     DefaultTableModel modeloTabla = administracionRepository.recuperarBorrados();
 
     public TablaBorrados(java.awt.Frame parent, boolean modal) {

@@ -11,7 +11,9 @@ import java.io.File;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import org.ignaciorodriguez.modelo.Consultas;
+
+import org.ignaciorodriguez.modelo.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -25,14 +27,11 @@ import javax.swing.KeyStroke;
 import javax.swing.JComponent;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import org.ignaciorodriguez.modelo.Resultados;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.ButtonGroup;
 import javax.swing.JLabel;
 
-import org.ignaciorodriguez.modelo.Determinacion;
-import org.ignaciorodriguez.modelo.DeterminacionHumedad;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 
@@ -44,8 +43,9 @@ public class Determinaciones extends javax.swing.JDialog {
     boolean editar = false;
     int alimentos;
     String pdf, auxObservaciones, auxConclusion = "";
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
     Frame parent;
     ButtonGroup bg;
     public List<Determinacion> determinaciones = new ArrayList();

@@ -1,6 +1,8 @@
 package org.ignaciorodriguez.vista;
 
 import javax.swing.table.DefaultTableModel;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.AdministracionRepository;
 import org.ignaciorodriguez.repository.VencimientoRepository;
@@ -26,7 +28,8 @@ public class InformesVencimientos extends javax.swing.JDialog {
     Date desde = null;
     Date hasta = null;
     Consultas consultas = Consultas.getInstancia();
-    AdministracionRepository administracionRepository = new AdministracionRepository();
+    private final Conexion con = new Conexion();
+    AdministracionRepository administracionRepository = new AdministracionRepository(con);
 
     DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
@@ -41,7 +44,7 @@ public class InformesVencimientos extends javax.swing.JDialog {
             }
         }
     };
-    private VencimientoRepository vencimientoRepository = new VencimientoRepository();
+    private VencimientoRepository vencimientoRepository = new VencimientoRepository(con);
     private static final Logger logger = Logger.getLogger(InformesVencimientos.class.getName());
 
     public InformesVencimientos(java.awt.Frame parent, boolean modal) {

@@ -28,6 +28,7 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
@@ -39,9 +40,10 @@ public class VentanaEmailVencimientos extends javax.swing.JDialog {
     String email, vencimiento, tipo;
     int id;
     boolean editar = false;
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ClienteRepository clienteRepository = new ClienteRepository();
-    VencimientoRepository vencimientoRepository = new VencimientoRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ClienteRepository clienteRepository = new ClienteRepository(con);
+    VencimientoRepository vencimientoRepository = new VencimientoRepository(con);
 
     public VentanaEmailVencimientos(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);

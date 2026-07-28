@@ -7,6 +7,8 @@ import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 
@@ -15,7 +17,8 @@ public class VentanaNotas extends javax.swing.JDialog {
 
     int id;
     Consultas c = Consultas.getInstancia();
-    MuestraRepository muestraRepository = new MuestraRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
     public VentanaNotas(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
         this.id = id;
@@ -25,7 +28,6 @@ public class VentanaNotas extends javax.swing.JDialog {
         campoNotas.setText(muestraRepository.recuperarNota(id));
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -113,7 +115,7 @@ public class VentanaNotas extends javax.swing.JDialog {
         });
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
 
     private void botonCerrarActionPerformed(java.awt.event.ActionEvent evt) {
         String nota = campoNotas.getText();

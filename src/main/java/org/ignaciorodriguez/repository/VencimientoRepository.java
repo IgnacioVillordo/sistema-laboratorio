@@ -15,8 +15,13 @@ import java.util.logging.Logger;
 public class VencimientoRepository {
 
     private final static Logger logger = Logger.getLogger(VencimientoRepository.class.getName());
-    Conexion con = new Conexion();
-    MuestraRepository muestraRepository = new MuestraRepository();
+    private final Conexion con;
+    MuestraRepository muestraRepository;
+
+    public VencimientoRepository(Conexion con) {
+        this.con = con;
+        muestraRepository = new MuestraRepository(con);
+    }
 
     public boolean agregarVencimiento(Resultados r) { //se agega el vencimiento, si es mb se agregan 6 meses y fq 12 meses
         int id = muestraRepository.obtenerIdMuestra();

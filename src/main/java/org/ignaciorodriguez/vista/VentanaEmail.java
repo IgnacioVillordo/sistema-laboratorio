@@ -37,6 +37,7 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
 import org.ignaciorodriguez.repository.ClienteRepository;
@@ -53,9 +54,11 @@ public class VentanaEmail extends javax.swing.JDialog {
     boolean editar = false;
     Frame parent;
     private static final Dotenv dotenv = Dotenv.load();
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ClienteRepository clienteRepository = new ClienteRepository();
-    EntregaRepository entregaRepository = new EntregaRepository();
+    private final Conexion con = new Conexion();
+    UsuarioRepository usuarioRepository = new UsuarioRepository(con);
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ClienteRepository clienteRepository = new ClienteRepository(con);
+    EntregaRepository entregaRepository = new EntregaRepository(con);
 
     public VentanaEmail(java.awt.Frame parent, boolean modal, int id, String pdf) {
         super(parent, modal);
@@ -431,7 +434,6 @@ public class VentanaEmail extends javax.swing.JDialog {
         } else {
             JOptionPane.showMessageDialog(null, "Email enviado.");
         }
-        UsuarioRepository usuarioRepository = new UsuarioRepository();
         Usuarios usuarios = new Usuarios(parent, true);
         usuarios.setVisible(true); //ventana para elegir usuario visible
         String nombre = "error"; //inicio de variable nombre con el nombre del usuario

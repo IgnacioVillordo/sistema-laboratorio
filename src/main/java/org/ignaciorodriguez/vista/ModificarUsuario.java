@@ -3,6 +3,7 @@ package org.ignaciorodriguez.vista;
 import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
 
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Usuario;
 import org.ignaciorodriguez.modelo.VerContrasena;
 import org.ignaciorodriguez.repository.UsuarioRepository;
@@ -18,7 +19,8 @@ import javax.swing.JComponent;
 
 public class ModificarUsuario extends javax.swing.JDialog {
 
-    UsuarioRepository usuarioRepository = new UsuarioRepository();
+    private final Conexion con = new Conexion();
+    UsuarioRepository usuarioRepository = new UsuarioRepository(con);
     boolean verContraseña = false;
     boolean verConfirmar = false;
     VerContrasena v = new VerContrasena();

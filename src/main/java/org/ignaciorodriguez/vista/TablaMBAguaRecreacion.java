@@ -8,6 +8,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
@@ -37,9 +39,10 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
     boolean editar, ingresoPh = false, activarGermenes = true, activarTotales = true,
             activarFecales = true, activarEscherichia = true, activarPseudomona = true,
             activarStaphilococos = true, activarStreptococos = true, activarShigella = true;
-    MuestraRepository muestraRepository = new MuestraRepository();
-    ResultadoRepository resultadoRepository = new ResultadoRepository();
-    VencimientoRepository vencimientoRepository = new VencimientoRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
+    ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    VencimientoRepository vencimientoRepository = new VencimientoRepository(con);
 
     public TablaMBAguaRecreacion(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);

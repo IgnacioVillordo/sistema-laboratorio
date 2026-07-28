@@ -2,6 +2,8 @@
 package org.ignaciorodriguez.vista;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 
@@ -20,7 +22,8 @@ public class InformeMuestras extends javax.swing.JDialog {
 
     Consultas consultas = Consultas.getInstancia();
     private final DefaultTableModel modeloTabla;
-    MuestraRepository muestraRepository = new MuestraRepository();
+    private final Conexion con = new Conexion();
+    MuestraRepository muestraRepository = new MuestraRepository(con);
 
     public InformeMuestras(java.awt.Frame parent, boolean modal) {
         super(parent, modal);

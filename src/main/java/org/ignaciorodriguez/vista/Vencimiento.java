@@ -1,6 +1,8 @@
 package org.ignaciorodriguez.vista;
 
 import javax.swing.table.DefaultTableModel;
+
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.VencimientoRepository;
 
@@ -17,8 +19,8 @@ import javax.swing.JComponent;
 
 public class Vencimiento extends javax.swing.JDialog {
 
-    Consultas consultas = Consultas.getInstancia();
-    VencimientoRepository vencimientoRepository = new VencimientoRepository();
+    private final Conexion con = new Conexion();
+    VencimientoRepository vencimientoRepository = new VencimientoRepository(con);
     java.awt.Frame p = new java.awt.Frame();
     int row;
     DefaultTableModel modeloTabla = new DefaultTableModel() {

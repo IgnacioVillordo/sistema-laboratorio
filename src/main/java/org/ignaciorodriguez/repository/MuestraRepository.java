@@ -20,7 +20,11 @@ import java.util.logging.Logger;
 public class MuestraRepository {
 
     private static final Logger logger = Logger.getLogger(MuestraRepository.class.getName());
-    Conexion con = new Conexion();
+    private final Conexion con;
+
+    public MuestraRepository(Conexion con) {
+        this.con = con;
+    }
 
     public boolean agregarMuestra(Muestra m) {
         Date fa = m.getFechaAnalisis();
