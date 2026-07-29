@@ -6,6 +6,7 @@ import javax.swing.table.DefaultTableModel;
 import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.service.ReporteService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -24,6 +25,7 @@ public class InformeMuestras extends javax.swing.JDialog {
     private final DefaultTableModel modeloTabla;
     private final Conexion con = new Conexion();
     MuestraRepository muestraRepository = new MuestraRepository(con);
+    ReporteService reporteService = new ReporteService(con);
 
     public InformeMuestras(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -160,7 +162,7 @@ public class InformeMuestras extends javax.swing.JDialog {
         }
         
         this.dispose();
-        consultas.generarReporteMuestras(List.copyOf(ids));
+        reporteService.generarReporteMuestras(List.copyOf(ids));
         for (Integer id : ids) {
             muestraRepository.analizado(id);
         }

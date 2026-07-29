@@ -12,6 +12,8 @@ import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -40,6 +42,8 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
     private final Conexion con = new Conexion();
     MuestraRepository muestraRepository = new MuestraRepository(con);
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    ArchivoService archivoService = new ArchivoService();
+    ReporteService reporteService = new ReporteService(con);
 
     public TablaEfluentesInfiltracion(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf, String tipo) {
         super(parent, modal);
@@ -2832,8 +2836,8 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
         java.sql.Date fechaAnalisis = new java.sql.Date(dm); //cast de fecha
         m.put("fechaAnalisis", fechaAnalisis);
         if (editar) {
-            File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
-            File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+            File rv = new File(archivoService.recuperarRutas("Reportes") + "\\" + pdf);
+            File rn = new File(archivoService.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
             if (resultadoRepository.editarResultadosEfluentesTipo(m)) {
                 if (checkConclusion.isSelected()) {
@@ -2846,7 +2850,7 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
                 observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
                 muestraRepository.guardarObservaciones(observaciones, id);
                 this.dispose();
-                c.generarReporteEfluentesInfiltracion(id, procedencia);;
+                reporteService.generarReporte("reporteEfluentes.jasper",id, "Efluentes", procedencia);
             }
         } else {
             if (resultadoRepository.guardarResultadosEfluentesTipo(m)) {
@@ -2859,7 +2863,7 @@ public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
                 observaciones = JOptionPane.showInputDialog("Ingrese las observaciones:");
                 muestraRepository.guardarObservaciones(observaciones, id);
                 this.dispose();
-                c.generarReporteEfluentesInfiltracion(id, procedencia);
+                reporteService.generarReporte("reporteEfluentes.jasper",id, "Efluentes", procedencia);
             }
         }
         muestraRepository.guardarFechaAnalisis(m);

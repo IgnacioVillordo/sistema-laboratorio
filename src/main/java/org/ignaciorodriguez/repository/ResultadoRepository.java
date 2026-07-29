@@ -1838,4 +1838,5 @@ public class ResultadoRepository {
         }
         return false;
     }
+
 }

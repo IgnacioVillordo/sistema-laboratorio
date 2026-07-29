@@ -15,6 +15,8 @@ import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.repository.VencimientoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -43,6 +45,8 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
     MuestraRepository muestraRepository = new MuestraRepository(con);
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
     VencimientoRepository vencimientoRepository = new VencimientoRepository(con);
+    ArchivoService archivoService = new ArchivoService();
+    ReporteService reporteService = new ReporteService(con);
 
     public TablaMBAguaRecreacion(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -2032,8 +2036,8 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
             }
             r.setCaracteresOrgasnolepticos(caracteres);
             if (editar) {
-                File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
-                File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+                File rv = new File(archivoService.recuperarRutas("Reportes") + "\\" + pdf);
+                File rn = new File(archivoService.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
                 if (resultadoRepository.editarMBAguaDeRecreacion(r, vencimiento)) {
                     muestraRepository.guardarFechaAnalisisMBAGUA(r, id);
@@ -2044,7 +2048,7 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
                         vencimientoRepository.agregarVencimiento(r);
                     }
                     this.dispose();
-                    c.generarReporteMBAguaDeRecreacion(id, procedencia);
+                    reporteService.generarReporte("reporteMBAguadeRecreacion.jasper", id, "MB Agua de recreación", procedencia);
                 }
 
             } else {
@@ -2058,7 +2062,7 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
                     }
                     muestraRepository.guardarObservaciones(valores[6], id);
                     this.dispose();
-                    c.generarReporteMBAguaDeRecreacion(id, procedencia);
+                    reporteService.generarReporte("reporteMBAguadeRecreacion.jasper", id, "MB Agua de recreación", procedencia);
                 }
             }
         } catch (java.lang.NullPointerException e) {

@@ -27,6 +27,8 @@ import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 public class TablaMBAlimentos extends javax.swing.JDialog {
 
@@ -64,6 +66,8 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
     private final Conexion con = new Conexion();
     MuestraRepository muestraRepository = new MuestraRepository(con);
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    ArchivoService archivoService = new ArchivoService();
+    ReporteService reporteService = new ReporteService(con);
 
     public TablaMBAlimentos(java.awt.Frame parent, boolean modal, int id, String procedencia,
                             boolean editar, String pdf) {
@@ -73,7 +77,8 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
         this.editar = editar;
         this.pdf = pdf;
         initComponents();
-        setTitle("ID " + id + ". " + muestraRepository.obtenerProcedencia(id) + ". Microbiológico de alimentos");
+        setTitle("ID " + id + ". " +
+                muestraRepository.obtenerProcedencia(id) + ". Microbiológico de alimentos");
         if (editar == true) {
             Map<String, String> map = resultadoRepository.recuperarResultadosMBAlimentos(id);
             if (map == null) {
@@ -4069,21 +4074,21 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
             observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
             m.put("observaciones", observaciones);
             if (editar) {
-                File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
-                File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+                File rv = new File(archivoService.recuperarRutas("Reportes") + "\\" + pdf);
+                File rn = new File(archivoService.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
                 if (resultadoRepository.editarMBAlimentos(m)) {
                     muestraRepository.guardarFechaAnalisis(m);
                     muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
-                    c.generarReporteMBAlimentos(id, procedencia);
+                    reporteService.generarReporte("reporteMBAlimentos.jasper", id, "MB Alimentos", procedencia);
                 }
             } else {
                 if (resultadoRepository.guardarResultadoMBAlimentos(m)) {
                     muestraRepository.guardarFechaAnalisis(m);
                     muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
-                    c.generarReporteMBAlimentos(id, procedencia);
+                    reporteService.generarReporte("reporteMBAlimentos.jasper", id, "MB Alimentos", procedencia);
                 }
             }
         } catch (NullPointerException e) {

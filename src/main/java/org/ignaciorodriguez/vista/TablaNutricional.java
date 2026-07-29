@@ -7,6 +7,8 @@ import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -27,6 +29,8 @@ public class TablaNutricional extends javax.swing.JDialog {
     private final Conexion con = new Conexion();
     MuestraRepository muestraRepository = new MuestraRepository(con);
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    ArchivoService archivoService = new ArchivoService();
+    ReporteService reporteService = new ReporteService(con);
 
     public TablaNutricional(java.awt.Frame parent, boolean modal, int id, boolean editar, String pdf) {
         super(parent, modal);
@@ -1635,17 +1639,17 @@ public class TablaNutricional extends javax.swing.JDialog {
         unidad = campoUnidad.getText();
         String porcionesEnvase = campoPorcionesPorEnvase.getText();
         if (editar) {
-            File rv = new File(consultas.recuperarRutas("Reportes") + "\\" + pdf);
-            File rn = new File(consultas.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+            File rv = new File(archivoService.recuperarRutas("Reportes") + "\\" + pdf);
+            File rn = new File(archivoService.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
             if (resultadoRepository.editarTablaNutricional(valores, id, unidad, porcion, porcionesEnvase)) {
                 this.dispose();
-                consultas.generarReporteTN(id, muestraRepository.obtenerProcedencia(id));
+                reporteService.generarReporte("reportetablanutricional.jasper", id, "TN", muestraRepository.obtenerProcedencia(id));
             }
         } else {
             if (resultadoRepository.guardarTablaNutricional(valores, id, unidad, porcion, porcionesEnvase)) {
                 this.dispose();
-                consultas.generarReporteTN(id, muestraRepository.obtenerProcedencia(id));
+                reporteService.generarReporte("reportetablanutricional.jasper", id, "TN", muestraRepository.obtenerProcedencia(id));
             }
         }
 

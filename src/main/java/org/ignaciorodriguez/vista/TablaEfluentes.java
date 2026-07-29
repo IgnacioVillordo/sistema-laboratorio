@@ -12,6 +12,8 @@ import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -38,6 +40,8 @@ public class TablaEfluentes extends javax.swing.JDialog {
     private final Conexion con = new Conexion();
     MuestraRepository muestraRepository = new MuestraRepository(con);
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    ArchivoService archivoService = new ArchivoService();
+    ReporteService reporteService = new ReporteService(con);
 
     public TablaEfluentes(java.awt.Frame parent, boolean modal, int id, String procedencia,
                           boolean editar, String pdf, String lugarMuestreo) {
@@ -1138,8 +1142,8 @@ public class TablaEfluentes extends javax.swing.JDialog {
 
         String[] resultados = {String.valueOf(id), ph, dqo, dbo, solidos20, solidos120, crearConclusion(), hidrocarburos};
         if (editar) {
-            File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
-            File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+            File rv = new File(archivoService.recuperarRutas("Reportes") + "\\" + pdf);
+            File rn = new File(archivoService.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
             if (resultadoRepository.editarEfluentes(resultados, id)) {
                 if (checkConclusion.isSelected()) {
@@ -1149,7 +1153,7 @@ public class TablaEfluentes extends javax.swing.JDialog {
                 }
                 muestraRepository.guardarObservaciones(observaciones, id);
                 this.dispose();
-                c.generarReporteEfluentes(id, procedencia);
+                reporteService.generarReporte("reporteEfluentes.jasper",id, "Efluentes", procedencia);
             }
         } else {
             if (resultadoRepository.guardarResultadosEfluentes(resultados, id)) {
@@ -1162,7 +1166,7 @@ public class TablaEfluentes extends javax.swing.JDialog {
                 observaciones = observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";
                 muestraRepository.guardarObservaciones(observaciones, id);
                 this.dispose();
-                c.generarReporteEfluentes(id, procedencia);
+                reporteService.generarReporte("reporteEfluentes.jasper",id, "Efluentes", procedencia);
 
             }
         }

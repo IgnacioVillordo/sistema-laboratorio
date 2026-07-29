@@ -38,6 +38,7 @@ import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
 import org.ignaciorodriguez.repository.*;
 import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 public class Principal extends JFrame {
 
@@ -49,6 +50,7 @@ public class Principal extends JFrame {
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
     EntregaRepository entregaRepository = new EntregaRepository(con);
     AdministracionRepository administracionRepository = new AdministracionRepository(con);
+    ReporteService reporteService = new ReporteService(con);
     ArchivoService archivoService = new ArchivoService();
     public DefaultTableModel modeloTabla = muestraRepository.llenarTabla();
     int fila2;
@@ -1413,22 +1415,22 @@ public class Principal extends JFrame {
                 this.setCursor(cursor);
                 switch (tipo) {
                     case "Microbiológico de agua código":
-                        consultas.generarReporteMBAgua(id, procedencia);
+                        reporteService.generarReporte("reporteMBAgua.jasper", id, "MB Agua", procedencia);
                         break;
                     case "Microbiológico de agua bidón":
-                        consultas.generarReporteMBAguaBidon(id, procedencia);
+                        reporteService.generarReporte("reporteMBAguaBidon.jasper", id, "MB Agua", procedencia);
                         break;
                     case "Microbiológico de agua balnearios":
-                        consultas.generarReporteMBAguaBalnearios(id, procedencia);
+                        reporteService.generarReporte("reporteMBAguaBalnearios.jasper", id, "MB Agua balnearios", procedencia);
                         break;
                     case "Microbiológico de agua COFES":
-                        consultas.generarReporteMBAguaCOFES(id, procedencia);
+                        reporteService.generarReporte("reporteMBAguaCOFES.jasper", id, "MB Agua COFES", procedencia);
                         break;
                     case "Microbiológico de agua de recreación":
-                        consultas.generarReporteMBAguaDeRecreacion(id, procedencia);
+                        reporteService.generarReporte("reporteMBAguadeRecreacion.jasper", id, "MB Agua de recreación", procedencia);
                         break;
                     case "Físico químico de agua básico":
-                        consultas.generarReporteFQAgua(id, procedencia);
+                        reporteService.generarReporte("reporteFQAgua.jasper", id, "FQ Agua básico", procedencia);
                         break;
                     case "Físico químico de agua completo":
                         FQAlimentos fqa = new FQAlimentos(this, true, id, true, pdf, Determinaciones.AGUA);
@@ -1443,37 +1445,34 @@ public class Principal extends JFrame {
                         fqg.apretarBoton();
                         break;
                     case "Tabla nutricional":
-                        consultas.generarReporteTN(id, procedencia);
+                        reporteService.generarReporte("reportetablanutricional.jasper", id, "TN", procedencia);
                         break;
                     case "Efluentes":
-                        consultas.generarReporteEfluentes(id, procedencia);
+                        reporteService.generarReporte("reporteEfluentes.jasper",id, "Efluentes", procedencia);
                         break;
                     case "Microbiológico de chocolates Del Turista":
-                        consultas.generarReporteMBChocolates(id, procedencia);
+                        reporteService.generarReporte("reporteMBChocolates.jasper", id, "MB Chocolates", procedencia);
                         break;
                     case "Microbiológico de alimentos":
-                        consultas.generarReporteMBAlimentos(id, procedencia);
+                        reporteService.generarReporte("reporteMBAlimentos.jasper", id, "MB Alimentos", procedencia);
                         break;
                     case "Hisopados":
-                        consultas.generarReporteHisopados(id, procedencia);
+                        reporteService.generarReporte("reporteHisopado.jasper", id, "Hisopado", procedencia);
                         break;
-                    case "Hisopados Alliance":
-                        consultas.generarReporteHisopadosAlliance(id, procedencia);
-                        break;
-                    case "Hisopados con límites":
-                        consultas.generarReporteHisopadosAlliance(id, procedencia);
+                    case "Hisopados Alliance", "Hisopados con límites":
+                        reporteService.generarReporte("reporteHisopadoAlliance.jasper", id, "Hisopado", procedencia);
                         break;
                     case "Efluentes cloaca":
-                        consultas.generarReporteEfluentesCloaca(id, procedencia);
+                        reporteService.generarReporte("reporteEfluentesCloaca.jasper", id, "Efluentes cloaca", procedencia);
                         break;
                     case "Efluentes infiltración":
-                        consultas.generarReporteEfluentesInfiltracion(id, procedencia);
+                        reporteService.generarReporte("reporteEfluentesInfiltracion.jasper", id, "Efluentes infiltración", procedencia);
                         break;
                     case "Base helada Del Turista":
-                        consultas.generarReporteMBBaseHelada(id, procedencia);
+                        reporteService.generarReporte("reporteBaseHelada.jasper", id, "Base Helada", procedencia);
                         break;
                     case "Manual":
-                        consultas.generarReporteManual(id, procedencia);
+                        reporteService.generarReporte("reporteManual.jasper", id , resultadoRepository.recuperarTituloManual(id), procedencia);
                         break;
                 }
                 cursor = new Cursor(Cursor.DEFAULT_CURSOR);

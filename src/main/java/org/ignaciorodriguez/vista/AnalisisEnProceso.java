@@ -9,6 +9,7 @@ import org.ignaciorodriguez.repository.AdministracionRepository;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.service.ReporteService;
 
 public class AnalisisEnProceso extends javax.swing.JDialog {
 
@@ -20,6 +21,7 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
     MuestraRepository muestraRepository = new MuestraRepository(con);
     AdministracionRepository administracionRepository = new AdministracionRepository(con);
+    ReporteService reporteService = new ReporteService(con);
 
     public AnalisisEnProceso(java.awt.Frame parent, boolean modal, int id) {
         super(parent, modal);
@@ -151,7 +153,7 @@ public class AnalisisEnProceso extends javax.swing.JDialog {
         this.dispose();
         auxiliar = areaInforme.getText().replace("\n", "<br>");
         auxiliar = "<html>" + auxiliar + "</html>";
-        c.generarReporteEnProceso(id, auxiliar);
+        reporteService.generarReporteEnProceso(id, auxiliar);
     }
 
     private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {

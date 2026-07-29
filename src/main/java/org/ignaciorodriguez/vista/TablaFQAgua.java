@@ -14,6 +14,8 @@ import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.repository.VencimientoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -41,6 +43,8 @@ public class TablaFQAgua extends javax.swing.JDialog {
     MuestraRepository muestraRepository = new MuestraRepository(con);
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
     VencimientoRepository vencimientoRepository = new VencimientoRepository(con);
+    ArchivoService archivoService = new ArchivoService();
+    ReporteService reporteService = new ReporteService(con);
 
     public TablaFQAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -1864,19 +1868,19 @@ public class TablaFQAgua extends javax.swing.JDialog {
             r.setFechaAnalisis(fechaAnalisis);
             r.setTipo("Físico químico de agua básico");
             r.setFechaAnalisis(fechaAnalisis);
-            File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
-            File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+            File rv = new File(archivoService.recuperarRutas("Reportes") + "\\" + pdf);
+            File rn = new File(archivoService.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
             if (resultadoRepository.editarFQAgua(r)) {
                 muestraRepository.guardarObservaciones(valores[15], id);
                 vencimientoRepository.actualizarVencimiento(r);
-                File tn = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
-                File tnnuevo = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+                File tn = new File(archivoService.recuperarRutas("Reportes") + "\\" + pdf);
+                File tnnuevo = new File(archivoService.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 tn.renameTo(tnnuevo);
                 muestraRepository.guardarConclusion(conclusion, id);
                 muestraRepository.esconderFechaVencimiento(id, checkPoner.isSelected());
                 this.dispose();
-                c.generarReporteFQAgua(id, procedencia);
+                reporteService.generarReporte("reporteFQAgua.jasper", id, "FQ Agua básico", procedencia);
             }
         } else {
             String conclusion = crearConclusion();
@@ -1898,7 +1902,7 @@ public class TablaFQAgua extends javax.swing.JDialog {
                 muestraRepository.guardarConclusion(conclusion, id);
                 muestraRepository.esconderFechaVencimiento(id, checkPoner.isSelected());
                 this.dispose();
-                c.generarReporteFQAgua(id, procedencia);
+                reporteService.generarReporte("reporteFQAgua.jasper", id, "FQ Agua básico", procedencia);
             }
         }
     }

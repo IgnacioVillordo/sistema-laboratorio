@@ -35,6 +35,7 @@ import javax.swing.JLabel;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 public class Determinaciones extends javax.swing.JDialog {
 
@@ -53,7 +54,8 @@ public class Determinaciones extends javax.swing.JDialog {
     public final static int ALIMENTO = 0;
     public final static int AGUA = 1;
     public final static int GENERICO = 2;
-    ArchivoService archivoService = new  ArchivoService();
+    ArchivoService archivoService = new ArchivoService();
+    ReporteService reporteService = new ReporteService(con);
 
     public Determinaciones() {
     }
@@ -285,11 +287,11 @@ public class Determinaciones extends javax.swing.JDialog {
                 muestraRepository.guardarFechaAnalisis(r, id);
                 this.dispose();
                 if (alimentos == Determinaciones.ALIMENTO) {
-                    consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);
+                    reporteService.generarReporteFQCompleto("reporteFQCompleto.jasper", id, "FQ Alimentos", muestraRepository.obtenerProcedencia(id), "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);
                 } else if (alimentos == Determinaciones.AGUA) {
-                    consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO DE AGUA", determinaciones);
+                    reporteService.generarReporteFQCompleto("reporteFQCompleto.jasper", id, "FQ agua", muestraRepository.obtenerProcedencia(id), "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);
                 } else {
-                    consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO", determinaciones);
+                    reporteService.generarReporteFQCompleto("reporteFQCompleto.jasper", id, "FQ Alimentos", muestraRepository.obtenerProcedencia(id), "ANÁLISIS FÍSICO QUÍMICO", determinaciones);
                 }
             }
 
@@ -317,11 +319,11 @@ public class Determinaciones extends javax.swing.JDialog {
                 muestraRepository.guardarFechaAnalisis(r, id);
                 this.dispose();
                 if (alimentos == Determinaciones.ALIMENTO) {
-                    consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);
+                    reporteService.generarReporteFQCompleto("reporteFQCompleto.jasper", id, "FQ Alimentos", muestraRepository.obtenerProcedencia(id), "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);
                 } else if (alimentos == Determinaciones.AGUA) {
-                    consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO DE AGUA", determinaciones);
+                    reporteService.generarReporteFQCompleto("reporteFQCompleto.jasper", id, "FQ agua", muestraRepository.obtenerProcedencia(id), "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);
                 } else {
-                    consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO", determinaciones);
+                    reporteService.generarReporteFQCompleto("reporteFQCompleto.jasper", id, "FQ Alimentos", muestraRepository.obtenerProcedencia(id), "ANÁLISIS FÍSICO QUÍMICO", determinaciones);
                 }
             }
         }
@@ -358,11 +360,11 @@ public class Determinaciones extends javax.swing.JDialog {
         resultadoRepository.recuperarMetodosDeterminaciones(determinaciones, id);
 
         if (alimentos == Determinaciones.ALIMENTO) {
-            consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);
+            reporteService.generarReporteFQCompleto("reporteFQCompleto.jasper", id, "FQ Alimentos", muestraRepository.obtenerProcedencia(id), "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);
         } else if (alimentos == Determinaciones.AGUA) {
-            consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO DE AGUA", determinaciones);
+            reporteService.generarReporteFQCompleto("reporteFQCompleto.jasper", id, "FQ agua", muestraRepository.obtenerProcedencia(id), "ANÁLISIS FÍSICO QUÍMICO DE ALIMENTOS", determinaciones);
         } else {
-            consultas.generarReporteFQCompleto(id, "ANÁLISIS FÍSICO QUÍMICO", determinaciones);
+            reporteService.generarReporteFQCompleto("reporteFQCompleto.jasper", id, "FQ Alimentos", muestraRepository.obtenerProcedencia(id), "ANÁLISIS FÍSICO QUÍMICO", determinaciones);
         }
 
     }

@@ -6,6 +6,7 @@ import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.AdministracionRepository;
 import org.ignaciorodriguez.repository.VencimientoRepository;
+import org.ignaciorodriguez.service.ReporteService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -30,6 +31,7 @@ public class InformesVencimientos extends javax.swing.JDialog {
     Consultas consultas = Consultas.getInstancia();
     private final Conexion con = new Conexion();
     AdministracionRepository administracionRepository = new AdministracionRepository(con);
+    ReporteService reporteService = new ReporteService(con);
 
     DefaultTableModel modeloTabla = new DefaultTableModel() {
         @Override
@@ -217,7 +219,7 @@ public class InformesVencimientos extends javax.swing.JDialog {
             }
         }
         this.dispose();
-        consultas.generarReporteVencimientos(desde, hasta);
+        reporteService.generarReporteVencimientos(desde, hasta);
         for (int i = 0; i < tablaDatos.getRowCount(); i++) {
             try {
                 if ((boolean) tablaDatos.getValueAt(i, 4)) {

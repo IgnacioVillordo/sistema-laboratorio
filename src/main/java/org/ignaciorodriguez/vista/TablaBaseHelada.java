@@ -27,6 +27,7 @@ import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 public class TablaBaseHelada extends javax.swing.JDialog {
 
@@ -41,6 +42,7 @@ public class TablaBaseHelada extends javax.swing.JDialog {
     MuestraRepository muestraRepository = new MuestraRepository(con);
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
     ArchivoService archivoService = new ArchivoService();
+    ReporteService reporteService = new ReporteService(con);
 
     public TablaBaseHelada(java.awt.Frame parent, boolean modal, int id, String procedencia,
                            boolean editar, String pdf) {
@@ -1264,13 +1266,13 @@ public class TablaBaseHelada extends javax.swing.JDialog {
                 if (resultadoRepository.editarResultadoBaseHelada(m)) {
                     muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
-                    c.generarReporteMBBaseHelada(id, procedencia);
+                    reporteService.generarReporte("reporteBaseHelada.jasper", id, "Base Helada", procedencia);
                 }
             } else {
                 if (resultadoRepository.guardarResultadoBaseHelada(m)) {
                     muestraRepository.guardarObservaciones(observaciones, id);
                     this.dispose();
-                    c.generarReporteMBBaseHelada(id, procedencia);
+                    reporteService.generarReporte("reporteBaseHelada.jasper", id, "Base Helada", procedencia);
 
                 }
             }

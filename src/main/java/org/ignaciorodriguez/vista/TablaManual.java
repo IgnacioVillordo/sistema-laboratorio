@@ -21,6 +21,8 @@ import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 public class TablaManual extends javax.swing.JDialog {
 
@@ -32,6 +34,8 @@ public class TablaManual extends javax.swing.JDialog {
     private final Conexion con = new Conexion();
     MuestraRepository muestraRepository = new MuestraRepository(con);
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    ArchivoService archivoService = new ArchivoService();
+    ReporteService reporteService = new ReporteService(con);
 
     public TablaManual(java.awt.Frame parent, boolean modal, boolean editar, int id, String procedencia, String pdf) {
         super(parent, modal);
@@ -3351,8 +3355,8 @@ public class TablaManual extends javax.swing.JDialog {
             String observaciones;
             if (editar) {
                 resultadoRepository.guardarMostrar(id, m.get("mostrar").toString());
-                File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
-                File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+                File rv = new File(archivoService.recuperarRutas("Reportes") + "\\" + pdf);
+                File rn = new File(archivoService.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
                 m.put("titulo", JOptionPane.showInputDialog("Ingrese el título del análsis", auxTitulo));
                 observaciones = JOptionPane.showInputDialog("Ingrese la observación", auxObservacion);
@@ -3362,7 +3366,7 @@ public class TablaManual extends javax.swing.JDialog {
                 muestraRepository.guardarFechaAnalisis(m);
                 if (resultadoRepository.editarResultadoManual(m)) {
                     this.dispose();
-                    c.generarReporteManual(id, procedencia);
+                    reporteService.generarReporte("reporteManual.jasper", id , resultadoRepository.recuperarTituloManual(id), procedencia);
                 }
             } else {
                 resultadoRepository.guardarMarca(id, m.get("mostrar").toString());
@@ -3374,7 +3378,7 @@ public class TablaManual extends javax.swing.JDialog {
                 muestraRepository.guardarFechaAnalisis(m);
                 if (resultadoRepository.guardarResultadoManual(m)) {
                     this.dispose();
-                    c.generarReporteManual(id, procedencia);
+                    reporteService.generarReporte("reporteManual.jasper", id , resultadoRepository.recuperarTituloManual(id), procedencia);
                 }
             }
         } catch (NullPointerException e) {

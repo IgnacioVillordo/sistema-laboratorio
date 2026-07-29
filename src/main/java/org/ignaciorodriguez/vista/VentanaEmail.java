@@ -70,7 +70,7 @@ public class VentanaEmail extends javax.swing.JDialog {
                     + "Saludos cordiales.");
         }
         setLocationRelativeTo(null);
-        email = emailRepository.recuperarEmail(id);
+        email = clienteRepository.recuperarEmail(id);
         cajaPara.setText(email);
         etiquetaAdjunto.setText("<html>Archivo adjunto: " + pdf.substring(pdf.indexOf("Inf. ")) + "</html>");
         System.setProperty("javax.net.ssl.trustStore", "src\\vista\\keystore.jks");

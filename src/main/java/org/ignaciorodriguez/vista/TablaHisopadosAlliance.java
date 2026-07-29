@@ -26,6 +26,8 @@ import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 public class TablaHisopadosAlliance extends javax.swing.JDialog {
 
@@ -38,6 +40,8 @@ public class TablaHisopadosAlliance extends javax.swing.JDialog {
     private final Conexion con = new Conexion();
     MuestraRepository muestraRepository = new MuestraRepository(con);
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    ArchivoService archivoService = new ArchivoService();
+    ReporteService reporteService = new ReporteService(con);
 
     public TablaHisopadosAlliance(java.awt.Frame parent, boolean modal, int id, String procedencia,
                                   boolean editar, String pdf) {
@@ -1174,20 +1178,20 @@ public class TablaHisopadosAlliance extends javax.swing.JDialog {
                 muestraRepository.guardarConclusion(crearConclusion(), id);
                 muestraRepository.guardarFechaAnalisis(m);
                 if (editar) {
-                    File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
-                    File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+                    File rv = new File(archivoService.recuperarRutas("Reportes") + "\\" + pdf);
+                    File rn = new File(archivoService.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                     rv.renameTo(rn);
                     if (resultadoRepository.editarResultadosHisopadosAlliance(m)) {
                         muestraRepository.guardarObservaciones(observaciones, id);
                         this.dispose();
-                        c.generarReporteHisopadosAlliance(id, procedencia);
+                        reporteService.generarReporte("reporteHisopadoAlliance.jasper", id, "Hisopado", procedencia);
                     }
                 } else {
                     if (resultadoRepository.guardarResultadosHisopadosAlliance(m)) {
                         muestraRepository.guardarObservaciones(observaciones, id);
                         this.dispose();
 
-                        c.generarReporteHisopadosAlliance(id, procedencia);
+                        reporteService.generarReporte("reporteHisopadoAlliance.jasper", id, "Hisopado", procedencia);
                     }
                 }
             } catch (NullPointerException e) {

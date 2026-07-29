@@ -33,13 +33,15 @@ import javax.swing.UIManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.ignaciorodriguez.Main;
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.service.ArchivoService;
 
 public class VentanaEmailError extends javax.swing.JDialog {
 
-    Consultas c = Consultas.getInstancia();
-    String ruta = c.recuperarRutas("Respaldo");
-    File copia = new File(c.devolverCopiaSeguridad(ruta));
+    ArchivoService archivoService = new ArchivoService();
+    String ruta = archivoService.recuperarRutas("Respaldo");
+    File copia = new File(archivoService.devolverCopiaSeguridad(ruta));
 
     public VentanaEmailError(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -302,7 +304,7 @@ public class VentanaEmailError extends javax.swing.JDialog {
         String fecha = dtf.format(ahora);
         String nombreSQL = "\\respaldo_" + fecha + ".sql";
         try {
-            String cmd = c.recuperarRutas("MySQL") + "\\mysqldump -u root -p1234 laboratorio --routines -r " + ruta + nombreSQL;
+            String cmd = archivoService.recuperarRutas("MySQL") + "\\mysqldump -u root -p1234 laboratorio --routines -r " + ruta + nombreSQL;
             Runtime.getRuntime().exec(cmd);
             return true;
         } catch (Exception ex) {

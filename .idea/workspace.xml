@@ -6,28 +6,14 @@
   <component name="ChangeListManager">
     <list default="true" id="0c7f69cd-56e6-4f2d-8430-254a601404bb" name="Changes" comment="arreglos varios">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/AdministracionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/AdministracionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/ClienteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/ClienteRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/EntregaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/EntregaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/MuestraRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/MuestraRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Consultas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Consultas.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/EmailRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/EmailRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/ResultadoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/ResultadoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/UsuarioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/VencimientoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/VencimientoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarMuestra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarMuestra.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarPh.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarPh.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarProcedencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarProcedencia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AnalisisEnProceso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AnalisisEnProceso.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/CrearUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/CrearUsuario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Determinaciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Determinaciones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/EliminarUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/EliminarUsuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/FQAlimentos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/FQAlimentos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Ganancias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Ganancias.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformeMuestras.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformeMuestras.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformesVencimientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformesVencimientos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ModificarUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ModificarUsuario.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Principal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBaseHelada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBaseHelada.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBorrados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBorrados.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesCloaca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesCloaca.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesInfiltracion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesInfiltracion.java" afterDir="false" />
@@ -44,10 +30,8 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBChocolates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBChocolates.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaManual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaManual.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaNutricional.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaNutricional.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Usuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Usuarios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Vencimiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Vencimiento.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailVencimientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailVencimientos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailError.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,61 +72,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="5.280302054034583E-47" />
-      <entry key="MS500" value="5.600526183370335E-10" />
-      <entry key="S2" value="0.006373013837560951" />
-      <entry key="S5" value="0.2103083112629891" />
-      <entry key="S10" value="0.7574701716705604" />
-      <entry key="S30" value="2.1746856724631094" />
-      <entry key="S60" value="3.174678603312323" />
-      <entry key="M2" value="4.4559214969609044" />
-      <entry key="M5" value="9.376716544466785" />
-      <entry key="M10" value="20.22558983834436" />
-      <entry key="M15" value="33.04564432407609" />
-      <entry key="M30" value="69.68216772148709" />
-      <entry key="H1" value="132.64386729383182" />
-      <entry key="H2" value="228.6322682924472" />
-      <entry key="H4" value="368.7831017444198" />
-      <entry key="D1" value="1174.654679126624" />
-      <entry key="W1" value="1699.144927386424" />
+      <entry key="MS100" value="1.0000000000000069" />
+      <entry key="MS500" value="1.0015627363982997" />
+      <entry key="S2" value="1.2965806118347682" />
+      <entry key="S5" value="2.0715222137807583" />
+      <entry key="S10" value="3.0850646669389366" />
+      <entry key="S30" value="5.853554751413512" />
+      <entry key="S60" value="8.768849779382705" />
+      <entry key="M2" value="12.914839967701015" />
+      <entry key="M5" value="29.526375699355505" />
+      <entry key="M10" value="55.573841941074036" />
+      <entry key="M15" value="75.1762658520333" />
+      <entry key="M30" value="124.8226301067403" />
+      <entry key="H1" value="208.0115194196154" />
+      <entry key="H2" value="303.58476593972057" />
+      <entry key="H4" value="388.03013051383084" />
+      <entry key="D1" value="1110.5038534805456" />
+      <entry key="W1" value="2097.8678995579385" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.0" />
-      <entry key="MS500" value="1.0" />
-      <entry key="S2" value="1.0000000000270515" />
-      <entry key="S5" value="1.0000592756868325" />
-      <entry key="S10" value="1.007699070517441" />
-      <entry key="S30" value="1.197460212593478" />
-      <entry key="S60" value="1.444832356848516" />
-      <entry key="M2" value="1.704700164656538" />
-      <entry key="M5" value="2.4868894735220657" />
-      <entry key="M10" value="4.3351598368581925" />
-      <entry key="M15" value="6.723130103043287" />
-      <entry key="M30" value="14.081679391039163" />
-      <entry key="H1" value="27.73629103486556" />
-      <entry key="H2" value="51.734731056630515" />
-      <entry key="H4" value="95.98053091912969" />
-      <entry key="D1" value="373.9469334038015" />
-      <entry key="W1" value="546.7743883383674" />
+      <entry key="MS100" value="0.00401606963537526" />
+      <entry key="MS500" value="0.3319804597033455" />
+      <entry key="S2" value="1.008839511666907" />
+      <entry key="S5" value="2.0554921804102184" />
+      <entry key="S10" value="3.284634357966395" />
+      <entry key="S30" value="6.6992730576720705" />
+      <entry key="S60" value="10.302671115454883" />
+      <entry key="M2" value="15.399627575364397" />
+      <entry key="M5" value="28.400295141378585" />
+      <entry key="M10" value="43.86204161059771" />
+      <entry key="M15" value="53.64690970846321" />
+      <entry key="M30" value="71.08797178228583" />
+      <entry key="H1" value="91.27574551534181" />
+      <entry key="H2" value="111.47638600888483" />
+      <entry key="H4" value="128.776951451613" />
+      <entry key="D1" value="339.33213187196543" />
+      <entry key="W1" value="649.3506515916713" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="4.3458563098055126E-5" />
-      <entry key="MS500" value="0.13415753606254593" />
-      <entry key="S2" value="0.6104125448674984" />
-      <entry key="S5" value="1.0103855916369757" />
-      <entry key="S10" value="1.6333921344118594" />
-      <entry key="S30" value="3.298025233017484" />
-      <entry key="S60" value="4.570649421216348" />
-      <entry key="M2" value="6.128494043531628" />
-      <entry key="M5" value="11.838274647187212" />
-      <entry key="M10" value="24.536997414118392" />
-      <entry key="M15" value="39.746175496723254" />
-      <entry key="M30" value="83.74442023666083" />
-      <entry key="H1" value="160.36419957177864" />
-      <entry key="H2" value="280.35424411357826" />
-      <entry key="H4" value="464.753268010306" />
-      <entry key="D1" value="1548.5956368954037" />
-      <entry key="W1" value="2245.9180716854385" />
+      <entry key="MS100" value="0.046813880579724576" />
+      <entry key="MS500" value="0.7012131485649628" />
+      <entry key="S2" value="1.9463909914614028" />
+      <entry key="S5" value="3.841045747599002" />
+      <entry key="S10" value="6.1331904801103745" />
+      <entry key="S30" value="12.383916356151703" />
+      <entry key="S60" value="18.93763386813112" />
+      <entry key="M2" value="28.21196726222897" />
+      <entry key="M5" value="57.842941710071976" />
+      <entry key="M10" value="99.36483080755093" />
+      <entry key="M15" value="128.76254642269774" />
+      <entry key="M30" value="195.8678086327187" />
+      <entry key="H1" value="299.2584872960529" />
+      <entry key="H2" value="415.04308202310995" />
+      <entry key="H4" value="516.7964374059532" />
+      <entry key="D1" value="1449.8308222524665" />
+      <entry key="W1" value="2747.217105178094" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">

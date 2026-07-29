@@ -15,6 +15,8 @@ import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.repository.VencimientoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -43,6 +45,8 @@ public class TablaMBAgua extends javax.swing.JDialog {
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
     VencimientoRepository vencimientoRepository = new VencimientoRepository(con);
     private static final Logger logger = Logger.getLogger(TablaMBAgua.class.getName());
+    ArchivoService archivoService = new ArchivoService();
+    ReporteService reporteService = new ReporteService(con);
 
     public TablaMBAgua(java.awt.Frame parent, boolean modal, int id, String procedencia, boolean editar, String pdf) {
         super(parent, modal);
@@ -1788,8 +1792,8 @@ public class TablaMBAgua extends javax.swing.JDialog {
         muestraRepository.guardarConclusion(conclusion, id);
         r.setResultadoMB(valores);
         if (editar) {
-            File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
-            File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+            File rv = new File(archivoService.recuperarRutas("Reportes") + "\\" + pdf);
+            File rn = new File(archivoService.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
             if (resultadoRepository.editarMBAgua(r)) {
                 resultadoRepository.guardarLimiteMohos(id, checkLimiteMohos.isSelected());
@@ -1803,7 +1807,7 @@ public class TablaMBAgua extends javax.swing.JDialog {
                 muestraRepository.guardarObservaciones(valores[6], id);
                 muestraRepository.esconderFechaVencimiento(id, checkPonerVencimiento.isSelected());
                 this.dispose();
-                c.generarReporteMBAgua(id, procedencia);
+                reporteService.generarReporte("reporteMBAgua.jasper", id, "MB Agua", procedencia);
             }
 
         } else {
@@ -1819,7 +1823,7 @@ public class TablaMBAgua extends javax.swing.JDialog {
                 muestraRepository.guardarObservaciones(valores[6], id);
                 muestraRepository.esconderFechaVencimiento(id, checkPonerVencimiento.isSelected());
                 this.dispose();
-                c.generarReporteMBAgua(id, procedencia);
+                reporteService.generarReporte("reporteMBAgua.jasper", id, "MB Agua", procedencia);
             }
         }
     }
