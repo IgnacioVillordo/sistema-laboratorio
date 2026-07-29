@@ -380,4 +380,19 @@ public class ClienteRepository {
             logger.severe("Error al guardar email, " + e);
         }
     }
+
+    public String recuperarEmail(int id) {
+        String aux;
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select email from vistaemail where idmuestras = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString(1);
+            }
+        } catch (Exception e) {
+            logger.severe("Error recuperar email, " + e);
+        }
+        return "";
+    }
 }

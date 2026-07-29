@@ -13,12 +13,15 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
+import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.repository.EmailRepository;
 
 public class VentanaEmailsEnviados extends javax.swing.JDialog {
 
-    Consultas c = Consultas.getInstancia();
-    DefaultTableModel modelo = c.recuperarEmailsEnviados();
+    Conexion con = new Conexion();
+    EmailRepository emailRepository = new EmailRepository(con);
+    DefaultTableModel modelo = emailRepository.recuperarEmailsEnviados();
     int fila;
     java.awt.Frame parent;
     private javax.swing.JLabel jLabel1;

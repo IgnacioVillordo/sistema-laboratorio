@@ -5,6 +5,7 @@ import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.EntregaRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import javax.swing.*;
@@ -31,6 +32,7 @@ public class TablaEntregas extends javax.swing.JDialog {
     private final ClienteRepository clienteRepository = new ClienteRepository(con);
     private final EntregaRepository entregaRepository = new EntregaRepository(con);
     private final MuestraRepository muestraRepository = new MuestraRepository(con);
+    private final ResultadoRepository resultadoRepository = new ResultadoRepository(con);
     DefaultTableModel modeloTabla = entregaRepository.recuperarEntregas();
     int anchos[] = {38, 379, 170, 201, 107, 102, 101};
     Map<String, String> map = muestraRepository.recuperarIdentificaciones();
@@ -315,7 +317,7 @@ public class TablaEntregas extends javax.swing.JDialog {
                 db = "manual";
                 break;
         }
-        boolean checkear = consultas.checkearPDF(id, db);
+        boolean checkear = resultadoRepository.checkearPDF(id, db);
         if (!tipo2.equals("no")) {
             String procedencia = jTable1.getValueAt(fila, 1).toString();
             String rutaGuardado = consultas.recuperarRutas("Reportes");

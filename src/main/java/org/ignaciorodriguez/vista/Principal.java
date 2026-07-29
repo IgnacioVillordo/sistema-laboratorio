@@ -1406,7 +1406,7 @@ public class Principal extends JFrame {
             String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
             String pdf = aux3.replaceAll("\"", "");
             pdf += ".pdf";
-            if (consultas.checkearPDF(id, db)) {
+            if (resultadoRepository.checkearPDF(id, db)) {
                 Cursor cursor = new Cursor(Cursor.WAIT_CURSOR);
                 this.setCursor(cursor);
                 switch (tipo) {

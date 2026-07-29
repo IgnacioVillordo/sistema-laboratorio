@@ -40,10 +40,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
-import org.ignaciorodriguez.repository.ClienteRepository;
-import org.ignaciorodriguez.repository.EntregaRepository;
-import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.UsuarioRepository;
+import org.ignaciorodriguez.repository.*;
 
 public class VentanaEmail extends javax.swing.JDialog {
 
@@ -59,6 +56,7 @@ public class VentanaEmail extends javax.swing.JDialog {
     MuestraRepository muestraRepository = new MuestraRepository(con);
     ClienteRepository clienteRepository = new ClienteRepository(con);
     EntregaRepository entregaRepository = new EntregaRepository(con);
+    EmailRepository emailRepository = new EmailRepository(con);
 
     public VentanaEmail(java.awt.Frame parent, boolean modal, int id, String pdf) {
         super(parent, modal);
@@ -72,7 +70,7 @@ public class VentanaEmail extends javax.swing.JDialog {
                     + "Saludos cordiales.");
         }
         setLocationRelativeTo(null);
-        email = c.recuperarEmail(id);
+        email = emailRepository.recuperarEmail(id);
         cajaPara.setText(email);
         etiquetaAdjunto.setText("<html>Archivo adjunto: " + pdf.substring(pdf.indexOf("Inf. ")) + "</html>");
         System.setProperty("javax.net.ssl.trustStore", "src\\vista\\keystore.jks");

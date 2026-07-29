@@ -6,6 +6,8 @@ import org.ignaciorodriguez.modelo.Determinacion;
 import org.ignaciorodriguez.modelo.Resultados;
 
 import javax.swing.*;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -1802,5 +1804,38 @@ public class ResultadoRepository {
             sql.append("?)");
         }
         return sql.toString();
+    }
+
+    public boolean checkearPDF(int id, String db) {
+        try (Connection conexion = con.getConnection()) {
+            if (db.contains("nutricional")) {
+                PreparedStatement ps = conexion.prepareStatement("SELECT `calorias`,`kjul`,`carbohidratos`, `proteinas`,`grasasTotales`,`grasasSaturadas`," + "`grasasTrans`,`GrasasMonoinsaturadas`,`GrasasPoliinsaturadas`,`Colesterol`,`fibraAlimentaria`,`sodio`," + "`VDCalorias`,`VDCarbohidratos`,`VDProteinas`,`VDGrasasTotales`,`VDGrasasSaturadas`,`VDGrasasMonoinsaturadas`," + "`VDGrasasPoliinsaturadas`,`VDColesterol`,`VDGrasasTrans`,`VDFibraAlimentaria`,`VDSodio`,`porcion`," + "`unidad`,`azucares`,`VDAzucares`,`almidon`,`VDAlmidon`,`PorcionesPorEnvase`,`azucaresAnadidos`," + "`VDAzucaresAnadidos` FROM `laboratorio`.`tablanutricional` where idmuestras = ?");
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+
+            } else if (db.contains("mbagua")) {
+                PreparedStatement ps = conexion.prepareStatement("select coliformesTotales from " + db + " where idmuestras = " + id);
+                ResultSet rs = ps.executeQuery();
+                return rs.next() && rs.getObject(1) != null;
+            } else {
+                PreparedStatement ps = conexion.prepareStatement("select * from " + db + " where idmuestras = " + id);
+                ResultSet rs = ps.executeQuery();
+                int cantidad = rs.getMetaData().getColumnCount();
+                boolean existe = false;
+                while (rs.next()) {
+
+                    for (int i = 2; i < cantidad; i++) {
+                        existe = existe || (rs.getObject(i + 1) != null && !rs.getObject(i + 1).toString().trim().isEmpty());
+                    }
+                    return existe;
+                }
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al recuperar pdf, " + e);
+            StringWriter sw = new StringWriter();
+            PrintWriter pw = new PrintWriter(sw);
+            e.printStackTrace(pw);
+        }
+        return false;
     }
 }

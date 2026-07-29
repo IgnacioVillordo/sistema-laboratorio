@@ -61,78 +61,7 @@ public class Consultas extends Conexion {
 
 
     public void generarReporteMBAgua(int id, String procedencia) {
-        Connection conexion = con.getConnection();
-        Principal p = new Principal();
-        try {
-            JasperReport reporte = null;
-            String ruta = getClass().getResource("/reporte/reporteMBAgua.jasper").getPath();
-            reporte = (JasperReport) JRLoader.loadObjectFromFile(ruta);//se toma el archivo .jasper para generar el main.resources.reporte
-            Map mapa = new HashMap();
-            mapa.put("id", id); //se pasa el id al main.resources.reporte
-            imagenesMap(mapa);
-            JasperPrint imprimirReporte = JasperFillManager.fillReport(reporte, mapa, conexion);            //llena los campos del main.resources.reporte
-            JasperViewer vistaReporte = new JasperViewer(imprimirReporte, false);                           //crea el visor del main.resources.reporte
-            String[] nombre = obtenerProcedenciayNombreEmail(obtenerIdCliente(procedencia));
-            String aux; //en estas tres lineas se sacan espacios de
-            if (nombre[0].contains("/") || nombre[0].contains("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "") || nombre[0].contains(":") || nombre[0].contains("*") || nombre[0].contains("?") || nombre[0].contains("\"") || nombre[0].contains("<") || nombre[0].contains(">") || nombre[0].contains(">") || nombre[1].contains("/") || nombre[1].contains("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "") || nombre[1].contains(":") || nombre[1].contains("*") || nombre[1].contains("?") || nombre[1].contains("\"") || nombre[1].contains("<") || nombre[1].contains(">") || nombre[1].contains(">")) {
-                nombre[0] = nombre[0].replaceAll("[/" + org.ignaciorodriguez.utils.SeparatorUtils.s + "" + org.ignaciorodriguez.utils.SeparatorUtils.s + ":*?\"<>|]", "_");
-                nombre[1] = nombre[1].replaceAll("[/" + org.ignaciorodriguez.utils.SeparatorUtils.s + "" + org.ignaciorodriguez.utils.SeparatorUtils.s + ":*?\"<>|]", "_");
-            }
-            if (nombre[1].isBlank() || nombre[1] == null) {
-                aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Inf. " + id + " MB Agua " + nombre[0];
-            } else {
-                aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Inf. " + id + " MB Agua " + nombre[1];
-            }
-            String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
-            String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
-            String pdf = aux3.replaceAll("\"", "");
-            pdf += ".pdf";                                                                                  //se agrega la extensión .pdf
-            String rutaGuardado = recuperarRutas("Reportes");
-            var pdfEmail = rutaGuardado + pdf;
-            JasperExportManager.exportReportToPdfFile(imprimirReporte, pdfEmail);
-            vistaReporte.setDefaultCloseOperation(JasperViewer.DO_NOTHING_ON_CLOSE);
-            vistaReporte.setExtendedState(vistaReporte.MAXIMIZED_BOTH);
-            ImageIcon icon = new ImageIcon("src" + org.ignaciorodriguez.utils.SeparatorUtils.s + "vista" + org.ignaciorodriguez.utils.SeparatorUtils.s + "icono.png");
-            vistaReporte.setIconImage(icon.getImage());
-            vistaReporte.setVisible(true);
-            vistaReporte.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosing(WindowEvent e) {
-                    int email = JOptionPane.showConfirmDialog(null, "¿Enviar email?", "Email", JOptionPane.YES_NO_OPTION);
-                    ;
-                    if (JOptionPane.YES_OPTION == email) {
-                        String[] nombre = obtenerProcedenciayNombreEmail(obtenerIdCliente(procedencia));
-                        String aux; //en estas tres lineas se sacan espacios de
-                        if (nombre[0].contains("/") || nombre[0].contains("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "") || nombre[0].contains(":") || nombre[0].contains("*") || nombre[0].contains("?") || nombre[0].contains("\"") || nombre[0].contains("<") || nombre[0].contains(">") || nombre[0].contains(">") || nombre[1].contains("/") || nombre[1].contains("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "") || nombre[1].contains(":") || nombre[1].contains("*") || nombre[1].contains("?") || nombre[1].contains("\"") || nombre[1].contains("<") || nombre[1].contains(">") || nombre[1].contains(">")) {
-                            nombre[0] = nombre[0].replaceAll("[/" + org.ignaciorodriguez.utils.SeparatorUtils.s + "" + org.ignaciorodriguez.utils.SeparatorUtils.s + ":*?\"<>|]", "_");
-                            nombre[1] = nombre[1].replaceAll("[/" + org.ignaciorodriguez.utils.SeparatorUtils.s + "" + org.ignaciorodriguez.utils.SeparatorUtils.s + ":*?\"<>|]", "_");
-                        }
-                        if (nombre[1].isBlank() || nombre[1] == null) {
-                            aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Inf. " + id + " MB Agua " + nombre[0];
-                        } else {
-                            aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Inf. " + id + " MB Agua " + nombre[1];
-                        }
-                        String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
-                        String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
-                        String pdf = aux3.replaceAll("\"", "");
-                        pdf += ".pdf";
-                        String pdfEmail = rutaGuardado + pdf;
-                        VentanaEmail vEmail = new VentanaEmail(p, true, id, pdfEmail);
-                        vEmail.setVisible(true);
-                    }
-                }
-            });
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al generar main.resources.reporte MB agua, " + e);
-            System.err.println(e.getStackTrace()[0]);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al generar main.resources.reporte MB agua, " + e);
-                System.err.println(e.getStackTrace()[0]);
-            }
-        }
+
     }
 
     public void generarReporteMBAguaBidon(int id, String procedencia) {
@@ -542,33 +471,7 @@ public class Consultas extends Conexion {
         return ruta;
     }
 
-    public String devolverCopiaSeguridad(String ruta) {
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        LocalDateTime ahora = LocalDateTime.now();
-        String fecha = dtf.format(ahora);
-        return ruta + "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "respaldo_" + fecha + ".sql";
 
-    }
-
-    public boolean guardarRutas(String nombre, String ruta) {
-        File archivo = null;
-        if (nombre.equals("Reportes")) {
-            archivo = new File("src" + org.ignaciorodriguez.utils.SeparatorUtils.s + "vista" + org.ignaciorodriguez.utils.SeparatorUtils.s + "rutaDocumentos.txt");
-        } else if (nombre.equals("Respaldo")) {
-            archivo = new File("src" + org.ignaciorodriguez.utils.SeparatorUtils.s + "vista" + org.ignaciorodriguez.utils.SeparatorUtils.s + "rutaRespaldo.txt");
-        }
-
-        BufferedWriter bw = null;
-        try {
-            bw = new BufferedWriter(new FileWriter(archivo));
-            bw.write(ruta);
-            bw.flush();
-            return true;
-        } catch (IOException ex1) {
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex1);
-            return false;
-        }
-    }
 
 
     public void generarReporteTN(int id, String procedencia) {
@@ -641,14 +544,6 @@ public class Consultas extends Conexion {
                 System.err.println("Error, " + e);
             }
         }
-    }
-
-    public Map imagenesMap(Map m) {
-        InputStream firmaStream = getClass().getResourceAsStream("/imagenes/firma.png");
-        InputStream laboStream = getClass().getResourceAsStream("/imagenes/laboratorio.png");
-        m.put("laboratorio", laboStream);
-        m.put("firma", firmaStream);
-        return m;
     }
 
     public void generarReporteEfluentes(int id, String procedencia) {
@@ -1803,38 +1698,7 @@ public class Consultas extends Conexion {
         }
     }
 
-    public boolean checkearPDF(int id, String db) {
-        try (Connection conexion = con.getConnection()) {
-            if (db.contains("nutricional")) {
-                ps = conexion.prepareStatement("SELECT `calorias`,`kjul`,`carbohidratos`, `proteinas`,`grasasTotales`,`grasasSaturadas`," + "`grasasTrans`,`GrasasMonoinsaturadas`,`GrasasPoliinsaturadas`,`Colesterol`,`fibraAlimentaria`,`sodio`," + "`VDCalorias`,`VDCarbohidratos`,`VDProteinas`,`VDGrasasTotales`,`VDGrasasSaturadas`,`VDGrasasMonoinsaturadas`," + "`VDGrasasPoliinsaturadas`,`VDColesterol`,`VDGrasasTrans`,`VDFibraAlimentaria`,`VDSodio`,`porcion`," + "`unidad`,`azucares`,`VDAzucares`,`almidon`,`VDAlmidon`,`PorcionesPorEnvase`,`azucaresAnadidos`," + "`VDAzucaresAnadidos` FROM `laboratorio`.`tablanutricional` where idmuestras = ?");
-                ps.setInt(1, id);
-                rs = ps.executeQuery();
 
-            } else if (db.contains("mbagua")) {
-                ps = conexion.prepareStatement("select coliformesTotales from " + db + " where idmuestras = " + id);
-                rs = ps.executeQuery();
-                return rs.next() && rs.getObject(1) != null;
-            } else {
-                ps = conexion.prepareStatement("select * from " + db + " where idmuestras = " + id);
-                rs = ps.executeQuery();
-                int cantidad = rs.getMetaData().getColumnCount();
-                boolean existe = false;
-                while (rs.next()) {
-
-                    for (int i = 2; i < cantidad; i++) {
-                        existe = existe || (rs.getObject(i + 1) != null && !rs.getObject(i + 1).toString().trim().isEmpty());
-                    }
-                    return existe;
-                }
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar pdf, " + e);
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-        }
-        return false;
-    }
 
     public void generarReporteMBAguaDeRecreacion(int id, String procedencia) {
         Connection conexion = con.getConnection();
@@ -2131,64 +1995,9 @@ public class Consultas extends Conexion {
     }
 
 
-    public String recuperarEmail(int id) {
-        Connection conexion = con.getConnection();
-        String aux;
-        try {
-            ps = conexion.prepareStatement("select email from vistaemail where idmuestras = ?");
-            ps.setInt(1, id);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                aux = rs.getString(1);
-                return aux;
-            }
-        } catch (NullPointerException e) {
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error recuperar email, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recueperar email, " + e + " in line " + e.getStackTrace()[0].getLineNumber());
-            }
-        }
-        return "";
-    }
 
-    public DefaultTableModel recuperarEmailsEnviados() {
-        Connection conexion = con.getConnection();
-        DefaultTableModel emails = new DefaultTableModel();
-        emails.addColumn("Hora");
-        emails.addColumn("Procedencia");
-        emails.addColumn("Destinatario");
-        emails.addColumn("cuerpo");
-        emails.addColumn("archivo");
-        emails.addColumn("remitente");
-        String[] aux = new String[6];
-        try {
-            ps = conexion.prepareStatement("select destinatario, hora, cuerpo, archivo, remitente, procedencia from emails order by idemails desc");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                aux[0] = new SimpleDateFormat("dd/MM/yyyy   HH:mm").format(rs.getTimestamp("hora"));
-                aux[1] = rs.getString("procedencia");
-                aux[2] = rs.getString("destinatario").replaceAll(" ", "");
-                aux[3] = rs.getString("cuerpo");
-                aux[4] = rs.getString("archivo");
-                aux[5] = rs.getString("remitente");
-                emails.addRow(aux);
-            }
-            return emails;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar emails enviados, " + e);
-            return null;
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-    }
+
+
 
     public void generarReporteEnProceso(int id, String texto) {
         Connection conexion = con.getConnection();
