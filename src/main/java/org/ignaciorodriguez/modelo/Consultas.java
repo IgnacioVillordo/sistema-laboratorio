@@ -422,55 +422,6 @@ public class Consultas extends Conexion {
         return false;
     }
 
-    public String recuperarMySQL() {
-        Connection conexion = con.getConnection();
-        try {
-            ps = conexion.prepareStatement("select ruta from rutas where nombre = 'MySQL'");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                return (String) rs.getObject(1);
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al recuperar ruta, " + e);
-        } finally {
-            try {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
-
-    public String recuperarRutas(String nombre) {
-        String ruta = null;
-        File archivo = null;
-        try {
-            switch (nombre) {
-                case "Reportes":
-                    archivo = new File(getClass().getResource("/rutaRespaldo.txt").toURI());
-                    break;
-                case "Respaldo":
-                    archivo = new File(getClass().getResource("/rutaRespaldo.txt").toURI());
-                    break;
-                case "MySQL":
-                    return recuperarMySQL();
-            }
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-        BufferedReader br;
-        try {
-            br = new BufferedReader(new FileReader(archivo));
-            ruta = br.readLine();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return ruta;
-    }
-
 
 
 
@@ -1699,7 +1650,6 @@ public class Consultas extends Conexion {
     }
 
 
-
     public void generarReporteMBAguaDeRecreacion(int id, String procedencia) {
         Connection conexion = con.getConnection();
         Principal p = new Principal();
@@ -1993,10 +1943,6 @@ public class Consultas extends Conexion {
             }
         }
     }
-
-
-
-
 
 
     public void generarReporteEnProceso(int id, String texto) {

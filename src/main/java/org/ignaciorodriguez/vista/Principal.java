@@ -37,6 +37,7 @@ import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
 import org.ignaciorodriguez.repository.*;
+import org.ignaciorodriguez.service.ArchivoService;
 
 public class Principal extends JFrame {
 
@@ -48,10 +49,11 @@ public class Principal extends JFrame {
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
     EntregaRepository entregaRepository = new EntregaRepository(con);
     AdministracionRepository administracionRepository = new AdministracionRepository(con);
+    ArchivoService archivoService = new ArchivoService();
     public DefaultTableModel modeloTabla = muestraRepository.llenarTabla();
     int fila2;
     public static int id;
-    String rutaRespaldo = consultas.recuperarRutas("Respaldo");
+    String rutaRespaldo = archivoService.recuperarRutas("Respaldo");
     boolean ip = true, ph, anulado, borrar;
     public boolean actualizar = true;
     DefaultTableCellRenderer defaultRender;
@@ -1054,13 +1056,13 @@ public class Principal extends JFrame {
     }
 
     private void itemReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemReporteActionPerformed
-        JFileChooser elegir = new JFileChooser(consultas.recuperarRutas("Reportes"));
+        JFileChooser elegir = new JFileChooser(archivoService.recuperarRutas("Reportes"));
         elegir.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         elegir.setDialogTitle("Elegir ruta para guardar informes");
         int respuesta = elegir.showOpenDialog(this);
         if (respuesta == JFileChooser.APPROVE_OPTION) {
             File archivoElegido = elegir.getSelectedFile();
-            if (consultas.guardarRutas("Reportes", archivoElegido.getPath())) {
+            if (archivoService.guardarRutas("Reportes", archivoElegido.getPath())) {
                 JOptionPane.showMessageDialog(null, "Ruta guardada con éxito.");
             } else {
                 JOptionPane.showMessageDialog(null, "Error al guardar la ruta.");
@@ -1070,13 +1072,13 @@ public class Principal extends JFrame {
     }
 
     private void itemRespaldoActionPerformed(java.awt.event.ActionEvent evt) {
-        JFileChooser elegir = new JFileChooser(consultas.recuperarRutas("Respaldo"));
+        JFileChooser elegir = new JFileChooser(archivoService.recuperarRutas("Respaldo"));
         elegir.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         elegir.setDialogTitle("Elegir ruta para guardar respaldo");
         int respuesta = elegir.showOpenDialog(this);
         if (respuesta == JFileChooser.APPROVE_OPTION) {
             File archivoElegido = elegir.getSelectedFile();
-            if (consultas.guardarRutas("Respaldo", archivoElegido.getPath())) {
+            if (archivoService.guardarRutas("Respaldo", archivoElegido.getPath())) {
                 JOptionPane.showMessageDialog(null, "Ruta guardada con éxito.");
             } else {
                 JOptionPane.showMessageDialog(null, "Error al guardar la ruta.");
@@ -1178,7 +1180,7 @@ public class Principal extends JFrame {
         }
         if (!tipo2.equals("no")) {
             String procedencia = tablaDatos.getValueAt(fila2, 1).toString();
-            String rutaGuardado = consultas.recuperarRutas("Reportes");
+            String rutaGuardado = archivoService.recuperarRutas("Reportes");
             String aux = "Informe " + id + tipo2 + clienteRepository.obtenerProcedenciayNombre(clienteRepository.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
             String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
             String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
@@ -1400,7 +1402,7 @@ public class Principal extends JFrame {
         }
         if (!tipo2.equals("no")) {
             String procedencia = tablaDatos.getValueAt(fila2, 1).toString();
-            String rutaGuardado = consultas.recuperarRutas("Reportes");
+            String rutaGuardado = archivoService.recuperarRutas("Reportes");
             String aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Informe " + id + tipo2 + clienteRepository.obtenerProcedenciayNombre(clienteRepository.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
             String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
             String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
@@ -1687,7 +1689,7 @@ public class Principal extends JFrame {
 
     private void itemPruebaActionPerformed(java.awt.event.ActionEvent evt) {
         String procedencia = tablaDatos.getValueAt(fila2, 1).toString();
-        String rutaGuardado = consultas.recuperarRutas("Reportes");
+        String rutaGuardado = archivoService.recuperarRutas("Reportes");
         String tipo2 = " FQ agua ";
         String aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Informe " + id + tipo2 + clienteRepository.obtenerProcedenciayNombre(clienteRepository.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
         String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
@@ -1801,7 +1803,7 @@ public class Principal extends JFrame {
         String fecha = dtf.format(ahora);
         String nombreSQL = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "respaldo_" + fecha + ".sql";
         try {
-            String cmd = "\"" + consultas.recuperarRutas("MySQL") + "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "mysqldump\" -u root -p1234 laboratorio --routines -r \"" + ruta + nombreSQL + "\"";
+            String cmd = "\"" + archivoService.recuperarRutas("MySQL") + "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "mysqldump\" -u root -p1234 laboratorio --routines -r \"" + ruta + nombreSQL + "\"";
             System.out.println(cmd);
             Runtime.getRuntime().exec(cmd);
             return true;

@@ -26,6 +26,7 @@ import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
 
 public class TablaBaseHelada extends javax.swing.JDialog {
 
@@ -39,6 +40,7 @@ public class TablaBaseHelada extends javax.swing.JDialog {
     private final Conexion con = new Conexion();
     MuestraRepository muestraRepository = new MuestraRepository(con);
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
+    ArchivoService archivoService = new ArchivoService();
 
     public TablaBaseHelada(java.awt.Frame parent, boolean modal, int id, String procedencia,
                            boolean editar, String pdf) {
@@ -1256,8 +1258,8 @@ public class TablaBaseHelada extends javax.swing.JDialog {
             m.put("observaciones", observaciones);
             muestraRepository.guardarFechaAnalisis(m);
             if (editar) {
-                File rv = new File(c.recuperarRutas("Reportes") + "\\" + pdf);
-                File rn = new File(c.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+                File rv = new File(archivoService.recuperarRutas("Reportes") + "\\" + pdf);
+                File rn = new File(archivoService.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
                 rv.renameTo(rn);
                 if (resultadoRepository.editarResultadoBaseHelada(m)) {
                     muestraRepository.guardarObservaciones(observaciones, id);

@@ -34,6 +34,7 @@ import javax.swing.JLabel;
 
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
 
 public class Determinaciones extends javax.swing.JDialog {
 
@@ -52,6 +53,7 @@ public class Determinaciones extends javax.swing.JDialog {
     public final static int ALIMENTO = 0;
     public final static int AGUA = 1;
     public final static int GENERICO = 2;
+    ArchivoService archivoService = new  ArchivoService();
 
     public Determinaciones() {
     }
@@ -262,10 +264,8 @@ public class Determinaciones extends javax.swing.JDialog {
                 ta.setLineWrap(true);
                 ta.setWrapStyleWord(true);
                 ta.append(auxConclusion);
-                switch (JOptionPane.showConfirmDialog(null, new JScrollPane(ta), "Ingrese la conclusión:", JOptionPane.OK_OPTION)) {
-                    case JOptionPane.OK_OPTION:
-                        conclusion = ta.getText();
-                        break;
+                if (JOptionPane.showConfirmDialog(null, new JScrollPane(ta), "Ingrese la conclusión:", JOptionPane.OK_OPTION) == JOptionPane.OK_OPTION) {
+                    conclusion = ta.getText();
                 }
             } else if (checkConclusion.isSelected()) {
                 conclusion = crearConclusion();
@@ -274,8 +274,8 @@ public class Determinaciones extends javax.swing.JDialog {
             }
             conclusion = conclusion.isBlank() ? "" : conclusion.equals("-") ? "" : conclusion.trim().endsWith(".") ? conclusion : conclusion + ".";
             muestraRepository.guardarConclusion(conclusion, id);
-            File rv = new File(consultas.recuperarRutas("Reportes") + "\\" + pdf);
-            File rn = new File(consultas.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
+            File rv = new File(archivoService.recuperarRutas("Reportes") + "\\" + pdf);
+            File rn = new File(archivoService.recuperarRutas("Reportes") + "\\(BORRADO) " + pdf);
             rv.renameTo(rn);
             observaciones = JOptionPane.showInputDialog("Digite la observación:", auxObservaciones);
             observaciones = observaciones.isBlank() ? "" : observaciones.trim().endsWith(".") ? observaciones : observaciones + ".";

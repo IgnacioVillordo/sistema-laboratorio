@@ -13,11 +13,12 @@ import java.util.logging.Logger;
 import io.github.cdimascio.dotenv.Dotenv;
 import org.ignaciorodriguez.modelo.Consultas;
 import org.apache.commons.io.FileUtils;
+import org.ignaciorodriguez.service.ArchivoService;
 
 public class Descargando extends javax.swing.JDialog {
 
-    Consultas c = Consultas.getInstancia();
-    String ruta = c.recuperarRutas("Reportes");
+    ArchivoService archivoService = new ArchivoService();
+    String ruta = archivoService.recuperarRutas("Reportes");
     public Descargando(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
