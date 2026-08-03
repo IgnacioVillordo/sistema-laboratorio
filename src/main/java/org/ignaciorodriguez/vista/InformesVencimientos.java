@@ -3,7 +3,6 @@ package org.ignaciorodriguez.vista;
 import javax.swing.table.DefaultTableModel;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.AdministracionRepository;
 import org.ignaciorodriguez.repository.VencimientoRepository;
 import org.ignaciorodriguez.service.ReporteService;
@@ -28,7 +27,6 @@ public class InformesVencimientos extends javax.swing.JDialog {
     int row = -1;
     Date desde = null;
     Date hasta = null;
-    Consultas consultas = Consultas.getInstancia();
     private final Conexion con = new Conexion();
     AdministracionRepository administracionRepository = new AdministracionRepository(con);
     ReporteService reporteService = new ReporteService(con);

@@ -9,14 +9,12 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 
 
 public class VentanaNotas extends javax.swing.JDialog {
 
     int id;
-    Consultas c = Consultas.getInstancia();
     private final Conexion con = new Conexion();
     MuestraRepository muestraRepository = new MuestraRepository(con);
     public VentanaNotas(java.awt.Frame parent, boolean modal, int id) {

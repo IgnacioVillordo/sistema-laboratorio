@@ -38,13 +38,11 @@ import javax.swing.UIManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
 import org.ignaciorodriguez.repository.*;
 
 public class VentanaEmail extends javax.swing.JDialog {
 
-    Consultas c = Consultas.getInstancia();
     String email;
     int id;
     String pdf;

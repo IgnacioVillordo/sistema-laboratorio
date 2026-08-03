@@ -4,7 +4,6 @@ package org.ignaciorodriguez.vista;
 import com.jidesoft.swing.AutoCompletionComboBox;
 import com.toedter.calendar.JDateChooser;
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Muestra;
 import org.ignaciorodriguez.repository.AdministracionRepository;
 import org.ignaciorodriguez.repository.ClienteRepository;

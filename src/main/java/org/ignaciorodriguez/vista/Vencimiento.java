@@ -3,7 +3,6 @@ package org.ignaciorodriguez.vista;
 import javax.swing.table.DefaultTableModel;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.VencimientoRepository;
 
 import java.awt.event.ActionEvent;

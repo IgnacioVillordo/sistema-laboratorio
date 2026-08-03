@@ -12,7 +12,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.service.ArchivoService;
@@ -34,7 +33,6 @@ public class TablaMBChocolates extends javax.swing.JDialog {
 
     int id;
     String procedencia, pdf, auxObservaciones;
-    Consultas c = Consultas.getInstancia();
     boolean editar, activarGermenes = true, activarTotales = true, activarFecales = true,
             activarMohos = true, activarEscherichia = true, activarSalmonella = true;
     private final Conexion con = new Conexion();

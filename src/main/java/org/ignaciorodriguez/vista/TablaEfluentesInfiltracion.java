@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.service.ArchivoService;
@@ -32,7 +31,6 @@ import javax.swing.JComponent;
 public class TablaEfluentesInfiltracion extends javax.swing.JDialog {
 
     int id;
-    Consultas c = Consultas.getInstancia();
     boolean editar, activarPh = true, activarConductividad = true, activarDQO = true, activarDBO = true,
             activarSolidos10 = true, activarSolidos120 = true, activarDetergentes = true,
             activarGrasas = true, activarFosforo = true, activarNitrogeno = true, activarSustancias = true,

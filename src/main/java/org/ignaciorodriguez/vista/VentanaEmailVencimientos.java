@@ -29,14 +29,12 @@ import javax.swing.UIManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.VencimientoRepository;
 
 public class VentanaEmailVencimientos extends javax.swing.JDialog {
 
-    Consultas c = Consultas.getInstancia();
     String email, vencimiento, tipo;
     int id;
     boolean editar = false;
@@ -354,7 +352,6 @@ public class VentanaEmailVencimientos extends javax.swing.JDialog {
                 copyIntoSent(session, message);
             }
 
-            Consultas c = Consultas.getInstancia();
             vencimientoRepository.actualizarAvisados(id, 1);
         } catch (MessagingException mex) {
             JOptionPane.showMessageDialog(null, "Error al enviar email.");

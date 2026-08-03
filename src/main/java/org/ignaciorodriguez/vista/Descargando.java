@@ -11,7 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.apache.commons.io.FileUtils;
 import org.ignaciorodriguez.service.ArchivoService;
 

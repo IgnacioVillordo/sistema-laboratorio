@@ -1,6 +1,14 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ */
 package org.ignaciorodriguez.vista;
 
 import com.jidesoft.swing.AutoCompletionComboBox;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.modelo.Tipo;
+import org.ignaciorodriguez.repository.ClienteRepository;
+import org.ignaciorodriguez.service.ExcelService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,18 +16,14 @@ import java.sql.ResultSet;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
-import org.ignaciorodriguez.modelo.Tipo;
-import org.ignaciorodriguez.repository.ClienteRepository;
 
 public class VentanaExcel extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaExcel.class.getName());
-
-    Consultas c = Consultas.getInstancia();
-    private final Conexion con = new Conexion();
+    Conexion con = new Conexion();
     ClienteRepository clienteRepository = new ClienteRepository(con);
+
+    Vector<String> solicitantes;
 
     public VentanaExcel(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -78,7 +82,7 @@ public class VentanaExcel extends javax.swing.JDialog {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 20, 0);
         jPanel1.add(jButton1, gridBagConstraints);
 
-        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Microbiológico de agua código", "Microbiológico de alimentos", "Efluentes infiltración", "Microbiológico de agua COFES", "Físico químico de alimentos", "Físico químico de agua completo", "Físico químico genérico" }));
+        comboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Microbiológico de agua código", "Microbiológico de agua COFES", "Microbiológico de agua de recreación", "Microbiológico de agua balnearios", "Microbiológico de agua bidón", "Microbiológico de alimentos", "Hisopados", "Hisopados con límites", "Base helada Del Turista", "Microbiológico de chocolates Del Turista", "Efluentes", "Efluentes cloaca", "Efluentes infiltración", "Físico químico de agua básico", "Físico químico de agua completo", "Físico químico de alimentos", "Físico químico genérico" }));
         comboTipo.setSelectedItem("Seleccione el tipo de análisis");
         comboTipo.setEditable(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -135,27 +139,31 @@ public class VentanaExcel extends javax.swing.JDialog {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }
+
+
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         Date fechaInicio = cajaDesde.getDate();
         Date fechaFin = cajaHasta.getDate();
-        c.exportarExcelTradicional(fechaInicio, fechaFin, clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()), comboTipo.getSelectedItem().toString(), getTipoEnum());
-        this.dispose();
+
+        ExcelService excelService = new ExcelService();
+        excelService.exportarExcelTradicional(fechaInicio, fechaFin, clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()), comboTipo.getSelectedItem().toString(), getTipoEnum());
+//        this.dispose();
     }
 
     public com.toedter.calendar.JDateChooser cajaDesde;
@@ -193,6 +201,8 @@ public class VentanaExcel extends javax.swing.JDialog {
 
     private Tipo getTipoEnum() {
         String tipo = comboTipo.getSelectedItem().toString();
+        System.out.println("tipo = " + tipo);
+
         if ("Microbiológico de agua código".equals(tipo)) {
             return Tipo.MBAGUACODIGO;
         }
@@ -200,10 +210,18 @@ public class VentanaExcel extends javax.swing.JDialog {
             return Tipo.MBALIMENTOS;
         }
         if ("Efluentes infiltración".equals(tipo)) {
-            return Tipo.EFLUENTES;
+            return Tipo.EFLUENTESINFILTRACION;
+        }
+
+        if ("Efluentes cloaca".equals(tipo)) {
+            return Tipo.EFLUENTESCLOACA;
         }
         if ("Microbiológico de agua COFES".equals(tipo)) {
             return Tipo.MBAGUACOFES;
+        }
+
+        if ("Base helada Del Turista".equals(tipo)) {
+            return Tipo.BASEHELADA;
         }
 
         if ("Físico químico de alimentos".equals(tipo)) {
@@ -214,6 +232,24 @@ public class VentanaExcel extends javax.swing.JDialog {
         }
         if ("Físico químico genérico".equals(tipo)) {
             return Tipo.FQGENERICO;
+        }
+        if ("Hisopados".equals(tipo)) {
+            return Tipo.HISOPADOS;
+        }
+        if ("Físico químico de agua básico".equals(tipo)) {
+            return Tipo.FQAGUA;
+        }
+        if ("Microbiológico de chocolates Del Turista".equals(tipo)) {
+            return Tipo.MBCHOCOLATES;
+        }
+        if ("Hisopado con límites".equals(tipo) || "Hisopado Alliance".equals(tipo)) {
+            return Tipo.HISOPADOLIMITES;
+        }
+        if ("Microbiológico de agua balnearios".equals(tipo)) {
+            return Tipo.MBAGUABALNEARIOS;
+        }
+        if ("Microbiológico de agua recreación".equals(tipo)) {
+            return Tipo.MBAGUARECREACION;
         }
         return null;
     }

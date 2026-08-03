@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
@@ -33,7 +32,6 @@ import javax.swing.JComponent;
 public class TablaFQAgua extends javax.swing.JDialog {
 
     int id;
-    Consultas c = Consultas.getInstancia();
     boolean editar, activarPh = true, activarCloro = true, activarOlor = true,
             activarColor = true, activarTurbidez = true, activarAlcalinidad = true,
             activarDureza = true, activarConductividad = true, activarSolidos = true,

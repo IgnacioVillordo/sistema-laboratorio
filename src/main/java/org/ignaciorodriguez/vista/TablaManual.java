@@ -18,7 +18,6 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.service.ArchivoService;
@@ -28,7 +27,6 @@ public class TablaManual extends javax.swing.JDialog {
 
     boolean editar, auxEditar;
     int id;
-    Consultas c = Consultas.getInstancia();
     String auxTitulo, auxConclusion, procedencia, pdf, auxObservacion;
     Point mousePoint;
     private final Conexion con = new Conexion();

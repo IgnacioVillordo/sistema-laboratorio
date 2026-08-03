@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
+import org.ignaciorodriguez.service.ActualizacionService;
 import org.ignaciorodriguez.vista.Descargando;
 import org.ignaciorodriguez.vista.Principal;
 import org.ignaciorodriguez.vista.SplashScreen;
@@ -107,10 +107,10 @@ public class Main {
                 } catch (URISyntaxException e) {
                     throw new RuntimeException(e);
                 }
-                Consultas c = Consultas.getInstancia();
+                ActualizacionService c = new ActualizacionService();
                 int actualizacion = -1;
                 actualizacion = c.consultarActualizacion();
-                if (actualizacion == Consultas.ACTUALIZAR) {
+                if (actualizacion == ActualizacionService.ACTUALIZAR) {
                     Descargando d = new Descargando(n, true);
                     d.setVisible(true);
                 }

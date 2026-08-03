@@ -2,7 +2,6 @@ package org.ignaciorodriguez.vista;
 
 import org.ignaciorodriguez.modelo.Cliente;
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
 
 import java.awt.event.ActionEvent;
@@ -17,7 +16,6 @@ import javax.swing.KeyStroke;
 
 public class AgregarProcedencia extends javax.swing.JDialog {
 
-    Consultas consultas = Consultas.getInstancia();
     Principal p = new Principal();
     int id;
     String[] datos = new String[7];

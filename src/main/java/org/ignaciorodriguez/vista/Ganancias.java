@@ -6,13 +6,11 @@ import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.AdministracionRepository;
 
 
 public class Ganancias extends javax.swing.JDialog {
 
-    Consultas c = Consultas.getInstancia();
     Date desde = null, hasta = null;
     DefaultTableModel modelo = new DefaultTableModel();
     private final Conexion con = new Conexion();

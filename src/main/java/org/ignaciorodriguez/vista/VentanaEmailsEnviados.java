@@ -14,7 +14,6 @@ import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.EmailRepository;
 
 public class VentanaEmailsEnviados extends javax.swing.JDialog {

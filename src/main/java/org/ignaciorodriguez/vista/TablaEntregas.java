@@ -1,7 +1,6 @@
 package org.ignaciorodriguez.vista;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.EntregaRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
@@ -24,7 +23,6 @@ import java.util.Map;
 
 public class TablaEntregas extends javax.swing.JDialog {
 
-    Consultas consultas = Consultas.getInstancia();
     Frame parent;
     int fila;
     TableRowSorter sorter;

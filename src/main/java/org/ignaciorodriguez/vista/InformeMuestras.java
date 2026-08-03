@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.service.ReporteService;
 
@@ -21,7 +20,6 @@ import javax.swing.JComponent;
 
 public class InformeMuestras extends javax.swing.JDialog {
 
-    Consultas consultas = Consultas.getInstancia();
     private final DefaultTableModel modeloTabla;
     private final Conexion con = new Conexion();
     MuestraRepository muestraRepository = new MuestraRepository(con);

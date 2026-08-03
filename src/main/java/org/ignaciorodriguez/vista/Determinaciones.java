@@ -41,7 +41,6 @@ public class Determinaciones extends javax.swing.JDialog {
 
     int id, cont = 0;
     JPanel j;
-    Consultas consultas = Consultas.getInstancia();
     boolean editar = false;
     int alimentos;
     String pdf, auxObservaciones, auxConclusion = "";

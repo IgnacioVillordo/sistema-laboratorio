@@ -9,7 +9,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.service.ArchivoService;
@@ -34,7 +33,6 @@ public class TablaEfluentes extends javax.swing.JDialog {
 
     int id;
     String procedencia, pdf, lugarMuestreo, auxObservaciones, auxConclusion;
-    Consultas c = Consultas.getInstancia();
     boolean editar, activarPh = true, activarDQO = true, activarDBO = true,
             activarSolidos10 = true, activarSolidos120 = true, activarHidrocarburos = true;
     private final Conexion con = new Conexion();

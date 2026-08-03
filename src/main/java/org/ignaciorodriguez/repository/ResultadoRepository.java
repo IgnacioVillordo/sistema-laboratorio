@@ -1,7 +1,6 @@
 package org.ignaciorodriguez.repository;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Determinacion;
 import org.ignaciorodriguez.modelo.Resultados;
 
@@ -1440,7 +1439,7 @@ public class ResultadoRepository {
                         String res = rs.getString(d.getNombreDB());
                         d.formatearResultado(res == null || res.trim().isEmpty() ? "-1" : res);
                     } catch (SQLException ex) {
-                        System.getLogger(Consultas.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                        System.getLogger(ResultadoRepository.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
                     }
                 });
             }
@@ -1470,7 +1469,7 @@ public class ResultadoRepository {
                         String res = rs.getString(d.getNombreDB());
                         d.formatearResultadoGenerar(res == null ? "-1" : res);
                     } catch (SQLException ex) {
-                        System.getLogger(Consultas.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                        System.getLogger(ResultadoRepository.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
                     }
                 });
             }
@@ -1498,7 +1497,7 @@ public class ResultadoRepository {
                     try {
                         d.setMetodo(rs.getString(d.getNombreDB() + "Metodo"));
                     } catch (SQLException ex) {
-                        System.getLogger(Consultas.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                        System.getLogger(ResultadoRepository.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
                     }
                 });
             }

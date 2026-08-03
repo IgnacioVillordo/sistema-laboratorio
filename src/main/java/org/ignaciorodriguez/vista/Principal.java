@@ -34,15 +34,14 @@ import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Usuario;
 import org.ignaciorodriguez.repository.*;
+import org.ignaciorodriguez.service.ActualizacionService;
 import org.ignaciorodriguez.service.ArchivoService;
 import org.ignaciorodriguez.service.ReporteService;
 
 public class Principal extends JFrame {
 
-    Consultas consultas = Consultas.getInstancia();
     private final Conexion con = new Conexion();
     UsuarioRepository usuarioRepository = new UsuarioRepository(con);
     MuestraRepository muestraRepository = new MuestraRepository(con);
@@ -52,6 +51,7 @@ public class Principal extends JFrame {
     AdministracionRepository administracionRepository = new AdministracionRepository(con);
     ReporteService reporteService = new ReporteService(con);
     ArchivoService archivoService = new ArchivoService();
+    ActualizacionService actualizacionService = new ActualizacionService();
     public DefaultTableModel modeloTabla = muestraRepository.llenarTabla();
     int fila2;
     public static int id;
@@ -66,7 +66,7 @@ public class Principal extends JFrame {
 
     public Principal() {
         initComponents();
-        actualizacion = consultas.consultarActualizacion();
+        actualizacion = actualizacionService.consultarActualizacion();
         tablaDatos.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent mouseEvent) {
                 JTable table = (JTable) mouseEvent.getSource();
@@ -91,9 +91,9 @@ public class Principal extends JFrame {
         }
         BufferedReader br;
         String aux = null;
-        if (actualizacion == Consultas.ACTUALIZAR) {
+        if (actualizacion == ActualizacionService.ACTUALIZAR) {
             etiquetaActualizacion.setVisible(true);
-        } else if (actualizacion == Consultas.ERROR_ACTUALIZAR) {
+        } else if (actualizacion == ActualizacionService.ERROR_ACTUALIZAR) {
             etiquetaActualizacion.setText("NO SE PUDO COMPROBAR EL ESTADO DE LA ACTUALIZACIÓN. REVISE LA CONEXIÓN A INTERNET.");
             etiquetaActualizacion.setVisible(true);
         }
@@ -126,14 +126,14 @@ public class Principal extends JFrame {
 
             public void run() {
 
-                actualizacion = consultas.consultarActualizacion();
-                if (actualizacion == Consultas.ACTUALIZAR) {
+                actualizacion = actualizacionService.consultarActualizacion();
+                if (actualizacion == ActualizacionService.ACTUALIZAR) {
                     etiquetaActualizacion.setVisible(true);
                     etiquetaActualizacion.setText("ULTIMA VERSIÓN NO INSTALADA");
-                } else if (actualizacion == Consultas.ERROR_ACTUALIZAR) {
+                } else if (actualizacion == ActualizacionService.ERROR_ACTUALIZAR) {
                     etiquetaActualizacion.setText("NO SE PUDO COMPROBAR EL ESTADO DE LA ACTUALIZACIÓN. REVISE LA CONEXIÓN A INTERNET.");
                     etiquetaActualizacion.setVisible(true);
-                } else if (actualizacion == Consultas.NO_ACTUALIZAR) {
+                } else if (actualizacion == ActualizacionService.NO_ACTUALIZAR) {
                     etiquetaActualizacion.setVisible(false);
                 }
             }
@@ -1662,7 +1662,7 @@ public class Principal extends JFrame {
     }
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {
-        if (consultas.consultarActualizacion() == 1) {
+        if (actualizacionService.consultarActualizacion() == 1) {
             Descargando d = new Descargando(this, true);
             d.setVisible(true);
         } else {

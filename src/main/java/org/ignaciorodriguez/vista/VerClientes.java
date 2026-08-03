@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.ClienteRepository;
 
 import java.awt.event.ActionEvent;
@@ -25,7 +24,6 @@ import javax.swing.JOptionPane;
 public class VerClientes extends javax.swing.JDialog {
 
     public javax.swing.JPasswordField cajaBuscar;
-    Consultas consultas = Consultas.getInstancia();
     DefaultTableModel modeloTabla;
     int fila;
     Frame parent;

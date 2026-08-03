@@ -29,12 +29,9 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.ignaciorodriguez.Main;
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.service.ArchivoService;
 
 public class VentanaEmailError extends javax.swing.JDialog {

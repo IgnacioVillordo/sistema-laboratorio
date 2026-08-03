@@ -3,7 +3,6 @@ package org.ignaciorodriguez.vista;
 import java.awt.event.KeyListener;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import javax.swing.JOptionPane;
 import org.ignaciorodriguez.modelo.Usuario;
 import org.ignaciorodriguez.repository.UsuarioRepository;

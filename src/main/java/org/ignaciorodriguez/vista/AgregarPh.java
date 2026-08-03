@@ -9,14 +9,13 @@ import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
+
 import org.ignaciorodriguez.repository.ResultadoRepository;
 
 public class AgregarPh extends javax.swing.JDialog {
 
     boolean editar = false;
     int id;
-    Consultas c = Consultas.getInstancia();
     private final Conexion con = new Conexion();
     ResultadoRepository resultadoRepository = new ResultadoRepository(con);
 

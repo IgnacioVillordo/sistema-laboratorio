@@ -10,7 +10,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
@@ -36,7 +35,6 @@ public class TablaMBAguaRecreacion extends javax.swing.JDialog {
 
     int id;
     String procedencia, pdf, auxCaracteres;
-    Consultas c = Consultas.getInstancia();
     double[] ph;
     boolean editar, ingresoPh = false, activarGermenes = true, activarTotales = true,
             activarFecales = true, activarEscherichia = true, activarPseudomona = true,

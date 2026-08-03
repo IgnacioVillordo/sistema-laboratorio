@@ -23,7 +23,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.service.ArchivoService;
@@ -33,7 +32,6 @@ public class TablaHisopadosAlliance extends javax.swing.JDialog {
 
     int id;
     String procedencia, pdf, auxObservaciones;
-    Consultas c = Consultas.getInstancia();
     boolean editar, activarGermens = true, activarTotales = true, activarFecales = true,
             activarEscherichia = true, activarEnterobacterias = true, activarStaphilococos = true;
     Frame parent;

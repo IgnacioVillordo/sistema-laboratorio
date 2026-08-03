@@ -7,7 +7,6 @@ import javax.swing.JOptionPane;
 import javax.swing.border.MatteBorder;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Resultados;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
@@ -32,7 +31,6 @@ public class TablaMBAguaBalnearios extends javax.swing.JDialog {
 
     int id;
     String procedencia, pdf, auxCaracteres;
-    Consultas c = Consultas.getInstancia();
     boolean editar, activarColiformes = true, activarEscherichia = true, activarShigella = true;
     private final Conexion con = new Conexion();
     MuestraRepository muestraRepository = new MuestraRepository(con);

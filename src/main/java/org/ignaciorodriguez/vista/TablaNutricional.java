@@ -4,7 +4,6 @@ import java.io.File;
 import javax.swing.JOptionPane;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.service.ArchivoService;
@@ -23,7 +22,6 @@ import javax.swing.JComponent;
 public class TablaNutricional extends javax.swing.JDialog {
 
     int id = -1, auxSaturadas;
-    Consultas consultas = Consultas.getInstancia();
     boolean editar = false;
     String pdf, auxObservaciones, unidad = "";
     private final Conexion con = new Conexion();

@@ -24,7 +24,6 @@ import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.MuestraRepository;
 import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.ignaciorodriguez.service.ArchivoService;
@@ -39,7 +38,6 @@ public class TablaMBAlimentos extends javax.swing.JDialog {
     int auxObservacionesCombo, auxConclusionCombo, auxGermenesCombo, auxFecalesCombo,
             auxTotalesCombo, auxStaphilococosCombo, auxEnterobacteriasCombo, auxBacillusCombo, auxPerfringensCombo,
             auxSulfitoCombo, auxCampilobacterCombo, auxVibrioCombo;
-    Consultas c = Consultas.getInstancia();
     boolean editar, activarGermenes = true, activarFecales = true, activarTotales = true,
             activarStaphilococos = true, activarEscherichia = true, activarSalmonella = true,
             activarMohos = true, activarEscherichiaH7 = true, activarEscherichia157 = true,

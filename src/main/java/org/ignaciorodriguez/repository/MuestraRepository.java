@@ -2,7 +2,6 @@ package org.ignaciorodriguez.repository;
 
 import groovyjarjarantlr.preprocessor.Preprocessor;
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.modelo.Muestra;
 import org.ignaciorodriguez.modelo.Resultados;
 

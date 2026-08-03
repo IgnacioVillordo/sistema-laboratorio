@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Consultas;
 import org.ignaciorodriguez.repository.AdministracionRepository;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.repository.MuestraRepository;
@@ -13,7 +12,6 @@ import org.ignaciorodriguez.service.ReporteService;
 
 public class AnalisisEnProceso extends javax.swing.JDialog {
 
-    Consultas c = Consultas.getInstancia();
     int id;
     String auxiliar;
     private final Conexion con = new Conexion();
