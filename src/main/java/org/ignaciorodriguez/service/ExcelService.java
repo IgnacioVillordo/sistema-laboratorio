@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 public class ExcelService {
@@ -42,10 +43,10 @@ public class ExcelService {
         Sheet sheetHidden = workbook.createSheet("Hidden");
         workbook.setSheetHidden(workbook.getSheetIndex("Hidden"), true);
         String[] columnas = obtenerColumnas(t);
-        int rowNum[] = {1};
-        int rowNumGraph[] = {1};
+        int[] rowNum = {1};
+        int[] rowNumGraph = {1};
         Row headerRow = sheet.createRow(0);
-        for (int i = 0; i < columnas.length; i++) {
+        for (int i = 0; i < Objects.requireNonNull(columnas).length; i++) {
             headerRow.createCell(i).setCellValue(columnas[i]);
         }
         int[] rowCont = new int[columnas.length - 2];
@@ -111,7 +112,7 @@ public class ExcelService {
         } finally {
             try {
                 workbook.close();
-                fileOut.close();
+                Objects.requireNonNull(fileOut).close();
             } catch (Exception e) {
                 logger.severe("Error al crear excel, " + e);
             }
@@ -172,32 +173,34 @@ public class ExcelService {
         String sql = "SELECT * FROM vistaefluentes WHERE idmuestras in (select idmuestras from muestras where idcliente = ? and tipo = ?) and fechaMuestreo BETWEEN ? AND ?";
         Arrays.fill(rowCont, 0);
         try (Connection conexion = con.getConnection()) {
-            // 1. Preparar la consulta
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idcliente);
             ps.setString(2, tipo);
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String[] parametros = {"ph", "dqo", "dbo", "solidos10", "solidos120", "detergentes", "grasas", "fosforo", "nitrogeno", "sustancias", "coliformesTotales", "coliformesFecales", "escherichia", "conductividad", "hidrocarburos", "nitratos", "cloro", "sulfuros"};
-                String idmuestras = String.valueOf(rs.getInt("idmuestras"));
-                row.createCell(0).setCellValue(idmuestras);
-                row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(rs.getDate("fechaMuestreo").toString()));
-                for (int i = 0; i < parametros.length; i++) {
-                    String nombreCol = parametros[i];
-                    String valorRaw = rs.getString(nombreCol);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String[] parametros = {"ph", "dqo", "dbo", "solidos10", "solidos120", "detergentes", "grasas", "fosforo", "nitrogeno", "sustancias", "coliformesTotales", "coliformesFecales", "escherichia", "conductividad", "hidrocarburos", "nitratos", "cloro", "sulfuros"};
+                    String idmuestras = String.valueOf(rs.getInt("idmuestras"));
+                    row.createCell(0).setCellValue(idmuestras);
+                    row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(rs.getDate("fechaMuestreo").toString()));
+                    for (int i = 0; i < parametros.length; i++) {
+                        String nombreCol = parametros[i];
+                        String valorRaw = rs.getString(nombreCol);
 
-                    row.createCell(i + 2).setCellValue(ExcelUtils.formatearEntradaExcel(valorRaw));
+                        row.createCell(i + 2).setCellValue(ExcelUtils.formatearEntradaExcel(valorRaw));
 
-                    if (i < rowCont.length) {
-                        Double valorNum = ExcelUtils.extraerNumero(valorRaw);
-                        if (!Double.isNaN(valorNum) && valorNum >= 0) {
-                            agregarCeldaGrafico(sheetHidden, rowCont, i, idmuestras, valorNum);
+                        if (i < rowCont.length) {
+                            Double valorNum = ExcelUtils.extraerNumero(valorRaw);
+                            if (!Double.isNaN(valorNum) && valorNum >= 0) {
+                                agregarCeldaGrafico(sheetHidden, rowCont, i, idmuestras, valorNum);
+                            }
                         }
                     }
                 }
+            } catch (SQLException e) {
+                logger.severe("Error en la consulta SQL: " + e.getMessage());
             }
         } catch (SQLException e) {
             logger.severe("Error en la consulta SQL: " + e.getMessage());
@@ -215,62 +218,65 @@ public class ExcelService {
             ps.setString(2, tipo);
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
-                row.createCell(0).setCellValue(idmuestras);
-                String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
-                row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
-                String cloro = rs.getString("vistatabla_porcentajeTotalCloro");
-                row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(cloro));
-                String ph = rs.getString("vistatabla_ph");
-                row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(ph));
-                String germenes = rs.getString("germenes");
-                row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
-                String coliformesTotales = rs.getString("coliformesTotales");
-                row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
-                String coliformesFecales = rs.getString("coliformesFecales");
-                row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
-                String escherichia = rs.getString("escherichia");
-                row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
-                String pseudomona = rs.getString("pseudomona");
-                row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(pseudomona));
-                String shigella = rs.getString("shigella");
-                row.createCell(9).setCellValue(ExcelUtils.formatearEntradaExcel(shigella));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
+                    row.createCell(0).setCellValue(idmuestras);
+                    String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
+                    row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
+                    String cloro = rs.getString("vistatabla_porcentajeTotalCloro");
+                    row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(cloro));
+                    String ph = rs.getString("vistatabla_ph");
+                    row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(ph));
+                    String germenes = rs.getString("germenes");
+                    row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
+                    String coliformesTotales = rs.getString("coliformesTotales");
+                    row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
+                    String coliformesFecales = rs.getString("coliformesFecales");
+                    row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
+                    String escherichia = rs.getString("escherichia");
+                    row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
+                    String pseudomona = rs.getString("pseudomona");
+                    row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(pseudomona));
+                    String shigella = rs.getString("shigella");
+                    row.createCell(9).setCellValue(ExcelUtils.formatearEntradaExcel(shigella));
 
-                Double cloroGraph = ExcelUtils.extraerNumero(cloro);
-                if (!Double.isNaN(cloroGraph) && cloroGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, cloroGraph);
+                    double cloroGraph = ExcelUtils.extraerNumero(cloro);
+                    if (!Double.isNaN(cloroGraph) && cloroGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, cloroGraph);
+                    }
+                    double phGraph = ExcelUtils.extraerNumero(ph);
+                    if (!Double.isNaN(phGraph) && phGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, phGraph);
+                    }
+                    double germenesGraph = ExcelUtils.extraerNumero(germenes);
+                    if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 2, idmuestras, germenesGraph);
+                    }
+                    double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
+                    if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 3, idmuestras, coliformesTotalesGraph);
+                    }
+                    double coliformesFecalesGraph = ExcelUtils.extraerNumero(coliformesFecales);
+                    if (!Double.isNaN(coliformesFecalesGraph) && coliformesFecalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, coliformesFecalesGraph);
+                    }
+                    if (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 5, idmuestras, escherichia, estiloPresencia);
+                    }
+                    if (pseudomona.toLowerCase().contains("ausencia") || pseudomona.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 6, idmuestras, pseudomona, estiloPresencia);
+                    }
+                    if (shigella == null) {
+                        shigella = "-2";
+                    }
+                    if (shigella.toLowerCase().contains("ausencia") || shigella.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 7, idmuestras, shigella, estiloPresencia);
+                    }
                 }
-                Double phGraph = ExcelUtils.extraerNumero(ph);
-                if (!Double.isNaN(phGraph) && phGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, phGraph);
-                }
-                Double germenesGraph = ExcelUtils.extraerNumero(germenes);
-                if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 2, idmuestras, germenesGraph);
-                }
-                Double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
-                if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 3, idmuestras, coliformesTotalesGraph);
-                }
-                Double coliformesFecalesGraph = ExcelUtils.extraerNumero(coliformesFecales);
-                if (!Double.isNaN(coliformesFecalesGraph) && coliformesFecalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, coliformesFecalesGraph);
-                }
-                if (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 5, idmuestras, escherichia, estiloPresencia);
-                }
-                if (pseudomona.toLowerCase().contains("ausencia") || pseudomona.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 6, idmuestras, pseudomona, estiloPresencia);
-                }
-                if (shigella == null) {
-                    shigella = "-2";
-                }
-                if (shigella.toLowerCase().contains("ausencia") || shigella.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 7, idmuestras, shigella, estiloPresencia);
-                }
+            } catch (SQLException e) {
+                logger.severe("Error en la consulta SQL: " + e.getMessage());
             }
         } catch (SQLException e) {
             logger.severe("Error en la consulta SQL: " + e.getMessage());
@@ -288,60 +294,63 @@ public class ExcelService {
             ps.setString(2, tipo);
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
-                row.createCell(0).setCellValue(idmuestras);
-                String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
-                row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
-                String germenes = rs.getString("germenes");
-                row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
-                String coliformesTotales = rs.getString("coliformesTotales");
-                row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
-                String coliformesFecales = rs.getString("coliformesFecales");
-                row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
-                String escherichia = rs.getString("escherichia");
-                row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
-                String pseudomona = rs.getString("pseudomona");
-                row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(pseudomona));
-                String staphilococos = rs.getString("staphilococos");
-                row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(staphilococos));
-                String streptococos = rs.getString("streptococos");
-                row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(streptococos));
-                String shigella = rs.getString("shigella");
-                row.createCell(9).setCellValue(ExcelUtils.formatearEntradaExcel(shigella));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
+                    row.createCell(0).setCellValue(idmuestras);
+                    String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
+                    row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
+                    String germenes = rs.getString("germenes");
+                    row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
+                    String coliformesTotales = rs.getString("coliformesTotales");
+                    row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
+                    String coliformesFecales = rs.getString("coliformesFecales");
+                    row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
+                    String escherichia = rs.getString("escherichia");
+                    row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
+                    String pseudomona = rs.getString("pseudomona");
+                    row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(pseudomona));
+                    String staphilococos = rs.getString("staphilococos");
+                    row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(staphilococos));
+                    String streptococos = rs.getString("streptococos");
+                    row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(streptococos));
+                    String shigella = rs.getString("shigella");
+                    row.createCell(9).setCellValue(ExcelUtils.formatearEntradaExcel(shigella));
 
-                Double germenesGraph = ExcelUtils.extraerNumero(germenes);
-                if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, germenesGraph);
+                    double germenesGraph = ExcelUtils.extraerNumero(germenes);
+                    if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, germenesGraph);
+                    }
+                    double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
+                    if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, coliformesTotalesGraph);
+                    }
+                    double coliformesFecalesGraph = ExcelUtils.extraerNumero(coliformesFecales);
+                    if (!Double.isNaN(coliformesFecalesGraph) && coliformesFecalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 2, idmuestras, coliformesFecalesGraph);
+                    }
+                    if (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 3, idmuestras, escherichia, estiloPresencia);
+                    }
+                    if (pseudomona.toLowerCase().contains("ausencia") || pseudomona.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 4, idmuestras, pseudomona, estiloPresencia);
+                    }
+                    double staphilococosGraph = ExcelUtils.extraerNumero(staphilococos);
+                    if (!Double.isNaN(staphilococosGraph) && staphilococosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 5, idmuestras, staphilococosGraph);
+                    }
+                    double streptococosGraph = ExcelUtils.extraerNumero(streptococos);
+                    if (!Double.isNaN(streptococosGraph) && streptococosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 6, idmuestras, streptococosGraph);
+                    }
+                    double shigellaGraph = ExcelUtils.extraerNumero(shigella);
+                    if (!Double.isNaN(shigellaGraph) && shigellaGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 7, idmuestras, shigellaGraph);
+                    }
                 }
-                Double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
-                if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, coliformesTotalesGraph);
-                }
-                Double coliformesFecalesGraph = ExcelUtils.extraerNumero(coliformesFecales);
-                if (!Double.isNaN(coliformesFecalesGraph) && coliformesFecalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 2, idmuestras, coliformesFecalesGraph);
-                }
-                if (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 3, idmuestras, escherichia, estiloPresencia);
-                }
-                if (pseudomona.toLowerCase().contains("ausencia") || pseudomona.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 4, idmuestras, pseudomona, estiloPresencia);
-                }
-                Double staphilococosGraph = ExcelUtils.extraerNumero(staphilococos);
-                if (!Double.isNaN(staphilococosGraph) && staphilococosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 5, idmuestras, staphilococosGraph);
-                }
-                Double streptococosGraph = ExcelUtils.extraerNumero(streptococos);
-                if (!Double.isNaN(streptococosGraph) && streptococosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 6, idmuestras, streptococosGraph);
-                }
-                Double shigellaGraph = ExcelUtils.extraerNumero(shigella);
-                if (!Double.isNaN(shigellaGraph) && shigellaGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 7, idmuestras, shigellaGraph);
-                }
+            } catch (SQLException e) {
+                logger.severe("Error en la consulta SQL: " + e.getMessage());
             }
         } catch (SQLException e) {
             logger.severe("Error en la consulta SQL: " + e.getMessage());
@@ -359,66 +368,68 @@ public class ExcelService {
             ps.setString(2, tipo);
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
-                row.createCell(0).setCellValue(idmuestras);
-                String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
-                row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
-                String cloro = rs.getString("vistatabla_porcentajeTotalCloro");
-                row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(cloro));
-                String ph = rs.getString("vistatabla_ph");
-                row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(ph));
-                String germenes = rs.getString("germenes");
-                row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
-                String coliformesTotales = rs.getString("coliformesTotales");
-                row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
-                String coliformesFecales = rs.getString("coliformesFecales");
-                row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
-                String escherichia = rs.getString("escherichia");
-                row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
-                String pseudomona = rs.getString("pseudomona");
-                row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(pseudomona));
-                String mohos = rs.getString("mohos");
-                row.createCell(9).setCellValue(ExcelUtils.formatearEntradaExcel(mohos));
-                String shigella = rs.getString("shigella");
-                row.createCell(10).setCellValue(ExcelUtils.formatearEntradaExcel(shigella));
-
-                Double cloroGraph = ExcelUtils.extraerNumero(cloro);
-                if (!Double.isNaN(cloroGraph) && cloroGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, cloroGraph);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
+                    row.createCell(0).setCellValue(idmuestras);
+                    String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
+                    row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
+                    String cloro = rs.getString("vistatabla_porcentajeTotalCloro");
+                    row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(cloro));
+                    String ph = rs.getString("vistatabla_ph");
+                    row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(ph));
+                    String germenes = rs.getString("germenes");
+                    row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
+                    String coliformesTotales = rs.getString("coliformesTotales");
+                    row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
+                    String coliformesFecales = rs.getString("coliformesFecales");
+                    row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
+                    String escherichia = rs.getString("escherichia");
+                    row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
+                    String pseudomona = rs.getString("pseudomona");
+                    row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(pseudomona));
+                    String mohos = rs.getString("mohos");
+                    row.createCell(9).setCellValue(ExcelUtils.formatearEntradaExcel(mohos));
+                    String shigella = rs.getString("shigella");
+                    row.createCell(10).setCellValue(ExcelUtils.formatearEntradaExcel(shigella));
+                    double cloroGraph = ExcelUtils.extraerNumero(cloro);
+                    if (!Double.isNaN(cloroGraph) && cloroGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, cloroGraph);
+                    }
+                    double phGraph = ExcelUtils.extraerNumero(ph);
+                    if (!Double.isNaN(phGraph) && phGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, phGraph);
+                    }
+                    double germenesGraph = ExcelUtils.extraerNumero(germenes);
+                    if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 2, idmuestras, germenesGraph);
+                    }
+                    double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
+                    if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 3, idmuestras, coliformesTotalesGraph);
+                    }
+                    double coliformesFecalesGraph = ExcelUtils.extraerNumero(coliformesFecales);
+                    if (!Double.isNaN(coliformesFecalesGraph) && coliformesFecalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, coliformesFecalesGraph);
+                    }
+                    if (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 5, idmuestras, escherichia, estiloPresencia);
+                    }
+                    if (pseudomona.toLowerCase().contains("ausencia") || pseudomona.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 6, idmuestras, pseudomona, estiloPresencia);
+                    }
+                    double mohosGraph = ExcelUtils.extraerNumero(mohos);
+                    if (!Double.isNaN(mohosGraph) && mohosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 7, idmuestras, mohosGraph);
+                    }
+                    double shigellaGraph = ExcelUtils.extraerNumero(shigella);
+                    if (!Double.isNaN(shigellaGraph) && shigellaGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 8, idmuestras, shigellaGraph);
+                    }
                 }
-                Double phGraph = ExcelUtils.extraerNumero(ph);
-                if (!Double.isNaN(phGraph) && phGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, phGraph);
-                }
-                Double germenesGraph = ExcelUtils.extraerNumero(germenes);
-                if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 2, idmuestras, germenesGraph);
-                }
-                Double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
-                if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 3, idmuestras, coliformesTotalesGraph);
-                }
-                Double coliformesFecalesGraph = ExcelUtils.extraerNumero(coliformesFecales);
-                if (!Double.isNaN(coliformesFecalesGraph) && coliformesFecalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, coliformesFecalesGraph);
-                }
-                if (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 5, idmuestras, escherichia, estiloPresencia);
-                }
-                if (pseudomona.toLowerCase().contains("ausencia") || pseudomona.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 6, idmuestras, pseudomona, estiloPresencia);
-                }
-                Double mohosGraph = ExcelUtils.extraerNumero(mohos);
-                if (!Double.isNaN(mohosGraph) && mohosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 7, idmuestras, mohosGraph);
-                }
-                Double shigellaGraph = ExcelUtils.extraerNumero(shigella);
-                if (!Double.isNaN(shigellaGraph) && shigellaGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 8, idmuestras, shigellaGraph);
-                }
+            } catch (SQLException e) {
+                logger.severe("Error en la consulta SQL: " + e.getMessage());
             }
         } catch (SQLException e) {
             logger.severe("Error en la consulta SQL: " + e.getMessage());
@@ -430,37 +441,39 @@ public class ExcelService {
         Arrays.fill(rowCont, 0);
         CellStyle estiloPresencia = crearEstiloPresencia(workbook);
         try (Connection conexion = con.getConnection()) {
-            // 1. Preparar la consulta
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idcliente);
             ps.setString(2, tipo);
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
-                row.createCell(0).setCellValue(idmuestras);
-                String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
-                row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
-                String coliformesTotales = rs.getString("coliformesTotales");
-                row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
-                String escherichia = rs.getString("escherichia");
-                row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
-                String shigella = rs.getString("shigella");
-                row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(shigella));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
+                    row.createCell(0).setCellValue(idmuestras);
+                    String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
+                    row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
+                    String coliformesTotales = rs.getString("coliformesTotales");
+                    row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
+                    String escherichia = rs.getString("escherichia");
+                    row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
+                    String shigella = rs.getString("shigella");
+                    row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(shigella));
 
-                Double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
-                if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, coliformesTotalesGraph);
+                    double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
+                    if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, coliformesTotalesGraph);
+                    }
+                    if (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 1, idmuestras, escherichia, estiloPresencia);
+                    }
+                    double shigellaGraph = ExcelUtils.extraerNumero(shigella);
+                    if (!Double.isNaN(shigellaGraph) && shigellaGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 2, idmuestras, shigellaGraph);
+                    }
                 }
-                if (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 1, idmuestras, escherichia, estiloPresencia);
-                }
-                Double shigellaGraph = ExcelUtils.extraerNumero(shigella);
-                if (!Double.isNaN(shigellaGraph) && shigellaGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 2, idmuestras, shigellaGraph);
-                }
+            } catch (SQLException e) {
+                logger.severe("Error en la consulta SQL: " + e.getMessage());
             }
         } catch (SQLException e) {
             logger.severe("Error en la consulta SQL: " + e.getMessage());
@@ -477,77 +490,80 @@ public class ExcelService {
             ps.setString(2, tipo);
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
-                System.out.println("idmuestras = " + idmuestras);
-                row.createCell(0).setCellValue(idmuestras);
-                String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
-                row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
-                String germenes = rs.getString("germenes");
-                row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
-                String coliformesTotales = rs.getString("coliformesTotales");
-                row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
-                String coliformesFecales = rs.getString("coliformesFecales");
-                row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
-                String escherichia = rs.getString("escherichia");
-                row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
-                String staphilococos = rs.getString("staphilococos");
-                row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(staphilococos));
-                String enterobacterias = rs.getString("enterobacterias");
-                row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(enterobacterias));
-                String salmonella = rs.getString("salmonella");
-                row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(salmonella));
-                String listeria = rs.getString("listeria");
-                row.createCell(9).setCellValue(ExcelUtils.formatearEntradaExcel(listeria));
-                String mohos = rs.getString("mohos");
-                row.createCell(10).setCellValue(ExcelUtils.formatearEntradaExcel(mohos));
-                String vibrio = rs.getString("vibrio");
-                row.createCell(11).setCellValue(ExcelUtils.formatearEntradaExcel(vibrio));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
+                    System.out.println("idmuestras = " + idmuestras);
+                    row.createCell(0).setCellValue(idmuestras);
+                    String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
+                    row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
+                    String germenes = rs.getString("germenes");
+                    row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
+                    String coliformesTotales = rs.getString("coliformesTotales");
+                    row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
+                    String coliformesFecales = rs.getString("coliformesFecales");
+                    row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
+                    String escherichia = rs.getString("escherichia");
+                    row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
+                    String staphilococos = rs.getString("staphilococos");
+                    row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(staphilococos));
+                    String enterobacterias = rs.getString("enterobacterias");
+                    row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(enterobacterias));
+                    String salmonella = rs.getString("salmonella");
+                    row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(salmonella));
+                    String listeria = rs.getString("listeria");
+                    row.createCell(9).setCellValue(ExcelUtils.formatearEntradaExcel(listeria));
+                    String mohos = rs.getString("mohos");
+                    row.createCell(10).setCellValue(ExcelUtils.formatearEntradaExcel(mohos));
+                    String vibrio = rs.getString("vibrio");
+                    row.createCell(11).setCellValue(ExcelUtils.formatearEntradaExcel(vibrio));
 
-                Double germenesGraph = ExcelUtils.extraerNumero(germenes);
-                if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, germenesGraph);
-                }
-                Double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
-                if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, coliformesTotalesGraph);
-                }
-                if (coliformesFecales.toLowerCase().contains("ausencia") || coliformesFecales.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 2, idmuestras, coliformesFecales, estiloPresencia);
-                }
-                if (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 3, idmuestras, escherichia, estiloPresencia);
-                }
-                Double staphilococosGraph = ExcelUtils.extraerNumero(staphilococos);
-                if (!Double.isNaN(staphilococosGraph) && staphilococosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, staphilococosGraph);
-                }
-                Double enterobacteriasGraph = ExcelUtils.extraerNumero(enterobacterias);
-                if (!Double.isNaN(enterobacteriasGraph) && enterobacteriasGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 5, idmuestras, enterobacteriasGraph);
-                }
-                Double salmonellaGraph = ExcelUtils.extraerNumero(salmonella);
-                if (!Double.isNaN(salmonellaGraph) && salmonellaGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 6, idmuestras, salmonellaGraph);
-                }
-                if (listeria.toLowerCase().contains("ausencia") || listeria.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 7, idmuestras, listeria, estiloPresencia);
-                } else {
-                    Double listeriaGraph = ExcelUtils.extraerNumero(listeria);
-                    if (!Double.isNaN(listeriaGraph) && listeriaGraph >= 0) {
-                        agregarCeldaGrafico(sheetHidden, rowCont, 7, idmuestras, listeriaGraph);
+                    double germenesGraph = ExcelUtils.extraerNumero(germenes);
+                    if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, germenesGraph);
+                    }
+                    double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
+                    if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, coliformesTotalesGraph);
+                    }
+                    if (coliformesFecales.toLowerCase().contains("ausencia") || coliformesFecales.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 2, idmuestras, coliformesFecales, estiloPresencia);
+                    }
+                    if (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 3, idmuestras, escherichia, estiloPresencia);
+                    }
+                    double staphilococosGraph = ExcelUtils.extraerNumero(staphilococos);
+                    if (!Double.isNaN(staphilococosGraph) && staphilococosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, staphilococosGraph);
+                    }
+                    double enterobacteriasGraph = ExcelUtils.extraerNumero(enterobacterias);
+                    if (!Double.isNaN(enterobacteriasGraph) && enterobacteriasGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 5, idmuestras, enterobacteriasGraph);
+                    }
+                    double salmonellaGraph = ExcelUtils.extraerNumero(salmonella);
+                    if (!Double.isNaN(salmonellaGraph) && salmonellaGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 6, idmuestras, salmonellaGraph);
+                    }
+                    if (listeria.toLowerCase().contains("ausencia") || listeria.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 7, idmuestras, listeria, estiloPresencia);
+                    } else {
+                        Double listeriaGraph = ExcelUtils.extraerNumero(listeria);
+                        if (!Double.isNaN(listeriaGraph) && listeriaGraph >= 0) {
+                            agregarCeldaGrafico(sheetHidden, rowCont, 7, idmuestras, listeriaGraph);
+                        }
+                    }
+                    double mohosGraph = ExcelUtils.extraerNumero(mohos);
+                    if (!Double.isNaN(mohosGraph) && mohosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 8, idmuestras, mohosGraph);
+                    }
+                    double vibrioGraph = ExcelUtils.extraerNumero(vibrio);
+                    if (!Double.isNaN(vibrioGraph) && vibrioGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 9, idmuestras, vibrioGraph);
                     }
                 }
-                Double mohosGraph = ExcelUtils.extraerNumero(mohos);
-                if (!Double.isNaN(mohosGraph) && mohosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 8, idmuestras, mohosGraph);
-                }
-                Double vibrioGraph = ExcelUtils.extraerNumero(vibrio);
-                if (!Double.isNaN(vibrioGraph) && vibrioGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 9, idmuestras, vibrioGraph);
-                }
+            } catch (SQLException e) {
+                logger.severe("Error en la consulta SQL: " + e.getMessage());
             }
         } catch (SQLException e) {
             logger.severe("Error en la consulta SQL: " + e.getMessage());
@@ -564,48 +580,51 @@ public class ExcelService {
             ps.setString(2, tipo);
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
-                row.createCell(0).setCellValue(idmuestras);
-                String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
-                row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
-                String germenes = rs.getString("germenes");
-                row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
-                String coliformesTotales = rs.getString("coliformesTotales");
-                row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
-                String coliformesFecales = rs.getString("coliformesFecales");
-                row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
-                String escherichia = rs.getString("escherichia");
-                row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
-                String staphilococos = rs.getString("staphilococos");
-                row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(staphilococos));
-                String enterobacterias = rs.getString("enterobacterias");
-                row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(enterobacterias));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
+                    row.createCell(0).setCellValue(idmuestras);
+                    String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
+                    row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
+                    String germenes = rs.getString("germenes");
+                    row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
+                    String coliformesTotales = rs.getString("coliformesTotales");
+                    row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
+                    String coliformesFecales = rs.getString("coliformesFecales");
+                    row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
+                    String escherichia = rs.getString("escherichia");
+                    row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
+                    String staphilococos = rs.getString("staphilococos");
+                    row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(staphilococos));
+                    String enterobacterias = rs.getString("enterobacterias");
+                    row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(enterobacterias));
 
-                Double germenesGraph = ExcelUtils.extraerNumero(germenes);
-                if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, germenesGraph);
+                    double germenesGraph = ExcelUtils.extraerNumero(germenes);
+                    if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, germenesGraph);
+                    }
+                    double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
+                    if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, coliformesTotalesGraph);
+                    }
+                    if (coliformesFecales.toLowerCase().contains("ausencia") || coliformesFecales.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 2, idmuestras, coliformesFecales, estiloPresencia);
+                    }
+                    if (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia")) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 3, idmuestras, escherichia, estiloPresencia);
+                    }
+                    double staphilococosGraph = ExcelUtils.extraerNumero(staphilococos);
+                    if (!Double.isNaN(staphilococosGraph) && staphilococosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, staphilococosGraph);
+                    }
+                    double enterobacteriasGraph = ExcelUtils.extraerNumero(enterobacterias);
+                    if (!Double.isNaN(enterobacteriasGraph) && enterobacteriasGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 5, idmuestras, enterobacteriasGraph);
+                    }
                 }
-                Double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
-                if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, coliformesTotalesGraph);
-                }
-                if (coliformesFecales.toLowerCase().contains("ausencia") || coliformesFecales.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 2, idmuestras, coliformesFecales, estiloPresencia);
-                }
-                if (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia")) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 3, idmuestras, escherichia, estiloPresencia);
-                }
-                Double staphilococosGraph = ExcelUtils.extraerNumero(staphilococos);
-                if (!Double.isNaN(staphilococosGraph) && staphilococosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, staphilococosGraph);
-                }
-                Double enterobacteriasGraph = ExcelUtils.extraerNumero(enterobacterias);
-                if (!Double.isNaN(enterobacteriasGraph) && enterobacteriasGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 5, idmuestras, enterobacteriasGraph);
-                }
+            } catch (SQLException e) {
+                logger.severe("Error en la consulta SQL: " + e.getMessage());
             }
         } catch (SQLException e) {
             logger.severe("Error en la consulta SQL: " + e.getMessage());
@@ -644,39 +663,42 @@ public class ExcelService {
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
 
-            ResultSet rs = ps.executeQuery();
-            var rsmd = rs.getMetaData();
-            int columnCount = rsmd.getColumnCount();
+            try (ResultSet rs = ps.executeQuery()) {
+                var rsmd = rs.getMetaData();
+                int columnCount = rsmd.getColumnCount();
 
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String idmuestras = String.valueOf(rs.getInt("idmuestras"));
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String idmuestras = String.valueOf(rs.getInt("idmuestras"));
 
-                for (int i = 1; i <= columnCount; i++) {
-                    String valor = rs.getString(i);
-                    row.createCell(i - 1).setCellValue(ExcelUtils.formatearEntradaExcel(valor));
+                    for (int i = 1; i <= columnCount; i++) {
+                        String valor = rs.getString(i);
+                        row.createCell(i - 1).setCellValue(ExcelUtils.formatearEntradaExcel(valor));
+                    }
+
+                    for (int i = 3; i <= columnCount; i++) {
+                        String valor = rs.getString(i);
+                        if (valor == null) {
+                            continue;
+                        }
+                        Double valorNum = null;
+                        String valorLower = valor.toLowerCase();
+
+                        if (valorLower.contains("ausencia") || valorLower.contains("presencia")) {
+                            valorNum = Double.parseDouble(ExcelUtils.extraerAusenciaPresencia(valor));
+                        } else if (valorLower.contains("lc")) {
+                            valorNum = extraerValorLC(valor);
+                        } else {
+                            valorNum = ExcelUtils.extraerNumero(valor);
+                        }
+
+                        if (valorNum != null && !Double.isNaN(valorNum)) {
+                            agregarCeldaGrafico(sheetHidden, rowCont, i, idmuestras, valorNum);
+                        }
+                    }
                 }
-
-                for (int i = 3; i <= columnCount; i++) {
-                    String valor = rs.getString(i);
-                    if (valor == null) {
-                        continue;
-                    }
-                    Double valorNum = null;
-                    String valorLower = valor.toLowerCase();
-
-                    if (valorLower.contains("ausencia") || valorLower.contains("presencia")) {
-                        valorNum = Double.parseDouble(ExcelUtils.extraerAusenciaPresencia(valor));
-                    } else if (valorLower.contains("lc")) {
-                        valorNum = extraerValorLC(valor);
-                    } else {
-                        valorNum = ExcelUtils.extraerNumero(valor);
-                    }
-
-                    if (valorNum != null && !Double.isNaN(valorNum)) {
-                        agregarCeldaGrafico(sheetHidden, rowCont, i, idmuestras, valorNum);
-                    }
-                }
+            } catch (SQLException e) {
+                logger.severe("Error en la consulta SQL: " + e.getMessage());
             }
         } catch (SQLException e) {
             logger.severe("Error en Determinaciones: " + e.getMessage());
@@ -693,88 +715,91 @@ public class ExcelService {
             ps.setString(2, tipo);
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
-                row.createCell(0).setCellValue(idmuestras);
-                String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
-                row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
-                String ph = rs.getString("ph");
-                row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(ph));
-                String cloroTotal = rs.getString("porcentajeTotalCloro");
-                row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(cloroTotal));
-                String olor = rs.getString("olor");
-                row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(olor));
-                String color = rs.getString("color");
-                row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(color));
-                String turbidez = rs.getString("turbidez");
-                row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(turbidez));
-                String alcalinidad = rs.getString("alcalinidad");
-                row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(alcalinidad));
-                String durezatotal = rs.getString("durezatotal");
-                row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(durezatotal));
-                String conductividad = rs.getString("conductividad");
-                row.createCell(9).setCellValue(ExcelUtils.formatearEntradaExcel(conductividad));
-                String solidosDisueltos = rs.getString("solidosDisueltos");
-                row.createCell(10).setCellValue(ExcelUtils.formatearEntradaExcel(solidosDisueltos));
-                String hierro = rs.getString("hierro");
-                row.createCell(11).setCellValue(ExcelUtils.formatearEntradaExcel(hierro));
-                String nitrato = rs.getString("nitrato");
-                row.createCell(12).setCellValue(ExcelUtils.formatearEntradaExcel(nitrato));
-                String nitritos = rs.getString("nitritos");
-                row.createCell(13).setCellValue(ExcelUtils.formatearEntradaExcel(nitritos));
-                String sulfatos = rs.getString("sulfatos");
-                row.createCell(14).setCellValue(ExcelUtils.formatearEntradaExcel(sulfatos));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
+                    row.createCell(0).setCellValue(idmuestras);
+                    String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
+                    row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
+                    String ph = rs.getString("ph");
+                    row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(ph));
+                    String cloroTotal = rs.getString("porcentajeTotalCloro");
+                    row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(cloroTotal));
+                    String olor = rs.getString("olor");
+                    row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(olor));
+                    String color = rs.getString("color");
+                    row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(color));
+                    String turbidez = rs.getString("turbidez");
+                    row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(turbidez));
+                    String alcalinidad = rs.getString("alcalinidad");
+                    row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(alcalinidad));
+                    String durezatotal = rs.getString("durezatotal");
+                    row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(durezatotal));
+                    String conductividad = rs.getString("conductividad");
+                    row.createCell(9).setCellValue(ExcelUtils.formatearEntradaExcel(conductividad));
+                    String solidosDisueltos = rs.getString("solidosDisueltos");
+                    row.createCell(10).setCellValue(ExcelUtils.formatearEntradaExcel(solidosDisueltos));
+                    String hierro = rs.getString("hierro");
+                    row.createCell(11).setCellValue(ExcelUtils.formatearEntradaExcel(hierro));
+                    String nitrato = rs.getString("nitrato");
+                    row.createCell(12).setCellValue(ExcelUtils.formatearEntradaExcel(nitrato));
+                    String nitritos = rs.getString("nitritos");
+                    row.createCell(13).setCellValue(ExcelUtils.formatearEntradaExcel(nitritos));
+                    String sulfatos = rs.getString("sulfatos");
+                    row.createCell(14).setCellValue(ExcelUtils.formatearEntradaExcel(sulfatos));
 
-                Double phGraph = ExcelUtils.extraerNumero(ph);
-                if (!Double.isNaN(phGraph) && phGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, phGraph);
+                    double phGraph = ExcelUtils.extraerNumero(ph);
+                    if (!Double.isNaN(phGraph) && phGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, phGraph);
+                    }
+                    double cloroGraph = ExcelUtils.extraerNumero(cloroTotal);
+                    if (!Double.isNaN(cloroGraph) && cloroGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, cloroGraph);
+                    }
+                    double colorGraph = ExcelUtils.extraerNumero(color);
+                    if (!Double.isNaN(colorGraph) && colorGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 3, idmuestras, colorGraph);
+                    }
+                    double turbidezGraph = ExcelUtils.extraerNumero(turbidez);
+                    if (!Double.isNaN(turbidezGraph) && turbidezGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, turbidezGraph);
+                    }
+                    double alcalinidadGraph = ExcelUtils.extraerNumero(alcalinidad);
+                    if (!Double.isNaN(alcalinidadGraph) && alcalinidadGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 5, idmuestras, alcalinidadGraph);
+                    }
+                    double durezaGraph = ExcelUtils.extraerNumero(durezatotal);
+                    if (!Double.isNaN(durezaGraph) && durezaGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 6, idmuestras, durezaGraph);
+                    }
+                    double conductividadGraph = ExcelUtils.extraerNumero(conductividad);
+                    if (!Double.isNaN(conductividadGraph) && conductividadGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 7, idmuestras, conductividadGraph);
+                    }
+                    double solidosGraph = ExcelUtils.extraerNumero(solidosDisueltos);
+                    if (!Double.isNaN(solidosGraph) && solidosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 8, idmuestras, solidosGraph);
+                    }
+                    double hierroGraph = ExcelUtils.extraerNumero(hierro);
+                    if (!Double.isNaN(hierroGraph) && hierroGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 9, idmuestras, hierroGraph);
+                    }
+                    double nitratoGraph = ExcelUtils.extraerNumero(nitrato);
+                    if (!Double.isNaN(nitratoGraph) && nitratoGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 10, idmuestras, nitratoGraph);
+                    }
+                    double nitritosGraph = ExcelUtils.extraerNumero(nitritos);
+                    if (!Double.isNaN(nitritosGraph) && nitritosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 11, idmuestras, nitritosGraph);
+                    }
+                    double sulfatosGraph = ExcelUtils.extraerNumero(sulfatos);
+                    if (!Double.isNaN(sulfatosGraph) && sulfatosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 12, idmuestras, sulfatosGraph);
+                    }
                 }
-                Double cloroGraph = ExcelUtils.extraerNumero(cloroTotal);
-                if (!Double.isNaN(cloroGraph) && cloroGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, cloroGraph);
-                }
-                Double colorGraph = ExcelUtils.extraerNumero(color);
-                if (!Double.isNaN(colorGraph) && colorGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 3, idmuestras, colorGraph);
-                }
-                Double turbidezGraph = ExcelUtils.extraerNumero(turbidez);
-                if (!Double.isNaN(turbidezGraph) && turbidezGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, turbidezGraph);
-                }
-                Double alcalinidadGraph = ExcelUtils.extraerNumero(alcalinidad);
-                if (!Double.isNaN(alcalinidadGraph) && alcalinidadGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 5, idmuestras, alcalinidadGraph);
-                }
-                Double durezaGraph = ExcelUtils.extraerNumero(durezatotal);
-                if (!Double.isNaN(durezaGraph) && durezaGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 6, idmuestras, durezaGraph);
-                }
-                Double conductividadGraph = ExcelUtils.extraerNumero(conductividad);
-                if (!Double.isNaN(conductividadGraph) && conductividadGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 7, idmuestras, conductividadGraph);
-                }
-                Double solidosGraph = ExcelUtils.extraerNumero(solidosDisueltos);
-                if (!Double.isNaN(solidosGraph) && solidosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 8, idmuestras, solidosGraph);
-                }
-                Double hierroGraph = ExcelUtils.extraerNumero(hierro);
-                if (!Double.isNaN(hierroGraph) && hierroGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 9, idmuestras, hierroGraph);
-                }
-                Double nitratoGraph = ExcelUtils.extraerNumero(nitrato);
-                if (!Double.isNaN(nitratoGraph) && nitratoGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 10, idmuestras, nitratoGraph);
-                }
-                Double nitritosGraph = ExcelUtils.extraerNumero(nitritos);
-                if (!Double.isNaN(nitritosGraph) && nitritosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 11, idmuestras, nitritosGraph);
-                }
-                Double sulfatosGraph = ExcelUtils.extraerNumero(sulfatos);
-                if (!Double.isNaN(sulfatosGraph) && sulfatosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 12, idmuestras, sulfatosGraph);
-                }
+            } catch (SQLException e) {
+                logger.severe("Error en la consulta SQL: " + e.getMessage());
             }
         } catch (SQLException e) {
             logger.severe("Error en la consulta SQL: " + e.getMessage());
@@ -794,54 +819,57 @@ public class ExcelService {
             ps.setString(2, tipo);
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String idmuestras = String.valueOf(rs.getInt("idmuestras"));
-                row.createCell(0).setCellValue(idmuestras);
-                String fechaMuestreo = rs.getDate("fechaMuestreo").toString();
-                row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
-                String germenes = rs.getString("germenes");
-                row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
-                String coliformesTotales = rs.getString("coliformesTotales");
-                row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
-                String coliformesFecales = rs.getString("coliformesFecales");
-                row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
-                String escherichia = rs.getString("escherichia");
-                row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
-                String staphilococos = rs.getString("staphilococos");
-                row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(staphilococos));
-                String mohos = rs.getString("mohos");
-                row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(mohos));
-                String salmonella = rs.getString("salmonella");
-                row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(salmonella));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String idmuestras = String.valueOf(rs.getInt("idmuestras"));
+                    row.createCell(0).setCellValue(idmuestras);
+                    String fechaMuestreo = rs.getDate("fechaMuestreo").toString();
+                    row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
+                    String germenes = rs.getString("germenes");
+                    row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
+                    String coliformesTotales = rs.getString("coliformesTotales");
+                    row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
+                    String coliformesFecales = rs.getString("coliformesFecales");
+                    row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
+                    String escherichia = rs.getString("escherichia");
+                    row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
+                    String staphilococos = rs.getString("staphilococos");
+                    row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(staphilococos));
+                    String mohos = rs.getString("mohos");
+                    row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(mohos));
+                    String salmonella = rs.getString("salmonella");
+                    row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(salmonella));
 
-                Double germenesGraph = ExcelUtils.extraerNumero(germenes);
-                if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, germenesGraph);
+                    double germenesGraph = ExcelUtils.extraerNumero(germenes);
+                    if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, germenesGraph);
+                    }
+                    double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
+                    if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, coliformesTotalesGraph);
+                    }
+                    double coliformesFecalesGraph = ExcelUtils.extraerNumero(coliformesFecales);
+                    if (!Double.isNaN(coliformesFecalesGraph) && coliformesFecalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 2, idmuestras, coliformesFecalesGraph);
+                    }
+                    if (escherichia != null && (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia"))) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 3, idmuestras, escherichia, estiloPresencia);
+                    }
+                    double staphilococosGraph = ExcelUtils.extraerNumero(staphilococos);
+                    if (!Double.isNaN(staphilococosGraph) && staphilococosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, staphilococosGraph);
+                    }
+                    double mohosGraph = ExcelUtils.extraerNumero(mohos);
+                    if (!Double.isNaN(mohosGraph) && mohosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 5, idmuestras, mohosGraph);
+                    }
+                    if (salmonella != null && (salmonella.toLowerCase().contains("ausencia") || salmonella.toLowerCase().contains("presencia"))) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 6, idmuestras, salmonella, estiloPresencia);
+                    }
                 }
-                Double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
-                if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, coliformesTotalesGraph);
-                }
-                Double coliformesFecalesGraph = ExcelUtils.extraerNumero(coliformesFecales);
-                if (!Double.isNaN(coliformesFecalesGraph) && coliformesFecalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 2, idmuestras, coliformesFecalesGraph);
-                }
-                if (escherichia != null && (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia"))) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 3, idmuestras, escherichia, estiloPresencia);
-                }
-                Double staphilococosGraph = ExcelUtils.extraerNumero(staphilococos);
-                if (!Double.isNaN(staphilococosGraph) && staphilococosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, staphilococosGraph);
-                }
-                Double mohosGraph = ExcelUtils.extraerNumero(mohos);
-                if (!Double.isNaN(mohosGraph) && mohosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 5, idmuestras, mohosGraph);
-                }
-                if (salmonella != null && (salmonella.toLowerCase().contains("ausencia") || salmonella.toLowerCase().contains("presencia"))) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 6, idmuestras, salmonella, estiloPresencia);
-                }
+            } catch (SQLException e) {
+                logger.severe("Error en la consulta SQL: " + e.getMessage());
             }
         } catch (SQLException e) {
             logger.severe("Error en la consulta SQL: " + e.getMessage());
@@ -851,10 +879,8 @@ public class ExcelService {
     private void consultarMBAlimentosParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowCont, Workbook workbook) {
         String sql = "SELECT idmuestras, fechaAnalisis, germenes, coliformesTotales, coliformesFecales, escherichia, " + "escherichiah7, escherichia157, enterobacterias, staphilococos, mohosLevaduras, salmonella, listeria, " + "bacillus, perfringens, sulfito, campilobacter, coliformesTotalesA30, coliformesTotalesProbables, " + "caracteristicas, lactobacillus, bacteriasLacticas, coliformesTotales45, vibrio, shigella, vibrioCholerae " + "FROM vistambalimentos WHERE idmuestras IN (SELECT idmuestras FROM muestras WHERE idcliente = ? AND tipo = ?) " + "AND fechaAnalisis BETWEEN ? AND ?";
 
-        // Columnas que se procesan como presencia/ausencia
         List<String> columnasPresencia = Arrays.asList("escherichia", "escherichiah7", "escherichia157", "salmonella", "shigella");
 
-        // Reiniciar contadores
         for (int i = 0; i < rowCont.length; i++) {
             rowCont[i] = 0;
         }
@@ -868,38 +894,40 @@ public class ExcelService {
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
 
-            ResultSet rs = ps.executeQuery();
-            var rsmd = rs.getMetaData();
-            int columnCount = rsmd.getColumnCount();
+            try (ResultSet rs = ps.executeQuery()) {
+                var rsmd = rs.getMetaData();
+                int columnCount = rsmd.getColumnCount();
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String idmuestras = String.valueOf(rs.getInt("idmuestras"));
 
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String idmuestras = String.valueOf(rs.getInt("idmuestras"));
+                    for (int i = 1; i <= columnCount; i++) {
+                        String valor = rs.getString(i);
+                        row.createCell(i - 1).setCellValue(ExcelUtils.formatearEntradaExcel(valor));
+                    }
 
-                for (int i = 1; i <= columnCount; i++) {
-                    String valor = rs.getString(i);
-                    row.createCell(i - 1).setCellValue(ExcelUtils.formatearEntradaExcel(valor));
-                }
+                    for (int i = 3; i <= columnCount; i++) {
+                        String colName = rsmd.getColumnName(i);
+                        String valor = rs.getString(i);
+                        if (valor == null) continue;
 
-                for (int i = 3; i <= columnCount; i++) {
-                    String colName = rsmd.getColumnName(i);
-                    String valor = rs.getString(i);
-                    if (valor == null) continue;
+                        int graphIdx = i - 3;
+                        boolean esP_A = columnasPresencia.contains(colName.toLowerCase());
 
-                    int graphIdx = i - 3;
-                    boolean esP_A = columnasPresencia.contains(colName.toLowerCase());
-
-                    if (esP_A) {
-                        if (valor.toLowerCase().contains("ausencia") || valor.toLowerCase().contains("presencia")) {
-                            agregarCeldaPresencia(sheetHidden, rowCont, graphIdx, idmuestras, valor, estiloPresencia);
-                        }
-                    } else {
-                        Double valorNum = ExcelUtils.extraerNumero(valor);
-                        if (valorNum != null && !Double.isNaN(valorNum)) {
-                            agregarCeldaGrafico(sheetHidden, rowCont, graphIdx, idmuestras, valorNum);
+                        if (esP_A) {
+                            if (valor.toLowerCase().contains("ausencia") || valor.toLowerCase().contains("presencia")) {
+                                agregarCeldaPresencia(sheetHidden, rowCont, graphIdx, idmuestras, valor, estiloPresencia);
+                            }
+                        } else {
+                            Double valorNum = ExcelUtils.extraerNumero(valor);
+                            if (!Double.isNaN(valorNum)) {
+                                agregarCeldaGrafico(sheetHidden, rowCont, graphIdx, idmuestras, valorNum);
+                            }
                         }
                     }
                 }
+            } catch (SQLException e) {
+                logger.severe("Error en MB Alimentos: " + e.getMessage());
             }
         } catch (SQLException e) {
             logger.severe("Error en MB Alimentos: " + e.getMessage());
@@ -948,40 +976,30 @@ public class ExcelService {
             ps.setString(2, tipo);
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String[] parametros = {"ph", "conductividad", "dqo", "dbo", "solidos10", "solidos120", "detergentes", "grasas", "fosforo", "nitrogeno", "sustancias", "coliformesTotales", "coliformesFecales", "escherichia", "hidrocarburos", "nitratos", "cloro", "sulfuros"};
-                String idmuestras = String.valueOf(rs.getInt("idmuestras"));
-                row.createCell(0).setCellValue(idmuestras);
-                row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(rs.getDate("fechaMuestreo").toString()));
-                for (int i = 0; i < parametros.length; i++) {
-                    String nombreCol = parametros[i];
-                    String valorRaw = rs.getString(nombreCol);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String[] parametros = {"ph", "conductividad", "dqo", "dbo", "solidos10", "solidos120", "detergentes", "grasas", "fosforo", "nitrogeno", "sustancias", "coliformesTotales", "coliformesFecales", "escherichia", "hidrocarburos", "nitratos", "cloro", "sulfuros"};
+                    String idmuestras = String.valueOf(rs.getInt("idmuestras"));
+                    row.createCell(0).setCellValue(idmuestras);
+                    row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(rs.getDate("fechaMuestreo").toString()));
+                    for (int i = 0; i < parametros.length; i++) {
+                        String nombreCol = parametros[i];
+                        String valorRaw = rs.getString(nombreCol);
 
-                    row.createCell(i + 2).setCellValue(ExcelUtils.formatearEntradaExcel(valorRaw));
+                        row.createCell(i + 2).setCellValue(ExcelUtils.formatearEntradaExcel(valorRaw));
 
-                    if (i < rowCont.length) {
-                        Double valorNum = ExcelUtils.extraerNumero(valorRaw);
+                        if (i < rowCont.length) {
+                            double valorNum = ExcelUtils.extraerNumero(valorRaw);
 
-                        if (!Double.isNaN(valorNum) && valorNum >= 0) {
-                            int filaActual = rowCont[i];
-
-                            Row rowGraph = sheetHidden.getRow(filaActual);
-                            if (rowGraph == null) {
-                                rowGraph = sheetHidden.createRow(filaActual);
+                            if (!Double.isNaN(valorNum) && valorNum >= 0) {
+                                agregarCeldaGrafico(sheetHidden, rowCont, i, idmuestras, valorNum);
                             }
-
-                            int colID = i * 2;
-                            int colVal = i * 2 + 1;
-
-                            rowGraph.createCell(colID).setCellValue(ExcelUtils.procesarCeldaGrafico(idmuestras));
-                            rowGraph.createCell(colVal).setCellValue(valorNum);
-
-                            rowCont[i]++;
                         }
                     }
                 }
+            } catch (SQLException e) {
+                logger.severe("Error en la consulta SQL: " + e.getMessage());
             }
         } catch (SQLException e) {
             logger.severe("Error en la consulta SQL: " + e.getMessage());
@@ -998,54 +1016,57 @@ public class ExcelService {
             ps.setString(2, tipo);
             ps.setDate(3, desdeSql);
             ps.setDate(4, hastaSql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Row row = sheet.createRow(rowNum[0]++);
-                String idmuestras = String.valueOf(rs.getInt("idmuestras"));
-                row.createCell(0).setCellValue(idmuestras);
-                String fechaMuestreo = rs.getDate("fechaMuestreo").toString();
-                row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
-                String germenes = rs.getString("germenes");
-                row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
-                String coliformesTotales = rs.getString("coliformesTotales");
-                row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
-                String coliformesFecales = rs.getString("coliformesFecales");
-                row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
-                String escherichia = rs.getString("escherichia");
-                row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
-                String mohos = rs.getString("mohos");
-                row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(mohos));
-                String staphilococos = rs.getString("staphilococos");
-                row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(staphilococos));
-                String salmonella = rs.getString("salmonella");
-                row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(salmonella));
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Row row = sheet.createRow(rowNum[0]++);
+                    String idmuestras = String.valueOf(rs.getInt("idmuestras"));
+                    row.createCell(0).setCellValue(idmuestras);
+                    String fechaMuestreo = rs.getDate("fechaMuestreo").toString();
+                    row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
+                    String germenes = rs.getString("germenes");
+                    row.createCell(2).setCellValue(ExcelUtils.formatearEntradaExcel(germenes));
+                    String coliformesTotales = rs.getString("coliformesTotales");
+                    row.createCell(3).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesTotales));
+                    String coliformesFecales = rs.getString("coliformesFecales");
+                    row.createCell(4).setCellValue(ExcelUtils.formatearEntradaExcel(coliformesFecales));
+                    String escherichia = rs.getString("escherichia");
+                    row.createCell(5).setCellValue(ExcelUtils.formatearEntradaExcel(escherichia));
+                    String mohos = rs.getString("mohos");
+                    row.createCell(6).setCellValue(ExcelUtils.formatearEntradaExcel(mohos));
+                    String staphilococos = rs.getString("staphilococos");
+                    row.createCell(7).setCellValue(ExcelUtils.formatearEntradaExcel(staphilococos));
+                    String salmonella = rs.getString("salmonella");
+                    row.createCell(8).setCellValue(ExcelUtils.formatearEntradaExcel(salmonella));
 
-                Double germenesGraph = ExcelUtils.extraerNumero(germenes);
-                if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, germenesGraph);
+                    double germenesGraph = ExcelUtils.extraerNumero(germenes);
+                    if (!Double.isNaN(germenesGraph) && germenesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 0, idmuestras, germenesGraph);
+                    }
+                    double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
+                    if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, coliformesTotalesGraph);
+                    }
+                    double coliformesFecalesGraph = ExcelUtils.extraerNumero(coliformesFecales);
+                    if (!Double.isNaN(coliformesFecalesGraph) && coliformesFecalesGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 2, idmuestras, coliformesFecalesGraph);
+                    }
+                    if (escherichia != null && (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia"))) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 3, idmuestras, escherichia, estiloPresencia);
+                    }
+                    double mohosGraph = ExcelUtils.extraerNumero(mohos);
+                    if (!Double.isNaN(mohosGraph) && mohosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, mohosGraph);
+                    }
+                    double staphilococosGraph = ExcelUtils.extraerNumero(staphilococos);
+                    if (!Double.isNaN(staphilococosGraph) && staphilococosGraph >= 0) {
+                        agregarCeldaGrafico(sheetHidden, rowCont, 5, idmuestras, staphilococosGraph);
+                    }
+                    if (salmonella != null && (salmonella.toLowerCase().contains("ausencia") || salmonella.toLowerCase().contains("presencia"))) {
+                        agregarCeldaPresencia(sheetHidden, rowCont, 6, idmuestras, salmonella, estiloPresencia);
+                    }
                 }
-                Double coliformesTotalesGraph = ExcelUtils.extraerNumero(coliformesTotales);
-                if (!Double.isNaN(coliformesTotalesGraph) && coliformesTotalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 1, idmuestras, coliformesTotalesGraph);
-                }
-                Double coliformesFecalesGraph = ExcelUtils.extraerNumero(coliformesFecales);
-                if (!Double.isNaN(coliformesFecalesGraph) && coliformesFecalesGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 2, idmuestras, coliformesFecalesGraph);
-                }
-                if (escherichia != null && (escherichia.toLowerCase().contains("ausencia") || escherichia.toLowerCase().contains("presencia"))) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 3, idmuestras, escherichia, estiloPresencia);
-                }
-                Double mohosGraph = ExcelUtils.extraerNumero(mohos);
-                if (!Double.isNaN(mohosGraph) && mohosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 4, idmuestras, mohosGraph);
-                }
-                Double staphilococosGraph = ExcelUtils.extraerNumero(staphilococos);
-                if (!Double.isNaN(staphilococosGraph) && staphilococosGraph >= 0) {
-                    agregarCeldaGrafico(sheetHidden, rowCont, 5, idmuestras, staphilococosGraph);
-                }
-                if (salmonella != null && (salmonella.toLowerCase().contains("ausencia") || salmonella.toLowerCase().contains("presencia"))) {
-                    agregarCeldaPresencia(sheetHidden, rowCont, 6, idmuestras, salmonella, estiloPresencia);
-                }
+            } catch (SQLException e) {
+                logger.severe("Error en la consulta SQL, " + e);
             }
         } catch (SQLException e) {
             logger.severe("Error en la consulta SQL: " + e.getMessage());
