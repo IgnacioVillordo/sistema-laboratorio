@@ -36,7 +36,7 @@ public class UsuarioRepository {
     }
 
     public DefaultComboBoxModel<String> recuperarUsuarios() {
-        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel();
+        DefaultComboBoxModel<String> modelo = new DefaultComboBoxModel<>();
         modelo.removeAllElements();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("SELECT nombre FROM usuarios");

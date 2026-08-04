@@ -24,7 +24,6 @@ public class VencimientoRepository {
     }
 
     public boolean agregarVencimiento(Resultados r) { //se agega el vencimiento, si es mb se agregan 6 meses y fq 12 meses
-        int id = muestraRepository.obtenerIdMuestra();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = null;
             if (r.getTipo().startsWith("Microbiológico")) {
@@ -41,7 +40,7 @@ public class VencimientoRepository {
 
             int response = 0;
             if (ps != null) {
-                ps.executeUpdate();
+                response = ps.executeUpdate();
             }
             return response > 0;
         } catch (Exception e) {
@@ -51,7 +50,7 @@ public class VencimientoRepository {
     }
 
     public DefaultTableModel obtenerVencimientos(Date desde, Date hasta, boolean actualizar) {//se obtienen los datos para la tabla de vencimientos
-        Object fila[] = new Object[5];
+        Object[] fila = new Object[5];
         boolean aviso;
         DefaultTableModel modeloVencimientos = new DefaultTableModel();
         modeloVencimientos.addColumn("ID");
@@ -104,8 +103,7 @@ public class VencimientoRepository {
     }
 
     public DefaultTableModel obtenerVencimientosInformes(Date desde, Date hasta) {
-        Object fila[] = new Object[4];
-        boolean aviso = false;
+        Object[] fila = new Object[4];
         DefaultTableModel modeloVencimientos = new DefaultTableModel();
         modeloVencimientos.addColumn("ID");
         modeloVencimientos.addColumn("Procedencia");
@@ -190,7 +188,6 @@ public class VencimientoRepository {
             PreparedStatement ps = conexion.prepareStatement("update vencimientos set aviso = ? where idmuestras = ?");
             ps.setInt(1, aviso);
             ps.setInt(2, id);
-            System.out.println("ps.toString() = " + ps.toString());
             ps.executeUpdate();
         } catch (Exception e) {
             logger.severe("Error, " + e);

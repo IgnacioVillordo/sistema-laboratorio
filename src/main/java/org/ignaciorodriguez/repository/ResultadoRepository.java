@@ -47,12 +47,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -61,9 +55,8 @@ public class ResultadoRepository {
         try (Connection conexion = con.getConnection()) {
             // Construcción dinámica de la parte VALUES (?,?,?...)
             StringBuilder values = new StringBuilder("?"); // El primero es idmuestras
-            for (int i = 0; i < (34 * 4) + 2; i++) { // 34 campos * 4 categorías + titulo + mostrar
-                values.append(",?");
-            }
+            // 34 campos * 4 categorías + titulo + mostrar
+            values.repeat(",?", (34 * 4) + 2);
 
             PreparedStatement ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`manual` (" + "`idmuestras`," + "`determinacion1`,`determinacion2`,`determinacion3`,`determinacion4`,`determinacion5`,`determinacion6`,`determinacion7`,`determinacion8`,`determinacion9`,`determinacion10`," + "`determinacion11`,`determinacion12`,`determinacion13`,`determinacion14`,`determinacion15`,`determinacion16`,`determinacion17`,`determinacion18`,`determinacion19`,`determinacion20`," + "`determinacion21`,`determinacion22`,`determinacion23`,`determinacion24`,`determinacion25`,`determinacion26`,`determinacion27`,`determinacion28`,`determinacion29`,`determinacion30`," + "`determinacion31`,`determinacion32`,`determinacion33`,`determinacion34`," + "`recuentoObtenido1`,`recuentoObtenido2`,`recuentoObtenido3`,`recuentoObtenido4`,`recuentoObtenido5`,`recuentoObtenido6`,`recuentoObtenido7`,`recuentoObtenido8`,`recuentoObtenido9`,`recuentoObtenido10`," + "`recuentoObtenido11`,`recuentoObtenido12`,`recuentoObtenido13`,`recuentoObtenido14`,`recuentoObtenido15`,`recuentoObtenido16`,`recuentoObtenido17`,`recuentoObtenido18`,`recuentoObtenido19`,`recuentoObtenido20`," + "`recuentoObtenido21`,`recuentoObtenido22`,`recuentoObtenido23`,`recuentoObtenido24`,`recuentoObtenido25`,`recuentoObtenido26`,`recuentoObtenido27`,`recuentoObtenido28`,`recuentoObtenido29`,`recuentoObtenido30`," + "`recuentoObtenido31`,`recuentoObtenido32`,`recuentoObtenido33`,`recuentoObtenido34`," + "`recuentoNormal1`,`recuentoNormal2`,`recuentoNormal3`,`recuentoNormal4`,`recuentoNormal5`,`recuentoNormal6`,`recuentoNormal7`,`recuentoNormal8`,`recuentoNormal9`,`recuentoNormal10`," + "`recuentoNormal11`,`recuentoNormal12`,`recuentoNormal13`,`recuentoNormal14`,`recuentoNormal15`,`recuentoNormal16`,`recuentoNormal17`,`recuentoNormal18`,`recuentoNormal19`,`recuentoNormal20`," + "`recuentoNormal21`,`recuentoNormal22`,`recuentoNormal23`,`recuentoNormal24`,`recuentoNormal25`,`recuentoNormal26`,`recuentoNormal27`,`recuentoNormal28`,`recuentoNormal29`,`recuentoNormal30`," + "`recuentoNormal31`,`recuentoNormal32`,`recuentoNormal33`,`recuentoNormal34`," + "`metodo1`,`metodo2`,`metodo3`,`metodo4`,`metodo5`,`metodo6`,`metodo7`,`metodo8`,`metodo9`,`metodo10`," + "`metodo11`,`metodo12`,`metodo13`,`metodo14`,`metodo15`,`metodo16`,`metodo17`,`metodo18`,`metodo19`,`metodo20`," + "`metodo21`,`metodo22`,`metodo23`,`metodo24`,`metodo25`,`metodo26`,`metodo27`,`metodo28`,`metodo29`,`metodo30`," + "`metodo31`,`metodo32`,`metodo33`,`metodo34`, `titulo`, `mostrar`" + ") VALUES (" + values.toString() + ")");
 
@@ -88,12 +81,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -103,25 +90,19 @@ public class ResultadoRepository {
             PreparedStatement ps = conexion.prepareStatement("select * from manual where idmuestras = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 return true;
             }
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return false;
     }
 
     public Map<String, String> recuperarResultadoManual(int id) {
 
-        Map<String, String> map = new HashMap();
+        Map<String, String> map = new HashMap<>();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from manual where idmuestras = ?");
             ps.setInt(1, id);
@@ -135,17 +116,10 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
     public boolean editarResultadoManual(Map m) {
-
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("UPDATE `laboratorio`.`manual` SET " + "`determinacion1` = ?,`determinacion2` = ?,`determinacion3` = ?,`determinacion4` = ?,`determinacion5` = ?,`determinacion6` = ?,`determinacion7` = ?,`determinacion8` = ?,`determinacion9` = ?,`determinacion10` = ?," + "`determinacion11` = ?,`determinacion12` = ?,`determinacion13` = ?,`determinacion14` = ?,`determinacion15` = ?,`determinacion16` = ?,`determinacion17` = ?,`determinacion18` = ?,`determinacion19` = ?,`determinacion20` = ?," + "`determinacion21` = ?,`determinacion22` = ?,`determinacion23` = ?,`determinacion24` = ?,`determinacion25` = ?,`determinacion26` = ?,`determinacion27` = ?,`determinacion28` = ?,`determinacion29` = ?,`determinacion30` = ?," + "`determinacion31` = ?,`determinacion32` = ?,`determinacion33` = ?,`determinacion34` = ?," + "`recuentoObtenido1` = ?,`recuentoObtenido2` = ?,`recuentoObtenido3` = ?,`recuentoObtenido4` = ?,`recuentoObtenido5` = ?,`recuentoObtenido6` = ?,`recuentoObtenido7` = ?,`recuentoObtenido8` = ?,`recuentoObtenido9` = ?,`recuentoObtenido10` = ?," + "`recuentoObtenido11` = ?,`recuentoObtenido12` = ?,`recuentoObtenido13` = ?,`recuentoObtenido14` = ?,`recuentoObtenido15` = ?,`recuentoObtenido16` = ?,`recuentoObtenido17` = ?,`recuentoObtenido18` = ?,`recuentoObtenido19` = ?,`recuentoObtenido20` = ?," + "`recuentoObtenido21` = ?,`recuentoObtenido22` = ?,`recuentoObtenido23` = ?,`recuentoObtenido24` = ?,`recuentoObtenido25` = ?,`recuentoObtenido26` = ?,`recuentoObtenido27` = ?,`recuentoObtenido28` = ?,`recuentoObtenido29` = ?,`recuentoObtenido30` = ?," + "`recuentoObtenido31` = ?,`recuentoObtenido32` = ?,`recuentoObtenido33` = ?,`recuentoObtenido34` = ?," + "`recuentoNormal1` = ?,`recuentoNormal2` = ?,`recuentoNormal3` = ?,`recuentoNormal4` = ?,`recuentoNormal5` = ?,`recuentoNormal6` = ?,`recuentoNormal7` = ?,`recuentoNormal8` = ?,`recuentoNormal9` = ?,`recuentoNormal10` = ?," + "`recuentoNormal11` = ?,`recuentoNormal12` = ?,`recuentoNormal13` = ?,`recuentoNormal14` = ?,`recuentoNormal15` = ?,`recuentoNormal16` = ?,`recuentoNormal17` = ?,`recuentoNormal18` = ?,`recuentoNormal19` = ?,`recuentoNormal20` = ?," + "`recuentoNormal21` = ?,`recuentoNormal22` = ?,`recuentoNormal23` = ?,`recuentoNormal24` = ?,`recuentoNormal25` = ?,`recuentoNormal26` = ?,`recuentoNormal27` = ?,`recuentoNormal28` = ?,`recuentoNormal29` = ?,`recuentoNormal30` = ?," + "`recuentoNormal31` = ?,`recuentoNormal32` = ?,`recuentoNormal33` = ?,`recuentoNormal34` = ?," + "`metodo1` = ?,`metodo2` = ?,`metodo3` = ?,`metodo4` = ?,`metodo5` = ?,`metodo6` = ?,`metodo7` = ?,`metodo8` = ?,`metodo9` = ?,`metodo10` = ?," + "`metodo11` = ?,`metodo12` = ?,`metodo13` = ?,`metodo14` = ?,`metodo15` = ?,`metodo16` = ?,`metodo17` = ?,`metodo18` = ?,`metodo19` = ?,`metodo20` = ?," + "`metodo21` = ?,`metodo22` = ?,`metodo23` = ?,`metodo24` = ?,`metodo25` = ?,`metodo26` = ?,`metodo27` = ?,`metodo28` = ?,`metodo29` = ?,`metodo30` = ?," + "`metodo31` = ?,`metodo32` = ?,`metodo33` = ?,`metodo34` = ?, titulo = ?, mostrar = ? " + "WHERE `idmuestras` = ?;");
             int index = 1;
@@ -170,12 +144,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -202,12 +170,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -229,46 +191,32 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
     public boolean checkearResultadoMBAgua(int id) {
-
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from mbagua where idmuestras = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 return true;
             }
         } catch (Exception e) {
             logger.severe("Error al checkearResultadosMBAgua, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return false;
     }
 
     public Map<String, String> recuperarResultadosMBAgua(int id) {
 
-        Map valores = new HashMap();
+        Map<String, String> valores = new HashMap<>();
         boolean nulo = true;
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select germenes, coliformesTotales, coliformesFecales, escherichia," + " pseudomona, caracteresOrganolepticos, fechaAnalisis, mohos, mohosLimite, shigella from " + "mbagua where idmuestras = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
+            if (rs.next()) {
                 for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                     if (rs.getObject(i + 1) != null) {
                         nulo = false;
@@ -279,24 +227,18 @@ public class ResultadoRepository {
             }
         } catch (Exception e) {
             logger.severe("Error al recuperar datos, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return null;
     }
 
     public Map<String, String> recuperarResultadosMBAguaCOFES(int id) {
 
-        Map<String, String> valores = new HashMap();
+        Map<String, String> valores = new HashMap<>();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select germenes, coliformesTotales, coliformesFecales, escherichia," + " pseudomona, caracteresOrganolepticos, fechaAnalisis, shigella from " + "mbagua where idmuestras = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 for (int i = 0; i < ps.getMetaData().getColumnCount(); i++) {
                     if (rs.getObject(i + 1) == null) {
                         return null;
@@ -308,24 +250,18 @@ public class ResultadoRepository {
             }
         } catch (Exception e) {
             logger.severe("Error al recuperar datos, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return null;
     }
 
     public Map<String, String> recuperarResultadosMBAguaDeRecreacion(int id) {
 
-        Map<String, String> valores = new HashMap();
+        Map<String, String> valores = new HashMap<>();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select germenes, coliformesTotales, " + "coliformesFecales, escherichia, pseudomona, staphilococos, " + "streptococos, caracteresOrganolepticos, fechaanalisis, shigella from " + "mbagua where idmuestras = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 for (int i = 0; i < ps.getMetaData().getColumnCount(); i++) {
                     valores.put(ps.getMetaData().getColumnName(i + 1), String.valueOf(rs.getObject(i + 1)));
                 }
@@ -333,12 +269,6 @@ public class ResultadoRepository {
             }
         } catch (Exception e) {
             logger.severe("Error al recuperar datos, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return null;
     }
@@ -350,7 +280,7 @@ public class ResultadoRepository {
             PreparedStatement ps = conexion.prepareStatement("select `ph`,`cloroTotal`," + "`olor`,`color`,`turbidez`,`alcalinidad`,`durezatotal`,`conductividad`," + "`solidosDisueltos`,`hierro`,`nitratos`,`nitritos`,`sulfatos` from" + " `laboratorio`.`fqagua` where idmuestras = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                     valores.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
                 }
@@ -359,12 +289,6 @@ public class ResultadoRepository {
             }
         } catch (Exception e) {
             logger.severe("Error al recuperar datos, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return null;
     }
@@ -394,12 +318,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -419,12 +337,6 @@ public class ResultadoRepository {
             }
         } catch (Exception e) {
             logger.severe("Error al recuperarTablaNutricional, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return null;
     }
@@ -501,12 +413,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al editar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -531,12 +437,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al editar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -557,12 +457,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al guardar efluentes, " + e);
-            }
         }
     }
 
@@ -583,16 +477,10 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al editar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
-    public boolean guardarResultadoBaseHelada(Map m) {
+    public boolean guardarResultadoBaseHelada(Map<String, Object> m) {
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`mbchocolates`" + "(`idmuestras`,`germenes`, `coliformesTotales`," + "`coliformesFecales`, `escherichia`,`mohos`, conclusion, staphilococos, salmonella) " + "VALUES (?,?,?,?,?,?,?,?,?)");
@@ -610,16 +498,10 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
-    public boolean editarResultadoBaseHelada(Map m) {
+    public boolean editarResultadoBaseHelada(Map<String, String> m) {
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update mbchocolates set germenes = ?, " + "coliformesTotales = ?, coliformesFecales = ?, escherichia = ?, " + "mohos = ?, conclusion = ?," + "staphilococos = ?, salmonella = ? where idmuestras = ?");
@@ -631,22 +513,16 @@ public class ResultadoRepository {
             ps.setString(6, String.valueOf(String.valueOf(m.get("conclusion"))));
             ps.setString(7, String.valueOf(m.get("staphilococos")));
             ps.setString(8, String.valueOf(m.get("salmonella")));
-            ps.setInt(9, (int) m.get("idmuestras"));
+            ps.setInt(9, Integer.parseInt(m.get("idmuestras")));
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
-    public boolean guardarResultadoMBChocolates(Map m) {
+    public boolean guardarResultadoMBChocolates(Map<String, Object> m) {
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`mbchocolates`" + "(`idmuestras`,`germenes`, `coliformesTotales`," + "`coliformesFecales`, `escherichia`,`mohos`, conclusion, salmonella) " + "VALUES (?,?,?,?,?,?,?,?)");
@@ -663,16 +539,10 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
-    public boolean editarResultadoMBChocolates(Map m) {
+    public boolean editarResultadoMBChocolates(Map<String,Object> m) {
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update mbchocolates set germenes = ?, " + "coliformesTotales = ?, coliformesFecales = ?, escherichia = ?, " + "mohos = ?, conclusion = ?, salmonella = ? where idmuestras = ?");
@@ -690,17 +560,11 @@ public class ResultadoRepository {
             logger.severe("Error al editar datos, " + e);
             e.printStackTrace();
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
 
-    public boolean editarMBAlimentos(Map m) {
+    public boolean editarMBAlimentos(Map<String, Object> m) {
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update mbalimentos set coliformesTotales = ?, " + "coliformesFecales = ?, staphilococos = ?, salmonella = ?, mohosLevadura = ?, " + "escherichia = ?, germenes = ?, coliformesTotalesMetodo = ?, " + "coliformesFecalesMetodo = ?, staphilococosMetodo = ?, salmonellaMetodo = ?, mohosLevaduraMetodo = ?, " + "escherichiaMetodo = ?, germenesMetodo = ?, escherichiah7 = ?," + "escherichia157 = ?, enterobacterias = ?, listeria = ?, bacillus = ?," + "perfringens = ?, sulfito = ?, campilobacter = ?, escherichiah7Metodo = ?," + "escherichia157Metodo = ?, enterobacteriasMetodo = ?, listeriaMetodo = ?, bacillusMetodo = ?," + "perfringensMetodo = ?, sulfitoMetodo = ?, campilobacterMetodo = ?, " + "caracteristicas = ?, caracteristicasMetodo = ?, coliformesTotalesA30 = ?,coliformesTotalesA30Metodo = ?," + " coliformesTotalesProbables = ?,coliformesTotalesProbablesMetodo = ?, " + "lactobacillus = ?, lactobacillusMetodo = ?, bacteriasLacticas = ?, bacteriasLacticasMetodo = ?," + " coliformesTotales45 = ?, coliformesTotales45Metodo = ?, vibrio = ?, vibrioMetodo = ?, vibrioCholerae = ?, vibrioCholeraeMetodo = ?," + "shigella = ?, shigellaMetodo = ? where idmuestras = ?");
@@ -758,16 +622,10 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al editar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
-    public boolean guardarResultadoMBAlimentos(Map m) {
+    public boolean guardarResultadoMBAlimentos(Map<String, Object> m) {
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`mbalimentos` " + "(`idmuestras`, `coliformesTotales`, coliformesFecales, `staphilococos`, " + "`salmonella`, `mohosLevadura`,`escherichia`, germenes,`coliformesTotalesMetodo`, " + "coliformesFecalesMetodo, `staphilococosMetodo`, `salmonellaMetodo`, `mohosLevaduraMetodo`," + "`escherichiaMetodo`, germenesMetodo, `escherichiah7`, `escherichia157`, " + "`enterobacterias`, `listeria`, `bacillus`, `perfringens`, " + "`sulfito`, `campilobacter`, `escherichiah7Metodo`, `escherichia157Metodo`, " + "`enterobacteriasMetodo`, `listeriaMetodo`, `bacillusMetodo`, " + "`perfringensMetodo`, `sulfitoMetodo`, `campilobacterMetodo`, caracteristicas, caracteristicasMetodo, " + "coliformesTotalesA30, coliformesTotalesA30Metodo, coliformesTotalesProbables, coliformesTotalesProbablesMetodo," + "lactobacillus, lactobacillusMetodo, bacteriasLacticas, bacteriasLacticasMetodo, coliformesTotales45, coliformesTotales45Metodo, vibrio, vibrioMetodo, vibrioCholerae, vibrioCholeraeMetodo, shigella, shigellaMetodo) " + "VALUES (?,?,?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
@@ -825,12 +683,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -839,30 +691,21 @@ public class ResultadoRepository {
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from muestras");
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                return false;
-            }
-            return true;
+            return !rs.next();
         } catch (Exception e) {
             logger.severe("Error al verificar datos, " + e);
             return true;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
-    public Map recuperarResultadosMBAlimentos(int id) {
+    public Map<String, String> recuperarResultadosMBAlimentos(int id) {
 
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap<>();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select coliformesTotales, coliformesFecales, escherichia, " + "staphilococos, salmonella, mohosLevaduras, fechaAnalisis, germenes, " + "coliformesTotalesMetodo, coliformesFecalesMetodo, escherichiaMetodo, " + "staphilococosMetodo, salmonellaMetodo, mohosLevadurasMetodo, germenesMetodo, " + "`escherichiah7`, `escherichia157`, " + "`enterobacterias`, `listeria`, `bacillus`, `perfringens`, " + "`sulfito`, `campilobacter`, `escherichiah7Metodo`, `escherichia157Metodo`, " + "`enterobacteriasMetodo`, `listeriaMetodo`, `bacillusMetodo`, " + "`perfringensMetodo`, `sulfitoMetodo`, `campilobacterMetodo`, caracteristicas, caracteristicasMetodo," + "coliformesTotalesA30, coliformesTotalesProbables,coliformesTotalesA30Metodo, coliformesTotalesProbablesMetodo," + " lactobacillus, lactobacillusMetodo, bacteriasLacticas, bacteriasLacticasMetodo, coliformesTotales45, coliformesTotales45Metodo," + "vibrio, vibrioMetodo, vibrioCholerae, vibrioCholeraeMetodo, shigella, shigellaMetodo" + " from vistambalimentos where idmuestras = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                     if (rs.getObject(i + 1) == null) {
                         map.put(rs.getMetaData().getColumnName(i + 1), "");
@@ -875,19 +718,11 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al recuperarResultadosMBAlimentos, " + e);
             return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return null;
     }
 
     public boolean guardarPhYCloro(Map m) {
-
-        String[] aux = new String[31];
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("insert into mbagua (ph, cloroLibre, cloroTotal,idmuestras) values (?,?,?,?)");
             ps.setString(1, String.valueOf(m.get("ph")));
@@ -899,18 +734,10 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
     public boolean editarPhYCloro(Map m) {
-
-        String[] aux = new String[31];
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("update mbagua set ph = ?, cloroLibre = ?, cloroTotal = ? where idmuestras = ?");
             ps.setString(1, String.valueOf(m.get("ph")));
@@ -922,23 +749,17 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
     public Map<String, String> recuperarResultadosMBChocolates(int id) {
 
-        Map<String, String> aux = new HashMap();
+        Map<String, String> aux = new HashMap<>();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select germenes,coliformesTotales," + " coliformesFecales, escherichia, mohos, salmonella" + " from mbchocolates where idmuestras = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                     aux.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
                 }
@@ -947,12 +768,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al recuperarResultadosMBChocolates, " + e);
             return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return null;
     }
@@ -960,12 +775,12 @@ public class ResultadoRepository {
 
     public Map<String, String> recuperarResultadosEfluentes(int id) {
 
-        Map<String, String> aux = new HashMap();
+        Map<String, String> aux = new HashMap<>();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select ph, dqo, dbo, solidos10, solidos120, " + "hidrocarburos from efluentes where idmuestras = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                     aux.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
                 }
@@ -974,12 +789,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al recuperarResultadosEfluentes, " + e);
             return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return null;
     }
@@ -1004,12 +813,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -1031,12 +834,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e + " en línea " + e.getStackTrace()[0].getLineNumber());
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -1060,12 +857,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al editar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -1087,23 +878,17 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al editar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
     public Map<String, String> recuperarResultadosHisopados(int id) {
 
-        Map<String, String> aux = new HashMap();
+        Map<String, String> aux = new HashMap<>();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select germenes, coliformesTotales, " + "coliformesFecales, escherichia, staphilococos, fechaAnalisis, enterobacterias, salmonella, mohos, listeria, vibrio from " + "vistaHisopado where vistatabla_idmuestras = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                     System.out.println("rs.getMetaData().getColumnName(i + 1) = " + rs.getMetaData().getColumnName(i + 1));
                     System.out.println("rs.getObject(i + 1) = " + rs.getObject(i + 1));
@@ -1114,12 +899,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al recuperarResultadosHisopados, " + e);
             return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return null;
     }
@@ -1140,19 +919,13 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al recuperarResultadosHisopadosAlliance, " + e);
             return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return null;
     }
 
     public Map<String, String> recuperarResultadosBaseHelada(int id) {
 
-        Map<String, String> aux = new HashMap();
+        Map<String, String> aux = new HashMap<>();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select `germenes`, `coliformesTotales`," + "`coliformesFecales`, `escherichia`,`mohos`, conclusion, staphilococos, salmonella, fechaAnalisis from vistambchocolates where idmuestras = ?");
             ps.setInt(1, id);
@@ -1166,39 +939,27 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al recuperarResultadosBaseHelada, " + e);
             return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return null;
     }
 
-    public String consultarMetodoDeterminaciones(int id, String determinacion) {
-
-        String aux = "";
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement(" select " + determinacion + "Metodo from determinaciones where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                aux = rs.getString(1);
-                return aux;
-            }
-        } catch (Exception e) {
-            logger.severe("Error al recuperarResultadosBaseHelada, " + e);
-            return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
-        }
-        return null;
-    }
+//    public String consultarMetodoDeterminaciones(int id, String determinacion) {
+//
+//        String aux = "";
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement(" select " + determinacion + "Metodo from determinaciones where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                aux = rs.getString(1);
+//                return aux;
+//            }
+//        } catch (Exception e) {
+//            logger.severe("Error al recuperarResultadosBaseHelada, " + e);
+//            return null;
+//        }
+//        return null;
+//    }
 
     public boolean editarMBAguaDeRecreacion(Resultados r, int vencimiento) {
 
@@ -1223,12 +984,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al editar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -1261,12 +1016,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -1298,23 +1047,17 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e + " en línea " + e.getStackTrace()[0].getLineNumber());
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
     public Map<String, String> recuperarResultadosEfluentesTipo(int id) {
 
-        Map<String, String> aux = new HashMap();
+        Map<String, String> aux = new HashMap<>();
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select ph, conductividad, dqo, dbo, " + "solidos10, solidos120, detergentes, grasasAceite, " + "fosforoTotal, nitrogenoTotal, sustancias, coliformesFecales, hidrocarburos, nitratos, cloro, coliformesTotales, escherichia, sulfuros " + "from efluentes where idmuestras = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
+            if (rs.next()) {
                 for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                     aux.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
                 }
@@ -1323,12 +1066,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al recuperar datos, " + e);
             return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return null;
     }
@@ -1341,12 +1078,6 @@ public class ResultadoRepository {
             ps.executeUpdate();
         } catch (Exception e) {
             logger.severe("Error al cambia de tipo de hisopado, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -1359,12 +1090,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             System.err.println("Error al cambia de tipo de hisopado, " + e);
             logger.severe("Error al cambia de tipo de hisopado, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -1382,16 +1107,10 @@ public class ResultadoRepository {
         } catch (Exception e) {
             JOptionPane.showInputDialog("Error al recuperar titulo " + e);
             return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
-    public List recuperarFQAguaCompleto(int id, List<Determinacion> determinaciones) {
+    public void recuperarFQAguaCompleto(int id, List<Determinacion> determinaciones) {
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
@@ -1400,12 +1119,11 @@ public class ResultadoRepository {
             while (rs.next()) {
                 for (int i = 3; i < rs.getMetaData().getColumnCount() + 1; i++) {
                     Object auxx = rs.getObject(i);
-                    System.out.println("auxx = " + auxx);
                     if (auxx != null) {
                         if (!auxx.toString().isBlank()) {
-                            for (int j = 0; j < determinaciones.size(); j++) {
-                                if (determinaciones.get(j).getNombreDB().equals(rs.getMetaData().getColumnLabel(i))) {
-                                    determinaciones.get(j).setActivado(true);
+                            for (Determinacion determinacione : determinaciones) {
+                                if (determinacione.getNombreDB().equals(rs.getMetaData().getColumnLabel(i))) {
+                                    determinacione.setActivado(true);
                                     break;
                                 }
                             }
@@ -1413,20 +1131,12 @@ public class ResultadoRepository {
                     }
                 }
             }
-            return determinaciones;
         } catch (Exception e) {
             logger.severe("Error al recuperarFQAguaCompleto, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar FQCompleto, " + e);
-            }
         }
-        return null;
     }
 
-    public List<Determinacion> recuperarDatosDeterminaciones(List<Determinacion> determinaciones, int id) {
+    public void recuperarDatosDeterminaciones(List<Determinacion> determinaciones, int id) {
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
@@ -1443,20 +1153,12 @@ public class ResultadoRepository {
                     }
                 });
             }
-            return determinaciones;
         } catch (Exception e) {
             logger.severe("Error al recuperarDatosDeterminaciones, " + e.getStackTrace()[0]);
-            return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar datos FQ, " + e);
-            }
         }
     }
 
-    public List<Determinacion> recuperarDatosDeterminacionesGenerar(List<Determinacion> determinaciones, int id) {
+    public void recuperarDatosDeterminacionesGenerar(List<Determinacion> determinaciones, int id) {
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
@@ -1473,20 +1175,12 @@ public class ResultadoRepository {
                     }
                 });
             }
-            return determinaciones;
         } catch (Exception e) {
             logger.severe("Error al recuperarDatosDeterminaciones, " + e);
-            return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar datos FQ, " + e);
-            }
         }
     }
 
-    public List<Determinacion> recuperarMetodosDeterminaciones(List<Determinacion> determinaciones, int id) {
+    public void recuperarMetodosDeterminaciones(List<Determinacion> determinaciones, int id) {
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("select * from determinacionesMetodo where idmuestras = ?");//Cambiar al agregar
@@ -1501,18 +1195,10 @@ public class ResultadoRepository {
                     }
                 });
             }
-            return determinaciones;
         } catch (Exception e) {
 
             logger.severe("Error al recuperarMetodosDeterminaciones, " + e);
             StackTraceElement stackTraceElement = Arrays.stream(e.getStackTrace()).filter(ste -> ste.getClassName().equals(this.getClass().getName())).collect(Collectors.toList()).get(0);
-            return null;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar datos FQ, " + e);
-            }
         }
     }
 
@@ -1553,12 +1239,6 @@ public class ResultadoRepository {
             return true;
         } catch (Exception e) {
             logger.severe("Error al blankearDeterminaciones, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error al recuperar FQCompleto, " + e);
-            }
         }
         return false;
     }
@@ -1567,8 +1247,8 @@ public class ResultadoRepository {
 
 
         String queryDet = "insert into determinaciones (";
-        for (int i = 0; i < resultados.size(); i++) {
-            queryDet += resultados.get(i).getNombreDB() + ", ";
+        for (Determinacion resultado : resultados) {
+            queryDet += resultado.getNombreDB() + ", ";
         }
         queryDet += "idmuestras) values (";
         for (int i = 0; i < resultados.size(); i++) {
@@ -1576,15 +1256,13 @@ public class ResultadoRepository {
         }
         queryDet += "?)";
 
-        String queryMetodo = "insert into determinacionesMetodo (";
-        for (int i = 0; i < resultados.size(); i++) {
-            queryMetodo += resultados.get(i).getNombreDB() + "Metodo, ";
+        StringBuilder queryMetodo = new StringBuilder("insert into determinacionesMetodo (");
+        for (Determinacion resultado : resultados) {
+            queryMetodo.append(resultado.getNombreDB()).append("Metodo, ");
         }
-        queryMetodo += "idmuestras) values (";
-        for (int i = 0; i < resultados.size(); i++) {
-            queryMetodo += "?, ";
-        }
-        queryMetodo += "?)";
+        queryMetodo.append("idmuestras) values (");
+        queryMetodo.repeat("?, ", resultados.size());
+        queryMetodo.append("?)");
         try (Connection conexion = con.getConnection()) {
             conexion.setAutoCommit(false);
             PreparedStatement ps1 = conexion.prepareStatement(queryDet);
@@ -1593,7 +1271,7 @@ public class ResultadoRepository {
             }
             ps1.setInt(resultados.size() + 1, id);
 
-            PreparedStatement ps2 = conexion.prepareStatement(queryMetodo);
+            PreparedStatement ps2 = conexion.prepareStatement(queryMetodo.toString());
             for (int i = 0; i < resultados.size(); i++) {
                 ps2.setString(i + 1, resultados.get(i).getMetodo());
             }
@@ -1606,12 +1284,6 @@ public class ResultadoRepository {
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
             return false;
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -1625,12 +1297,6 @@ public class ResultadoRepository {
             ps.executeUpdate();
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -1644,12 +1310,6 @@ public class ResultadoRepository {
             ps.executeUpdate();
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
     }
 
@@ -1660,18 +1320,9 @@ public class ResultadoRepository {
             PreparedStatement ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                return true;
-            }
-            return false;
+            return rs.next();
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return false;
     }
@@ -1684,18 +1335,12 @@ public class ResultadoRepository {
             PreparedStatement ps = conexion.prepareStatement("select mostrar from manual where idmuestras = ?");
             ps.setInt(1, idmuestras);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                return rs.getString("mostrar") == "true" ? true : false;
+            if (rs.next()) {
+                return rs.getString("mostrar") == "true";
             }
             return false;
         } catch (Exception e) {
             logger.severe("Error al guardar datos, " + e);
-        } finally {
-            try (Connection conexion = con.getConnection()) {
-                conexion.close();
-            } catch (Exception e) {
-                System.err.println("Error, " + e);
-            }
         }
         return false;
     }
@@ -1799,7 +1444,7 @@ public class ResultadoRepository {
                 sql.append(col).append(", ");
             }
             sql.append("idmuestras) VALUES (");
-            sql.append("?, ".repeat(listaDb.length));
+            sql.repeat("?, ", listaDb.length);
             sql.append("?)");
         }
         return sql.toString();
@@ -1810,8 +1455,6 @@ public class ResultadoRepository {
             if (db.contains("nutricional")) {
                 PreparedStatement ps = conexion.prepareStatement("SELECT `calorias`,`kjul`,`carbohidratos`, `proteinas`,`grasasTotales`,`grasasSaturadas`," + "`grasasTrans`,`GrasasMonoinsaturadas`,`GrasasPoliinsaturadas`,`Colesterol`,`fibraAlimentaria`,`sodio`," + "`VDCalorias`,`VDCarbohidratos`,`VDProteinas`,`VDGrasasTotales`,`VDGrasasSaturadas`,`VDGrasasMonoinsaturadas`," + "`VDGrasasPoliinsaturadas`,`VDColesterol`,`VDGrasasTrans`,`VDFibraAlimentaria`,`VDSodio`,`porcion`," + "`unidad`,`azucares`,`VDAzucares`,`almidon`,`VDAlmidon`,`PorcionesPorEnvase`,`azucaresAnadidos`," + "`VDAzucaresAnadidos` FROM `laboratorio`.`tablanutricional` where idmuestras = ?");
                 ps.setInt(1, id);
-                ResultSet rs = ps.executeQuery();
-
             } else if (db.contains("mbagua")) {
                 PreparedStatement ps = conexion.prepareStatement("select coliformesTotales from " + db + " where idmuestras = " + id);
                 ResultSet rs = ps.executeQuery();
@@ -1821,8 +1464,7 @@ public class ResultadoRepository {
                 ResultSet rs = ps.executeQuery();
                 int cantidad = rs.getMetaData().getColumnCount();
                 boolean existe = false;
-                while (rs.next()) {
-
+                if (rs.next()) {
                     for (int i = 2; i < cantidad; i++) {
                         existe = existe || (rs.getObject(i + 1) != null && !rs.getObject(i + 1).toString().trim().isEmpty());
                     }
