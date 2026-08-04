@@ -4,21 +4,21 @@ import com.mysql.cj.util.StringUtils;
 
 public class ExcelUtils {
 
-    public String formatearEntradaExcel(String aux) {
+    public static String formatearEntradaExcel(String aux) {
         if (aux == null || aux.contains("-2") || aux.isBlank() || aux.contains("-1")) {
             return "N/A";
         }
         return aux;
     }
 
-    public String extraerAusenciaPresencia(String aux) {
+    public static String extraerAusenciaPresencia(String aux) {
         if (aux.toLowerCase().contains("presencia")) {
             return "1";
         }
         return "0";
     }
 
-    public double extraerNumero(String texto) {
+    public static double extraerNumero(String texto) {
         if (texto != null) {
             texto = texto.trim();
         }
@@ -45,7 +45,7 @@ public class ExcelUtils {
         }
     }
 
-    public String procesarCeldaGrafico(String valor) {
+    public static String procesarCeldaGrafico(String valor) {
         return valor.replaceAll("[^0-9.]", "");
 
     }

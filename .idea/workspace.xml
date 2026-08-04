@@ -5,51 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c7f69cd-56e6-4f2d-8430-254a601404bb" name="Changes" comment="arreglos varios">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/service/ExcelService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Consultas.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Tipo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Tipo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/MuestraRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/MuestraRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/ResultadoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/ResultadoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarMuestra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarMuestra.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarPh.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarPh.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarProcedencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarProcedencia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AnalisisEnProceso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AnalisisEnProceso.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Descargando.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Descargando.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Determinaciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Determinaciones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/EliminarUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/EliminarUsuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Ganancias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Ganancias.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformeMuestras.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformeMuestras.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformesVencimientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformesVencimientos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Principal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBaseHelada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBaseHelada.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBorrados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBorrados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesCloaca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesCloaca.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesInfiltracion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesInfiltracion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEntregas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEntregas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaFQAgua.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaFQAgua.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaHisopados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaHisopados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaHisopadosAlliance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaHisopadosAlliance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAgua.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAgua.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaBalnearios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaBalnearios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaBidon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaBidon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaCOFES.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaCOFES.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaRecreacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaRecreacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAlimentos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAlimentos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBChocolates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBChocolates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaManual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaManual.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaNutricional.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaNutricional.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Vencimiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Vencimiento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailVencimientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailVencimientos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailsEnviados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailsEnviados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaExcel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaExcel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaNotas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaNotas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VerClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VerClientes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VerUsuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VerUsuarios.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/service/ExcelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/service/ExcelService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/utils/ExcelUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/utils/ExcelUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,61 +48,61 @@
   </component>
   <component name="NextEditCompletionFeaturesState">
     <decayedCancelled>
-      <entry key="MS100" value="1.0423002603902348E-31" />
-      <entry key="MS500" value="6.362071846379129E-7" />
-      <entry key="S2" value="0.028242272710971426" />
-      <entry key="S5" value="0.2400822025418004" />
-      <entry key="S10" value="0.49040156710119476" />
-      <entry key="S30" value="0.9435802096252707" />
-      <entry key="S60" value="1.5767508169499338" />
-      <entry key="M2" value="2.578369702862167" />
-      <entry key="M5" value="6.650167419632934" />
-      <entry key="M10" value="23.454310458318602" />
-      <entry key="M15" value="47.178426133544605" />
-      <entry key="M30" value="117.95846819270542" />
-      <entry key="H1" value="229.07802036964702" />
-      <entry key="H2" value="359.40514091860035" />
-      <entry key="H4" value="476.41604117121744" />
-      <entry key="D1" value="1231.4198680046766" />
-      <entry key="W1" value="2236.6045492378735" />
+      <entry key="MS100" value="1.0" />
+      <entry key="MS500" value="1.0" />
+      <entry key="S2" value="1.0" />
+      <entry key="S5" value="1.0000003018469497" />
+      <entry key="S10" value="1.0009086843917632" />
+      <entry key="S30" value="1.1995333274383448" />
+      <entry key="S60" value="1.8139456083832266" />
+      <entry key="M2" value="3.026918226167323" />
+      <entry key="M5" value="7.682509372689353" />
+      <entry key="M10" value="16.571232356836667" />
+      <entry key="M15" value="24.146272838314964" />
+      <entry key="M30" value="45.641529611142964" />
+      <entry key="H1" value="113.45450615649958" />
+      <entry key="H2" value="265.4907081558758" />
+      <entry key="H4" value="461.5795745988249" />
+      <entry key="D1" value="1346.604281135556" />
+      <entry key="W1" value="2426.94417973557" />
     </decayedCancelled>
     <decayedSelected>
-      <entry key="MS100" value="1.000000000000001" />
-      <entry key="MS500" value="1.001028599939185" />
-      <entry key="S2" value="1.2221437972906017" />
-      <entry key="S5" value="1.7870305413813972" />
-      <entry key="S10" value="2.242990903365083" />
-      <entry key="S30" value="2.9241347490875302" />
-      <entry key="S60" value="3.7930035401186206" />
-      <entry key="M2" value="5.057418439958874" />
-      <entry key="M5" value="8.218158586861547" />
-      <entry key="M10" value="16.225519350050146" />
-      <entry key="M15" value="26.571569140041053" />
-      <entry key="M30" value="55.01820357028671" />
-      <entry key="H1" value="91.52989493364183" />
-      <entry key="H2" value="127.34010783676106" />
-      <entry key="H4" value="156.4462995577243" />
-      <entry key="D1" value="377.1698708190405" />
-      <entry key="W1" value="692.4416897895009" />
+      <entry key="MS100" value="0.0" />
+      <entry key="MS500" value="3.59009246195714E-67" />
+      <entry key="S2" value="3.4330836963197514E-17" />
+      <entry key="S5" value="5.849045042812851E-7" />
+      <entry key="S10" value="0.001780730912795359" />
+      <entry key="S30" value="0.39668707136042825" />
+      <entry key="S60" value="1.610544332923614" />
+      <entry key="M2" value="4.2528951467323886" />
+      <entry key="M5" value="23.2220330376809" />
+      <entry key="M10" value="67.55867835747287" />
+      <entry key="M15" value="103.51147446208182" />
+      <entry key="M30" value="167.02271526778108" />
+      <entry key="H1" value="228.92045338095937" />
+      <entry key="H2" value="296.81235607928465" />
+      <entry key="H4" value="363.03098920687484" />
+      <entry key="D1" value="630.1502468925643" />
+      <entry key="W1" value="968.4924156933288" />
     </decayedSelected>
     <decayedShown>
-      <entry key="MS100" value="5.806675366224277E-4" />
-      <entry key="MS500" value="0.2256666607300523" />
-      <entry key="S2" value="0.8776613295487421" />
-      <entry key="S5" value="1.7748350611257586" />
-      <entry key="S10" value="2.561639540742397" />
-      <entry key="S30" value="3.7872285791702693" />
-      <entry key="S60" value="5.315485573749206" />
-      <entry key="M2" value="7.5984158359773195" />
-      <entry key="M5" value="14.836396595885619" />
-      <entry key="M10" value="39.63649881879731" />
-      <entry key="M15" value="73.70063478882396" />
-      <entry key="M30" value="172.9272458836454" />
-      <entry key="H1" value="320.5686188451151" />
-      <entry key="H2" value="486.71873657322095" />
-      <entry key="H4" value="632.8463173620509" />
-      <entry key="D1" value="1608.5835161851705" />
-      <entry key="W1" value="2929.0446296341233" />
+      <entry key="MS100" value="3.068880308891182E-4" />
+      <entry key="MS500" value="0.19833346079778572" />
+      <entry key="S2" value="0.6673428281650597" />
+      <entry key="S5" value="0.8506286633141106" />
+      <entry key="S10" value="0.9248761830007851" />
+      <entry key="S30" value="1.5619064868461079" />
+      <entry key="S60" value="3.3956016007509837" />
+      <entry key="M2" value="7.2526000892625255" />
+      <entry key="M5" value="30.8547508193078" />
+      <entry key="M10" value="84.05676245782304" />
+      <entry key="M15" value="127.5814629685956" />
+      <entry key="M30" value="212.59972623236763" />
+      <entry key="H1" value="342.3264573341685" />
+      <entry key="H2" value="562.2676768967905" />
+      <entry key="H4" value="824.5869322195409" />
+      <entry key="D1" value="1976.7463395500351" />
+      <entry key="W1" value="3395.43465308061" />
     </decayedShown>
   </component>
   <component name="ProblemsViewState">
@@ -159,43 +117,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Inicial.executor": "Run",
-    "Application.NewJFrame.executor": "Run",
-    "Application.Principal.executor": "Run",
-    "Application.Run Main.executor": "Run",
-    "Application.TablaEntregas.executor": "Run",
-    "Application.VerClientes.executor": "Run",
-    "JUnit.All in Laboratorio.executor": "Run",
-    "Maven.Laboratorio [clean].executor": "Run",
-    "Maven.Laboratorio [compile].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "master",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/home/nacho/Laboratorio/src/main/resources/reporte",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "/home/nacho/Laboratorio/src/main/java/org/ignaciorodriguez/Main.java",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.66091955",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "to.speed.mode.migration.done": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Inicial.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NewJFrame.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Principal.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Run Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TablaEntregas.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VerClientes.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Laboratorio.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Laboratorio [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Laboratorio [compile].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/nacho/Laboratorio/src/main/resources/reporte&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/home/nacho/Laboratorio/src/main/java/org/ignaciorodriguez/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.66091955&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/reporte" />
