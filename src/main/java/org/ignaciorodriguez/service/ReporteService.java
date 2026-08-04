@@ -44,22 +44,22 @@ public class ReporteService {
             JasperPrint imprimirReporte = JasperFillManager.fillReport(reporte, mapa, new Conexion().getConnection());            //llena los campos del main.resources.reporte
             JasperViewer vistaReporte = new JasperViewer(imprimirReporte, false);                           //crea el visor del main.resources.reporte
             String[] nombre = clienteRepository.obtenerProcedenciayNombreEmail(clienteRepository.obtenerIdCliente(procedencia));
-            String aux; //en estas tres lineas se sacan espacios de
+            String nombreBase; //en estas tres lineas se sacan espacios de
             if (nombre[0].contains("/") || nombre[0].contains("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "") || nombre[0].contains(":") || nombre[0].contains("*") || nombre[0].contains("?") || nombre[0].contains("\"") || nombre[0].contains("<") || nombre[0].contains(">") || nombre[0].contains(">") || nombre[1].contains("/") || nombre[1].contains("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "") || nombre[1].contains(":") || nombre[1].contains("*") || nombre[1].contains("?") || nombre[1].contains("\"") || nombre[1].contains("<") || nombre[1].contains(">") || nombre[1].contains(">")) {
                 nombre[0] = nombre[0].replaceAll("[/" + org.ignaciorodriguez.utils.SeparatorUtils.s + "" + org.ignaciorodriguez.utils.SeparatorUtils.s + ":*?\"<>|]", "_");
                 nombre[1] = nombre[1].replaceAll("[/" + org.ignaciorodriguez.utils.SeparatorUtils.s + "" + org.ignaciorodriguez.utils.SeparatorUtils.s + ":*?\"<>|]", "_");
             }
             if (nombre[1].isBlank()) {
-                aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Inf. " + id + " " + prefijoNombre + " " + nombre[0];
+                nombreBase = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Inf. " + id + " " + prefijoNombre + " " + nombre[0];
             } else {
-                aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Inf. " + id + " " + prefijoNombre + " " + nombre[1];
+                nombreBase = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Inf. " + id + " " + prefijoNombre + " " + nombre[1];
             }
-            String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
-            String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
-            String pdf = aux3.replace("\"", "");
-            pdf += ".pdf";                                                                                  //se agrega la extensión .pdf
+            String nombrePdfSinEspaciosInicio = nombreBase.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
+            String nombrePdfSinEspacios = nombrePdfSinEspaciosInicio.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
+            String nombrePdf = nombrePdfSinEspacios.replace("\"", "");
+            nombrePdf += ".pdf";                                                                                  //se agrega la extensión .pdf
             String rutaGuardado = archivoService.recuperarRutas("Reportes");
-            final String pdfEmail = rutaGuardado + pdf;
+            final String pdfEmail = rutaGuardado + nombrePdf;
             JasperExportManager.exportReportToPdfFile(imprimirReporte, pdfEmail);
             vistaReporte.setDefaultCloseOperation(JasperViewer.DO_NOTHING_ON_CLOSE);
             vistaReporte.setExtendedState(Frame.MAXIMIZED_BOTH);
@@ -103,7 +103,7 @@ public class ReporteService {
                 mapa.put(p + "c", resultados.get(i).getMetodo());
             }
 
-            String nombrePdf = titulo.contains("AGUA") ? " FQ agua " : " FQ Alimentos ";
+            String nombrePdfTipo = titulo.contains("AGUA") ? " FQ agua " : " FQ Alimentos ";
 
             JasperPrint imprimirReporte = JasperFillManager.fillReport(reporte, mapa, con.getConnection());
             JasperViewer vistaReporte = new JasperViewer(imprimirReporte, false);
@@ -115,14 +115,14 @@ public class ReporteService {
                 nombre[1] = nombre[1].replaceAll("[/" + org.ignaciorodriguez.utils.SeparatorUtils.s + "" + org.ignaciorodriguez.utils.SeparatorUtils.s + ":*?\"<>|]", "_");
             }
 
-            String aux = org.ignaciorodriguez.utils.SeparatorUtils.s + "Inf. " + id + nombrePdf +
+            String nombreBase = org.ignaciorodriguez.utils.SeparatorUtils.s + "Inf. " + id + nombrePdfTipo +
                     (nombre[1] == null || nombre[1].isBlank() ? nombre[0] : nombre[1]);
-            String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");
-            String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
-            String pdf = aux3.replace("\"", "") + ".pdf";
+            String nombreSinEspaciosIinicio = nombreBase.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");
+            String nombreSinEspacios = nombreSinEspaciosIinicio.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
+            String nombrePdf = nombreSinEspacios.replace("\"", "") + ".pdf";
 
             String rutaGuardado = archivoService.recuperarRutas("Reportes");
-            final String pdfEmail = rutaGuardado + pdf;
+            final String pdfEmail = rutaGuardado + nombrePdf;
 
             JasperExportManager.exportReportToPdfFile(imprimirReporte, pdfEmail);
 
@@ -212,13 +212,13 @@ public class ReporteService {
             JasperPrint imprimirReporte = JasperFillManager.fillReport(reporte, mapa, con.getConnection());
             JasperViewer vistaReporte = new JasperViewer(imprimirReporte, false);
 
-            String aux = org.ignaciorodriguez.utils.SeparatorUtils.s + "Informe en proceso " + id;
-            String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");
-            String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
-            String pdf = aux3.replace("\"", "") + ".pdf";
+            String nombreBase = org.ignaciorodriguez.utils.SeparatorUtils.s + "Informe en proceso " + id;
+            String nombreSinEspaciosInicio = nombreBase.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");
+            String nombreSinEspacios = nombreSinEspaciosInicio.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
+            String nombrePdf = nombreSinEspacios.replace("\"", "") + ".pdf";
 
             String rutaGuardado = archivoService.recuperarRutas("Reportes");
-            final String pdfEmail = rutaGuardado + pdf;
+            final String pdfEmail = rutaGuardado + nombrePdf;
 
             JasperExportManager.exportReportToPdfFile(imprimirReporte, pdfEmail);
 
