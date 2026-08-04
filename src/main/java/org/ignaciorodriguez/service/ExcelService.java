@@ -170,9 +170,7 @@ public class ExcelService {
 
     private void consultarEfluentesParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowNumGraph, int[] rowCont) {
         String sql = "SELECT * FROM vistaefluentes WHERE idmuestras in (select idmuestras from muestras where idcliente = ? and tipo = ?) and fechaMuestreo BETWEEN ? AND ?";
-        for (int i = 0; i < rowCont.length; i++) {
-            rowCont[i] = 0;
-        }
+        Arrays.fill(rowCont, 0);
         try (Connection conexion = con.getConnection()) {
             // 1. Preparar la consulta
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -208,12 +206,8 @@ public class ExcelService {
 
     private void consultarMBAguaCofesParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowNumGraph, int[] rowCont, Workbook workbook) {
         String sql = "SELECT vistatabla_idmuestras, vistatabla_fechaMuestreo, vistatabla_porcentajeTotalCloro, " + "vistatabla_ph, germenes, coliformesTotales, coliformesFecales, escherichia, pseudomona, s" + "higella FROM vistambagua WHERE vistatabla_idmuestras in (select idmuestras from muestras where " + "idcliente = ? and tipo = ?) and vistatabla_fechaMuestreo BETWEEN ? AND ?";
-        for (int i = 0; i < rowCont.length; i++) {
-            rowCont[i] = 0;
-        }
-        CellStyle estiloPresencia = workbook.createCellStyle();
-        DataFormat format = workbook.createDataFormat();
-        estiloPresencia.setDataFormat(format.getFormat("[=1]\"Presencia\";[=0]\"Ausencia\";\"N/A\""));
+        Arrays.fill(rowCont, 0);
+        CellStyle estiloPresencia = crearEstiloPresencia(workbook);
         try (Connection conexion = con.getConnection()) {
             // 1. Preparar la consulta
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -285,12 +279,8 @@ public class ExcelService {
 
     private void consultarMBAguaRecreacionParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowNumGraph, int[] rowCont, Workbook workbook) {
         String sql = "SELECT vistatabla_idmuestras, vistatabla_fechaMuestreo, germenes, coliformesTotales, " + "coliformesFecales, escherichia, pseudomona, staphilococos, streptococos, shigella FROM vistambagua " + "WHERE vistatabla_idmuestras in (select idmuestras from muestras where idcliente = ? and tipo = ?) " + "and vistatabla_fechaMuestreo BETWEEN ? AND ?";
-        for (int i = 0; i < rowCont.length; i++) {
-            rowCont[i] = 0;
-        }
-        CellStyle estiloPresencia = workbook.createCellStyle();
-        DataFormat format = workbook.createDataFormat();
-        estiloPresencia.setDataFormat(format.getFormat("[=1]\"Presencia\";[=0]\"Ausencia\";\"N/A\""));
+        Arrays.fill(rowCont, 0);
+        CellStyle estiloPresencia = crearEstiloPresencia(workbook);
         try (Connection conexion = con.getConnection()) {
             // 1. Preparar la consulta
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -360,12 +350,8 @@ public class ExcelService {
 
     private void consultarMBAguaCodigoParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowNumGraph, int[] rowCont, Workbook workbook) {
         String sql = "SELECT vistatabla_idmuestras, vistatabla_fechaMuestreo, vistatabla_porcentajeTotalCloro, " + "vistatabla_ph, germenes, coliformesTotales, coliformesFecales, escherichia, pseudomona, mohos, s" + "higella FROM vistambagua WHERE vistatabla_idmuestras in (select idmuestras from muestras where " + "idcliente = ? and tipo = ?) and vistatabla_fechaMuestreo BETWEEN ? AND ?";
-        for (int i = 0; i < rowCont.length; i++) {
-            rowCont[i] = 0;
-        }
-        CellStyle estiloPresencia = workbook.createCellStyle();
-        DataFormat format = workbook.createDataFormat();
-        estiloPresencia.setDataFormat(format.getFormat("[=1]\"Presencia\";[=0]\"Ausencia\";\"N/A\""));
+        Arrays.fill(rowCont, 0);
+        CellStyle estiloPresencia = crearEstiloPresencia(workbook);
         try (Connection conexion = con.getConnection()) {
             // 1. Preparar la consulta
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -441,12 +427,8 @@ public class ExcelService {
 
     private void consultarMBAguaBalnearioParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowNumGraph, int[] rowCont, Workbook workbook) {
         String sql = "SELECT vistatabla_idmuestras, vistatabla_fechaMuestreo, coliformesTotales, escherichia, " + "shigella FROM vistambagua WHERE vistatabla_idmuestras in (select idmuestras from muestras where " + "idcliente = ? and tipo = ?) and vistatabla_fechaMuestreo BETWEEN ? AND ?";
-        for (int i = 0; i < rowCont.length; i++) {
-            rowCont[i] = 0;
-        }
-        CellStyle estiloPresencia = workbook.createCellStyle();
-        DataFormat format = workbook.createDataFormat();
-        estiloPresencia.setDataFormat(format.getFormat("[=1]\"Presencia\";[=0]\"Ausencia\";\"N/A\""));
+        Arrays.fill(rowCont, 0);
+        CellStyle estiloPresencia = crearEstiloPresencia(workbook);
         try (Connection conexion = con.getConnection()) {
             // 1. Preparar la consulta
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -487,12 +469,8 @@ public class ExcelService {
 
     private void consultarHisopadosParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowCont, Workbook workbook) {
         String sql = "SELECT vistatabla_idmuestras, vistatabla_fechaMuestreo, germenes, coliformesTotales, " + "coliformesFecales, escherichia, staphilococos, enterobacterias, salmonella, listeria, mohos, " + "vibrio FROM vistahisopado WHERE vistatabla_idmuestras in (select idmuestras from muestras where " + "idcliente = ? and tipo = ?) and vistatabla_fechaMuestreo BETWEEN ? AND ?";
-        for (int i = 0; i < rowCont.length; i++) {
-            rowCont[i] = 0;
-        }
-        CellStyle estiloPresencia = workbook.createCellStyle();
-        DataFormat format = workbook.createDataFormat();
-        estiloPresencia.setDataFormat(format.getFormat("[=1]\"Presencia\";[=0]\"Ausencia\";\"N/A\""));
+        Arrays.fill(rowCont, 0);
+        CellStyle estiloPresencia = crearEstiloPresencia(workbook);
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idcliente);
@@ -578,12 +556,8 @@ public class ExcelService {
 
     private void consultarHisopadosLimitesParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowCont, Workbook workbook) {
         String sql = "SELECT vistatabla_idmuestras, vistatabla_fechaMuestreo, germenes, coliformesTotales, " + "coliformesFecales, escherichia, staphilococos, enterobacterias FROM vistahisopado WHERE " + "vistatabla_idmuestras in (select idmuestras from muestras where idcliente = ? and tipo = ?) " + "and vistatabla_fechaMuestreo BETWEEN ? AND ?";
-        for (int i = 0; i < rowCont.length; i++) {
-            rowCont[i] = 0;
-        }
-        CellStyle estiloPresencia = workbook.createCellStyle();
-        DataFormat format = workbook.createDataFormat();
-        estiloPresencia.setDataFormat(format.getFormat("[=1]\"Presencia\";[=0]\"Ausencia\";\"N/A\""));
+        Arrays.fill(rowCont, 0);
+        CellStyle estiloPresencia = crearEstiloPresencia(workbook);
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idcliente);
@@ -711,9 +685,7 @@ public class ExcelService {
 
     private void consultarFQAguaParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowCont, Workbook workbook) {
         String sql = "SELECT vistatabla_idmuestras, vistatabla_fechaMuestreo, ph, porcentajeTotalCloro, olor, color, " + "turbidez, alcalinidad, durezatotal, conductividad, solidosDisueltos, hierro, nitrato, nitritos, " + "sulfatos FROM vistafqagua WHERE vistatabla_idmuestras in (select idmuestras from muestras where " + "idcliente = ? and tipo = ?) and vistatabla_fechaMuestreo BETWEEN ? AND ?";
-        for (int i = 0; i < rowCont.length; i++) {
-            rowCont[i] = 0;
-        }
+        Arrays.fill(rowCont, 0);
         try (Connection conexion = con.getConnection()) {
             // 1. Preparar la consulta
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -814,9 +786,7 @@ public class ExcelService {
         for (int i = 0; i < rowCont.length; i++) {
             rowCont[i] = 0;
         }
-        CellStyle estiloPresencia = workbook.createCellStyle();
-        DataFormat format = workbook.createDataFormat();
-        estiloPresencia.setDataFormat(format.getFormat("[=1]\"Presencia\";[=0]\"Ausencia\";\"N/A\""));
+        CellStyle estiloPresencia = crearEstiloPresencia(workbook);
         try (Connection conexion = con.getConnection()) {
             // 1. Preparar la consulta
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -889,9 +859,7 @@ public class ExcelService {
             rowCont[i] = 0;
         }
 
-        CellStyle estiloPresencia = workbook.createCellStyle();
-        DataFormat format = workbook.createDataFormat();
-        estiloPresencia.setDataFormat(format.getFormat("[=1]\"Presencia\";[=0]\"Ausencia\";\"N/A\""));
+        CellStyle estiloPresencia = crearEstiloPresencia(workbook);
 
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
@@ -1023,9 +991,7 @@ public class ExcelService {
     private void consultarBaseHeladaParaExcel(int idcliente, String tipo, java.sql.Date desdeSql, java.sql.Date hastaSql, Sheet sheet, Sheet sheetHidden, int[] rowNum, int[] rowCont, Workbook workbook) {
         String sql = "SELECT idmuestras, fechaMuestreo, germenes, coliformesTotales, coliformesFecales, escherichia, " + "mohos, staphilococos, salmonella FROM vistambchocolates WHERE idmuestras in (select idmuestras from " + "muestras where idcliente = ? and tipo = ?) and fechaMuestreo BETWEEN ? AND ?";
         Arrays.fill(rowCont, 0);
-        CellStyle estiloPresencia = workbook.createCellStyle();
-        DataFormat format = workbook.createDataFormat();
-        estiloPresencia.setDataFormat(format.getFormat("[=1]\"Presencia\";[=0]\"Ausencia\";\"N/A\""));
+        CellStyle estiloPresencia = crearEstiloPresencia(workbook);
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement(sql);
             ps.setInt(1, idcliente);
@@ -1125,6 +1091,13 @@ public class ExcelService {
         }
 
         return ExcelUtils.extraerNumero(valor);
+    }
+
+    private CellStyle crearEstiloPresencia(Workbook workbook) {
+        CellStyle estiloPresencia = workbook.createCellStyle();
+        DataFormat format = workbook.createDataFormat();
+        estiloPresencia.setDataFormat(format.getFormat("[=1]\"Presencia\";[=0]\"Ausencia\";\"N/A\""));
+        return estiloPresencia;
     }
 
 }
