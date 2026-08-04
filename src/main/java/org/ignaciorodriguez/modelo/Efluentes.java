@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.modelo;
+package main.java.org.ignaciorodriguez.modelo;
 
 import java.util.Date;
 import lombok.AllArgsConstructor;

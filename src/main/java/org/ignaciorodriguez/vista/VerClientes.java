@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.vista;
+package main.java.org.ignaciorodriguez.vista;
 
 import java.awt.Frame;
 import java.awt.event.KeyListener;
@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.repository.ClienteRepository;
+import main.java.org.ignaciorodriguez.modelo.Conexion;
+import main.java.org.ignaciorodriguez.repository.ClienteRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

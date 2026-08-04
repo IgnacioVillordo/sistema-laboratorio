@@ -1,6 +1,6 @@
-package org.ignaciorodriguez.service;
+package main.java.org.ignaciorodriguez.service;
 
-import org.ignaciorodriguez.Main;
+import main.java.org.ignaciorodriguez.Main;
 
 import java.io.BufferedReader;
 import java.io.IOException;

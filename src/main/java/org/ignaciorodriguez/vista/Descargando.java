@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.vista;
+package main.java.org.ignaciorodriguez.vista;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 
 import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.commons.io.FileUtils;
-import org.ignaciorodriguez.service.ArchivoService;
+import main.java.org.ignaciorodriguez.service.ArchivoService;
 
 public class Descargando extends javax.swing.JDialog {
 

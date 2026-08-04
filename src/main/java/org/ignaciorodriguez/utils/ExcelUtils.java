@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.utils;
+package main.java.org.ignaciorodriguez.utils;
 
 import com.mysql.cj.util.StringUtils;
 

@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.modelo;
+package main.java.org.ignaciorodriguez.modelo;
 
 import lombok.Getter;
 import lombok.Setter;

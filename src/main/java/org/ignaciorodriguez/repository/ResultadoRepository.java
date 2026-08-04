@@ -1,8 +1,8 @@
-package org.ignaciorodriguez.repository;
+package main.java.org.ignaciorodriguez.repository;
 
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Determinacion;
-import org.ignaciorodriguez.modelo.Resultados;
+import main.java.org.ignaciorodriguez.modelo.Conexion;
+import main.java.org.ignaciorodriguez.modelo.Determinacion;
+import main.java.org.ignaciorodriguez.modelo.Resultados;
 
 import javax.swing.*;
 import java.io.PrintWriter;

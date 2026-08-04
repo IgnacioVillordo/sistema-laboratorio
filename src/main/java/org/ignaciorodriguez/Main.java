@@ -1,4 +1,4 @@
-package org.ignaciorodriguez;
+package main.java.org.ignaciorodriguez;
 
 import java.net.URISyntaxException;
 import java.sql.Connection;
@@ -17,11 +17,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.service.ActualizacionService;
-import org.ignaciorodriguez.vista.Descargando;
-import org.ignaciorodriguez.vista.Principal;
-import org.ignaciorodriguez.vista.SplashScreen;
+import main.java.org.ignaciorodriguez.modelo.Conexion;
+import main.java.org.ignaciorodriguez.service.ActualizacionService;
+import main.java.org.ignaciorodriguez.vista.Descargando;
+import main.java.org.ignaciorodriguez.vista.Principal;
+import main.java.org.ignaciorodriguez.vista.SplashScreen;
 
 public class Main {
 

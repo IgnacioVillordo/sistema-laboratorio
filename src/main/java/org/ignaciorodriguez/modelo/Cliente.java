@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.modelo;
+package main.java.org.ignaciorodriguez.modelo;
 
 public class Cliente {
     String empresa,nombre,direccion,ciudad,telefono,email,cuit;

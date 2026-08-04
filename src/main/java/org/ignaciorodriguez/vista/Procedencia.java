@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.vista;
+package main.java.org.ignaciorodriguez.vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

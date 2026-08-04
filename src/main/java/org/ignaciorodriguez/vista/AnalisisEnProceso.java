@@ -1,14 +1,14 @@
-package org.ignaciorodriguez.vista;
+package main.java.org.ignaciorodriguez.vista;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.repository.AdministracionRepository;
-import org.ignaciorodriguez.repository.ClienteRepository;
-import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadoRepository;
-import org.ignaciorodriguez.service.ReporteService;
+import main.java.org.ignaciorodriguez.modelo.Conexion;
+import main.java.org.ignaciorodriguez.repository.AdministracionRepository;
+import main.java.org.ignaciorodriguez.repository.ClienteRepository;
+import main.java.org.ignaciorodriguez.repository.MuestraRepository;
+import main.java.org.ignaciorodriguez.repository.ResultadoRepository;
+import main.java.org.ignaciorodriguez.service.ReporteService;
 
 public class AnalisisEnProceso extends javax.swing.JDialog {
 

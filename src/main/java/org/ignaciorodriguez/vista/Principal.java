@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.vista;
+package main.java.org.ignaciorodriguez.vista;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,12 +33,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Usuario;
-import org.ignaciorodriguez.repository.*;
-import org.ignaciorodriguez.service.ActualizacionService;
-import org.ignaciorodriguez.service.ArchivoService;
-import org.ignaciorodriguez.service.ReporteService;
+import main.java.org.ignaciorodriguez.modelo.Conexion;
+import main.java.org.ignaciorodriguez.modelo.Usuario;
+import main.java.org.ignaciorodriguez.repository.*;
+import main.java.org.ignaciorodriguez.service.ActualizacionService;
+import main.java.org.ignaciorodriguez.service.ArchivoService;
+import main.java.org.ignaciorodriguez.service.ReporteService;
+import main.java.org.ignaciorodriguez.utils.SeparatorUtils;
 
 public class Principal extends JFrame {
 
@@ -1184,8 +1185,8 @@ public class Principal extends JFrame {
             String procedencia = tablaDatos.getValueAt(fila2, 1).toString();
             String rutaGuardado = archivoService.recuperarRutas("Reportes");
             String aux = "Informe " + id + tipo2 + clienteRepository.obtenerProcedenciayNombre(clienteRepository.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
-            String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
-            String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
+            String aux2 = aux.replaceAll("^" + SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
+            String aux3 = aux2.replaceAll("" + SeparatorUtils.s + "s*$", "");
             String pdf = aux3.replaceAll("\"", "");
             pdf += ".pdf";
             switch (tipo) {
@@ -1405,9 +1406,9 @@ public class Principal extends JFrame {
         if (!tipo2.equals("no")) {
             String procedencia = tablaDatos.getValueAt(fila2, 1).toString();
             String rutaGuardado = archivoService.recuperarRutas("Reportes");
-            String aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Informe " + id + tipo2 + clienteRepository.obtenerProcedenciayNombre(clienteRepository.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
-            String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
-            String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
+            String aux = "" + SeparatorUtils.s + "Informe " + id + tipo2 + clienteRepository.obtenerProcedenciayNombre(clienteRepository.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
+            String aux2 = aux.replaceAll("^" + SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
+            String aux3 = aux2.replaceAll("" + SeparatorUtils.s + "s*$", "");
             String pdf = aux3.replaceAll("\"", "");
             pdf += ".pdf";
             if (resultadoRepository.checkearPDF(id, db)) {
@@ -1690,9 +1691,9 @@ public class Principal extends JFrame {
         String procedencia = tablaDatos.getValueAt(fila2, 1).toString();
         String rutaGuardado = archivoService.recuperarRutas("Reportes");
         String tipo2 = " FQ agua ";
-        String aux = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "Informe " + id + tipo2 + clienteRepository.obtenerProcedenciayNombre(clienteRepository.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
-        String aux2 = aux.replaceAll("^" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
-        String aux3 = aux2.replaceAll("" + org.ignaciorodriguez.utils.SeparatorUtils.s + "s*$", "");
+        String aux = "" + SeparatorUtils.s + "Informe " + id + tipo2 + clienteRepository.obtenerProcedenciayNombre(clienteRepository.obtenerIdCliente(String.valueOf(tablaDatos.getValueAt(fila2, 1)))); //en estas tres lineas se sacan espacios de
+        String aux2 = aux.replaceAll("^" + SeparatorUtils.s + "s*", "");                                                       //principio, final y se sacan las comillas
+        String aux3 = aux2.replaceAll("" + SeparatorUtils.s + "s*$", "");
         String pdf = aux3.replaceAll("\"", "");
         pdf += ".pdf";
         FQAlimentos fqa = new FQAlimentos(this, true, 1, false, pdf, Determinaciones.AGUA);
@@ -1800,9 +1801,9 @@ public class Principal extends JFrame {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDateTime ahora = LocalDateTime.now();
         String fecha = dtf.format(ahora);
-        String nombreSQL = "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "respaldo_" + fecha + ".sql";
+        String nombreSQL = "" + SeparatorUtils.s + "respaldo_" + fecha + ".sql";
         try {
-            String cmd = "\"" + archivoService.recuperarRutas("MySQL") + "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "mysqldump\" -u root -p1234 laboratorio --routines -r \"" + ruta + nombreSQL + "\"";
+            String cmd = "\"" + archivoService.recuperarRutas("MySQL") + "" + SeparatorUtils.s + "mysqldump\" -u root -p1234 laboratorio --routines -r \"" + ruta + nombreSQL + "\"";
             System.out.println(cmd);
             Runtime.getRuntime().exec(cmd);
             return true;

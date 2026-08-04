@@ -1,7 +1,4 @@
-package org.ignaciorodriguez.vista;
-
-import javax.swing.UIManager;
-
+package main.java.org.ignaciorodriguez.vista;
 
 public class SplashScreen extends javax.swing.JFrame {
 

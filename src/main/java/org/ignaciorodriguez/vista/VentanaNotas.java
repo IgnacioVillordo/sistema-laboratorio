@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.vista;
+package main.java.org.ignaciorodriguez.vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -8,8 +8,8 @@ import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.repository.MuestraRepository;
+import main.java.org.ignaciorodriguez.modelo.Conexion;
+import main.java.org.ignaciorodriguez.repository.MuestraRepository;
 
 
 public class VentanaNotas extends javax.swing.JDialog {

@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.utils;
+package main.java.org.ignaciorodriguez.utils;
 
 public class SeparatorUtils {
     public static String s = java.io.File.separator;

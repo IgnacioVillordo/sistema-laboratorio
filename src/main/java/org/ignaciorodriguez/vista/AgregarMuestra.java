@@ -1,14 +1,14 @@
-package org.ignaciorodriguez.vista;
+package main.java.org.ignaciorodriguez.vista;
 
 
 import com.jidesoft.swing.AutoCompletionComboBox;
 import com.toedter.calendar.JDateChooser;
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Muestra;
-import org.ignaciorodriguez.repository.AdministracionRepository;
-import org.ignaciorodriguez.repository.ClienteRepository;
-import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadoRepository;
+import main.java.org.ignaciorodriguez.modelo.Conexion;
+import main.java.org.ignaciorodriguez.modelo.Muestra;
+import main.java.org.ignaciorodriguez.repository.AdministracionRepository;
+import main.java.org.ignaciorodriguez.repository.ClienteRepository;
+import main.java.org.ignaciorodriguez.repository.MuestraRepository;
+import main.java.org.ignaciorodriguez.repository.ResultadoRepository;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 

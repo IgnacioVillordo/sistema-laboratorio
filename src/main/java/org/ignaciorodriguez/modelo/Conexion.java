@@ -1,7 +1,7 @@
-package org.ignaciorodriguez.modelo;
+package main.java.org.ignaciorodriguez.modelo;
 
 import java.sql.Connection;
-import org.ignaciorodriguez.utils.IpUtils;
+import main.java.org.ignaciorodriguez.utils.IpUtils;
 
 import java.sql.DriverManager;
 import java.util.logging.Level;

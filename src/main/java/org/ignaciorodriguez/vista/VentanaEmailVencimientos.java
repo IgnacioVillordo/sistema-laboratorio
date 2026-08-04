@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.vista;
+package main.java.org.ignaciorodriguez.vista;
 
 import com.sun.mail.smtp.SMTPTransport;
 import java.awt.Cursor;
@@ -28,10 +28,10 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.repository.ClienteRepository;
-import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.VencimientoRepository;
+import main.java.org.ignaciorodriguez.modelo.Conexion;
+import main.java.org.ignaciorodriguez.repository.ClienteRepository;
+import main.java.org.ignaciorodriguez.repository.MuestraRepository;
+import main.java.org.ignaciorodriguez.repository.VencimientoRepository;
 
 public class VentanaEmailVencimientos extends javax.swing.JDialog {
 

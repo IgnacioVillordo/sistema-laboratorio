@@ -1,13 +1,13 @@
-package org.ignaciorodriguez.vista;
+package main.java.org.ignaciorodriguez.vista;
 
 import java.io.File;
 import javax.swing.JOptionPane;
 
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.repository.MuestraRepository;
-import org.ignaciorodriguez.repository.ResultadoRepository;
-import org.ignaciorodriguez.service.ArchivoService;
-import org.ignaciorodriguez.service.ReporteService;
+import main.java.org.ignaciorodriguez.modelo.Conexion;
+import main.java.org.ignaciorodriguez.repository.MuestraRepository;
+import main.java.org.ignaciorodriguez.repository.ResultadoRepository;
+import main.java.org.ignaciorodriguez.service.ArchivoService;
+import main.java.org.ignaciorodriguez.service.ReporteService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

@@ -1,8 +1,7 @@
-package org.ignaciorodriguez.repository;
+package main.java.org.ignaciorodriguez.repository;
 
-import lombok.extern.slf4j.Slf4j;
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Usuario;
+import main.java.org.ignaciorodriguez.modelo.Conexion;
+import main.java.org.ignaciorodriguez.modelo.Usuario;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Logger;
 
-@Slf4j
 public class UsuarioRepository {
     private static final Logger logger = Logger.getLogger(UsuarioRepository.class.getName());
     private final Conexion con;
@@ -64,7 +62,7 @@ public class UsuarioRepository {
         }
     }
 
-    public boolean modificarUsuario(org.ignaciorodriguez.modelo.Usuario usuario) {//se modifica la contraseña del usuario seleccionado
+    public boolean modificarUsuario(Usuario usuario) {//se modifica la contraseña del usuario seleccionado
         try (Connection conexion = con.getConnection()) {
             PreparedStatement ps = conexion.prepareStatement("UPDATE `laboratorio`.`usuarios` SET `contrasena` = ? WHERE nombre = ?");
             ps.setString(1, usuario.getContrasena());

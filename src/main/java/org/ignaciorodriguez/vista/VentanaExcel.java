@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package org.ignaciorodriguez.vista;
+package main.java.org.ignaciorodriguez.vista;
 
 import com.jidesoft.swing.AutoCompletionComboBox;
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Tipo;
-import org.ignaciorodriguez.repository.ClienteRepository;
-import org.ignaciorodriguez.service.ExcelService;
+import main.java.org.ignaciorodriguez.modelo.Conexion;
+import main.java.org.ignaciorodriguez.modelo.Tipo;
+import main.java.org.ignaciorodriguez.repository.ClienteRepository;
+import main.java.org.ignaciorodriguez.service.ExcelService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

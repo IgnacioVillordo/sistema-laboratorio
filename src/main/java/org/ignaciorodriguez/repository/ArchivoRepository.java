@@ -1,7 +1,7 @@
-package org.ignaciorodriguez.repository;
+package main.java.org.ignaciorodriguez.repository;
 
-import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.service.ArchivoService;
+import main.java.org.ignaciorodriguez.modelo.Conexion;
+import main.java.org.ignaciorodriguez.service.ArchivoService;
 
 import javax.swing.*;
 import java.sql.Connection;
