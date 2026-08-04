@@ -34,88 +34,80 @@ public class ExcelService {
 
     public void exportarExcelTradicional(Date desde, Date hasta, int idcliente, String tipo, Tipo t) {
 
-        Workbook workbook = new XSSFWorkbook();
-        FileOutputStream fileOut = null;
-        java.sql.Date desdeSql = new java.sql.Date(desde.getTime());
-        java.sql.Date hastaSql = new java.sql.Date(hasta.getTime());
-        Sheet sheet = workbook.createSheet("Datos");
-        Sheet sheetGraph = workbook.createSheet("Graficos");
-        Sheet sheetHidden = workbook.createSheet("Hidden");
-        workbook.setSheetHidden(workbook.getSheetIndex("Hidden"), true);
-        String[] columnas = obtenerColumnas(t);
-        int[] rowNum = {1};
-        int[] rowNumGraph = {1};
-        Row headerRow = sheet.createRow(0);
-        for (int i = 0; i < Objects.requireNonNull(columnas).length; i++) {
-            headerRow.createCell(i).setCellValue(columnas[i]);
-        }
-        int[] rowCont = new int[columnas.length - 2];
-        switch (t) {
-            case EFLUENTES:
-                consultarEfluentesParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowNumGraph, rowCont);
-                break;
-            case MBAGUACODIGO:
-                consultarMBAguaCodigoParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowNumGraph, rowCont, workbook);
-                break;
-            case MBAGUACOFES, MBAGUABIDON:
-                consultarMBAguaCofesParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowNumGraph, rowCont, workbook);
-                break;
-            case MBALIMENTOS:
-                consultarMBAlimentosParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
-                break;
-            case FQALIMENTOS, FQAGUACOMPLETO, FQGENERICO:
-                consultarDeterminacionesParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
-                break;
-            case HISOPADOS:
-                consultarHisopadosParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
-                break;
-            case FQAGUA:
-                consultarFQAguaParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
-                break;
-            case MBCHOCOLATES:
-                consultarMBChocolatesParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
-                break;
-            case HISOPADOALLIANCE, HISOPADOLIMITES:
-                consultarHisopadosLimitesParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
-                break;
-            case MBAGUABALNEARIOS:
-                consultarMBAguaBalnearioParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowNumGraph, rowCont, workbook);
-                break;
-            case MBAGUARECREACION:
-                consultarMBAguaRecreacionParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowNumGraph, rowCont, workbook);
-                break;
-            case EFLUENTESCLOACA, EFLUENTESINFILTRACION:
-                consultarEfluentesTipoParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowNumGraph, rowCont);
-                break;
-            case BASEHELADA:
-                consultarBaseHeladaParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
-                break;
-            default:
-                throw new AssertionError();
-        }
-        int graficoIndex = 0;
-        for (int i = 0; i < rowCont.length; i++) {
-            if (rowCont[i] > 0) {
-                int columnaBase = i * 2; // esto se queda igual, es la posición de los datos en "Hidden"
-                dibujarGrafico(sheetGraph, sheetHidden, rowCont[i], columnas[i + 2], graficoIndex, columnaBase);
-                graficoIndex++;
+        try (Workbook workbook = new XSSFWorkbook()) {
+            FileOutputStream fileOut = null;
+            java.sql.Date desdeSql = new java.sql.Date(desde.getTime());
+            java.sql.Date hastaSql = new java.sql.Date(hasta.getTime());
+            Sheet sheet = workbook.createSheet("Datos");
+            Sheet sheetGraph = workbook.createSheet("Graficos");
+            Sheet sheetHidden = workbook.createSheet("Hidden");
+            workbook.setSheetHidden(workbook.getSheetIndex("Hidden"), true);
+            String[] columnas = obtenerColumnas(t);
+            int[] rowNum = {1};
+            int[] rowNumGraph = {1};
+            Row headerRow = sheet.createRow(0);
+            for (int i = 0; i < Objects.requireNonNull(columnas).length; i++) {
+                headerRow.createCell(i).setCellValue(columnas[i]);
             }
-        }
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        try {
+            int[] rowCont = new int[columnas.length - 2];
+            switch (t) {
+                case EFLUENTES:
+                    consultarEfluentesParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowNumGraph, rowCont);
+                    break;
+                case MBAGUACODIGO:
+                    consultarMBAguaCodigoParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowNumGraph, rowCont, workbook);
+                    break;
+                case MBAGUACOFES, MBAGUABIDON:
+                    consultarMBAguaCofesParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowNumGraph, rowCont, workbook);
+                    break;
+                case MBALIMENTOS:
+                    consultarMBAlimentosParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
+                    break;
+                case FQALIMENTOS, FQAGUACOMPLETO, FQGENERICO:
+                    consultarDeterminacionesParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
+                    break;
+                case HISOPADOS:
+                    consultarHisopadosParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
+                    break;
+                case FQAGUA:
+                    consultarFQAguaParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
+                    break;
+                case MBCHOCOLATES:
+                    consultarMBChocolatesParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
+                    break;
+                case HISOPADOALLIANCE, HISOPADOLIMITES:
+                    consultarHisopadosLimitesParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
+                    break;
+                case MBAGUABALNEARIOS:
+                    consultarMBAguaBalnearioParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowNumGraph, rowCont, workbook);
+                    break;
+                case MBAGUARECREACION:
+                    consultarMBAguaRecreacionParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowNumGraph, rowCont, workbook);
+                    break;
+                case EFLUENTESCLOACA, EFLUENTESINFILTRACION:
+                    consultarEfluentesTipoParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowNumGraph, rowCont);
+                    break;
+                case BASEHELADA:
+                    consultarBaseHeladaParaExcel(idcliente, tipo, desdeSql, hastaSql, sheet, sheetHidden, rowNum, rowCont, workbook);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            int graficoIndex = 0;
+            for (int i = 0; i < rowCont.length; i++) {
+                if (rowCont[i] > 0) {
+                    int columnaBase = i * 2; // esto se queda igual, es la posición de los datos en "Hidden"
+                    dibujarGrafico(sheetGraph, sheetHidden, rowCont[i], columnas[i + 2], graficoIndex, columnaBase);
+                    graficoIndex++;
+                }
+            }
+            SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
             String ruta = archivoService.recuperarRutas("Reportes") + org.ignaciorodriguez.utils.SeparatorUtils.s + tipo + " " + clienteRepository.recuperarProcedencia(idcliente) + " desde " + formatter.format(desdeSql) + " hasta " + formatter.format(hastaSql) + ".xlsx";
             fileOut = new FileOutputStream(ruta);
             workbook.write(fileOut);
             Desktop.getDesktop().open(new File(ruta));
         } catch (IOException e) {
             System.err.println("Error al escribir el archivo: " + e.getMessage());
-        } finally {
-            try {
-                workbook.close();
-                Objects.requireNonNull(fileOut).close();
-            } catch (Exception e) {
-                logger.severe("Error al crear excel, " + e);
-            }
         }
 
     }
@@ -494,7 +486,6 @@ public class ExcelService {
                 while (rs.next()) {
                     Row row = sheet.createRow(rowNum[0]++);
                     String idmuestras = String.valueOf(rs.getInt("vistatabla_idmuestras"));
-                    System.out.println("idmuestras = " + idmuestras);
                     row.createCell(0).setCellValue(idmuestras);
                     String fechaMuestreo = rs.getDate("vistatabla_fechaMuestreo").toString();
                     row.createCell(1).setCellValue(ExcelUtils.formatearEntradaExcel(fechaMuestreo));
