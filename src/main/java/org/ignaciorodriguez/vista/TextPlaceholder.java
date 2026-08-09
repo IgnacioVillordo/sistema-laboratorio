@@ -1,4 +1,4 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import java.awt.*;
 import java.awt.event.*;

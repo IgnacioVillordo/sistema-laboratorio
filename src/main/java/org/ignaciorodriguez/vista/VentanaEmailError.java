@@ -1,4 +1,4 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import com.sun.mail.smtp.SMTPTransport;
 import java.awt.Color;
@@ -31,8 +31,8 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import main.java.org.ignaciorodriguez.Main;
-import main.java.org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.Main;
+import org.ignaciorodriguez.service.ArchivoService;
 
 public class VentanaEmailError extends javax.swing.JDialog {
 

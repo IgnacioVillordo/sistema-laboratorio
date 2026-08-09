@@ -1,12 +1,12 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.repository.ClienteRepository;
-import main.java.org.ignaciorodriguez.repository.EntregaRepository;
-import main.java.org.ignaciorodriguez.repository.MuestraRepository;
-import main.java.org.ignaciorodriguez.repository.ResultadoRepository;
-import main.java.org.ignaciorodriguez.service.ArchivoService;
-import main.java.org.ignaciorodriguez.service.ReporteService;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.repository.ClienteRepository;
+import org.ignaciorodriguez.repository.EntregaRepository;
+import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import javax.swing.*;
@@ -457,7 +457,7 @@ public class TablaEntregas extends javax.swing.JDialog {
 //                            fila2[i] = rs.getObject(i + 1).toString();
 //                        }
 //                    }
-//                    modeloTabla.addRow(fila2); // se agrega un renglon al main.java.org.ignaciorodriguez.modelo de la tabla
+//                    modeloTabla.addRow(fila2); // se agrega un renglon al org.ignaciorodriguez.modelo de la tabla
 //                }
 //            } catch (Exception e) {
 //            } finally {

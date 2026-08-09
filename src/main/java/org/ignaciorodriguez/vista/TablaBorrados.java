@@ -1,7 +1,7 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.repository.AdministracionRepository;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.repository.AdministracionRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

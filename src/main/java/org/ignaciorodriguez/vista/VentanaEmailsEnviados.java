@@ -1,4 +1,4 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -13,8 +13,8 @@ import javax.swing.JTable;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.repository.EmailRepository;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.repository.EmailRepository;
 
 public class VentanaEmailsEnviados extends javax.swing.JDialog {
 

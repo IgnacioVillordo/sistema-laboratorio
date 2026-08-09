@@ -1,12 +1,12 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import java.awt.*;
 import java.util.Calendar;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.repository.AdministracionRepository;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.repository.AdministracionRepository;
 
 
 public class Ganancias extends javax.swing.JDialog {

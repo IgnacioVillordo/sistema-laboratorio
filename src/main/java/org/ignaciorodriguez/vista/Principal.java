@@ -1,4 +1,4 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,13 +33,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.modelo.Usuario;
-import main.java.org.ignaciorodriguez.repository.*;
-import main.java.org.ignaciorodriguez.service.ActualizacionService;
-import main.java.org.ignaciorodriguez.service.ArchivoService;
-import main.java.org.ignaciorodriguez.service.ReporteService;
-import main.java.org.ignaciorodriguez.utils.SeparatorUtils;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.modelo.Usuario;
+import org.ignaciorodriguez.repository.*;
+import org.ignaciorodriguez.service.ActualizacionService;
+import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
+import org.ignaciorodriguez.utils.SeparatorUtils;
 
 public class Principal extends JFrame {
 

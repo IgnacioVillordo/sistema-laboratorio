@@ -1,7 +1,7 @@
-package main.java.org.ignaciorodriguez.utils;
+package org.ignaciorodriguez.utils;
 
 import java.util.List;
-import main.java.org.ignaciorodriguez.modelo.Determinacion;
+import org.ignaciorodriguez.modelo.Determinacion;
 
 public class ListUtils {
     public static void addIfcondition(Determinacion element, List list, boolean condition){

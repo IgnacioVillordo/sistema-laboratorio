@@ -1,15 +1,14 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import java.awt.Frame;
 import java.awt.event.KeyListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.repository.ClienteRepository;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.repository.ClienteRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -271,7 +270,7 @@ public class VerClientes extends javax.swing.JDialog {
     }
 
     private void itemEditarClienteActionPerformed(java.awt.event.ActionEvent evt) {
-        int procedencia = clienteRepository.recuperarIdCliente(String.valueOf(modeloTabla.getValueAt(fila, 0)));
+        int procedencia = clienteRepository.findIdClienteByProcedencia(String.valueOf(modeloTabla.getValueAt(fila, 0)));
         AgregarProcedencia ap = new AgregarProcedencia(parent, true, true, procedencia, false);
         this.dispose();
         ap.setVisible(true);
@@ -282,7 +281,7 @@ public class VerClientes extends javax.swing.JDialog {
     }
 
     private void itemBorrarClienteActionPerformed(java.awt.event.ActionEvent evt) {
-        int id = clienteRepository.recuperarIdCliente(String.valueOf(modeloTabla.getValueAt(fila, 0)));
+        int id = clienteRepository.findIdClienteByProcedencia(String.valueOf(modeloTabla.getValueAt(fila, 0)));
         if (clienteRepository.borrarCliente(id)) {
             JOptionPane.showMessageDialog(null, "Cliente borrado.");
             modeloTabla.setRowCount(0);
@@ -294,7 +293,7 @@ public class VerClientes extends javax.swing.JDialog {
     }
 
     private void itemRecuperarClienteActionPerformed(java.awt.event.ActionEvent evt) {
-        int id = clienteRepository.recuperarIdCliente(String.valueOf(modeloTabla.getValueAt(fila, 0)));
+        int id = clienteRepository.findIdClienteByProcedencia(String.valueOf(modeloTabla.getValueAt(fila, 0)));
         if (clienteRepository.recuperarClienteBorrado(id)) {
             JOptionPane.showMessageDialog(null, "Cliente recuperado.");
             modeloTabla.setRowCount(0);

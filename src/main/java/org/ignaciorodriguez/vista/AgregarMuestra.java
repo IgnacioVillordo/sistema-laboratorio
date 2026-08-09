@@ -1,22 +1,20 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 
 import com.jidesoft.swing.AutoCompletionComboBox;
 import com.toedter.calendar.JDateChooser;
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.modelo.Muestra;
-import main.java.org.ignaciorodriguez.repository.AdministracionRepository;
-import main.java.org.ignaciorodriguez.repository.ClienteRepository;
-import main.java.org.ignaciorodriguez.repository.MuestraRepository;
-import main.java.org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.modelo.Muestra;
+import org.ignaciorodriguez.repository.AdministracionRepository;
+import org.ignaciorodriguez.repository.ClienteRepository;
+import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ItemEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -130,7 +128,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
             comboSolicitante.setVisible(true);
             cajaSolicitante.setVisible(false);
             AutoCompleteDecorator.decorate(comboSolicitante);
-            comboSolicitante.setModel(new DefaultComboBoxModel(muestraRepository.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()))));
+            comboSolicitante.setModel(new DefaultComboBoxModel(muestraRepository.recuperarSolicitantes(clienteRepository.findIdClienteByProcedencia(comboProcedencia.getSelectedItem().toString()))));
             comboSolicitante.setSelectedItem(m.getSolicitante());
             checkGuardar.setSelected(true);
         }
@@ -755,11 +753,11 @@ public class AgregarMuestra extends javax.swing.JDialog {
         if (evt.getStateChange() == ItemEvent.SELECTED) {
             String procedencia = String.valueOf(comboProcedencia.getSelectedItem());
             cajaHabilitacion.setText(muestraRepository.obtenerHablitacion(procedencia));
-            solicitantes = muestraRepository.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()));
+            solicitantes = muestraRepository.recuperarSolicitantes(clienteRepository.findIdClienteByProcedencia(comboProcedencia.getSelectedItem().toString()));
             AutoCompleteDecorator.decorate(comboSolicitante);
             comboSolicitante.setModel(new DefaultComboBoxModel(solicitantes));
             existeSolicitante = true;
-            checkGuardar.setSelected(!clienteRepository.consultarGuardar(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString())));
+            checkGuardar.setSelected(!clienteRepository.consultarGuardar(clienteRepository.findIdClienteByProcedencia(comboProcedencia.getSelectedItem().toString())));
             checkGuardar.doClick();
             if (editar) {
                 editar = false;
@@ -786,7 +784,7 @@ public class AgregarMuestra extends javax.swing.JDialog {
                 cajaSolicitante.setVisible(false);
             }
             AutoCompleteDecorator.decorate(comboSolicitante);
-            comboSolicitante.setModel(new DefaultComboBoxModel(muestraRepository.recuperarSolicitantes(clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()))));
+            comboSolicitante.setModel(new DefaultComboBoxModel(muestraRepository.recuperarSolicitantes(clienteRepository.findIdClienteByProcedencia(comboProcedencia.getSelectedItem().toString()))));
         } else {
             comboSolicitante.setVisible(false);
             cajaSolicitante.setVisible(true);

@@ -1,14 +1,14 @@
-package main.java.org.ignaciorodriguez.service;
+package org.ignaciorodriguez.service;
 
 import com.mysql.cj.util.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xddf.usermodel.chart.*;
 import org.apache.poi.xssf.usermodel.*;
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.modelo.Tipo;
-import main.java.org.ignaciorodriguez.repository.ClienteRepository;
-import main.java.org.ignaciorodriguez.utils.ExcelUtils;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.modelo.Tipo;
+import org.ignaciorodriguez.repository.ClienteRepository;
+import org.ignaciorodriguez.utils.ExcelUtils;
 
 import java.awt.*;
 import java.io.File;
@@ -102,7 +102,7 @@ public class ExcelService {
                 }
             }
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-            String ruta = archivoService.recuperarRutas("Reportes") + main.java.org.ignaciorodriguez.utils.SeparatorUtils.s + tipo + " " + clienteRepository.recuperarProcedencia(idcliente) + " desde " + formatter.format(desdeSql) + " hasta " + formatter.format(hastaSql) + ".xlsx";
+            String ruta = archivoService.recuperarRutas("Reportes") + org.ignaciorodriguez.utils.SeparatorUtils.s + tipo + " " + clienteRepository.recuperarProcedencia(idcliente) + " desde " + formatter.format(desdeSql) + " hasta " + formatter.format(hastaSql) + ".xlsx";
             fileOut = new FileOutputStream(ruta);
             workbook.write(fileOut);
             Desktop.getDesktop().open(new File(ruta));

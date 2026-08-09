@@ -1,8 +1,8 @@
-package main.java.org.ignaciorodriguez.repository;
+package org.ignaciorodriguez.repository;
 
-import main.java.org.ignaciorodriguez.repository.MuestraRepository;
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.modelo.Resultados;
+import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.modelo.Resultados;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

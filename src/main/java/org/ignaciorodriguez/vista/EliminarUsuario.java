@@ -1,11 +1,11 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import java.awt.event.KeyListener;
 
-import main.java.org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.modelo.Conexion;
 import javax.swing.JOptionPane;
-import main.java.org.ignaciorodriguez.modelo.Usuario;
-import main.java.org.ignaciorodriguez.repository.UsuarioRepository;
+import org.ignaciorodriguez.modelo.Usuario;
+import org.ignaciorodriguez.repository.UsuarioRepository;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

@@ -1,11 +1,11 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import javax.swing.table.DefaultTableModel;
 
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.repository.AdministracionRepository;
-import main.java.org.ignaciorodriguez.repository.VencimientoRepository;
-import main.java.org.ignaciorodriguez.service.ReporteService;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.repository.AdministracionRepository;
+import org.ignaciorodriguez.repository.VencimientoRepository;
+import org.ignaciorodriguez.service.ReporteService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

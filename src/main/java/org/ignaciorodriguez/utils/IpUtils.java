@@ -1,7 +1,7 @@
-package main.java.org.ignaciorodriguez.utils;
+package org.ignaciorodriguez.utils;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import main.java.org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.modelo.Conexion;
 
 import java.io.*;
 import java.net.URISyntaxException;

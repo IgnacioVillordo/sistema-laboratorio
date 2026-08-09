@@ -1,4 +1,4 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -9,8 +9,8 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.table.DefaultTableModel;
 
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.repository.UsuarioRepository;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.repository.UsuarioRepository;
 
 /**
  *

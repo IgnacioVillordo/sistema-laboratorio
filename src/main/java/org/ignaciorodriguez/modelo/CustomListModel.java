@@ -1,4 +1,4 @@
-package main.java.org.ignaciorodriguez.modelo;
+package org.ignaciorodriguez.modelo;
 
 
 import java.util.ArrayList;

@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import com.jidesoft.swing.AutoCompletionComboBox;
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.modelo.Tipo;
-import main.java.org.ignaciorodriguez.repository.ClienteRepository;
-import main.java.org.ignaciorodriguez.service.ExcelService;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.modelo.Tipo;
+import org.ignaciorodriguez.repository.ClienteRepository;
+import org.ignaciorodriguez.service.ExcelService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -162,7 +162,7 @@ public class VentanaExcel extends javax.swing.JDialog {
         Date fechaFin = cajaHasta.getDate();
 
         ExcelService excelService = new ExcelService();
-        excelService.exportarExcelTradicional(fechaInicio, fechaFin, clienteRepository.recuperarIdCliente(comboProcedencia.getSelectedItem().toString()), comboTipo.getSelectedItem().toString(), getTipoEnum());
+        excelService.exportarExcelTradicional(fechaInicio, fechaFin, clienteRepository.findIdClienteByProcedencia(comboProcedencia.getSelectedItem().toString()), comboTipo.getSelectedItem().toString(), getTipoEnum());
 //        this.dispose();
     }
 

@@ -1,4 +1,4 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -8,11 +8,11 @@ import javax.swing.JOptionPane;
 import javax.swing.border.MatteBorder;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.repository.MuestraRepository;
-import main.java.org.ignaciorodriguez.repository.ResultadoRepository;
-import main.java.org.ignaciorodriguez.service.ArchivoService;
-import main.java.org.ignaciorodriguez.service.ReporteService;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.service.ArchivoService;
+import org.ignaciorodriguez.service.ReporteService;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;

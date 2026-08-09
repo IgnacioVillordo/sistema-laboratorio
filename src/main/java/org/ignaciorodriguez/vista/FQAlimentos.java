@@ -1,9 +1,9 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import java.awt.event.ItemEvent;
 import javax.swing.DefaultListModel;
 
-import main.java.org.ignaciorodriguez.modelo.*;
+import org.ignaciorodriguez.modelo.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -19,9 +19,9 @@ import javax.swing.InputMap;
 import javax.swing.KeyStroke;
 import javax.swing.JComponent;
 
-import main.java.org.ignaciorodriguez.repository.MuestraRepository;
-import main.java.org.ignaciorodriguez.repository.ResultadoRepository;
-import main.java.org.ignaciorodriguez.utils.ListUtils;
+import org.ignaciorodriguez.repository.MuestraRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.utils.ListUtils;
 
 public class FQAlimentos extends javax.swing.JDialog {
 

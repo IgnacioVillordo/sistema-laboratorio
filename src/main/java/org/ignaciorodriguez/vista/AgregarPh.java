@@ -1,4 +1,4 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 import java.awt.*;
 import java.text.DecimalFormat;
@@ -8,9 +8,9 @@ import javax.swing.*;
 import javax.swing.GroupLayout;
 import javax.swing.JOptionPane;
 
-import main.java.org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.modelo.Conexion;
 
-import main.java.org.ignaciorodriguez.repository.ResultadoRepository;
+import org.ignaciorodriguez.repository.ResultadoRepository;
 
 public class AgregarPh extends javax.swing.JDialog {
 

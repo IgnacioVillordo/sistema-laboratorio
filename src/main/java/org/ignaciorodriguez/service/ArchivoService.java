@@ -1,7 +1,7 @@
-package main.java.org.ignaciorodriguez.service;
+package org.ignaciorodriguez.service;
 
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.repository.ArchivoRepository;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.repository.ArchivoRepository;
 
 import javax.swing.*;
 import java.io.*;
@@ -22,16 +22,16 @@ public class ArchivoService {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         LocalDateTime ahora = LocalDateTime.now();
         String fecha = dtf.format(ahora);
-        return ruta + "" + main.java.org.ignaciorodriguez.utils.SeparatorUtils.s + "respaldo_" + fecha + ".sql";
+        return ruta + "" + org.ignaciorodriguez.utils.SeparatorUtils.s + "respaldo_" + fecha + ".sql";
 
     }
 
     public boolean guardarRutas(String nombre, String ruta) {
         File archivo = null;
         if (nombre.equals("Reportes")) {
-            archivo = new File("src" + main.java.org.ignaciorodriguez.utils.SeparatorUtils.s + "vista" + main.java.org.ignaciorodriguez.utils.SeparatorUtils.s + "rutaDocumentos.txt");
+            archivo = new File("src" + org.ignaciorodriguez.utils.SeparatorUtils.s + "vista" + org.ignaciorodriguez.utils.SeparatorUtils.s + "rutaDocumentos.txt");
         } else if (nombre.equals("Respaldo")) {
-            archivo = new File("src" + main.java.org.ignaciorodriguez.utils.SeparatorUtils.s + "vista" + main.java.org.ignaciorodriguez.utils.SeparatorUtils.s + "rutaRespaldo.txt");
+            archivo = new File("src" + org.ignaciorodriguez.utils.SeparatorUtils.s + "vista" + org.ignaciorodriguez.utils.SeparatorUtils.s + "rutaRespaldo.txt");
         }
 
         BufferedWriter bw = null;

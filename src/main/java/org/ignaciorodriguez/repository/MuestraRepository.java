@@ -1,8 +1,8 @@
-package main.java.org.ignaciorodriguez.repository;
+package org.ignaciorodriguez.repository;
 
-import main.java.org.ignaciorodriguez.modelo.Conexion;
-import main.java.org.ignaciorodriguez.modelo.Muestra;
-import main.java.org.ignaciorodriguez.modelo.Resultados;
+import org.ignaciorodriguez.modelo.Conexion;
+import org.ignaciorodriguez.modelo.Muestra;
+import org.ignaciorodriguez.modelo.Resultados;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -793,5 +793,19 @@ public class MuestraRepository {
         } catch (Exception e) {
             logger.severe("Error al esconder fecha de vencimiento, " + e);
         }
+    }
+
+    public int recuperarIdCliente(int id) {
+        try (Connection conexion = con.getConnection()) {
+            PreparedStatement ps = conexion.prepareStatement("select idcliente from muestras where idmuestras = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            logger.severe("Error al recuperar id del cliente, " + e);
+        }
+        return -1;
     }
 }

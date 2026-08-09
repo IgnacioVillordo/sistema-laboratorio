@@ -1,4 +1,4 @@
-package main.java.org.ignaciorodriguez.vista;
+package org.ignaciorodriguez.vista;
 
 public class ConclusionEfluentes extends javax.swing.JDialog {
 
