@@ -8,18 +8,22 @@ import lombok.Setter;
 import org.hibernate.annotations.Immutable;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "vistaborrado")
+@Table(name = "vistaentregas")
 @Immutable
-public class VistaBorrado {
+public class VistaEntregas {
+
     @Id
-    private long idmuestras;
+    private Long idmuestras;
     private String procedencia;
     private String solicitante;
-    private LocalDate fechaMuestreo;
-    private LocalDate fechaAnalisis;
     private String tipo;
+    private String persona;
+    private LocalDateTime hora;
+    private LocalDate fechaAnalisis;
+    private String identificaciones;
 }

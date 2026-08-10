@@ -12,7 +12,6 @@ import org.hibernate.annotations.Immutable;
 @Setter
 @Table(name = "vistatabla")
 @Entity
-@Immutable@Entity
 public class VistaEmail {
 
     @Id

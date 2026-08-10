@@ -22,6 +22,20 @@ import java.util.logging.Logger;
 @Repository
 public interface AdministracionRepository extends JpaRepository<Administracion, Long> {
 
+    //    public boolean cancelarEntrega2(int id) {
+//        Connection conexion = con.getConnection();
+//        try {
+//            PreparedStatement ps = conexion.prepareStatement("update administracion set entregado = ? where idmuestras = ?");
+//            ps.setInt(1, 0);
+//            ps.setInt(2, id);
+//            ps.executeUpdate();
+//            return true;
+//        } catch (Exception e) {
+//            logger.severe("Error al cancelar la entrega, " + e);
+//            return false;
+//        }
+//    }
+
 //    public boolean seleccionarVencimiento(int id, int seleccionar) {
 //        try (Connection conexion = con.getConnection()) {
 //            PreparedStatement ps = conexion.prepareStatement("update administracion set seleccionadoVencimiento = ? where idmuestras = ?");
