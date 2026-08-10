@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.modelo;
+package org.ignaciorodriguez.dto;
 
 public class DTOPrecio {
 
