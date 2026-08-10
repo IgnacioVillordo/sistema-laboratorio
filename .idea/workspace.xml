@@ -5,201 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0c7f69cd-56e6-4f2d-8430-254a601404bb" name="Changes" comment="arreglos varios">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Conexion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Conexion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/CustomListModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/CustomListModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/DTOPrecio.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/DTOPrecio.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Determinacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Determinacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/DeterminacionHumedad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/DeterminacionHumedad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Efluentes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Efluentes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Muestra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Muestra.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Resultados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Resultados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Tipo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Tipo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/Usuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/VerContrasena.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo/VerContrasena.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/AdministracionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/AdministracionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/ArchivoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/ArchivoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/ClienteRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/ClienteRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/EmailRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/EmailRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/EntregaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/EntregaRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/MuestraRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/MuestraRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/ResultadoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/ResultadoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/UsuarioRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/UsuarioRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/VencimientoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/repository/VencimientoRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/service/ActualizacionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/service/ActualizacionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/service/ArchivoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/service/ArchivoService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/service/ExcelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/service/ExcelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/service/ReporteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/service/ReporteService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/utils/ExcelUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/utils/ExcelUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/utils/IpUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/utils/IpUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/utils/ListUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/utils/ListUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/utils/SeparatorUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/utils/SeparatorUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarMuestra.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarMuestra.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarMuestra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarMuestra.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarMuestra.jfd" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarMuestra.jfd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarPh.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarPh.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarPh.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarPh.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarPh.jfd" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarPh.jfd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarProcedencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AgregarProcedencia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AnalisisEnProceso.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AnalisisEnProceso.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AnalisisEnProceso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/AnalisisEnProceso.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ConclusionEfluentes.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ConclusionEfluentes.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ConclusionEfluentes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ConclusionEfluentes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ConclusionHisopados.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ConclusionHisopados.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ConclusionHisopados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ConclusionHisopados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/CrearUsuario.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/CrearUsuario.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/CrearUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/CrearUsuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Descargando.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Descargando.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Descargando.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Descargando.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Determinaciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Determinaciones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/DialogoBuscar.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/DialogoBuscar.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/DialogoBuscar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/DialogoBuscar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/EliminarUsuario.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/EliminarUsuario.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/EliminarUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/EliminarUsuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/FQAlimentos.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/FQAlimentos.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/FQAlimentos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/FQAlimentos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Ganancias.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Ganancias.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Ganancias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Ganancias.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformeMuestras.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformeMuestras.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformeMuestras.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformeMuestras.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformesVencimientos.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformesVencimientos.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformesVencimientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/InformesVencimientos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ModificarUsuario.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ModificarUsuario.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ModificarUsuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/ModificarUsuario.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/PatogenosHisopado.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/PatogenosHisopado.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/PatogenosHisopado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/PatogenosHisopado.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Principal.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Principal.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Principal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Principal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Procedencia.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Procedencia.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Procedencia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Procedencia.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/SplashScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/SplashScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBaseHelada.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBaseHelada.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBaseHelada.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBaseHelada.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBorrados.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBorrados.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBorrados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaBorrados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentes.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentes.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesCloaca.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesCloaca.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesCloaca.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesCloaca.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesInfiltracion.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesInfiltracion.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesInfiltracion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEfluentesInfiltracion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEntregas.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEntregas.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEntregas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEntregas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEntregas.jfd" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaEntregas.jfd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaFQAgua.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaFQAgua.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaFQAgua.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaFQAgua.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaHisopados.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaHisopados.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaHisopados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaHisopados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaHisopadosAlliance.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaHisopadosAlliance.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaHisopadosAlliance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaHisopadosAlliance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAgua.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAgua.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAgua.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAgua.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaBalnearios.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaBalnearios.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaBalnearios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaBalnearios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaBidon.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaBidon.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaBidon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaBidon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaCOFES.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaCOFES.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaCOFES.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaCOFES.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaRecreacion.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaRecreacion.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaRecreacion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAguaRecreacion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAlimentos.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAlimentos.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAlimentos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBAlimentos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBChocolates.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBChocolates.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBChocolates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaMBChocolates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaManual.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaManual.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaManual.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaManual.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaNutricional.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TablaNutricional.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TextPlaceholder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/TextPlaceholder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Usuarios.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Usuarios.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Usuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Usuarios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Vencimiento.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Vencimiento.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Vencimiento.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/Vencimiento.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmail.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmail.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmail.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailError.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailError.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailError.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailVencimientos.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailVencimientos.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailVencimientos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailVencimientos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailsEnviados.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailsEnviados.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailsEnviados.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaEmailsEnviados.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaExcel.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaExcel.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaExcel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaExcel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaFactura.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaFactura.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaFactura.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaFactura.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaNotas.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaNotas.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaNotas.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VentanaNotas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VerClientes.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VerClientes.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VerClientes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VerClientes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VerUsuarios.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VerUsuarios.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VerUsuarios.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/VerUsuarios.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/actualizacion.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/actualizacion.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/bd.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/bd.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/bd1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/bd1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/laboratorio.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/vista/laboratorio.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/bd.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bd.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/Rutas.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/Rutas.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/actualizar usuario.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/actualizar usuario.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/agregar-cliente.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/agregar-cliente.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/agregar-usuario.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/agregar-usuario.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/blanco.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/blanco.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/blanco.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/blanco.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/blanco10.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/blanco10.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/clientes-borrados.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/clientes-borrados.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/clientes.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/clientes.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/eliminar usuario.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/eliminar usuario.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/firma 1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/firma 1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/firma 2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/firma 2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/firma.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/firma.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/icono.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/icono.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/informe.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/informe.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/laboratorio.ico" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/laboratorio.ico" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/laboratorio.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/laboratorio.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/laboratorio.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/laboratorio.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/letra-x.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/letra-x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/lupa.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/lupa.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/modificar usuario.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/modificar usuario.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/reporte.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/reporte.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/salida.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/salida.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/usuario (1).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/usuario (1).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/usuario (2).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/usuario (2).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/usuario (3).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/usuario (3).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/usuario (4).png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/usuario (4).png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/usuario.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/usuario.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/usuario2.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/usuario2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/vencimiento.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/vencimiento.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/ver.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/ver.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/imagenes/x.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/imagenes/x.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/imagenes/firma 1.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/imagenes/firma 1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/imagenes/laboratorio.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/imagenes/laboratorio.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/imagenes/laboratorio.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/imagenes/laboratorio.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/informeMuestras.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/informeMuestras.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/informeVencimientos.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/informeVencimientos.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/reporteEfluentes.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/reporteEfluentes.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/reporteEfluentesCloaca.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/reporteEfluentesCloaca.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/reporteEfluentesInfiltracion.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/reporteEfluentesInfiltracion.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/reporteFQAgua.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/reporteFQAgua.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/reporteFQCompleto.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/reporteFQCompleto.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/reporteHisopado.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/reporteHisopado.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/reporteHisopadoAlliance.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/reporteHisopadoAlliance.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/reporteMBAgua.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/reporteMBAgua.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/reporteMBAguaCOFES.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/reporteMBAguaCOFES.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/reporteMBAguadeRecreacion.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/reporteMBAguadeRecreacion.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/reporteMBChocolates.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/reporteMBChocolates.jasper" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/reporte/reportetablanutricional.jasper" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/reporte/reportetablanutricional.jasper" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -309,45 +116,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Inicial.executor": "Run",
-    "Application.NewJFrame.executor": "Run",
-    "Application.Principal.executor": "Run",
-    "Application.Run Main.executor": "Run",
-    "Application.TablaEntregas.executor": "Run",
-    "Application.VerClientes.executor": "Run",
-    "JUnit.All in Laboratorio.executor": "Run",
-    "Maven.Laboratorio [clean].executor": "Run",
-    "Maven.Laboratorio [compile].executor": "Run",
-    "Maven.Laboratorio [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor": "Run",
-    "Maven.Laboratorio [org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "master",
-    "junie.onboarding.icon.badge.shown": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/mnt/Datos/Laboratorio",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "onboarding.tips.debug.path": "/home/nacho/Laboratorio/src/main/java/org/ignaciorodriguez/Main.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.66091955",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "to.speed.mode.migration.done": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Inicial.executor&quot;: &quot;Run&quot;,
+    &quot;Application.NewJFrame.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Principal.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Run Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.TablaEntregas.executor&quot;: &quot;Run&quot;,
+    &quot;Application.VerClientes.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.All in Laboratorio.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Laboratorio [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Laboratorio [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Laboratorio [org.apache.maven.plugins:maven-clean-plugin:3.2.0:clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.Laboratorio [org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/mnt/Datos/Laboratorio&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;/home/nacho/Laboratorio/src/main/java/org/ignaciorodriguez/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.66091955&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/org/ignaciorodriguez/modelo" />
