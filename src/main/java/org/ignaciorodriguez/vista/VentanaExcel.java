@@ -6,7 +6,7 @@ package org.ignaciorodriguez.vista;
 
 import com.jidesoft.swing.AutoCompletionComboBox;
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Tipo;
+import org.ignaciorodriguez.enums.Tipo;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.service.ExcelService;
 

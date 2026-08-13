@@ -1,12 +1,11 @@
 package org.ignaciorodriguez.service;
 
-import com.mysql.cj.util.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xddf.usermodel.chart.*;
 import org.apache.poi.xssf.usermodel.*;
 import org.ignaciorodriguez.modelo.Conexion;
-import org.ignaciorodriguez.modelo.Tipo;
+import org.ignaciorodriguez.enums.Tipo;
 import org.ignaciorodriguez.repository.ClienteRepository;
 import org.ignaciorodriguez.utils.ExcelUtils;
 

@@ -1,4 +1,4 @@
-package org.ignaciorodriguez.modelo;
+package org.ignaciorodriguez.enums;
 
 public enum Tipo {
     EFLUENTES,

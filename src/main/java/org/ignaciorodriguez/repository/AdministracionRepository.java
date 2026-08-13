@@ -225,4 +225,34 @@ public interface AdministracionRepository extends JpaRepository<Administracion, 
 //            return null;
 //        }
 //    }
+    //    public void analizado(int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("update administracion set analizado = analizado + 1 "
+//                    + "where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            logger.severe("Error al actualizar analizado, " + e);
+//        }
+//    }
+    //    public void marcarSeleccionados(int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("update administracion set seleccionado = 1 "
+//                    + "where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            System.err.println("Error, " + e);
+//        }
+//    }
+    //    public void entregado(int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("update administracion set entregado = 1 where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            logger.severe("Error al actualizar entregado, " + e);
+//        }
+//    }
+//
 }

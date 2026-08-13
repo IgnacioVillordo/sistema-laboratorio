@@ -1,664 +1,408 @@
 package org.ignaciorodriguez.repository;
 
-import org.ignaciorodriguez.modelo.Conexion;
 import org.ignaciorodriguez.modelo.Muestra;
-import org.ignaciorodriguez.modelo.Resultados;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import java.util.List;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.logging.Logger;
+@Repository
+public interface MuestraRepository extends JpaRepository<Muestra, Long> {
 
-public class MuestraRepository {
-
-    private static final Logger logger = Logger.getLogger(MuestraRepository.class.getName());
-    private final Conexion con;
-
-    public MuestraRepository(Conexion con) {
-        this.con = con;
-    }
-
-    public boolean agregarMuestra(Muestra m) {
-        Date fv = m.getFechaVencimiento();
-        Date fe = m.getFechaElaboracion();
-        java.sql.Date def = null; //se crea una fecha por defecto (1111-11-11) para cuando no se introduce alguna fecha
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("insert into muestras (idcliente,solicitante,"
-                    + "numeroEstablecimiento,fechaMuestreo,realizadoPor,"
-                    + "loteAlimento,identificacion,tipo,fechaVencimiento,idmuestras,fechaElaboracion, lugarMuestreo) values "
-                    + "(?,?,?,?,?,?,?,?,?,?,?,?)");
-            ps.setInt(1, m.getIdcliente());
-            ps.setString(2, m.getSolicitante());
-            ps.setString(3, m.getNumeroEstablecimiento());
-            ps.setDate(4, m.getFechaMuestreo());
-            ps.setString(5, m.getRealizadoPor());
-            ps.setString(6, m.getLote());
-            if (m.getIdentificacion().isEmpty()) {
-                ps.setObject(7, "-");
-            } else {
-                ps.setString(7, m.getIdentificacion());
-            }
-            ps.setString(8, m.getTipo());
-            if (fv != null) {
-                ps.setDate(9, m.getFechaVencimiento());
-            } else {
-                ps.setDate(9, null);
-            }
-            ps.setInt(10, m.getId());
-            if (fe != null) {
-                ps.setDate(11, m.getFechaElaboracion());
-            } else {
-                ps.setDate(11, null);
-            }
-            ps.setString(12, m.getLugarMuestreo().isBlank() ? "-" : m.getLugarMuestreo());
-            ps.executeUpdate();
-            return true;
-
-        } catch (Exception e) {
-            logger.severe("Error al agregar muestra, " + e);
-            return false;
-        }
-    }
-
-    public boolean editarMuestra(Muestra m) {
-        Date fa = m.getFechaAnalisis();
-        Date fv = m.getFechaVencimiento();
-        Date fe = m.getFechaElaboracion();
-        java.sql.Date def = null;
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("update muestras set solicitante = ?, "
-                    + "numeroEstablecimiento = ?, fechaMuestreo = ?, realizadoPor = ?, "
-                    + "loteAlimento = ?, identificacion = ?, tipo = ?, fechaVencimiento = ?, "
-                    + "fechaElaboracion = ?, lugarMuestreo = ?, idcliente = ? where idmuestras = ?");
-            ps.setString(1, m.getSolicitante());
-            ps.setString(2, m.getNumeroEstablecimiento());
-            ps.setDate(3, m.getFechaMuestreo());
-            ps.setString(4, m.getRealizadoPor());
-            ps.setString(5, m.getLote());
-            ps.setString(6, m.getIdentificacion());
-            ps.setString(7, m.getTipo());
-            if (fv == null) {
-                ps.setDate(8, null);
-            } else {
-                ps.setDate(8, m.getFechaVencimiento());
-            }
-            if (fe == null) {
-                ps.setDate(9, null);
-            } else {
-                ps.setDate(9, m.getFechaElaboracion());
-            }
-            ps.setString(10, m.getLugarMuestreo());
-            ps.setInt(11, m.getIdcliente());
-            ps.setInt(12, m.getId());
-            ps.executeUpdate();
-            return true;
-
-        } catch (Exception e) {
-            logger.severe("Error al editar muestra, " + e);
-            return false;
-        }
-    }
-
-    public Muestra obtenerMuestra(int id) {
-        Muestra m = new Muestra();
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("SELECT `solicitante`, `procedencia`, "
-                    + "`numeroEstablecimiento`, `fechaMuestreo`, `realizadoPor`, "
-                    + "`precioTotal`, `pago`, `factura`, `tipo`, `lote`, "
-                    + "`identificacion`, `fechaElaboracion`, `lugarMuestreo`, "
-                    + "`fechaVencimiento`, aguatipo, idcliente FROM `vistaeditar` where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                m.setSolicitante(rs.getString("solicitante"));
-                m.setProcedencia(rs.getString("procedencia"));
-                m.setNumeroEstablecimiento(rs.getString("numeroEstablecimiento"));
-                m.setFechaMuestreo(rs.getDate("fechaMuestreo"));
-                m.setRealizadoPor(rs.getString("realizadoPor"));
-                m.setCosteTotal(rs.getDouble("precioTotal"));
-                m.setPago(rs.getInt("pago"));
-                m.setFactura(rs.getInt("factura"));
-                m.setTipo(rs.getString("tipo"));
-                m.setLote(rs.getString("lote"));
-                m.setIdentificacion(rs.getString("identificacion"));
-                m.setFechaElaboracion(rs.getDate("fechaElaboracion"));
-                m.setLugarMuestreo(rs.getString("lugarMuestreo"));
-                m.setFechaVencimiento(rs.getDate("fechaVencimiento"));
-                m.setTipoAgua(rs.getString("aguatipo"));
-                m.setIdcliente(rs.getInt("idcliente"));
-            }
-            return m;
-        } catch (Exception e) {
-            logger.severe("Error al obtener muestra, " + e);
-            return null;
-        }
-    }
-
-    public int obtenerIdMuestra() {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select idmuestras from laboratorio.muestras ORDER BY idmuestras DESC LIMIT 1");
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("idmuestras");
-            }
-        } catch (Exception e) {
-            logger.severe("Error al obtener id, " + e);
-            return 0;
-        }
-        return 0;
-    }
-
-    public int recuperarIdMuestrasSiguiente() {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select idmuestras from muestras order by idmuestras desc limit 1");
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                int aux = rs.getInt("idmuestras");
-                return aux + 1;
-            }
-        } catch (Exception e) {
-            logger.severe("Error al recuperar id, " + e);
-            return -1;
-        }
-        return -1;
-    }
-
-    public String obtenerProcedencia(int id) {
-        String procedencia = "";
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select procedencia from vistaTabla2 where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                procedencia = rs.getString(1);
-            }
-            return procedencia;
-        } catch (Exception e) {
-            logger.severe("Error al obtener procedencia, " + e);
-            return null;
-        }
-    }
-
-
-    public DefaultTableModel llenarTabla() {
-        String[] fila = new String[11];
-        DefaultTableModel modeloTabla = new DefaultTableModel();
-        modeloTabla.addColumn("ID");
-        modeloTabla.addColumn("Procedencia");
-        modeloTabla.addColumn("Solicitante");
-        modeloTabla.addColumn("N° establecimiento");
-        modeloTabla.addColumn("Muestreo");
-        modeloTabla.addColumn("Análisis");
-        modeloTabla.addColumn("Realizado por");
-        modeloTabla.addColumn("Fecha entrada");
-        modeloTabla.addColumn("Pago");
-        modeloTabla.addColumn("Factura ");
-        modeloTabla.addColumn("Tipo de análisis");
-        try (Connection conexion = con.getConnection()) {
-            modeloTabla.setRowCount(0);
-            PreparedStatement ps = conexion.prepareStatement("select * from vistatabla");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < fila.length; i++) {
-                    switch (i) {
-                        case 0: {
-                            fila[i] = String.format("%05d", rs.getObject(i + 1));
-                            break;
-                        }
-                        case 4: {
-                            if (rs.getDate("fechaMuestreo").toString().equals("1111-11-11")) {
-                                fila[i] = "-";
-                            } else {
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                fila[i] = formatter.format(rs.getDate("fechaMuestreo"));
-                            }
-                            break;
-                        }
-                        case 5: {
-                            if (rs.getObject("fechaAnalisis").toString().equals("1111-11-11")) {
-                                fila[i] = "-";
-                            } else {
-                                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                fila[i] = formatter.format(rs.getDate("fechaAnalisis"));
-                            }
-                            break;
-                        }
-                        case 7: {
-                            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                            fila[i] = formatter.format(rs.getDate("entrada"));
-                            break;
-                        }
-                        case 8:
-                            if (rs.getObject(i + 1).equals(1)) {
-                                fila[i] = "Si";//si el dato es 1 se pone "si" y si es 0 se pone "no"
-                            } else if (rs.getObject(i + 1).equals(0)) {
-                                fila[i] = "No";
-                            }
-                            break;
-                        case 9:
-                            if (rs.getObject(i + 1).equals(1)) {
-                                fila[i] = "Si";
-                            } else if (rs.getObject(i + 1).equals(0)) {
-                                fila[i] = "No";
-                            }
-                            break;
-                        default:
-                            fila[i] = String.valueOf(rs.getObject(i + 1));
-                            break;
-                    }
-                }
-                modeloTabla.addRow(fila);
-            }
-            return modeloTabla;
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al llenarTabla, " + e);
-            return null;
-        }
-    }
-
-    public DefaultTableModel buscarTabla(String parametro, String valor) {
-        if (Objects.equals(parametro, "-1") || Objects.equals(valor, "-1")) {
-            return llenarTabla();
-        } else {
-            DefaultTableModel modeloTabla = new DefaultTableModel();
-            String[] fila = new String[13];
-            modeloTabla.addColumn("ID");
-            modeloTabla.addColumn("Procedencia");
-            modeloTabla.addColumn("Solicitante");
-            modeloTabla.addColumn("N° establecimiento");
-            modeloTabla.addColumn("Muestreo");
-            modeloTabla.addColumn("Análisis");
-            modeloTabla.addColumn("Realizado por");
-            modeloTabla.addColumn("Coste total");
-            modeloTabla.addColumn("Pago");
-            modeloTabla.addColumn("Factura ");
-            modeloTabla.addColumn("Tipo de análisis");
-            modeloTabla.addColumn("Identificaciones");
-            modeloTabla.addColumn("Estado");
-            try (Connection conexion = con.getConnection()) {
-                modeloTabla.setRowCount(0);
-                PreparedStatement ps;
-                if (Objects.equals(parametro, "procedencia") || Objects.equals(parametro, "solicitante")) {
-                    ps = conexion.prepareStatement("select * from vistabusqueda where " + parametro + " like ?");
-                    ps.setString(1, "%" + valor + "%");
-                } else if (Objects.equals(parametro, "fechaAnalisis") || Objects.equals(parametro, "fechaMuestreo")) {
-                    ps = conexion.prepareStatement("select * from vistabusqueda where " + parametro + " between " + valor);
-                } else {
-                    ps = conexion.prepareStatement("select * from vistabusqueda where " + parametro + " = " + valor);
-                }
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    for (int i = 0; i < fila.length; i++) {
-                        switch (i) {
-                            case 0: {
-                                fila[i] = String.format("%05d", rs.getObject(i + 1));
-                                break;
-                            }
-                            case 4: {
-                                if (rs.getDate("fechaMuestreo").toString().equals("1111-11-11")) {
-                                    fila[i] = "-";
-                                } else {
-                                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                    fila[i] = formatter.format(rs.getDate("fechaMuestreo"));
-                                }
-                                break;
-                            }
-                            case 5: {
-                                if (rs.getObject("fechaAnalisis").toString().equals("1111-11-11")) {
-                                    fila[i] = "-";
-                                } else {
-                                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-                                    fila[i] = formatter.format(rs.getDate("fechaAnalisis"));
-                                }
-                                break;
-                            }
-                            case 7: {
-                                if (rs.getDouble("precioTotal") == -1) {
-                                    fila[i] = "-";
-                                } else {
-                                    fila[i] = String.valueOf(rs.getDouble(i + 1));
-                                }
-                                break;
-                            }
-                            case 8:
-                                if (rs.getObject(i + 1).equals(1)) {
-                                    fila[i] = "Si";//si el dato es 1 se pone "si" y si es 0 se pone "no"
-                                } else if (rs.getObject(i + 1).equals(0)) {
-                                    fila[i] = "No";
-                                }
-                                break;
-                            case 9:
-                                if (rs.getObject(i + 1).equals(1)) {
-                                    fila[i] = "Si";
-                                } else if (rs.getObject(i + 1).equals(0)) {
-                                    fila[i] = "No";
-                                }
-                                break;
-                            default:
-                                fila[i] = String.valueOf(rs.getObject(i + 1));
-                                break;
-                        }
-                    }
-                    modeloTabla.addRow(fila);
-                }
-                return modeloTabla;
-            } catch (Exception e) {
-                logger.severe("Error al llenarTabla, " + e);
-                return null;
-            }
-        }
-    }
-
-    public void guardarFechaAnalisis(Resultados r, int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("update muestras set fechaAnalisis = ? "
-                    + "where idmuestras = ?");
-            ps.setDate(1, r.getFechaAnalisis());
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.severe("Error al guardar datos, " + e);
-        }
-    }
-
-    public void guardarFechaAnalisisMBAGUA(Resultados r, int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("update mbagua set fechaAnalisis = ? "
-                    + "where idmuestras = ?");
-            ps.setDate(1, r.getFechaAnalisis());
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.severe("Error al guardar datos, " + e);
-        }
-    }
-
-    public void guardarFechaAnalisis(Map m) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("update muestras set fechaAnalisis = ? "
-                    + "where idmuestras = ?");
-            ps.setDate(1, (java.sql.Date) m.get("fechaAnalisis"));
-            ps.setInt(2, (int) m.get("idmuestras"));
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.severe("Error al guardar datos, " + e);
-        }
-    }
-
-    public void guardarObservaciones(String observaciones, int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("update muestras set observaciones = ? where idmuestras = ?");
-            ps.setString(1, observaciones);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.severe("Error al guardar datos, " + e);
-        }
-    }
-
-    public void guardarConclusion(String s, int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("update muestras set conclusion = ? "
-                    + "where idmuestras = ?");
-            ps.setString(1, s);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.severe("Error al guardar datos, " + e);
-        }
-    }
-
-    public String recuperarObservaciones(int id) {
-        String o = "";
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select observaciones from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                o = rs.getString("observaciones");
-            }
-            return o;
-        } catch (Exception e) {
-            logger.severe("Error al recuperarObservaciones, " + e);
-            return null;
-        }
-    }
-
-    public String recuperarConclusion(int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("Select conclusion from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getString("conclusion");
-            }
-        } catch (Exception e) {
-            logger.severe("Error al recuperar conclusion, " + e);
-        }
-        return null;
-    }
-
-    public void guardarRecomendacion(String recomendacion, int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("update muestras set recomendacion = ?"
-                    + " where idmuestras = ?");
-            ps.setString(1, recomendacion);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.severe("Error al editar datos, " + e);
-        }
-    }
-
-    public String recuperarRecomendacion(int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select recomendacion from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return String.valueOf(rs.getObject(1));
-            }
-        } catch (Exception e) {
-            logger.severe("Error al editar datos, " + e);
-            return null;
-        }
-        return null;
-    }
-
-    public void analizado(int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("update administracion set analizado = analizado + 1 "
-                    + "where idmuestras = ?");
-            ps.setInt(1, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.severe("Error al actualizar analizado, " + e);
-        }
-    }
-
-//    public void marcarSeleccionados(int id) {
+//    public boolean agregarMuestra(Muestra m) {
+//        Date fv = m.getFechaVencimiento();
+//        Date fe = m.getFechaElaboracion();
+//        java.sql.Date def = null; //se crea una fecha por defecto (1111-11-11) para cuando no se introduce alguna fecha
 //        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("update administracion set seleccionado = 1 "
-//                    + "where idmuestras = ?");
-//            ps.setInt(1, id);
+//            PreparedStatement ps = conexion.prepareStatement("insert into muestras (idcliente,solicitante,"
+//                    + "numeroEstablecimiento,fechaMuestreo,realizadoPor,"
+//                    + "loteAlimento,identificacion,tipo,fechaVencimiento,idmuestras,fechaElaboracion, lugarMuestreo) values "
+//                    + "(?,?,?,?,?,?,?,?,?,?,?,?)");
+//            ps.setInt(1, m.getIdcliente());
+//            ps.setString(2, m.getSolicitante());
+//            ps.setString(3, m.getNumeroEstablecimiento());
+//            ps.setDate(4, m.getFechaMuestreo());
+//            ps.setString(5, m.getRealizadoPor());
+//            ps.setString(6, m.getLote());
+//            if (m.getIdentificacion().isEmpty()) {
+//                ps.setObject(7, "-");
+//            } else {
+//                ps.setString(7, m.getIdentificacion());
+//            }
+//            ps.setString(8, m.getTipo());
+//            if (fv != null) {
+//                ps.setDate(9, m.getFechaVencimiento());
+//            } else {
+//                ps.setDate(9, null);
+//            }
+//            ps.setInt(10, m.getId());
+//            if (fe != null) {
+//                ps.setDate(11, m.getFechaElaboracion());
+//            } else {
+//                ps.setDate(11, null);
+//            }
+//            ps.setString(12, m.getLugarMuestreo().isBlank() ? "-" : m.getLugarMuestreo());
 //            ps.executeUpdate();
+//            return true;
+//
 //        } catch (Exception e) {
-//            System.err.println("Error, " + e);
+//            logger.severe("Error al agregar muestra, " + e);
+//            return false;
 //        }
 //    }
+//
+//    public boolean editarMuestra(Muestra m) {
+//        Date fa = m.getFechaAnalisis();
+//        Date fv = m.getFechaVencimiento();
+//        Date fe = m.getFechaElaboracion();
+//        java.sql.Date def = null;
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("update muestras set solicitante = ?, "
+//                    + "numeroEstablecimiento = ?, fechaMuestreo = ?, realizadoPor = ?, "
+//                    + "loteAlimento = ?, identificacion = ?, tipo = ?, fechaVencimiento = ?, "
+//                    + "fechaElaboracion = ?, lugarMuestreo = ?, idcliente = ? where idmuestras = ?");
+//            ps.setString(1, m.getSolicitante());
+//            ps.setString(2, m.getNumeroEstablecimiento());
+//            ps.setDate(3, m.getFechaMuestreo());
+//            ps.setString(4, m.getRealizadoPor());
+//            ps.setString(5, m.getLote());
+//            ps.setString(6, m.getIdentificacion());
+//            ps.setString(7, m.getTipo());
+//            if (fv == null) {
+//                ps.setDate(8, null);
+//            } else {
+//                ps.setDate(8, m.getFechaVencimiento());
+//            }
+//            if (fe == null) {
+//                ps.setDate(9, null);
+//            } else {
+//                ps.setDate(9, m.getFechaElaboracion());
+//            }
+//            ps.setString(10, m.getLugarMuestreo());
+//            ps.setInt(11, m.getIdcliente());
+//            ps.setInt(12, m.getId());
+//            ps.executeUpdate();
+//            return true;
+//
+//        } catch (Exception e) {
+//            logger.severe("Error al editar muestra, " + e);
+//            return false;
+//        }
+//    }
+//
+//    public Muestra obtenerMuestra(int id) {
+//        Muestra m = new Muestra();
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("SELECT `solicitante`, `procedencia`, "
+//                    + "`numeroEstablecimiento`, `fechaMuestreo`, `realizadoPor`, "
+//                    + "`precioTotal`, `pago`, `factura`, `tipo`, `lote`, "
+//                    + "`identificacion`, `fechaElaboracion`, `lugarMuestreo`, "
+//                    + "`fechaVencimiento`, aguatipo, idcliente FROM `vistaeditar` where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                m.setSolicitante(rs.getString("solicitante"));
+//                m.setProcedencia(rs.getString("procedencia"));
+//                m.setNumeroEstablecimiento(rs.getString("numeroEstablecimiento"));
+//                m.setFechaMuestreo(rs.getDate("fechaMuestreo"));
+//                m.setRealizadoPor(rs.getString("realizadoPor"));
+//                m.setCosteTotal(rs.getDouble("precioTotal"));
+//                m.setPago(rs.getInt("pago"));
+//                m.setFactura(rs.getInt("factura"));
+//                m.setTipo(rs.getString("tipo"));
+//                m.setLote(rs.getString("lote"));
+//                m.setIdentificacion(rs.getString("identificacion"));
+//                m.setFechaElaboracion(rs.getDate("fechaElaboracion"));
+//                m.setLugarMuestreo(rs.getString("lugarMuestreo"));
+//                m.setFechaVencimiento(rs.getDate("fechaVencimiento"));
+//                m.setTipoAgua(rs.getString("aguatipo"));
+//                m.setIdcliente(rs.getInt("idcliente"));
+//            }
+//            return m;
+//        } catch (Exception e) {
+//            logger.severe("Error al obtener muestra, " + e);
+//            return null;
+//        }
+//    }
+//
+//    public int obtenerIdMuestra() {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("select idmuestras from laboratorio.muestras ORDER BY idmuestras DESC LIMIT 1");
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                return rs.getInt("idmuestras");
+//            }
+//        } catch (Exception e) {
+//            logger.severe("Error al obtener id, " + e);
+//            return 0;
+//        }
+//        return 0;
+//    }
+//
+//    public int recuperarIdMuestrasSiguiente() {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("select idmuestras from muestras order by idmuestras desc limit 1");
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                int aux = rs.getInt("idmuestras");
+//                return aux + 1;
+//            }
+//        } catch (Exception e) {
+//            logger.severe("Error al recuperar id, " + e);
+//            return -1;
+//        }
+//        return -1;
+//    }
+//
 
-    public void entregado(int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("update administracion set entregado = 1 where idmuestras = ?");
-            ps.setInt(1, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.severe("Error al actualizar entregado, " + e);
-        }
-    }
+//
 
-    public String obtenerLugarMuestreo(int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select lugarMuestreo from muestras " + "where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getString("lugarMuestreo");
-            }
-        } catch (Exception e) {
-            logger.severe("Error al obtenerLugarMuestreo, " + e);
-            return null;
-        }
-        return null;
-    }
+//    public void guardarFechaAnalisis(Resultados r, int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("update muestras set fechaAnalisis = ? "
+//                    + "where idmuestras = ?");
+//            ps.setDate(1, r.getFechaAnalisis());
+//            ps.setInt(2, id);
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            logger.severe("Error al guardar datos, " + e);
+//        }
+//    }
+//
 
-    public Date recuperarFechaAnalisis(int id) {
-        Connection conexion = con.getConnection();
-        try {
-            PreparedStatement ps = conexion.prepareStatement("select fechaAnalisis from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getDate("fechaAnalisis");
-            }
-        } catch (Exception e) {
-            logger.severe("Error al recuperarFechaAnalisis, " + e);
-            return null;
-        }
-        return null;
-    }
+//
+//    public void guardarFechaAnalisis(Map m) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("update muestras set fechaAnalisis = ? "
+//                    + "where idmuestras = ?");
+//            ps.setDate(1, (java.sql.Date) m.get("fechaAnalisis"));
+//            ps.setInt(2, (int) m.get("idmuestras"));
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            logger.severe("Error al guardar datos, " + e);
+//        }
+//    }
+//
+//    public void guardarObservaciones(String observaciones, int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("update muestras set observaciones = ? where idmuestras = ?");
+//            ps.setString(1, observaciones);
+//            ps.setInt(2, id);
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            logger.severe("Error al guardar datos, " + e);
+//        }
+//    }
+//
+//    public void guardarConclusion(String s, int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("update muestras set conclusion = ? "
+//                    + "where idmuestras = ?");
+//            ps.setString(1, s);
+//            ps.setInt(2, id);
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            logger.severe("Error al guardar datos, " + e);
+//        }
+//    }
+//
+//    public String recuperarObservaciones(int id) {
+//        String o = "";
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("select observaciones from muestras where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                o = rs.getString("observaciones");
+//            }
+//            return o;
+//        } catch (Exception e) {
+//            logger.severe("Error al recuperarObservaciones, " + e);
+//            return null;
+//        }
+//    }
+//
+//    public String recuperarConclusion(int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("Select conclusion from muestras where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                return rs.getString("conclusion");
+//            }
+//        } catch (Exception e) {
+//            logger.severe("Error al recuperar conclusion, " + e);
+//        }
+//        return null;
+//    }
+//
+//    public void guardarRecomendacion(String recomendacion, int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("update muestras set recomendacion = ?"
+//                    + " where idmuestras = ?");
+//            ps.setString(1, recomendacion);
+//            ps.setInt(2, id);
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            logger.severe("Error al editar datos, " + e);
+//        }
+//    }
+//
+//    public String recuperarRecomendacion(int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("select recomendacion from muestras where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                return String.valueOf(rs.getObject(1));
+//            }
+//        } catch (Exception e) {
+//            logger.severe("Error al editar datos, " + e);
+//            return null;
+//        }
+//        return null;
+//    }
+//
 
-    public String recuperarNota(int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select notas from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getString(1);
-            }
-        } catch (Exception e) {
-            logger.severe("Error al generar informe fq, " + e);
-            return "";
-        }
-        return "";
-    }
+//
 
-    public boolean guardarNota(int id, String nota) {
-        Connection conexion = con.getConnection();
-        try {
-            PreparedStatement ps = conexion.prepareStatement("update muestras set notas = ? where idmuestras = ?");
-            ps.setString(1, nota);
-            ps.setInt(2, id);
-            int response = ps.executeUpdate();
-            return response > 0;
-        } catch (Exception e) {
-            logger.severe("Error al guardar nota, " + e);
-            return false;
-        }
-    }
+    //    public String obtenerLugarMuestreo(int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("select lugarMuestreo from muestras " + "where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                return rs.getString("lugarMuestreo");
+//            }
+//        } catch (Exception e) {
+//            logger.severe("Error al obtenerLugarMuestreo, " + e);
+//            return null;
+//        }
+//        return null;
+//    }
+//
+//    public Date recuperarFechaAnalisis(int id) {
+//        Connection conexion = con.getConnection();
+//        try {
+//            PreparedStatement ps = conexion.prepareStatement("select fechaAnalisis from muestras where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                return rs.getDate("fechaAnalisis");
+//            }
+//        } catch (Exception e) {
+//            logger.severe("Error al recuperarFechaAnalisis, " + e);
+//            return null;
+//        }
+//        return null;
+//    }
+//
+//    public String recuperarNota(int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("select notas from muestras where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                return rs.getString(1);
+//            }
+//        } catch (Exception e) {
+//            logger.severe("Error al generar informe fq, " + e);
+//            return "";
+//        }
+//        return "";
+//    }
+//
+//    public boolean guardarNota(int id, String nota) {
+//        Connection conexion = con.getConnection();
+//        try {
+//            PreparedStatement ps = conexion.prepareStatement("update muestras set notas = ? where idmuestras = ?");
+//            ps.setString(1, nota);
+//            ps.setInt(2, id);
+//            int response = ps.executeUpdate();
+//            return response > 0;
+//        } catch (Exception e) {
+//            logger.severe("Error al guardar nota, " + e);
+//            return false;
+//        }
+//    }
+//
+    @Query("SELECT m.solicitante, COUNT(m.solicitante) as total " +
+            "FROM Muestra m " +
+            "WHERE m.idcliente = :idcliente " +
+            "GROUP BY m.solicitante " +
+            "ORDER BY COUNT(m.solicitante) DESC")
+    List<Object[]> findSolicitantesMasComunes(@Param("idcliente") Long idcliente);
+//    public Vector<String> recuperarSolicitantes(int id) {
+//        Vector<String> solicitantes = new Stack<>();
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("select solicitante, count(solicitante)" + " as mostCommon from muestras where idcliente = ? group by " + "solicitante order by mostCommon desc");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                solicitantes.add(rs.getString("solicitante"));
+//            }
+//            return solicitantes;
+//        } catch (Exception e) {
+//            logger.severe("Error al recuperar solicitante, " + e);
+//            return null;
+//        }
+//    }
+//
+//    public boolean recuperarEsconderFechaVencimiento(int id) {
+//        boolean aux = false;
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("select ponerFechaVencimiento from muestras where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                aux = rs.getBoolean("ponerFechaVencimiento");
+//            }
+//            return aux;
+//        } catch (Exception e) {
+//            JOptionPane.showInputDialog("Error al recuperar estado de fecha de vencimiento, " + e);
+//        }
+//        return false;
+//    }
+//
+//    public String recuperarIdentificacion(int id) {
+//        String aux = "";
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("select identificacion from muestras where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                aux = rs.getString("identificacion");
+//            }
+//            return aux;
+//        } catch (Exception e) {
+//            logger.severe("Error al recuperar identificacion, " + e);
+//        }
+//        return null;
+//    }
+//
 
-    public String recuperarSolicitante(int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select solicitante, count(solicitante)" + " as mostCommon from muestras where idcliente = ? group by " + "solicitante order by count(solicitante) desc");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getString(1);
-            }
-        } catch (Exception e) {
-            logger.severe("Error al recuperar solicitante, " + e);
-            return "";
-        }
-        return "";
-    }
-
-    public Vector<String> recuperarSolicitantes(int id) {
-        Vector<String> solicitantes = new Stack<>();
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select solicitante, count(solicitante)" + " as mostCommon from muestras where idcliente = ? group by " + "solicitante order by mostCommon desc");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                solicitantes.add(rs.getString("solicitante"));
-            }
-            return solicitantes;
-        } catch (Exception e) {
-            logger.severe("Error al recuperar solicitante, " + e);
-            return null;
-        }
-    }
-
-    public boolean recuperarEsconderFechaVencimiento(int id) {
-        boolean aux = false;
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select ponerFechaVencimiento from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                aux = rs.getBoolean("ponerFechaVencimiento");
-            }
-            return aux;
-        } catch (Exception e) {
-            JOptionPane.showInputDialog("Error al recuperar estado de fecha de vencimiento, " + e);
-        }
-        return false;
-    }
-
-    public String recuperarIdentificacion(int id) {
-        String aux = "";
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select identificacion from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                aux = rs.getString("identificacion");
-            }
-            return aux;
-        } catch (Exception e) {
-            logger.severe("Error al recuperar identificacion, " + e);
-        }
-        return null;
-    }
-
-    public Map<String, String> recuperarIdentificaciones() {
-        String aux = "";
-        Map<String, String> mapa = new HashMap<>();
-        String idmuestras;
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select identificacion,idmuestras from muestras order by idmuestras desc");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                aux = rs.getString("identificacion");
-                idmuestras = String.valueOf(rs.getInt("idmuestras"));
-                mapa.put(idmuestras, aux);
-            }
-            return mapa;
-        } catch (Exception e) {
-            JOptionPane.showInputDialog("Error al recuperar identificaciones, " + e);
-        }
-        return null;
-    }
-
-    public String recuperarTipoAnalisis(int id) {
-        String tipo = "";
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select tipo from vistaTabla where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                tipo = rs.getString("tipo");
-            }
-            return tipo;
-        } catch (Exception e) {
-            logger.severe("Error al recuperar tipo de analisis, " + e);
-            return null;
-        }
-    }
-
+    public List<Muestra> findAllByOrderByIdmuestrasDesc();
+//    public Map<String, String> recuperarIdentificaciones() {
+//        String aux = "";
+//        Map<String, String> mapa = new HashMap<>();
+//        String idmuestras;
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("select identificacion,idmuestras from muestras order by idmuestras desc");
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                aux = rs.getString("identificacion");
+//                idmuestras = String.valueOf(rs.getInt("idmuestras"));
+//                mapa.put(idmuestras, aux);
+//            }
+//            return mapa;
+//        } catch (Exception e) {
+//            JOptionPane.showInputDialog("Error al recuperar identificaciones, " + e);
+//        }
+//        return null;
+//    }
+//
+//
 //    public boolean consultarFechaIngresada(int id) {
 //        try (Connection conexion = con.getConnection()) {
 //            PreparedStatement ps = conexion.prepareStatement("select fechaElaboracion, fechaVencimiento from muestras where idmuestras = ?");
@@ -675,18 +419,18 @@ public class MuestraRepository {
 //        }
 //        return false;
 //    }
-
-    public void agregarTipoAgua(int id, String tipo) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("update muestras set aguaTipo = ? where idmuestras = ?");
-            ps.setString(1, tipo);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.severe("Error al agregar datos, " + e);
-        }
-    }
-
+//
+//    public void agregarTipoAgua(int id, String tipo) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("update muestras set aguaTipo = ? where idmuestras = ?");
+//            ps.setString(1, tipo);
+//            ps.setInt(2, id);
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            logger.severe("Error al agregar datos, " + e);
+//        }
+//    }
+//
 //    public String recuperarTipoAgua(int id) {
 //        try (Connection conexion = con.getConnection()) {
 //            PreparedStatement ps = conexion.prepareStatement("select aguaTipo from muestras where idmuestras = ?");
@@ -700,112 +444,41 @@ public class MuestraRepository {
 //        }
 //        return null;
 //    }
-
-    public DefaultTableModel tablaAnalisis() {
-        Object[] fila = new Object[7];
-        DefaultTableModel modeloAnalisis = new DefaultTableModel();
-        modeloAnalisis.addColumn("");
-        modeloAnalisis.addColumn("ID");
-        modeloAnalisis.addColumn("Procedencia");
-        modeloAnalisis.addColumn("Solicitante");
-        modeloAnalisis.addColumn("Fecha de muestreo");
-        modeloAnalisis.addColumn("Tipo");
-        modeloAnalisis.addColumn("Impreso");
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select m.idmuestras, p.procedencia, " + "m.solicitante,m.fechaMuestreo, m.tipo, a.analizado from muestras m join " + "administracion a on m.idmuestras = a.idmuestras join " + "vistaprocedencia p on m.idcliente = p.idcliente order by idmuestras desc");
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                for (int i = 0; i < fila.length; i++) {
-                    fila[0] = false;
-                    fila[1] = rs.getObject("idmuestras");
-                    fila[2] = rs.getObject("procedencia");
-                    fila[3] = rs.getObject("solicitante");
-                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-                    fila[4] = df.format(rs.getDate("fechaMuestreo"));
-                    fila[5] = rs.getObject("tipo");
-                    int analizado = rs.getInt("analizado");
-                    fila[6] = analizado > 1 ? analizado + " veces." : analizado == 1 ? "1 vez." : "0 veces.";
-                }
-                modeloAnalisis.addRow(fila);
-            }
-            return modeloAnalisis;
-        } catch (Exception e) {
-            logger.severe("Error al obtener muestra, " + e);
-            return null;
-        }
-    }
-
-    public String obtenerHablitacion(String s) {
-        String numero = null;
-        try (Connection conexion = con.getConnection()) {
-            try {
-                PreparedStatement ps = conexion.prepareStatement("select numeroEstablecimiento from vistaTabla where procedencia = ?");
-                ps.setString(1, s);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    numero = rs.getString("numeroEstablecimiento");
-                    return numero;
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error al obtener numero de habilitacion, " + e);
-            }
-        } catch (Exception e) {
-            logger.severe("Error, " + e);
-        }
-        return numero;
-    }
+//
 
 
-    public String[] recuperarEmailYVencimiento(int id) {
-        String[] aux = new String[6];
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select e.email, v.fechaVencimiento, " +
-                    "v.idmuestras, m.tipo, m.realizadoPor, p.procedencia  from " +
-                    "vistaemail e join vencimientos v on e.idmuestras = v.idmuestras " +
-                    "join muestras m on v.idmuestras = m.idmuestras join vistaprocedencia " +
-                    "p on p.idcliente = m.idcliente where v.idmuestras = ?;");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                for (int i = 0; i < aux.length; i++) {
-                    aux[i] = rs.getObject(i + 1).toString();
-                }
-                return aux;
-            }
-        } catch (Exception e) {
-            logger.severe("Error, " + e);
-        }
-        return null;
-    }
+//
+//
 
-    public void esconderFechaVencimiento(int id, boolean poner) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("update muestras set ponerFechaVencimiento = ? where idmuestras = ?");
-            int aux;
-            if (poner) {
-                aux = 1;
-            } else {
-                aux = 0;
-            }
-            ps.setInt(1, aux);
-            ps.setInt(2, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            logger.severe("Error al esconder fecha de vencimiento, " + e);
-        }
-    }
-
-    public int recuperarIdCliente(int id) {
-        try (Connection conexion = con.getConnection()) {
-            PreparedStatement ps = conexion.prepareStatement("select idcliente from muestras where idmuestras = ?");
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1);
-            }
-        } catch (Exception e) {
-            logger.severe("Error al recuperar id del cliente, " + e);
-        }
-        return -1;
-    }
+//
+//    public void esconderFechaVencimiento(int id, boolean poner) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("update muestras set ponerFechaVencimiento = ? where idmuestras = ?");
+//            int aux;
+//            if (poner) {
+//                aux = 1;
+//            } else {
+//                aux = 0;
+//            }
+//            ps.setInt(1, aux);
+//            ps.setInt(2, id);
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            logger.severe("Error al esconder fecha de vencimiento, " + e);
+//        }
+//    }
+//
+//    public int recuperarIdCliente(int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("select idcliente from muestras where idmuestras = ?");
+//            ps.setInt(1, id);
+//            ResultSet rs = ps.executeQuery();
+//            if (rs.next()) {
+//                return rs.getInt(1);
+//            }
+//        } catch (Exception e) {
+//            logger.severe("Error al recuperar id del cliente, " + e);
+//        }
+//        return -1;
+//    }
 }

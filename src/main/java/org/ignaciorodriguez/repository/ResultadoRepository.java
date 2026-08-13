@@ -1480,4 +1480,15 @@ public class ResultadoRepository {
         return false;
     }
 
+    //    public void guardarFechaAnalisisMBAGUA(Resultados r, int id) {
+//        try (Connection conexion = con.getConnection()) {
+//            PreparedStatement ps = conexion.prepareStatement("update mbagua set fechaAnalisis = ? "
+//                    + "where idmuestras = ?");
+//            ps.setDate(1, r.getFechaAnalisis());
+//            ps.setInt(2, id);
+//            ps.executeUpdate();
+//        } catch (Exception e) {
+//            logger.severe("Error al guardar datos, " + e);
+//        }
+//    }
 }
