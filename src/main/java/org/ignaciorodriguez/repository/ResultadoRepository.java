@@ -3,82 +3,7 @@ package org.ignaciorodriguez.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ResultadoRepository extends JpaRepository<Resultado, Long> {
-//
 
-//
-
-
-//    public String[] recuperarTablaNutricional(int id) {
-//
-//        String[] valores = new String[30];
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("select calorias, carbohidratos, " + "proteinas, grasasTotales, grasasSaturadas, grasasTrans, " + "grasasMonoinsaturadas, grasasPoliinsaturadas, colesterol, " + "fibraAlimentaria, sodio, VDCalorias, VDCarbohidratos, " + "VDProteinas, VDGrasasTotales, VDGrasasMonoinsaturadas, " + "VDGrasasPoliinsaturadas, VDColesterol, VDGrasasSaturadas, " + "VDGrasasTrans, VDFibraAlimentaria, VDSodio, porcion, unidad, " + "kjul, azucares, almidon, PorcionesPorEnvase, azucaresanadidos, vdazucaresanadidos from tablanutricional " + "where idmuestras = ?");
-//            ps.setInt(1, id);
-//            ResultSet rs = ps.executeQuery();
-//            while (rs.next()) {
-//                for (int i = 0; i < valores.length; i++) {
-//                    valores[i] = String.valueOf(rs.getObject(i + 1));
-//                    ;
-//                }
-//                return valores;
-//            }
-//        } catch (Exception e) {
-//            logger.severe("Error al recuperarTablaNutricional, " + e);
-//        }
-//        return null;
-//    }
-//
-//    public boolean editarTablaNutricional(Double[] valores, int id, String unidad, String porcion, String porcionesPorEnvase) {
-//
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("update tablanutricional set calorias = ?," + "kjul = ?,carbohidratos = ?,proteinas = ?,grasasTotales = ?," + "grasasSaturadas = ?,grasasTrans = ?, GrasasMonoinsaturadas = ?," + " GrasasPoliinsaturadas = ?, Colesterol = ?, fibraAlimentaria = ?," + "sodio = ?,VDCalorias = ?,VDCarbohidratos = ?,VDProteinas = ?" + ",VDGrasasTotales = ?,VDGrasasSaturadas = ?, VDGrasasTrans = ?, " + "VDGrasasMonoinsaturadas = ?, VDGrasasPoliinsaturadas = ?, VDColesterol = ?" + ",VDFibraAlimentaria = ?,VDSodio = ?, porcion = ?, unidad = ?, azucares = ?, " + "almidon = ?, PorcionesPorEnvase = ?, azucaresAnadidos = ?, VDAzucaresAnadidos = ? where idmuestras = ?");
-//            ps.setInt(1, (int) Math.round(valores[0]));
-//            ps.setDouble(2, valores[1]);
-//            ps.setDouble(3, valores[2]);
-//            ps.setDouble(4, valores[3]);
-//            ps.setDouble(5, valores[4]);
-//            ps.setDouble(6, valores[5]);
-//            ps.setDouble(7, valores[6]);
-//            ps.setDouble(8, valores[7]);
-//            ps.setDouble(9, valores[8]);
-//            ps.setDouble(10, valores[9]);
-//            ps.setDouble(11, valores[10]);
-//            ps.setDouble(12, valores[11]);
-//            ps.setDouble(13, valores[12]);
-//            ps.setDouble(14, valores[13]);
-//            ps.setDouble(15, valores[14]);
-//            ps.setDouble(16, valores[15]);
-//            ps.setDouble(17, valores[16]);
-//            ps.setDouble(18, valores[17]);
-//            ps.setDouble(19, valores[18]);
-//            ps.setDouble(20, valores[19]);
-//            ps.setDouble(21, valores[20]);
-//            ps.setDouble(22, valores[21]);
-//            ps.setDouble(23, valores[22]);
-//            ps.setString(24, porcion);
-//            ps.setString(25, unidad);
-//            ps.setDouble(26, valores[25]);
-//            ps.setDouble(27, valores[26]);
-//            ps.setString(28, porcionesPorEnvase);
-//            ps.setDouble(29, valores[29]);
-//            ps.setDouble(30, valores[30]);
-//            ps.setInt(31, id);
-//            ps.executeUpdate();
-//            return true;
-//        } catch (Exception e) {
-//            logger.severe("Error al editar datos, " + e);
-//            return false;
-//        } finally {
-//            try (Connection conexion = con.getConnection()) {
-//                conexion.close();
-//            } catch (Exception e) {
-//                System.err.println("Error al  TN, " + e);
-//            }
-//        }
-//    }
-//
-
-//
 //    public boolean guardarResultadosEfluentes(String[] resultados, int id) {
 //
 //        try (Connection conexion = con.getConnection()) {
@@ -736,72 +661,7 @@ public interface ResultadoRepository extends JpaRepository<Resultado, Long> {
 //
 //
 
-//    public boolean guardarTablaNutricional(Double[] valores, int id, String unidad, String porcion, String porcionesPorEnvase) {
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("INSERT INTO laboratorio.tablanutricional " + "(idmuestras,calorias,kjul,carbohidratos,proteinas,grasasTotales," + "grasasSaturadas,grasasTrans,GrasasMonoinsaturadas,GrasasPoliinsaturadas,Colesterol," + "fibraAlimentaria,sodio,VDCalorias,VDCarbohidratos,VDProteinas," + "VDGrasasTotales,VDGrasasSaturadas,VDFibraAlimentaria,VDSodio, " + "porcion, unidad, azucares, almidon, vdazucares, vdalmidon, PorcionesPorEnvase, azucaresAnadidos, vdazucaresAnadidos)" + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-//            ps.setInt(1, id); //idmuestras
-//            ps.setInt(2, (int) Math.round(valores[0]));//calorias
-//            ps.setDouble(3, valores[1]);//kjul
-//            ps.setDouble(4, valores[2]);//carbohidratos
-//            ps.setDouble(5, valores[3]);//proteinas
-//            ps.setDouble(6, valores[4]);//grasasTotales
-//            ps.setDouble(7, valores[5]);//grasasSaturadas
-//            ps.setDouble(8, valores[6]);//grasasTrans
-//            ps.setDouble(9, valores[7]);//grasasMonoinsaturadas
-//            ps.setDouble(10, valores[8]);//grasasPoliinsaturadas
-//            ps.setDouble(11, valores[9]);//colesterol
-//            ps.setDouble(12, valores[10]);//fibraAlimentaria
-//            ps.setDouble(13, valores[11]);//sodio
-//            ps.setDouble(14, (int) Math.round(valores[12]));//vdcalorias
-//            ps.setDouble(15, (int) Math.round(valores[13]));//vdcarbohidratos
-//            ps.setDouble(16, (int) Math.round(valores[14]));//vdproteinas
-//            ps.setDouble(17, (int) Math.round(valores[15]));//vdgrasasTotales
-//            ps.setDouble(18, (int) Math.round(valores[16]));//vdGrasassaturadas
-//            ps.setDouble(19, (int) Math.round(valores[21]));//vdFibraalimentaria
-//            ps.setDouble(20, (int) Math.round(valores[22]));//vdSodio
-//            ps.setString(21, porcion);//porcion
-//            ps.setString(22, String.valueOf(valores[24]) + unidad);//unidad
-//            ps.setDouble(23, valores[25]);
-//            ps.setDouble(24, valores[26]);
-//            ps.setDouble(25, valores[27]);
-//            ps.setDouble(26, valores[28]);
-//            ps.setString(27, porcionesPorEnvase);
-//            ps.setDouble(28, valores[29]);
-//            ps.setDouble(29, valores[30]);
-//            ps.executeUpdate();
-//            return true;
-//        } catch (Exception e) {
-//            logger.severe("Error al guardar datos, " + e);
-//            return false;
-//        }
-//    }
-//
-//    public String recuperarMarca(int id) {
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("select marca from tablanutricional where idmuestras = ?");
-//            ps.setInt(1, id);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                return rs.getString("marca");
-//            }
-//        } catch (Exception e) {
-//            logger.severe("Error, " + e);
-//        }
-//        return null;
-//    }
-//
-//    public void guardarMarca(int id, String marca) {
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("insert into tablanutricional (idmuestras, marca) values (?, ?) on duplicate key update marca = ?");
-//            ps.setInt(1, id);
-//            ps.setString(2, marca);
-//            ps.setString(3, marca);
-//            ps.executeUpdate();
-//        } catch (Exception e) {
-//            logger.severe("Error, " + e);
-//        }
-//    }
-//
+
 //    public boolean guardarDeterminacionesAHacerFQAlimentosAgua(String[] listaDb, int id, boolean update) {
 //        String sql = buildDeterminacionesQuery(listaDb, update);
 //
