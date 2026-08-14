@@ -7,54 +7,7 @@ public interface ResultadoRepository extends JpaRepository<Resultado, Long> {
 
 //
 
-//    public Map<String, String> recuperarResultadosFQAgua(int id) {
-//
-//        Map<String, String> valores = new HashMap<>();
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("select `ph`,`cloroTotal`," + "`olor`,`color`,`turbidez`,`alcalinidad`,`durezatotal`,`conductividad`," + "`solidosDisueltos`,`hierro`,`nitratos`,`nitritos`,`sulfatos` from" + " `laboratorio`.`fqagua` where idmuestras = ?");
-//            ps.setInt(1, id);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-//                    valores.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
-//                }
-//                System.out.println(valores.isEmpty() + " recuperar");
-//                return valores;
-//            }
-//        } catch (Exception e) {
-//            logger.severe("Error al recuperar datos, " + e);
-//        }
-//        return null;
-//    }
-//
-//    public boolean guardarResultadoFQAgua(Resultados r) {
-//
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("insert into fqagua (idmuestras, ph, cloroTotal, " + "olor, color, turbidez, alcalinidad, durezatotal, conductividad, " + "solidosDisueltos, hierro, nitratos, nitritos, sulfatos, conclusion)" + " values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-//            ps.setInt(1, r.getIdmuestras());
-//            ps.setDouble(2, r.getPh());
-//            ps.setDouble(3, r.getClorototal());
-//            ps.setString(4, r.getOlor());
-//            ps.setString(5, r.getColor());
-//            ps.setString(6, r.getTurbidez());
-//            ps.setDouble(7, r.getAlcalinidad());
-//            ps.setDouble(8, r.getDurezatotal());
-//            ps.setDouble(9, r.getConductividad());
-//            ps.setDouble(10, r.getSolidosdisueltos());
-//            ps.setString(11, r.getHierro());
-//            ps.setString(12, r.getNitratos());
-//            ps.setString(13, r.getNitritos());
-//            ps.setString(14, r.getSulfatos());
-//            ps.setString(15, r.getConclusion());
-//
-//            ps.executeUpdate();
-//            return true;
-//        } catch (Exception e) {
-//            logger.severe("Error al guardar datos, " + e);
-//            return false;
-//        }
-//    }
-//
+
 //    public String[] recuperarTablaNutricional(int id) {
 //
 //        String[] valores = new String[30];
@@ -121,32 +74,6 @@ public interface ResultadoRepository extends JpaRepository<Resultado, Long> {
 //            } catch (Exception e) {
 //                System.err.println("Error al  TN, " + e);
 //            }
-//        }
-//    }
-//
-//    public boolean editarFQAgua(Resultados r) {
-//
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("UPDATE `laboratorio`.`fqagua` " + "SET `ph` = ? , `cloroTotal` = ? , `olor` = ? , `color` = ? ," + " `turbidez` = ? , `alcalinidad` = ? , `durezatotal` = ? , " + "`conductividad` = ? , `solidosDisueltos` = ? , `hierro` = ?, " + "`nitratos` = ? , `nitritos` = ? , `sulfatos` = ?" + "  WHERE `idmuestras` = ? ; ");
-//            ps.setDouble(1, r.getPh());
-//            ps.setDouble(2, r.getClorototal());
-//            ps.setString(3, r.getOlor());
-//            ps.setString(4, r.getColor());
-//            ps.setString(5, r.getTurbidez());
-//            ps.setDouble(6, r.getAlcalinidad());
-//            ps.setDouble(7, r.getDurezatotal());
-//            ps.setDouble(8, r.getConductividad());
-//            ps.setDouble(9, r.getSolidosdisueltos());
-//            ps.setString(10, r.getHierro());
-//            ps.setString(11, r.getNitratos());
-//            ps.setString(12, r.getNitritos());
-//            ps.setString(13, r.getSulfatos());
-//            ps.setInt(14, r.getIdmuestras());
-//            ps.executeUpdate();
-//            return true;
-//        } catch (Exception e) {
-//            logger.severe("Error al editar datos, " + e);
-//            return false;
 //        }
 //    }
 //
@@ -612,7 +539,7 @@ public interface ResultadoRepository extends JpaRepository<Resultado, Long> {
 //
 
 //
-//    public void recuperarFQAguaCompleto(int id, List<Determinacion> determinaciones) {
+//    public void recuperarFQAguaFQAguaCompleto(int id, List<Determinacion> determinaciones) {
 //
 //        try (Connection conexion = con.getConnection()) {
 //            PreparedStatement ps = conexion.prepareStatement("select * from determinaciones where idmuestras = ?");
