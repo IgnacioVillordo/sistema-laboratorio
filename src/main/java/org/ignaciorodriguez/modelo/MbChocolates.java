@@ -5,13 +5,10 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.annotation.concurrent.Immutable;
-
 @Getter
 @Setter
 @Entity
 @Table(name = "mbchocolates")
-@Immutable
 public class MbChocolates {
 
     @Id
