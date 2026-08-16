@@ -4,46 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ResultadoRepository extends JpaRepository<Resultado, Long> {
 
-//    public boolean guardarResultadosEfluentes(String[] resultados, int id) {
-//
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("INSERT INTO `laboratorio`.`efluentes` " + "(idmuestras,ph,dqo,dbo,solidos10,solidos120," + "conclusion, hidrocarburos) values (?,?,?,?,?,?,?,?)");
-//            ps.setInt(1, id);
-//            ps.setDouble(2, Double.parseDouble(resultados[1]));
-//            ps.setDouble(3, Double.parseDouble(resultados[2]));
-//            ps.setDouble(4, Double.parseDouble(resultados[3]));
-//            ps.setString(5, resultados[4]);
-//            ps.setString(6, resultados[5]);
-//            ps.setString(7, resultados[6]);
-//            ps.setString(8, resultados[7]);
-//            ps.executeUpdate();
-//            return true;
-//        } catch (Exception e) {
-//            logger.severe("Error al guardar datos, " + e);
-//            return false;
-//        }
-//    }
-//
-//    public boolean editarEfluentes(String[] resultados, int id) {
-//
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("UPDATE `laboratorio`.`efluentes` SET `ph` = ? " + ", `dqo` = ? , `dbo` = ? , `solidos10` = ? " + ",`solidos120` = ?, conclusion = ?, hidrocarburos = ?  WHERE `idmuestras` = ? ;");
-//            ps.setDouble(1, Double.parseDouble(resultados[1]));
-//            ps.setDouble(2, Double.parseDouble(resultados[2]));
-//            ps.setDouble(3, Double.parseDouble(resultados[3]));
-//            ps.setString(4, resultados[4]);
-//            ps.setString(5, resultados[5]);
-//            ps.setString(6, resultados[6]);
-//            ps.setString(7, resultados[7]);
-//            ps.setInt(8, id);
-//            ps.executeUpdate();
-//            return true;
-//        } catch (Exception e) {
-//            logger.severe("Error al editar datos, " + e);
-//            return false;
-//        }
-//    }
-//
+
 //    public boolean guardarResultadoBaseHelada(Map<String, Object> m) {
 //
 //        try (Connection conexion = con.getConnection()) {
@@ -166,26 +127,7 @@ public interface ResultadoRepository extends JpaRepository<Resultado, Long> {
 //    }
 //
 //
-//    public Map<String, String> recuperarResultadosEfluentes(int id) {
-//
-//        Map<String, String> aux = new HashMap<>();
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("select ph, dqo, dbo, solidos10, solidos120, " + "hidrocarburos from efluentes where idmuestras = ?");
-//            ps.setInt(1, id);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-//                    aux.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
-//                }
-//                return aux;
-//            }
-//        } catch (Exception e) {
-//            logger.severe("Error al recuperarResultadosEfluentes, " + e);
-//            return null;
-//        }
-//        return null;
-//    }
-//
+
 //    public boolean guardarResultadosHisopados(Map m) {
 //
 //        try (Connection conexion = con.getConnection()) {
@@ -355,90 +297,7 @@ public interface ResultadoRepository extends JpaRepository<Resultado, Long> {
 //    }
 //
 
-//
-//
-//    public boolean guardarResultadosEfluentesTipo(Map m) {
-//
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("insert into efluentes (idmuestras, ph, conductividad," + " dqo, dbo, solidos10, solidos120, detergentes, grasasAceite," + " fosforoTotal, nitrogenoTotal, sustancias, coliformesFecales, hidrocarburos, nitratos, cloro, coliformesTotales, escherichia , sulfuros) " + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-//            ps.setInt(1, (int) m.get("idmuestras"));
-//            ps.setDouble(2, (double) m.get("ph"));
-//            ps.setString(3, m.get("conductividad").toString());
-//            ps.setString(4, m.get("dqo").toString());
-//            ps.setString(5, m.get("dbo").toString());
-//            ps.setString(6, String.valueOf(m.get("solidos10")));
-//            ps.setString(7, String.valueOf(m.get("solidos120")));
-//            ps.setString(8, String.valueOf(m.get("detergentes")));
-//            ps.setString(9, String.valueOf(m.get("grasas")));
-//            ps.setString(10, String.valueOf(m.get("fosforo")));
-//            ps.setString(11, String.valueOf(m.get("nitrogeno")));
-//            ps.setString(12, String.valueOf(m.get("sustancias")));
-//            ps.setString(13, String.valueOf(m.get("coliformesFecales")));
-//            ps.setString(14, m.get("hidrocarburos").toString());
-//            ps.setString(15, m.get("nitratos").toString());
-//            ps.setString(16, m.get("cloro").toString());
-//            ps.setString(17, m.get("coliformesFecales").toString());
-//            ps.setString(18, m.get("escherichia").toString());
-//            ps.setString(19, m.get("sulfuros").toString());
-//            ps.executeUpdate();
-//            return true;
-//        } catch (Exception e) {
-//            logger.severe("Error al guardar datos, " + e);
-//            return false;
-//        }
-//    }
-//
-//    public boolean editarResultadosEfluentesTipo(Map m) {
-//
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("update efluentes set ph = ?, conductividad = ?," + " dqo = ?, dbo = ?, solidos10 = ?, solidos120 = ?, detergentes = ?, grasasAceite = ?, " + "fosforoTotal = ?, nitrogenoTotal = ?, sustancias = ?, coliformesFecales = ?, " + "hidrocarburos = ?, nitratos = ?, cloro = ?, coliformesTotales = ?, escherichia = ?, sulfuros = ? where idmuestras = ?");
-//            ps.setDouble(1, (double) m.get("ph"));//ph
-//            ps.setString(2, m.get("conductividad").toString());//conductividad
-//            ps.setString(3, m.get("dqo").toString());//dqo
-//            ps.setString(4, m.get("dbo").toString());//dbo
-//            ps.setString(5, String.valueOf(m.get("solidos10")));//solidos10
-//            ps.setString(6, String.valueOf(m.get("solidos120")));//solidos120
-//            ps.setString(7, String.valueOf(m.get("detergentes")));//detergentes
-//            ps.setString(8, String.valueOf(m.get("grasas")));//grasasAceite
-//            ps.setString(9, String.valueOf(m.get("fosforo")));//fosforoTotal
-//            ps.setString(10, String.valueOf(m.get("nitrogeno")));//nitrogenoTotal
-//            ps.setString(11, String.valueOf(m.get("sustancias")));//sustancias
-//            ps.setString(12, String.valueOf(m.get("coliformesFecales")));//coliformes
-//            ps.setString(13, m.get("hidrocarburos").toString());//hidrocarburos
-//            ps.setString(14, m.get("nitratos").toString());//hidrocarburos
-//            ps.setString(15, m.get("cloro").toString());//hidrocarburos
-//            ps.setString(16, m.get("coliformesTotales").toString());//hidrocarburos
-//            ps.setString(17, m.get("escherichia").toString());//hidrocarburos
-//            ps.setString(18, m.get("sulfuros").toString());//hidrocarburos
-//            ps.setInt(19, (int) m.get("idmuestras"));//idmuestras
-//            ps.executeUpdate();
-//            return true;
-//        } catch (Exception e) {
-//            logger.severe("Error al guardar datos, " + e + " en línea " + e.getStackTrace()[0].getLineNumber());
-//            return false;
-//        }
-//    }
-//
-//    public Map<String, String> recuperarResultadosEfluentesTipo(int id) {
-//
-//        Map<String, String> aux = new HashMap<>();
-//        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("select ph, conductividad, dqo, dbo, " + "solidos10, solidos120, detergentes, grasasAceite, " + "fosforoTotal, nitrogenoTotal, sustancias, coliformesFecales, hidrocarburos, nitratos, cloro, coliformesTotales, escherichia, sulfuros " + "from efluentes where idmuestras = ?");
-//            ps.setInt(1, id);
-//            ResultSet rs = ps.executeQuery();
-//            if (rs.next()) {
-//                for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
-//                    aux.put(rs.getMetaData().getColumnName(i + 1), rs.getObject(i + 1) == null ? "" : rs.getObject(i + 1).toString());
-//                }
-//                return aux;
-//            }
-//        } catch (Exception e) {
-//            logger.severe("Error al recuperar datos, " + e);
-//            return null;
-//        }
-//        return null;
-//    }
-//
+
 //    public void cambiarHisopado(int id) {
 //
 //        try (Connection conexion = con.getConnection()) {
