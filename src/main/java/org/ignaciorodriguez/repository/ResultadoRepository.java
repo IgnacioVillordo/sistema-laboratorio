@@ -884,7 +884,7 @@ public interface ResultadoRepository extends JpaRepository<Resultado, Long> {
 //
 //        Map<String, String> aux = new HashMap<>();
 //        try (Connection conexion = con.getConnection()) {
-//            PreparedStatement ps = conexion.prepareStatement("select germenes, coliformesTotales, " + "coliformesFecales, escherichia, staphilococos, fechaAnalisis, enterobacterias," + "germenesPotencia, totalesPotencia, staphilococosPotencia, limiteGermenes, limiteTotales from " + "vistaHisopado where vistatabla_idmuestras = ?");
+//            PreparedStatement ps = conexion.prepareStatement("select germenes, coliformesTotales, " + "coliformesFecales, escherichia, staphilococos, fechaAnalisis, enterobacterias," + "germenesPotencia, totalesPotencia, staphilococosPotencia, limiteGermenes, limiteTotales from " + "vista` vista_muestras_pendientesHisopado where vistatabla_idmuestras = ?");
 //            ps.setInt(1, id);
 //            ResultSet rs = ps.executeQuery();
 //            while (rs.next()) {
