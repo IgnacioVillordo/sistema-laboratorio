@@ -17,6 +17,6 @@ public interface VistaFqAguaRepository extends JpaRepository<VistaFqAgua, Long> 
     Optional<String> findConclusionByIdmuestras(@Param("idmuestras") Long idmuestras);
 
     @Query("SELECT f.observaciones FROM VistaFqAgua f WHERE f.vistatabla_idmuestras = :idmuestras")
-    Optional<String> findbPservacionesByIdmuestras(@Param("idmuestras") Long idmuestras);
+    Optional<String> findObservacionesByIdmuestras(@Param("idmuestras") Long idmuestras);
 
 }
