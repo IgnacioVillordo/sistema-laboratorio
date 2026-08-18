@@ -294,7 +294,7 @@ public class VerClientes extends javax.swing.JDialog {
 
     private void itemRecuperarClienteActionPerformed(java.awt.event.ActionEvent evt) {
         int id = clienteRepository.findIdClienteByProcedencia(String.valueOf(modeloTabla.getValueAt(fila, 0)));
-        if (clienteRepository.recuperarClienteBorrado(id)) {
+        if (clienteRepository.reactivarCliente(id)) {
             JOptionPane.showMessageDialog(null, "Cliente recuperado.");
             modeloTabla.setRowCount(0);
             modeloTabla.setColumnCount(0);

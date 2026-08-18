@@ -362,12 +362,12 @@ public class AgregarProcedencia extends javax.swing.JDialog {
             c.setTelefono(cajaTelefono.getText());
             c.setEmail(cajaEmail.getText());
             c.setCuit(cajaCuit.getText());
-            if (clienteRepository.editarCliente(c, id)) {
-                JOptionPane.showMessageDialog(null, "Cliente editado con éxito.");
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error al editar cliente.");
-            }
+//            if (clienteRepository.editarCliente(c, id)) {
+//                JOptionPane.showMessageDialog(null, "Cliente editado con éxito.");
+//                this.dispose();
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Error al editar cliente.");
+//            }
         } else {
             Cliente c = new Cliente();
             if (cajaEmpresa.isEnabled()) {

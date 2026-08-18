@@ -30,8 +30,8 @@ public class Cliente {
     String email;
     @Column(name = "cuit")
     String cuit;
-    @Column(name = "anulado")
-    Boolean anulado;
+    @Column(name = "activo")
+    Boolean activo;
     @Column(name = "guardar")
     Boolean guardar;
 }

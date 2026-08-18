@@ -6,13 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import javax.swing.*;
-
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Long> {
 
     @Query("UPDATE Cliente c SET c.anulado = 0 WHERE c.idcliente = :id")
-    boolean recuperarClienteBorrado(int id);
+    boolean reactivarCliente(Long id);
 
     @Query(value = "SELECT idcliente FROM vistaprocedencia WHERE procedencia = :procedencia", nativeQuery = true)
     int findIdClienteByProcedencia(@Param("prcedencia") String procedencia);

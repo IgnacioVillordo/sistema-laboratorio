@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface VistaProcedenciaRepository extends JpaRepository<VistaProcedencia, Long> {
 
-    List<VistaProcedencia> findAllByBorrados(Boolean borrado);
+    List<VistaProcedencia> findAllByActivo(Boolean activo);
 
     Optional<VistaProcedencia> findByProcedencia(String procedencia);
 }

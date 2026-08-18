@@ -27,6 +27,6 @@ public class VistaProcedencia {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "anulado")
-    private Boolean anulado;
+    @Column(name = "activo")
+    private Boolean activo;
 }
