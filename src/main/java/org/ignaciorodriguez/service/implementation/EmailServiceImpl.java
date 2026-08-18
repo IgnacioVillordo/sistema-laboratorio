@@ -7,10 +7,12 @@ import org.ignaciorodriguez.repository.EmailRepository;
 import org.ignaciorodriguez.repository.VistaEmailRepository;
 import org.ignaciorodriguez.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class EmailServiceImpl implements EmailService {
 
     @Autowired
@@ -28,7 +30,10 @@ public class EmailServiceImpl implements EmailService {
     public Email editarEmail(Email email, Long id) {
         return emailRepository
                 .findById(id)
-                .map(emailDb -> emailRepository.save(email))
+                .map(emailDb -> {
+                    email.setIdemails(id);
+                    return emailRepository.save(email);
+                })
                 .orElseThrow(() -> new EntityNotFoundException("Email no encontrado"));
     }
 

@@ -49,4 +49,7 @@ public class ActualizacionService {
         }
         return -25962;
     }
+
+    public static interface EntregaService {
+    }
 }

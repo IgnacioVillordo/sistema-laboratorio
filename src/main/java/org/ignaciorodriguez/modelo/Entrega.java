@@ -19,4 +19,5 @@ public class Entrega {
     private Long idusuario;
     private String persona;
     private LocalDateTime hora;
+    private Boolean activo;
 }

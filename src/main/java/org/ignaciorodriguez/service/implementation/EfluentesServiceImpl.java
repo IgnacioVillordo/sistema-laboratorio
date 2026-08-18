@@ -23,7 +23,10 @@ public class EfluentesServiceImpl implements EfluentesService {
     @Override
     public Efluentes editarEfluente(Efluentes efluente, Long id) {
         return efluentesRepository.findById(id)
-                .map(efluenteDb -> efluentesRepository.save(efluenteDb))
+                .map(efluenteDb -> {
+                    efluente.setIdefluentes(id);
+                    return efluentesRepository.save(efluenteDb);
+                })
                 .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el efluente"));
     }
 
