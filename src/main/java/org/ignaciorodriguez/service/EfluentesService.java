@@ -1,11 +1,11 @@
 package org.ignaciorodriguez.service;
 
-import org.ignaciorodriguez.modelo.Efluentes;
+import org.ignaciorodriguez.modelo.Efluente;
 
 import java.util.Optional;
 
 public interface EfluentesService {
-    Efluentes guardarEfluente(Efluentes efluente);
-    Efluentes editarEfluente(Efluentes efluente, Long id);
-    Optional<Efluentes> recuperarEfluente(Long id);
+    Efluente guardarEfluente(Efluente efluente);
+    Efluente editarEfluente(Efluente efluente, Long id);
+    Optional<Efluente> recuperarEfluente(Long id);
 }

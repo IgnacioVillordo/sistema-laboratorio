@@ -5,13 +5,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.annotation.concurrent.Immutable;
-
 @Getter
 @Setter
 @Entity
 @Table(name = "hisopados")
-public class Hisopados {
+public class Hisopado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

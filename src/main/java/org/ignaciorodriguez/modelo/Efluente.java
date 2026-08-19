@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Efluentes {
+public class Efluente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

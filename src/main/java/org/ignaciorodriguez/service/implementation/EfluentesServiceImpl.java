@@ -1,7 +1,7 @@
 package org.ignaciorodriguez.service.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.ignaciorodriguez.modelo.Efluentes;
+import org.ignaciorodriguez.modelo.Efluente;
 import org.ignaciorodriguez.repository.EfluentesRepository;
 import org.ignaciorodriguez.service.EfluentesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +16,12 @@ public class EfluentesServiceImpl implements EfluentesService {
     EfluentesRepository efluentesRepository;
 
     @Override
-    public Efluentes guardarEfluente(Efluentes efluente) {
+    public Efluente guardarEfluente(Efluente efluente) {
         return efluentesRepository.save(efluente);
     }
 
     @Override
-    public Efluentes editarEfluente(Efluentes efluente, Long id) {
+    public Efluente editarEfluente(Efluente efluente, Long id) {
         return efluentesRepository.findById(id)
                 .map(efluenteDb -> {
                     efluente.setIdmuestras(id);
@@ -31,7 +31,7 @@ public class EfluentesServiceImpl implements EfluentesService {
     }
 
     @Override
-    public Optional<Efluentes> recuperarEfluente(Long id) {
+    public Optional<Efluente> recuperarEfluente(Long id) {
         return efluentesRepository.findById(id);
     }
 }
