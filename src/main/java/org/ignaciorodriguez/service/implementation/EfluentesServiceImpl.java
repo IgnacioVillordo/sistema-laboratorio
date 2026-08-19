@@ -24,8 +24,8 @@ public class EfluentesServiceImpl implements EfluentesService {
     public Efluentes editarEfluente(Efluentes efluente, Long id) {
         return efluentesRepository.findById(id)
                 .map(efluenteDb -> {
-                    efluente.setIdefluentes(id);
-                    return efluentesRepository.save(efluenteDb);
+                    efluente.setIdmuestras(id);
+                    return efluentesRepository.save(efluente);
                 })
                 .orElseThrow(() -> new EntityNotFoundException("No se ha encontrado el efluente"));
     }

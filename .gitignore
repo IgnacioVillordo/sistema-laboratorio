@@ -13,3 +13,4 @@ creacion.sql
 2.xml
 setup.iss
 *.iml
+/src/main/java/org/ignaciorodriguez/Consultas.java
