@@ -30,6 +30,6 @@ public class MbAgua {
     private String streptococos;
     private boolean vencimiento;
     private String mohos;
-    private String mohosLimite;
+    private Boolean mohosLimite;
     private String shigella;
 }
