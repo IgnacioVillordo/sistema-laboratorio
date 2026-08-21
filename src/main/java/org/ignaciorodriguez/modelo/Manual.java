@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+// TODO Fase 10: normalizar a tabla manual_detalle con filas en lugar de columnas numeradas
 @Getter
 @Setter
 @Entity
 @Table(name = "manual")
-// TODO Fase 10: normalizar a tabla manual_detalle con filas en lugar de columnas numeradas
 public class Manual {
 
     @Id
@@ -157,5 +157,5 @@ public class Manual {
     private String metodo34;
 
     private String titulo;
-    private String mostrar;
+    private Boolean mostrar;
 }

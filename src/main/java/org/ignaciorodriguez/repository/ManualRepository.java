@@ -14,7 +14,7 @@ public interface ManualRepository extends JpaRepository<Manual, Long> {
     Optional<String> findTituloByIdmuestras(@Param("idmuestras") Long idmuestras);
 
     @Query("SELECT m.mostrar FROM Manual m WHERE m.idmuestras = :idmuestras")
-    Optional<String> findMostrarByIdmuestras(@Param("idmuestras") Long idmuestras);
+    Optional<Boolean> findMostrarByIdmuestras(@Param("idmuestras") Long idmuestras);
     //    public boolean guardarResultadoManual(Map m) {
 //
 //        try (Connection conexion = con.getConnection()) {
