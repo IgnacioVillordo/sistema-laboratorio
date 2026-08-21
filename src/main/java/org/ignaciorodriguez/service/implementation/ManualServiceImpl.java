@@ -26,7 +26,7 @@ public class ManualServiceImpl implements ManualService {
         return manualRepository.findById(id).map(manualDb -> {
             manual.setIdmuestras(id);
             return manualRepository.save(manual);
-        }).orElseThrow(() -> new EntityNotFoundException("Analisis no encontrado"))
+        }).orElseThrow(() -> new EntityNotFoundException("Analisis no encontrado"));
     }
 
     @Override

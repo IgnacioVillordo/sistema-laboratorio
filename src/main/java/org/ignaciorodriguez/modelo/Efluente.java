@@ -18,8 +18,6 @@ import lombok.Setter;
 public class Efluente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idefluentes;
     private Long idmuestras;
     private Date fechaMuestreo;
     private double ph;

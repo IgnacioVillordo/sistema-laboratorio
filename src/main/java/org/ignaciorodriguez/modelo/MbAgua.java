@@ -13,10 +13,9 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "mb_agua")
 @Immutable
-public class MBAgua {
+public class MbAgua {
 
     @Id
-    private Long idmbagua;
     private Long idmuestras;
     private String germenes;
     private String escherichia;

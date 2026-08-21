@@ -11,8 +11,6 @@ import lombok.Setter;
 public class FqAgua {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idfqagua;
     private Long idmuestras;
     private Double ph;
     private Double cloroTotla;

@@ -13,8 +13,6 @@ import java.time.LocalDateTime;
 public class Entrega {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long identregas;
     private Long idmuestras;
     private Long idusuario;
     private String persona;

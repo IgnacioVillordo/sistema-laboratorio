@@ -1,11 +1,11 @@
 package org.ignaciorodriguez.repository;
 
-import org.ignaciorodriguez.modelo.MBAgua;
+import org.ignaciorodriguez.modelo.MbAgua;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface MbAguaRepository extends JpaRepository<MBAgua, Long> {
+public interface MbAguaRepository extends JpaRepository<MbAgua, Long> {
     //    public boolean guardarResultadoMBAgua(Resultados r) {
 //
 //        try (Connection conexion = con.getConnection()) {

@@ -12,8 +12,6 @@ import lombok.Setter;
 public class Manual {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idmanual;
     private Long idmuestras;
 
     private String determinacion1;

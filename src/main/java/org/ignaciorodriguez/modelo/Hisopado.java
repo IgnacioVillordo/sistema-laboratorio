@@ -12,8 +12,6 @@ import lombok.Setter;
 public class Hisopado {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idhisopados;
     private Long idmuestras;;
     private String coliformesTotales;
     private String coliformesFecales;

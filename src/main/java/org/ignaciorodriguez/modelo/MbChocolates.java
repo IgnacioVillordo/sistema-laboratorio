@@ -12,8 +12,6 @@ import lombok.Setter;
 public class MbChocolates {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idmbChocolates;
     private Long idmuestras;
     private String germenes;
     private String coliformesTotales;

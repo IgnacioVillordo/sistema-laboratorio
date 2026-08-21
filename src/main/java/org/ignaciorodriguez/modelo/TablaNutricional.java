@@ -12,8 +12,6 @@ import lombok.Setter;
 public class TablaNutricional {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idtablaNutricional;
     private Long idmuestras;
     private String marca;
     private Integer calorias;
