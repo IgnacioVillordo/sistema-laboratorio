@@ -2,7 +2,9 @@ package org.ignaciorodriguez.service.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.ignaciorodriguez.modelo.Hisopado;
+import org.ignaciorodriguez.modelo.VistaHisopado;
 import org.ignaciorodriguez.repository.HisopadoRepository;
+import org.ignaciorodriguez.repository.VistaHisopadoRepository;
 import org.ignaciorodriguez.service.HisopadoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ public class HisopadoServiceImpl implements HisopadoService {
 
     @Autowired
     HisopadoRepository hisopadoRepository;
+    @Autowired
+    VistaHisopadoRepository vistaHisopadoRepository;
 
     @Override
     public Hisopado guardarHisopado(Hisopado hisopado) {
@@ -30,13 +34,13 @@ public class HisopadoServiceImpl implements HisopadoService {
     }
 
     @Override
-    public Optional<Hisopado> recuperarHisopado(Long id) {
-        return hisopadoRepository.findById(id);
+    public Optional<VistaHisopado> recuperarHisopado(Long id) {
+        return vistaHisopadoRepository.findById(id);
     }
 
     @Override
-    public List<Hisopado> recuperarHisopados() {
-        return hisopadoRepository.findAll();
+    public List<VistaHisopado> recuperarHisopados() {
+        return vistaHisopadoRepository.findAll();
     }
 
     @Override

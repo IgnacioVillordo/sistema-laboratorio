@@ -2,7 +2,9 @@ package org.ignaciorodriguez.service.implementation;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.ignaciorodriguez.modelo.MbAgua;
+import org.ignaciorodriguez.modelo.VistaMbAgua;
 import org.ignaciorodriguez.repository.MbAguaRepository;
+import org.ignaciorodriguez.repository.VistaMbAguaRepository;
 import org.ignaciorodriguez.service.MbAguaService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -14,6 +16,8 @@ public class MbAguaServiceImpl implements MbAguaService {
 
     @Autowired
     MbAguaRepository mbAguaRepository;
+    @Autowired
+    VistaMbAguaRepository vistaMbAguaRepository;
 
     @Override
     public MbAgua guardarPhYCloro(Double ph, Double cloroLibre, Double cloroTotal, Long id) {
@@ -39,13 +43,13 @@ public class MbAguaServiceImpl implements MbAguaService {
     }
 
     @Override
-    public Optional<MbAgua> recuperarMbAgua(Long id) {
-        return mbAguaRepository.findById(id);
+    public Optional<VistaMbAgua> recuperarMbAgua(Long id) {
+        return vistaMbAguaRepository.findById(id);
     }
 
     @Override
-    public List<MbAgua> recuperarMbAguas() {
-        return mbAguaRepository.findAll();
+    public List<VistaMbAgua> recuperarMbAguas() {
+        return vistaMbAguaRepository.findAll();
     }
 
     @Override
