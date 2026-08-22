@@ -7,9 +7,11 @@ import org.ignaciorodriguez.repository.EntregaRepository;
 import org.ignaciorodriguez.repository.VistaEntregasRepository;
 import org.ignaciorodriguez.service.EntregaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class EntregaServiceImpl implements EntregaService {
 
     @Autowired
